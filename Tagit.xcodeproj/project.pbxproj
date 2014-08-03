@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB068138198E9ABE00B13E49 /* TAGSessionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB068137198E9ABE00B13E49 /* TAGSessionStore.m */; };
+		CB06813E198E9EB000B13E49 /* TAGAuthStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB06813D198E9EB000B13E49 /* TAGAuthStore.m */; };
+		CB068143198EA9EF00B13E49 /* TAGFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB068142198EA9EF00B13E49 /* TAGFeedViewController.m */; };
+		CB068145198EAD8F00B13E49 /* bulbUnhighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB068144198EAD8F00B13E49 /* bulbUnhighlighted@2x.png */; };
+		CB068147198EADA100B13E49 /* tagHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB068146198EADA100B13E49 /* tagHighlighted@2x.png */; };
 		CB267397198DE3FA00CB02A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB267396198DE3FA00CB02A1 /* Foundation.framework */; };
 		CB267399198DE3FA00CB02A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB267398198DE3FA00CB02A1 /* CoreGraphics.framework */; };
 		CB26739B198DE3FA00CB02A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB26739A198DE3FA00CB02A1 /* UIKit.framework */; };
@@ -38,6 +43,15 @@
 /* Begin PBXFileReference section */
 		8F209F9462484A069D763253 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F0B104C482945B0BBD57DDD /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		CB068136198E9ABE00B13E49 /* TAGSessionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSessionStore.h; sourceTree = "<group>"; };
+		CB068137198E9ABE00B13E49 /* TAGSessionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSessionStore.m; sourceTree = "<group>"; };
+		CB06813C198E9EB000B13E49 /* TAGAuthStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGAuthStore.h; sourceTree = "<group>"; };
+		CB06813D198E9EB000B13E49 /* TAGAuthStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGAuthStore.m; sourceTree = "<group>"; };
+		CB06813F198E9FD000B13E49 /* TAGRoutesConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAGRoutesConstants.h; sourceTree = "<group>"; };
+		CB068141198EA9EF00B13E49 /* TAGFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGFeedViewController.h; sourceTree = "<group>"; };
+		CB068142198EA9EF00B13E49 /* TAGFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGFeedViewController.m; sourceTree = "<group>"; };
+		CB068144198EAD8F00B13E49 /* bulbUnhighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bulbUnhighlighted@2x.png"; sourceTree = "<group>"; };
+		CB068146198EADA100B13E49 /* tagHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tagHighlighted@2x.png"; sourceTree = "<group>"; };
 		CB267393198DE3FA00CB02A1 /* Tagit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tagit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB267396198DE3FA00CB02A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CB267398198DE3FA00CB02A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -86,6 +100,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB068134198E9A8F00B13E49 /* Data Layer */ = {
+			isa = PBXGroup;
+			children = (
+				CB068135198E9A9600B13E49 /* Stores */,
+			);
+			name = "Data Layer";
+			sourceTree = "<group>";
+		};
+		CB068135198E9A9600B13E49 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				CB068136198E9ABE00B13E49 /* TAGSessionStore.h */,
+				CB068137198E9ABE00B13E49 /* TAGSessionStore.m */,
+				CB06813C198E9EB000B13E49 /* TAGAuthStore.h */,
+				CB06813D198E9EB000B13E49 /* TAGAuthStore.m */,
+			);
+			name = Stores;
+			sourceTree = "<group>";
+		};
+		CB068140198EA9DB00B13E49 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				CB068141198EA9EF00B13E49 /* TAGFeedViewController.h */,
+				CB068142198EA9EF00B13E49 /* TAGFeedViewController.m */,
+			);
+			name = Feed;
+			sourceTree = "<group>";
+		};
 		CB26738A198DE3FA00CB02A1 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +163,7 @@
 		CB26739C198DE3FA00CB02A1 /* Tagit */ = {
 			isa = PBXGroup;
 			children = (
+				CB068134198E9A8F00B13E49 /* Data Layer */,
 				CB2673CF198DF03E00CB02A1 /* Constants */,
 				CB2673CC198DEEA300CB02A1 /* Assets */,
 				CB2673C5198DE9E100CB02A1 /* Presentation Layer */,
@@ -173,6 +216,7 @@
 		CB2673C6198DE9F200CB02A1 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CB068140198EA9DB00B13E49 /* Feed */,
 				CB2673C8198DEA0900CB02A1 /* Login */,
 			);
 			name = "View Controllers";
@@ -197,6 +241,8 @@
 		CB2673CC198DEEA300CB02A1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CB068146198EADA100B13E49 /* tagHighlighted@2x.png */,
+				CB068144198EAD8F00B13E49 /* bulbUnhighlighted@2x.png */,
 				CB2673D1198DF41100CB02A1 /* subheader@2x.png */,
 				CB2673CD198DEF7800CB02A1 /* logo@2x.png */,
 			);
@@ -207,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				CB2673D0198DF06900CB02A1 /* TAGViewConstants.h */,
+				CB06813F198E9FD000B13E49 /* TAGRoutesConstants.h */,
 			);
 			name = Constants;
 			sourceTree = "<group>";
@@ -289,7 +336,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB068147198EADA100B13E49 /* tagHighlighted@2x.png in Resources */,
 				CB2673A1198DE3FA00CB02A1 /* InfoPlist.strings in Resources */,
+				CB068145198EAD8F00B13E49 /* bulbUnhighlighted@2x.png in Resources */,
 				CB2673A9198DE3FA00CB02A1 /* Images.xcassets in Resources */,
 				CB2673CE198DEF7800CB02A1 /* logo@2x.png in Resources */,
 				CB2673D2198DF41100CB02A1 /* subheader@2x.png in Resources */,
@@ -344,9 +393,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB06813E198E9EB000B13E49 /* TAGAuthStore.m in Sources */,
 				CB2673A3198DE3FA00CB02A1 /* main.m in Sources */,
+				CB068138198E9ABE00B13E49 /* TAGSessionStore.m in Sources */,
 				CB2673A7198DE3FA00CB02A1 /* TAGAppDelegate.m in Sources */,
 				CB2673CB198DEA3500CB02A1 /* TAGLoginViewController.m in Sources */,
+				CB068143198EA9EF00B13E49 /* TAGFeedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

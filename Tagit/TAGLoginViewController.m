@@ -7,7 +7,11 @@
 //
 
 #import "TAGLoginViewController.h"
+#import "TAGAppDelegate.h"
+#import "TAGSessionStore.h"
+
 #import "TAGViewConstants.h"
+#import "TAGRoutesConstants.h"
 
 @interface TAGLoginViewController ()
 
@@ -17,6 +21,7 @@
 @property (nonatomic, strong) UITextField *_emailField;
 @property (nonatomic, strong) UITextField *_passwordField;
 @property (nonatomic, strong) UIButton *_loginButton;
+@property (nonatomic, strong) UIActivityIndicatorView *_requestIndicator;
 
 @end
 
@@ -80,7 +85,7 @@
     float emailYCoord = self._logoSubheader.frame.origin.y + self._logoSubheader.frame.size.height + 40;
     CGRect emailFieldFrame = CGRectMake(0.0f,emailYCoord, self._logoSubheader.frame.size.width, 40.0f);
     self._emailField = [[UITextField alloc] initWithFrame:emailFieldFrame];
-    self._emailField.text = @"me@email.com";
+    self._emailField.text = kSeedEmail;
     [self._emailField setCenter:CGPointMake(self.view.frame.size.width/2, emailYCoord)];
     
     [self formatTextField:self._emailField];
@@ -91,7 +96,7 @@
     passwordFieldFrame.origin.y += self._emailField.frame.size.height + 10;
     self._passwordField = [[UITextField alloc] initWithFrame:passwordFieldFrame];
     self._passwordField.secureTextEntry = YES;
-    self._passwordField.text = @"1234567890";
+    self._passwordField.text = kSeedPassword;
     
     [self formatTextField:self._passwordField];
 }
@@ -105,23 +110,56 @@
 }
 
 - (void)renderLoginButton {
-    // NOTE origin is not assignable - need to retrieve rect first
     CGRect loginButtonFrame = self._passwordField.frame;
     loginButtonFrame.origin.y += self._passwordField.frame.size.height + 10;
     self._loginButton = [[UIButton alloc]initWithFrame:loginButtonFrame];
     [self._loginButton setTitle:@"Login" forState:UIControlStateNormal];
     [self._loginButton setTitleColor:kPureWhite forState:UIControlStateNormal];
     self._loginButton.backgroundColor = kTagitBlue;
-    
     [self._loginButton addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
-    
     [self._scrollView addSubview:self._loginButton];
 }
 
 - (void)login {
-    NSLog(@"Implement Login");
+    NSDictionary *loginParams = [self extractLoginInfo];
+    [self setLoginActivityIndicator];
+
+    void(^completionBlock)(TAGSessionStore *session, NSError *err)=^(TAGSessionStore *session, NSError *err){
+        if(!err){
+            TAGAppDelegate *appDelegate = (TAGAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate initializeNavigationControllers];
+        } else {
+            [self renderErrorMessage:err];
+        }
+    };
+
+    [[TAGSessionStore sharedStore]login:loginParams withCompletionBlock:completionBlock];
 }
 
+- (NSDictionary *)extractLoginInfo {
+    NSString *email = self._emailField.text;
+    NSString *password = self._passwordField.text;
+    return @{ @"email" : email, @"password" : password };
+}
+
+- (void)setLoginActivityIndicator {
+    self._requestIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self._requestIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
+    self._requestIndicator.center = self.view.center;
+    [self.view addSubview:self._requestIndicator];
+
+    [self._requestIndicator startAnimating];
+}
+
+- (void)renderErrorMessage:(NSError *)err {
+    [[[UIAlertView alloc] initWithTitle:err.localizedDescription
+                                message:err.localizedRecoverySuggestion
+                               delegate:nil
+                      cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                      otherButtonTitles:nil, nil] show];
+
+    [self._requestIndicator stopAnimating];
+}
 - (void)handleKeyboardDidShow:(NSNotification *)notification {
     NSValue *keyboardRectAsObject = [[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey];
     

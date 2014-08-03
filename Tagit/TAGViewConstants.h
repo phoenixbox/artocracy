@@ -15,5 +15,6 @@
 // ** Global
 #define kPureWhite [UIColor colorWithWhite:255.0f alpha:1.0f]
 #define kTagitBlue [UIColor colorWithRed:39/255.0f green:169/255.0f blue:225/255.0f alpha:1.0f]
+#define kTagitDeselectedGrey [UIColor colorWithRed:206/255.0f green:206/255.0f blue:206/255.0f alpha:1.0f]
 
 #endif

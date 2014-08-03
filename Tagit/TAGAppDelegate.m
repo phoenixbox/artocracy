@@ -8,6 +8,9 @@
 
 #import "TAGAppDelegate.h"
 #import "TAGLoginViewController.h"
+#import "TAGFeedViewController.h"
+
+#import "TAGViewConstants.h"
 
 @implementation TAGAppDelegate
 
@@ -50,5 +53,37 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+- (void)initializeNavigationControllers{
+    TAGFeedViewController *feedViewController = [TAGFeedViewController new];
+
+    UINavigationController *tagFeedViewNavController = [[UINavigationController alloc]initWithRootViewController:feedViewController];
+
+    UITabBarController *tagTabBarController = [UITabBarController new];
+
+    [tagTabBarController setViewControllers:@[tagFeedViewNavController]];
+    [self styleTabBar:tagTabBarController.tabBar];
+
+    [[self window] setRootViewController:tagTabBarController];
+}
+
+- (void)styleTabBar:(UITabBar *)tabBar {
+    [[UITabBar appearance] setBarTintColor:kTagitBlue];
+    [[UITabBar appearance] setSelectedImageTintColor:kPureWhite];
+    NSArray *tabBarTitlesMap = @[@"Feed"];
+    NSArray *tabBarImagesMap = @[@"feed"];
+
+    [[tabBar items] enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger index, BOOL *stop){
+        [self setTabItemImages:item withTitle:[tabBarTitlesMap objectAtIndex:index] andImageName:[tabBarImagesMap objectAtIndex:index]];
+    }];
+}
+
+- (void)setTabItemImages:(UITabBarItem *)item withTitle:(NSString *)title andImageName:(NSString *)imageName {
+    [item setTitle:title];
+    [item setImage:[[UIImage imageNamed:[imageName stringByAppendingString:@"Unhighlighted.png"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [item setSelectedImage:[[UIImage imageNamed:[imageName stringByAppendingString:@"Highlighted.png"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [item setTitleTextAttributes:@{ NSForegroundColorAttributeName : kTagitDeselectedGrey } forState:UIControlStateNormal];
+    [item setTitleTextAttributes:@{ NSForegroundColorAttributeName : kPureWhite } forState:UIControlStateHighlighted];
+};
 
 @end
