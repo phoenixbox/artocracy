@@ -14,6 +14,9 @@
 @property (nonatomic, strong) UIImageView *_logoHero;
 @property (nonatomic, strong) UIImageView *_logoSubheader;
 @property (nonatomic, strong) UIScrollView *_scrollView;
+@property (nonatomic, strong) UITextField *_emailField;
+@property (nonatomic, strong) UITextField *_passwordField;
+@property (nonatomic, strong) UIButton *_loginButton;
 
 @end
 
@@ -28,12 +31,24 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    //  TODO: Implement scroll view for login screen
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleKeyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardDidShowNotification object:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self renderScrollView];
+    
     [self renderLogoPlaceholderAndSubheader];
+    [self renderEmailField];
+    [self renderPasswordField];
+    [self renderLoginButton];
 }
 
 - (void)renderScrollView {
@@ -58,6 +73,75 @@
     [self._scrollView addSubview:self._logoHero];
     [self._scrollView addSubview:self._logoSubheader];
 }
+
+- (void)renderEmailField {
+    float emailYCoord = self._logoSubheader.frame.origin.y + self._logoSubheader.frame.size.height + 40;
+    CGRect emailFieldFrame = CGRectMake(0.0f,emailYCoord, self._logoSubheader.frame.size.width, 40.0f);
+    self._emailField = [[UITextField alloc] initWithFrame:emailFieldFrame];
+    self._emailField.text = @"me@email.com";
+    [self._emailField setCenter:CGPointMake(self.view.frame.size.width/2, emailYCoord)];
+    
+    [self formatTextField:self._emailField];
+}
+
+- (void)renderPasswordField {
+    CGRect passwordFieldFrame = self._emailField.frame;
+    passwordFieldFrame.origin.y += self._emailField.frame.size.height + 10;
+    self._passwordField = [[UITextField alloc] initWithFrame:passwordFieldFrame];
+    self._passwordField.secureTextEntry = YES;
+    self._passwordField.text = @"1234567890";
+    
+    [self formatTextField:self._passwordField];
+}
+
+- (void)formatTextField:(UITextField *)textField {
+    textField.delegate = self;
+    textField.borderStyle = UITextBorderStyleRoundedRect;
+    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    textField.textAlignment = NSTextAlignmentCenter;
+    [self._scrollView addSubview:textField];
+}
+
+- (void)renderLoginButton {
+    // NOTE origin is not assignable - need to retrieve rect first
+    CGRect loginButtonFrame = self._passwordField.frame;
+    loginButtonFrame.origin.y += self._passwordField.frame.size.height + 10;
+    self._loginButton = [[UIButton alloc]initWithFrame:loginButtonFrame];
+    [self._loginButton setTitle:@"Login" forState:UIControlStateNormal];
+    [self._loginButton setTitleColor:kPureWhite forState:UIControlStateNormal];
+    self._loginButton.backgroundColor = kTagitBlue;
+    
+    [self._loginButton addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self._scrollView addSubview:self._loginButton];
+}
+
+- (void)login {
+    NSLog(@"Implement Login");
+}
+
+- (void)handleKeyboardDidShow:(NSNotification *)notification {
+    NSValue *keyboardRectAsObject = [[notification userInfo]objectForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    CGRect keyboardRect = CGRectZero;
+    
+    [keyboardRectAsObject getValue:&keyboardRect];
+    
+    self._scrollView.contentInset = UIEdgeInsetsMake(0.0f,0.0f,keyboardRect.size.height+180,0.0f);
+}
+
+- (void)handleKeyboardWillHide:(NSNotification *)notification {
+    self._scrollView.contentInset = UIEdgeInsetsZero;
+}
+
+#pragma UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self._emailField resignFirstResponder];
+    [self._passwordField resignFirstResponder];
+    return YES;
+}
+
 
 
 - (void)didReceiveMemoryWarning

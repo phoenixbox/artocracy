@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAGLoginViewController : UIViewController
+@interface TAGLoginViewController : UIViewController <UITextFieldDelegate>
 
 @end
