@@ -7,6 +7,7 @@
 //
 
 #import "TAGFeedViewController.h"
+#import "TAGViewConstants.h"
 
 @interface TAGFeedViewController ()
 
@@ -19,6 +20,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self initAppearance];
     }
     return self;
 }
@@ -27,6 +29,37 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (void)initAppearance
+{
+    self.navigationController.navigationBar.translucent = NO;
+
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
+    [[UINavigationBar appearance] setBarTintColor:kTagitBlue];
+
+    [[UIToolbar appearance] setBarStyle:UIBarStyleBlackOpaque];
+    [[UIToolbar appearance] setBarTintColor:kTagitBlue];
+    [self setHeaderLogo];
+    [self addNavigationItems];
+}
+
+- (void)addNavigationItems{
+    UIImage *filterImage = [UIImage imageNamed:@"filterIcon.png"];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:filterImage landscapeImagePhone:filterImage style:UIBarButtonItemStylePlain target:self action:@selector(toggleFilter)];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+}
+
+- (void)setHeaderLogo {
+    [[self navigationItem] setTitleView:nil];
+    UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 37.0f)];
+    logoView.contentMode = UIViewContentModeScaleAspectFill;
+    UIImage *logoImage = [UIImage imageNamed:@"navBarLogo.png"];
+    [logoView setImage:logoImage];
+    self.navigationItem.titleView = logoView;
+}
+
+- (void)toggleFilter {
 }
 
 - (void)didReceiveMemoryWarning

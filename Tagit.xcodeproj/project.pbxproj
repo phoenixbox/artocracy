@@ -14,6 +14,8 @@
 		CB06814B198EC5F300B13E49 /* bulbUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB068149198EC5F300B13E49 /* bulbUnselected@2x.png */; };
 		CB06814E198EC64A00B13E49 /* tagSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB06814C198EC64A00B13E49 /* tagSelected@2x.png */; };
 		CB06814F198EC64A00B13E49 /* tagUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB06814D198EC64A00B13E49 /* tagUnselected@2x.png */; };
+		CB068151198EC98600B13E49 /* filterIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB068150198EC98600B13E49 /* filterIcon@2x.png */; };
+		CB068153198ECA4100B13E49 /* navBarLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB068152198ECA4100B13E49 /* navBarLogo@2x.png */; };
 		CB267397198DE3FA00CB02A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB267396198DE3FA00CB02A1 /* Foundation.framework */; };
 		CB267399198DE3FA00CB02A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB267398198DE3FA00CB02A1 /* CoreGraphics.framework */; };
 		CB26739B198DE3FA00CB02A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB26739A198DE3FA00CB02A1 /* UIKit.framework */; };
@@ -56,6 +58,8 @@
 		CB068149198EC5F300B13E49 /* bulbUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bulbUnselected@2x.png"; sourceTree = "<group>"; };
 		CB06814C198EC64A00B13E49 /* tagSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tagSelected@2x.png"; sourceTree = "<group>"; };
 		CB06814D198EC64A00B13E49 /* tagUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tagUnselected@2x.png"; sourceTree = "<group>"; };
+		CB068150198EC98600B13E49 /* filterIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filterIcon@2x.png"; sourceTree = "<group>"; };
+		CB068152198ECA4100B13E49 /* navBarLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBarLogo@2x.png"; sourceTree = "<group>"; };
 		CB267393198DE3FA00CB02A1 /* Tagit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tagit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB267396198DE3FA00CB02A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CB267398198DE3FA00CB02A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -245,6 +249,8 @@
 		CB2673CC198DEEA300CB02A1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CB068152198ECA4100B13E49 /* navBarLogo@2x.png */,
+				CB068150198EC98600B13E49 /* filterIcon@2x.png */,
 				CB06814C198EC64A00B13E49 /* tagSelected@2x.png */,
 				CB06814D198EC64A00B13E49 /* tagUnselected@2x.png */,
 				CB068148198EC5F300B13E49 /* bulbSelected@2x.png */,
@@ -343,6 +349,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB2673A1198DE3FA00CB02A1 /* InfoPlist.strings in Resources */,
+				CB068153198ECA4100B13E49 /* navBarLogo@2x.png in Resources */,
+				CB068151198EC98600B13E49 /* filterIcon@2x.png in Resources */,
 				CB06814F198EC64A00B13E49 /* tagUnselected@2x.png in Resources */,
 				CB06814E198EC64A00B13E49 /* tagSelected@2x.png in Resources */,
 				CB2673A9198DE3FA00CB02A1 /* Images.xcassets in Resources */,
