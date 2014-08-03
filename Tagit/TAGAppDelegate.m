@@ -71,7 +71,7 @@
     [[UITabBar appearance] setBarTintColor:kTagitBlue];
     [[UITabBar appearance] setSelectedImageTintColor:kPureWhite];
     NSArray *tabBarTitlesMap = @[@"Feed"];
-    NSArray *tabBarImagesMap = @[@"feed"];
+    NSArray *tabBarImagesMap = @[@"tag"];
 
     [[tabBar items] enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger index, BOOL *stop){
         [self setTabItemImages:item withTitle:[tabBarTitlesMap objectAtIndex:index] andImageName:[tabBarImagesMap objectAtIndex:index]];
@@ -80,10 +80,11 @@
 
 - (void)setTabItemImages:(UITabBarItem *)item withTitle:(NSString *)title andImageName:(NSString *)imageName {
     [item setTitle:title];
-    [item setImage:[[UIImage imageNamed:[imageName stringByAppendingString:@"Unhighlighted.png"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [item setSelectedImage:[[UIImage imageNamed:[imageName stringByAppendingString:@"Highlighted.png"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [item setImage:[[UIImage imageNamed:[imageName stringByAppendingString:@"Unselected.png"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    [item setSelectedImage:[[UIImage imageNamed:[imageName stringByAppendingString:@"Selected.png"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [item setTitleTextAttributes:@{ NSForegroundColorAttributeName : kTagitDeselectedGrey } forState:UIControlStateNormal];
     [item setTitleTextAttributes:@{ NSForegroundColorAttributeName : kPureWhite } forState:UIControlStateHighlighted];
+    [item setTitleTextAttributes:@{ NSForegroundColorAttributeName : kPureWhite, NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0] } forState:UIControlStateNormal];
 };
 
 @end
