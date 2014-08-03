@@ -7,6 +7,7 @@
 //
 
 #import "TAGAppDelegate.h"
+#import "TAGLoginViewController.h"
 
 @implementation TAGAppDelegate
 
@@ -14,6 +15,10 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+
+    TAGLoginViewController *loginViewController = [[TAGLoginViewController alloc]init];
+    [[self window] setRootViewController:loginViewController];
+
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
