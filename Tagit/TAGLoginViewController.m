@@ -43,6 +43,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+
     [self renderScrollView];
     
     [self renderLogoPlaceholderAndSubheader];
@@ -121,7 +123,7 @@
 }
 
 - (void)handleKeyboardDidShow:(NSNotification *)notification {
-    NSValue *keyboardRectAsObject = [[notification userInfo]objectForKey:UIKeyboardFrameEndUserInfoKey];
+    NSValue *keyboardRectAsObject = [[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey];
     
     CGRect keyboardRect = CGRectZero;
     
@@ -141,7 +143,6 @@
     [self._passwordField resignFirstResponder];
     return YES;
 }
-
 
 
 - (void)didReceiveMemoryWarning
