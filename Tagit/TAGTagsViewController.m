@@ -6,14 +6,17 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
-#import "TAGFeedViewController.h"
+#import "TAGTagsViewController.h"
+#import "TAGTagStore.h"
+#import "TAGErrorAlert.h"
+
 #import "TAGViewConstants.h"
 
-@interface TAGFeedViewController ()
+@interface TAGTagsViewController ()
 
 @end
 
-@implementation TAGFeedViewController
+@implementation TAGTagsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -21,6 +24,7 @@
     if (self) {
         // Custom initialization
         [self initAppearance];
+//        [self fetchTags];
     }
     return self;
 }
@@ -62,6 +66,26 @@
 - (void)toggleFilter {
 }
 
+- (void)fetchTags {
+    [self setActivityIndicator];
+
+    void(^completionBlock)(TAGTagChannel *obj, NSError *err)=^(TAGTagChannel *obj, NSError *err){
+        [self setHeaderLogo];
+        if(!err){
+//            [[self feedTable]reloadData];
+        } else {
+            [TAGErrorAlert render:err];
+//            [self._requestIndicator stopAnimating];
+        }
+    };
+    [[TAGTagStore sharedStore] fetchTagsWithCompletion:completionBlock];
+}
+
+- (void)setActivityIndicator {
+    UIActivityIndicatorView *aiView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [[self navigationItem] setTitleView:aiView];
+    [aiView startAnimating];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
