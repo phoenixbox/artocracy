@@ -23,14 +23,14 @@
 
 - (void)login:(NSDictionary *)parameters withCompletionBlock:(void (^)(TAGSessionStore *session, NSError *err))block {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
     NSString *requestURL = [self constructLoginRequest:parameters];
 
     [manager POST:requestURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
-        NSString* rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        //Will this overwrite the session data?
-        TAGSessionStore *sessionStore = [[TAGSessionStore alloc] initWithString:rawJSON error:nil];
+        TAGSessionStore *sessionStore = [TAGSessionStore sharedStore];
+        NSDictionary *responseDict = responseObject;
+        sessionStore.email = [responseDict objectForKey:@"email"];
+        sessionStore.authentication_token = [responseDict objectForKey:@"authentication_token"];
 
         block(sessionStore, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

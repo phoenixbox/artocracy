@@ -14,6 +14,10 @@
 #define kSeedPassword @"12345678"
 
 // Routes
+// ** Session
 #define kAPIUserLogin @"http://localhost:3000/api/v1/users/login"
+
+// ** Session
+#define kAPITagsIndex @"http://localhost:3000/api/v1/tags"
 
 #endif

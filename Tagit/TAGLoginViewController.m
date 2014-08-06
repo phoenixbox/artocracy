@@ -9,6 +9,7 @@
 #import "TAGLoginViewController.h"
 #import "TAGAppDelegate.h"
 #import "TAGSessionStore.h"
+#import "TAGErrorAlert.h"
 
 #import "TAGViewConstants.h"
 #import "TAGRoutesConstants.h"
@@ -128,6 +129,7 @@
         if(!err){
             TAGAppDelegate *appDelegate = (TAGAppDelegate *)[[UIApplication sharedApplication] delegate];
             [appDelegate initializeNavigationControllers];
+            [self._requestIndicator stopAnimating];
         } else {
             [self renderErrorMessage:err];
         }
@@ -152,11 +154,7 @@
 }
 
 - (void)renderErrorMessage:(NSError *)err {
-    [[[UIAlertView alloc] initWithTitle:err.localizedDescription
-                                message:err.localizedRecoverySuggestion
-                               delegate:nil
-                      cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                      otherButtonTitles:nil, nil] show];
+    [TAGErrorAlert render:err];
 
     [self._requestIndicator stopAnimating];
 }

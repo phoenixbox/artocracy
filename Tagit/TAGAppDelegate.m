@@ -8,7 +8,7 @@
 
 #import "TAGAppDelegate.h"
 #import "TAGLoginViewController.h"
-#import "TAGFeedViewController.h"
+#import "TAGTagsViewController.h"
 
 #import "TAGViewConstants.h"
 
@@ -55,7 +55,7 @@
 }
 
 - (void)initializeNavigationControllers{
-    TAGFeedViewController *feedViewController = [TAGFeedViewController new];
+    TAGTagsViewController *feedViewController = [TAGTagsViewController new];
 
     UINavigationController *tagFeedViewNavController = [[UINavigationController alloc]initWithRootViewController:feedViewController];
 

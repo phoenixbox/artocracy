@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
 
-@protocol SDRSessoionStore @end
+@protocol SDRSessionStore @end
 
 @interface TAGSessionStore : JSONModel
 
