@@ -10,9 +10,12 @@
 #import "TAGTagStore.h"
 #import "TAGErrorAlert.h"
 
-#import "TAGViewConstants.h"
+#import "TAGStyleConstants.h"
+#import "TAGComponentConstants.h"
 
 @interface TAGTagsViewController ()
+
+@property (nonatomic, strong) UITableView *_tagsTable;
 
 @end
 
@@ -33,6 +36,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self renderTagsTable];
 }
 
 - (void)initAppearance
@@ -86,6 +90,37 @@
     [[self navigationItem] setTitleView:aiView];
     [aiView startAnimating];
 }
+
+- (void)renderTagsTable {
+    self._tagsTable = [[UITableView alloc] initWithFrame:self.view.bounds];
+    [self._tagsTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTagsTableCellIdentifier];
+    self._tagsTable.delegate = self;
+    self._tagsTable.dataSource = self;
+    self._tagsTable.alwaysBounceVertical = NO;
+    self._tagsTable.scrollEnabled = YES;
+    self._tagsTable.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self._tagsTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
+    self._tagsTable.separatorColor = [UIColor blackColor];
+    [self._tagsTable setBackgroundColor:[UIColor whiteColor]];
+
+    [self.view addSubview:self._tagsTable];
+}
+
+#pragma UITableViewDelgate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [UITableViewCell new];
+    [cell setBackgroundColor:[UIColor whiteColor]];
+    return cell;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
