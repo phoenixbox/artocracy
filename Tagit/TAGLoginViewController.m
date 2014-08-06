@@ -11,7 +11,7 @@
 #import "TAGSessionStore.h"
 #import "TAGErrorAlert.h"
 
-#import "TAGViewConstants.h"
+#import "TAGStyleConstants.h"
 #import "TAGRoutesConstants.h"
 
 @interface TAGLoginViewController ()

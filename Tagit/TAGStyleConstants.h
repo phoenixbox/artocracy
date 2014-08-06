@@ -1,5 +1,5 @@
 //
-//  TAGViewConstants.h
+//  TAGStyleConstants.h
 //  Tagit
 //
 //  Created by Shane Rogers on 8/2/14.
@@ -8,8 +8,6 @@
 
 #ifndef Tagit_TAGViewConstants_h
 #define Tagit_TAGViewConstants_h
-
-#define kLogoSubHeader @"Design your world"
 
 // Colors
 // ** Global
