@@ -15,9 +15,9 @@
 
 // Routes
 // ** Session
-#define kAPIUserLogin @"http://localhost:3000/api/v1/users/login"
+#define kAPIUserLogin @"http://192.168.1.116:3000/api/v1/users/login"
 
 // ** Session
-#define kAPITagsIndex @"http://localhost:3000/api/v1/tags"
+#define kAPITagsIndex @"http://192.168.1.116:3000/api/v1/tags"
 
 #endif
