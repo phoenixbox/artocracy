@@ -6,10 +6,15 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
+// Classes
 #import "TAGTagsViewController.h"
 #import "TAGTagStore.h"
-#import "TAGErrorAlert.h"
 
+// Components
+#import "TAGErrorAlert.h"
+#import "TAGTagTableViewCell.h"
+
+// Constants
 #import "TAGStyleConstants.h"
 #import "TAGComponentConstants.h"
 
@@ -116,9 +121,20 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [UITableViewCell new];
-    [cell setBackgroundColor:[UIColor whiteColor]];
+
+    TAGTagTableViewCell *cell = (TAGTagTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTagsTableCellIdentifier];
+
+    if([tableView isEqual:self._tagsTable]){
+        cell = [[TAGTagTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTagsTableCellIdentifier];
+
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
+
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return kTagsTableRowHeight;
 }
 
 - (void)didReceiveMemoryWarning
