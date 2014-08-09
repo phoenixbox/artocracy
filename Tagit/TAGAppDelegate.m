@@ -10,7 +10,7 @@
 #import "TAGLoginViewController.h"
 #import "TAGTagsViewController.h"
 
-#import "TAGViewConstants.h"
+#import "TAGStyleConstants.h"
 
 @implementation TAGAppDelegate
 
@@ -84,7 +84,7 @@
     [item setSelectedImage:[[UIImage imageNamed:[imageName stringByAppendingString:@"Selected.png"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [item setTitleTextAttributes:@{ NSForegroundColorAttributeName : kTagitDeselectedGrey } forState:UIControlStateNormal];
     [item setTitleTextAttributes:@{ NSForegroundColorAttributeName : kPureWhite } forState:UIControlStateHighlighted];
-    [item setTitleTextAttributes:@{ NSForegroundColorAttributeName : kPureWhite, NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0] } forState:UIControlStateNormal];
+    [item setTitleTextAttributes:@{ NSForegroundColorAttributeName : kPureWhite, NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:14.0] } forState:UIControlStateNormal];
 };
 
 @end

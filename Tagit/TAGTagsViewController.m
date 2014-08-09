@@ -105,7 +105,7 @@
     self._tagsTable.scrollEnabled = YES;
     self._tagsTable.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self._tagsTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
-    self._tagsTable.separatorColor = [UIColor blackColor];
+    self._tagsTable.separatorColor = [UIColor clearColor];
     [self._tagsTable setBackgroundColor:[UIColor whiteColor]];
 
     [self.view addSubview:self._tagsTable];
