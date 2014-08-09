@@ -65,16 +65,16 @@
 }
 
 - (void)renderLogoPlaceholderAndSubheader {
-    self._logoHero = [[UIImageView alloc]initWithFrame:CGRectMake(0.0f, 0.0f,200.0f, 114.0f)];
+    self._logoHero = [[UIImageView alloc]initWithFrame:CGRectMake(0.0f, 0.0f,290.0f, 57.0f)];
     self._logoHero.contentMode = UIViewContentModeScaleAspectFill;
-    UIImage *logoImage = [UIImage imageNamed:@"logo.png"];
+    UIImage *logoImage = [UIImage imageNamed:@"art_logo.png"];
     [self._logoHero setImage:logoImage];
     [self._logoHero setCenter:CGPointMake(self.view.frame.size.width/2, 130.0f)];
 
     float subheaderYCoord = self._logoHero.frame.origin.y + self._logoHero.frame.size.height + 40;
-    self._logoSubheader = [[UIImageView alloc]initWithFrame:CGRectMake(0.0, subheaderYCoord, 200.0, 40.0)];
+    self._logoSubheader = [[UIImageView alloc]initWithFrame:CGRectMake(0.0, subheaderYCoord, 220.0, 45.0)];
     self._logoSubheader.contentMode = UIViewContentModeScaleAspectFill;
-    UIImage *subheaderImage = [UIImage imageNamed:@"subheader.png"];
+    UIImage *subheaderImage = [UIImage imageNamed:@"art_subheader.png"];
     [self._logoSubheader setImage:subheaderImage];
     [self._logoSubheader setCenter:CGPointMake(self.view.frame.size.width/2, self._logoSubheader.frame.origin.y)];
     
@@ -116,7 +116,7 @@
     self._loginButton = [[UIButton alloc]initWithFrame:loginButtonFrame];
     [self._loginButton setTitle:@"Login" forState:UIControlStateNormal];
     [self._loginButton setTitleColor:kPureWhite forState:UIControlStateNormal];
-    self._loginButton.backgroundColor = kTagitBlue;
+    self._loginButton.backgroundColor = kTagitBlack;
     [self._loginButton addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
     [self._scrollView addSubview:self._loginButton];
 }

@@ -143,7 +143,7 @@
     [iconCopy addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0,iconCopy.length)];
     [button setAttributedTitle:iconCopy forState:UIControlStateNormal];
     [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [button setBackgroundColor:kTagitBlue];
+    [button setBackgroundColor:kTagitBlack];
     button.layer.cornerRadius = 2.0f;
     button.layer.masksToBounds = YES;
 

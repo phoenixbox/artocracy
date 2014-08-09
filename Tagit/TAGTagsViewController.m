@@ -49,10 +49,10 @@
     self.navigationController.navigationBar.translucent = NO;
 
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
-    [[UINavigationBar appearance] setBarTintColor:kTagitBlue];
+    [[UINavigationBar appearance] setBarTintColor:kPureWhite];
 
     [[UIToolbar appearance] setBarStyle:UIBarStyleBlackOpaque];
-    [[UIToolbar appearance] setBarTintColor:kTagitBlue];
+    [[UIToolbar appearance] setBarTintColor:kTagitBlack];
     [self setHeaderLogo];
     [self addNavigationItems];
 }
@@ -65,9 +65,9 @@
 
 - (void)setHeaderLogo {
     [[self navigationItem] setTitleView:nil];
-    UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 60.0f, 37.0f)];
+    UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 165.0f, 32.5f)];
     logoView.contentMode = UIViewContentModeScaleAspectFill;
-    UIImage *logoImage = [UIImage imageNamed:@"navBarLogo.png"];
+    UIImage *logoImage = [UIImage imageNamed:@"art_navBarLogo.png"];
     [logoView setImage:logoImage];
     self.navigationItem.titleView = logoView;
 }

@@ -70,7 +70,7 @@
 }
 
 - (void)styleTabBar:(UITabBar *)tabBar {
-    [[UITabBar appearance] setBarTintColor:kTagitBlue];
+    [[UITabBar appearance] setBarTintColor:kTagitBlack];
     [[UITabBar appearance] setSelectedImageTintColor:kPureWhite];
     NSArray *tabBarTitlesMap = @[@"Feed", @"Camera"];
     NSArray *tabBarImagesMap = @[@"tag", @"camera"];
