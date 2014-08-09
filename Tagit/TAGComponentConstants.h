@@ -9,7 +9,7 @@
 #ifndef Tagit_TAGComponentConstants_h
 #define Tagit_TAGComponentConstants_h
 
-#define kTagsTableCellIdentifier @"TAGTagsTableCell"
-#define kTagsTableCellHeight 250.0f
+#define kTagsTableCellIdentifier @"TAGTagsTableViewCell"
+#define kTagsTableRowHeight 400.0f
 
 #endif
