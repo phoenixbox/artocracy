@@ -38,6 +38,10 @@
 		CB2673CE198DEF7800CB02A1 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB2673CD198DEF7800CB02A1 /* logo@2x.png */; };
 		CB2673D2198DF41100CB02A1 /* subheader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB2673D1198DF41100CB02A1 /* subheader@2x.png */; };
 		CB615CF91995F4FB00624A8F /* profile_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB615CF81995F4FB00624A8F /* profile_photo@2x.png */; };
+		CBDA9A121996C4D800E8AD31 /* TAGSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewController.m */; };
+		CBDA9A191996C9C300E8AD31 /* TAGCameraOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A181996C9C300E8AD31 /* TAGCameraOverlay.m */; };
+		CBDA9A1C1996CCCA00E8AD31 /* cameraSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A1A1996CCCA00E8AD31 /* cameraSelected@2x.png */; };
+		CBDA9A1D1996CCCA00E8AD31 /* cameraUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A1B1996CCCA00E8AD31 /* cameraUnselected@2x.png */; };
 		D07B4ED854414D49BBA5AC7F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F209F9462484A069D763253 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +106,12 @@
 		CB2673D0198DF06900CB02A1 /* TAGStyleConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAGStyleConstants.h; sourceTree = "<group>"; };
 		CB2673D1198DF41100CB02A1 /* subheader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "subheader@2x.png"; sourceTree = "<group>"; };
 		CB615CF81995F4FB00624A8F /* profile_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_photo@2x.png"; sourceTree = "<group>"; };
+		CBDA9A101996C4D700E8AD31 /* TAGSuggestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionViewController.h; sourceTree = "<group>"; };
+		CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionViewController.m; sourceTree = "<group>"; };
+		CBDA9A171996C9C300E8AD31 /* TAGCameraOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCameraOverlay.h; sourceTree = "<group>"; };
+		CBDA9A181996C9C300E8AD31 /* TAGCameraOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCameraOverlay.m; sourceTree = "<group>"; };
+		CBDA9A1A1996CCCA00E8AD31 /* cameraSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cameraSelected@2x.png"; sourceTree = "<group>"; };
+		CBDA9A1B1996CCCA00E8AD31 /* cameraUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cameraUnselected@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +287,7 @@
 		CB2673C6198DE9F200CB02A1 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CBDA9A0F1996C30A00E8AD31 /* Suggestion */,
 				CB068140198EA9DB00B13E49 /* Tags */,
 				CB2673C8198DEA0900CB02A1 /* Login */,
 			);
@@ -286,6 +297,7 @@
 		CB2673C7198DE9FC00CB02A1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				CBDA9A161996C99500E8AD31 /* Suggestion */,
 				CB06816A1991FCF800B13E49 /* Group */,
 				CB0681661991FCD000B13E49 /* Tags */,
 			);
@@ -304,6 +316,8 @@
 		CB2673CC198DEEA300CB02A1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CBDA9A1A1996CCCA00E8AD31 /* cameraSelected@2x.png */,
+				CBDA9A1B1996CCCA00E8AD31 /* cameraUnselected@2x.png */,
 				CB615CF81995F4FB00624A8F /* profile_photo@2x.png */,
 				CB06816D1995D75C00B13E49 /* ape_do_good_printing_SF@2x.png */,
 				CB068152198ECA4100B13E49 /* navBarLogo@2x.png */,
@@ -327,6 +341,24 @@
 				CB0681651991F71500B13E49 /* TAGComponentConstants.h */,
 			);
 			name = Constants;
+			sourceTree = "<group>";
+		};
+		CBDA9A0F1996C30A00E8AD31 /* Suggestion */ = {
+			isa = PBXGroup;
+			children = (
+				CBDA9A101996C4D700E8AD31 /* TAGSuggestionViewController.h */,
+				CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewController.m */,
+			);
+			name = Suggestion;
+			sourceTree = "<group>";
+		};
+		CBDA9A161996C99500E8AD31 /* Suggestion */ = {
+			isa = PBXGroup;
+			children = (
+				CBDA9A171996C9C300E8AD31 /* TAGCameraOverlay.h */,
+				CBDA9A181996C9C300E8AD31 /* TAGCameraOverlay.m */,
+			);
+			name = Suggestion;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -408,6 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB2673A1198DE3FA00CB02A1 /* InfoPlist.strings in Resources */,
+				CBDA9A1D1996CCCA00E8AD31 /* cameraUnselected@2x.png in Resources */,
 				CB068153198ECA4100B13E49 /* navBarLogo@2x.png in Resources */,
 				CB068151198EC98600B13E49 /* filterIcon@2x.png in Resources */,
 				CB06814F198EC64A00B13E49 /* tagUnselected@2x.png in Resources */,
@@ -418,6 +451,7 @@
 				CB06816E1995D75C00B13E49 /* ape_do_good_printing_SF@2x.png in Resources */,
 				CB06814B198EC5F300B13E49 /* bulbUnselected@2x.png in Resources */,
 				CB2673D2198DF41100CB02A1 /* subheader@2x.png in Resources */,
+				CBDA9A1C1996CCCA00E8AD31 /* cameraSelected@2x.png in Resources */,
 				CB06814A198EC5F300B13E49 /* bulbSelected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,6 +507,7 @@
 				CB0681691991FCF100B13E49 /* TAGTagTableViewCell.m in Sources */,
 				CB068159198ECCEB00B13E49 /* TAGErrorAlert.m in Sources */,
 				CB06813E198E9EB000B13E49 /* TAGAuthStore.m in Sources */,
+				CBDA9A121996C4D800E8AD31 /* TAGSuggestionViewController.m in Sources */,
 				CB2673A3198DE3FA00CB02A1 /* main.m in Sources */,
 				CB068138198E9ABE00B13E49 /* TAGSessionStore.m in Sources */,
 				CB2673A7198DE3FA00CB02A1 /* TAGAppDelegate.m in Sources */,
@@ -480,6 +515,7 @@
 				CB068160198ED06300B13E49 /* TAGTag.m in Sources */,
 				CB06815C198ECED200B13E49 /* TAGTagStore.m in Sources */,
 				CB068143198EA9EF00B13E49 /* TAGTagsViewController.m in Sources */,
+				CBDA9A191996C9C300E8AD31 /* TAGCameraOverlay.m in Sources */,
 				CB068163198ED08400B13E49 /* TAGTagChannel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

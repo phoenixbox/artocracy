@@ -9,6 +9,7 @@
 #import "TAGAppDelegate.h"
 #import "TAGLoginViewController.h"
 #import "TAGTagsViewController.h"
+#import "TAGSuggestionViewController.h"
 
 #import "TAGStyleConstants.h"
 
@@ -55,13 +56,14 @@
 }
 
 - (void)initializeNavigationControllers{
-    TAGTagsViewController *feedViewController = [TAGTagsViewController new];
-
-    UINavigationController *tagFeedViewNavController = [[UINavigationController alloc]initWithRootViewController:feedViewController];
-
     UITabBarController *tagTabBarController = [UITabBarController new];
 
-    [tagTabBarController setViewControllers:@[tagFeedViewNavController]];
+    TAGTagsViewController *feedViewController = [TAGTagsViewController new];
+    UINavigationController *tagFeedNavController = [[UINavigationController alloc]initWithRootViewController:feedViewController];
+    TAGSuggestionViewController *suggestionViewController = [TAGSuggestionViewController new];
+    UINavigationController *suggestionNavController = [[UINavigationController alloc]initWithRootViewController:suggestionViewController];
+
+    [tagTabBarController setViewControllers:@[tagFeedNavController, suggestionNavController]];
     [self styleTabBar:tagTabBarController.tabBar];
 
     [[self window] setRootViewController:tagTabBarController];
@@ -70,8 +72,8 @@
 - (void)styleTabBar:(UITabBar *)tabBar {
     [[UITabBar appearance] setBarTintColor:kTagitBlue];
     [[UITabBar appearance] setSelectedImageTintColor:kPureWhite];
-    NSArray *tabBarTitlesMap = @[@"Feed"];
-    NSArray *tabBarImagesMap = @[@"tag"];
+    NSArray *tabBarTitlesMap = @[@"Feed", @"Camera"];
+    NSArray *tabBarImagesMap = @[@"tag", @"camera"];
 
     [[tabBar items] enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger index, BOOL *stop){
         [self setTabItemImages:item withTitle:[tabBarTitlesMap objectAtIndex:index] andImageName:[tabBarImagesMap objectAtIndex:index]];
