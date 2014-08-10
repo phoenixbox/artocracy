@@ -45,6 +45,8 @@
 		CBDA9A251996E15000E8AD31 /* art_navBarLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A241996E15000E8AD31 /* art_navBarLogo@2x.png */; };
 		CBDA9A291997083D00E8AD31 /* TAGTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A281997083D00E8AD31 /* TAGTabBarController.m */; };
 		CBDA9A2B19970DCD00E8AD31 /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A2A19970DCD00E8AD31 /* cancel@2x.png */; };
+		CBDA9A2D1997136B00E8AD31 /* camera_nav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A2C1997136B00E8AD31 /* camera_nav@2x.png */; };
+		CBDA9A301997158500E8AD31 /* TAGImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A2F1997158500E8AD31 /* TAGImagePickerController.m */; };
 		D07B4ED854414D49BBA5AC7F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F209F9462484A069D763253 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +121,9 @@
 		CBDA9A271997083D00E8AD31 /* TAGTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGTabBarController.h; sourceTree = "<group>"; };
 		CBDA9A281997083D00E8AD31 /* TAGTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGTabBarController.m; sourceTree = "<group>"; };
 		CBDA9A2A19970DCD00E8AD31 /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@2x.png"; sourceTree = "<group>"; };
+		CBDA9A2C1997136B00E8AD31 /* camera_nav@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera_nav@2x.png"; sourceTree = "<group>"; };
+		CBDA9A2E1997158500E8AD31 /* TAGImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGImagePickerController.h; sourceTree = "<group>"; };
+		CBDA9A2F1997158500E8AD31 /* TAGImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGImagePickerController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +329,7 @@
 		CB2673CC198DEEA300CB02A1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CBDA9A2C1997136B00E8AD31 /* camera_nav@2x.png */,
 				CBDA9A2A19970DCD00E8AD31 /* cancel@2x.png */,
 				CBDA9A241996E15000E8AD31 /* art_navBarLogo@2x.png */,
 				CBDA9A221996DFEA00E8AD31 /* art_subheader@2x.png */,
@@ -376,6 +382,8 @@
 			children = (
 				CBDA9A271997083D00E8AD31 /* TAGTabBarController.h */,
 				CBDA9A281997083D00E8AD31 /* TAGTabBarController.m */,
+				CBDA9A2E1997158500E8AD31 /* TAGImagePickerController.h */,
+				CBDA9A2F1997158500E8AD31 /* TAGImagePickerController.m */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -469,6 +477,7 @@
 				CBDA9A251996E15000E8AD31 /* art_navBarLogo@2x.png in Resources */,
 				CB2673A9198DE3FA00CB02A1 /* Images.xcassets in Resources */,
 				CB615CF91995F4FB00624A8F /* profile_photo@2x.png in Resources */,
+				CBDA9A2D1997136B00E8AD31 /* camera_nav@2x.png in Resources */,
 				CBDA9A231996DFEA00E8AD31 /* art_subheader@2x.png in Resources */,
 				CB06816E1995D75C00B13E49 /* ape_do_good_printing_SF@2x.png in Resources */,
 				CB06814B198EC5F300B13E49 /* bulbUnselected@2x.png in Resources */,
@@ -539,6 +548,7 @@
 				CB068143198EA9EF00B13E49 /* TAGTagsViewController.m in Sources */,
 				CBDA9A191996C9C300E8AD31 /* TAGCameraOverlay.m in Sources */,
 				CB068163198ED08400B13E49 /* TAGTagChannel.m in Sources */,
+				CBDA9A301997158500E8AD31 /* TAGImagePickerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

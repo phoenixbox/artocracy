@@ -8,13 +8,14 @@
 
 #import "TAGSuggestionViewController.h"
 #import "TAGCameraOverlay.h"
+#import "TAGImagePickerController.h"
 
 // Constants
 #import "TAGStyleConstants.h"
 
 @interface TAGSuggestionViewController ()
 
-@property (nonatomic) UIImagePickerController *_imagePickerController;
+@property (nonatomic) TAGImagePickerController *_imagePickerController;
 @property (nonatomic, strong) UIView *_overlayView;
 @property (nonatomic, strong) UIImageView *_photo;
 @property (nonatomic) BOOL _showPicker;
@@ -68,6 +69,10 @@
     UIImage *cancel = [UIImage imageNamed:@"cancel.png"];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:cancel landscapeImagePhone:cancel style:UIBarButtonItemStylePlain target:self action:@selector(cancelSuggestion)];
     [self.navigationItem.leftBarButtonItem setTintColor:[UIColor blackColor]];
+
+    UIImage *retake = [UIImage imageNamed:@"camera_nav.png"];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:retake landscapeImagePhone:retake style:UIBarButtonItemStylePlain target:self action:@selector(retakePhoto)];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor blackColor]];
 }
 
 - (void)setHeaderLogo {
@@ -83,8 +88,13 @@
     [self.parentViewController.tabBarController setSelectedIndex:0];
 }
 
+- (void)retakePhoto {
+    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+    [self._photo setImage:nil];
+}
+
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
-    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    TAGImagePickerController *imagePickerController = [TAGImagePickerController sharedImagePicker];
     imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
     imagePickerController.sourceType = sourceType;
     imagePickerController.delegate = self;
@@ -98,7 +108,7 @@
     [self presentViewController:self._imagePickerController animated:YES completion:nil];
 }
 
-- (UIImagePickerController *)buildSquareOverlay:(UIImagePickerController *)imagePickerController {
+- (TAGImagePickerController *)buildSquareOverlay:(TAGImagePickerController *)imagePickerController {
     CGRect f = imagePickerController.view.bounds;
     f.size.height -= imagePickerController.navigationBar.bounds.size.height;
     UIGraphicsBeginImageContext(f.size);
@@ -115,8 +125,6 @@
 
     return imagePickerController;
 }
-
-
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
