@@ -9,10 +9,14 @@
 #import "TAGSuggestionViewController.h"
 #import "TAGCameraOverlay.h"
 
+// Constants
+#import "TAGStyleConstants.h"
+
 @interface TAGSuggestionViewController ()
 
 @property (nonatomic) UIImagePickerController *_imagePickerController;
 @property (nonatomic, strong) UIView *_overlayView;
+@property (nonatomic, strong) UIImageView *_photo;
 
 @end
 
@@ -28,6 +32,9 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    self._photo = [UIImageView new];
+    self._photo.frame = CGRectMake(0.0f, kBigPadding, 320.0f, 320.0f);
+
     [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
 }
 
@@ -42,22 +49,57 @@
     imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
     imagePickerController.sourceType = sourceType;
     imagePickerController.delegate = self;
+    [imagePickerController setShowsCameraControls:YES];
 
     if (sourceType == UIImagePickerControllerSourceTypeCamera)
     {
-        self._imagePickerController.showsCameraControls = NO;
-
-        self._overlayView = [TAGCameraOverlay new];
-
-        self._overlayView.frame = self._imagePickerController.cameraOverlayView.frame;
-
-        self._imagePickerController.cameraOverlayView = self._overlayView;
-
-        self._overlayView = nil;
+        self._imagePickerController = [self buildSquareOverlay:imagePickerController];
     }
 
-    self._imagePickerController = imagePickerController;
     [self presentViewController:self._imagePickerController animated:YES completion:nil];
+}
+
+- (UIImagePickerController *)buildSquareOverlay:(UIImagePickerController *)imagePickerController {
+    CGRect f = imagePickerController.view.bounds;
+    f.size.height -= imagePickerController.navigationBar.bounds.size.height;
+    UIGraphicsBeginImageContext(f.size);
+    [[UIColor colorWithWhite:0.0f alpha:.8] set];
+    UIRectFillUsingBlendMode(CGRectMake(0, 0, f.size.width, 124.0), kCGBlendModeNormal);
+    UIRectFillUsingBlendMode(CGRectMake(0, 444, f.size.width, 52), kCGBlendModeNormal);
+    UIImage *overlayImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    UIImageView *overlayIV = [[UIImageView alloc] initWithFrame:f];
+    overlayIV.image = overlayImage;
+    overlayIV.alpha = 0.7f;
+    [imagePickerController setCameraOverlayView:overlayIV];
+
+    return imagePickerController;
+}
+
+
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+
+    CGSize imageSize = image.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    if (width != height) {
+        CGFloat newDimension = MIN(width, height);
+        CGFloat widthOffset = (width - newDimension) / 2;
+        CGFloat heightOffset = (height - newDimension) / 2;
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(newDimension, newDimension), NO, 0.);
+        [image drawAtPoint:CGPointMake(-widthOffset, -heightOffset)
+                 blendMode:kCGBlendModeCopy
+                     alpha:1.0];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    };
+    self._photo.image = image;
+    [self.view addSubview:self._photo];
+
+    [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
 
 
