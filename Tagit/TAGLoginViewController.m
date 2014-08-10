@@ -39,10 +39,15 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    //  TODO: Implement scroll view for login screen
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleKeyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardDidShowNotification object:nil];
+
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [center addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)paramAnimated{
+    [super viewWillDisappear:paramAnimated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad
@@ -60,8 +65,17 @@
 }
 
 - (void)renderScrollView {
-    self._scrollView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
+    self._scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    [self._scrollView setContentSize:CGSizeMake(self.view.bounds.size.width,self.view.bounds.size.height)];
+
+    self._scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    self._scrollView.delegate = self;
+
     [self.view addSubview:self._scrollView];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    NSLog(@"SCROLLING");
 }
 
 - (void)renderLogoPlaceholderAndSubheader {
@@ -100,6 +114,7 @@
     self._passwordField.text = kSeedPassword;
     
     [self formatTextField:self._passwordField];
+    [self._scrollView addSubview:self._passwordField];
 }
 
 - (void)formatTextField:(UITextField *)textField {
@@ -158,18 +173,45 @@
 
     [self._requestIndicator stopAnimating];
 }
-- (void)handleKeyboardDidShow:(NSNotification *)notification {
-    NSValue *keyboardRectAsObject = [[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey];
-    
-    CGRect keyboardRect = CGRectZero;
-    
-    [keyboardRectAsObject getValue:&keyboardRect];
-    
-    self._scrollView.contentInset = UIEdgeInsetsMake(0.0f,0.0f,keyboardRect.size.height+180,0.0f);
+
+- (void)handleKeyboardWillShow:(NSNotification *)paramNotification {
+    NSDictionary *userInfo = paramNotification.userInfo;
+
+    NSValue *animationDurationObject = userInfo[UIKeyboardAnimationDurationUserInfoKey];
+
+    NSValue *keyboardEndRectObject = userInfo[UIKeyboardFrameEndUserInfoKey];
+
+    double animationDuration = 0.0;
+    CGRect keyboardEndRect = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
+    [animationDurationObject getValue:&animationDuration];
+    [keyboardEndRectObject getValue:&keyboardEndRect];
+
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    /* Convert the frame from window's coordinate system to our view's coordinate system */
+    keyboardEndRect = [self.view convertRect:keyboardEndRect fromView:window];
+    /* Find out how much of our view is being covered by the keyboard */
+    CGRect intersectionOfKeyboardRectAndWindowRect = CGRectIntersection(self.view.frame, keyboardEndRect);
+    /* Scroll the scroll view up to show the full contents of our view */
+    [UIView animateWithDuration:animationDuration animations:^{
+        self._scrollView.contentInset =
+        UIEdgeInsetsMake(0.0f,
+                         0.0f,
+                         intersectionOfKeyboardRectAndWindowRect.size.height,
+                         0.0f);
+        [self._scrollView scrollRectToVisible:self._loginButton.frame animated:NO];
+    }];
 }
 
-- (void)handleKeyboardWillHide:(NSNotification *)notification {
-    self._scrollView.contentInset = UIEdgeInsetsZero;
+- (void) handleKeyboardWillHide:(NSNotification *)paramSender{
+    NSDictionary *userInfo = [paramSender userInfo];
+    NSValue *animationDurationObject = [userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey];
+
+    double animationDuration = 0.0;
+    [animationDurationObject getValue:&animationDuration];
+
+    [UIView animateWithDuration:animationDuration animations:^{
+        self._scrollView.contentInset = UIEdgeInsetsZero;
+    }];
 }
 
 #pragma UITextFieldDelegate

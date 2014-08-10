@@ -18,6 +18,7 @@
 @property (nonatomic) TAGImagePickerController *_imagePickerController;
 @property (nonatomic, strong) UIView *_overlayView;
 @property (nonatomic, strong) UIImageView *_photo;
+@property (nonatomic, strong) UIScrollView *_scrollView;
 @property (nonatomic) BOOL _showPicker;
 
 @end
