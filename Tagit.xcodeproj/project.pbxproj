@@ -43,6 +43,8 @@
 		CBDA9A1F1996DE7300E8AD31 /* art_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A1E1996DE7300E8AD31 /* art_logo@2x.png */; };
 		CBDA9A231996DFEA00E8AD31 /* art_subheader@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A221996DFEA00E8AD31 /* art_subheader@2x.png */; };
 		CBDA9A251996E15000E8AD31 /* art_navBarLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A241996E15000E8AD31 /* art_navBarLogo@2x.png */; };
+		CBDA9A291997083D00E8AD31 /* TAGTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A281997083D00E8AD31 /* TAGTabBarController.m */; };
+		CBDA9A2B19970DCD00E8AD31 /* cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A2A19970DCD00E8AD31 /* cancel@2x.png */; };
 		D07B4ED854414D49BBA5AC7F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F209F9462484A069D763253 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +116,9 @@
 		CBDA9A1E1996DE7300E8AD31 /* art_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "art_logo@2x.png"; sourceTree = "<group>"; };
 		CBDA9A221996DFEA00E8AD31 /* art_subheader@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "art_subheader@2x.png"; sourceTree = "<group>"; };
 		CBDA9A241996E15000E8AD31 /* art_navBarLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "art_navBarLogo@2x.png"; sourceTree = "<group>"; };
+		CBDA9A271997083D00E8AD31 /* TAGTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGTabBarController.h; sourceTree = "<group>"; };
+		CBDA9A281997083D00E8AD31 /* TAGTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGTabBarController.m; sourceTree = "<group>"; };
+		CBDA9A2A19970DCD00E8AD31 /* cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancel@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,6 +294,7 @@
 		CB2673C6198DE9F200CB02A1 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CBDA9A261997081500E8AD31 /* Core */,
 				CBDA9A0F1996C30A00E8AD31 /* Suggestion */,
 				CB068140198EA9DB00B13E49 /* Tags */,
 				CB2673C8198DEA0900CB02A1 /* Login */,
@@ -318,6 +324,7 @@
 		CB2673CC198DEEA300CB02A1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CBDA9A2A19970DCD00E8AD31 /* cancel@2x.png */,
 				CBDA9A241996E15000E8AD31 /* art_navBarLogo@2x.png */,
 				CBDA9A221996DFEA00E8AD31 /* art_subheader@2x.png */,
 				CBDA9A1A1996CCCA00E8AD31 /* cameraSelected@2x.png */,
@@ -362,6 +369,15 @@
 				CBDA9A181996C9C300E8AD31 /* TAGCameraOverlay.m */,
 			);
 			name = Suggestion;
+			sourceTree = "<group>";
+		};
+		CBDA9A261997081500E8AD31 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CBDA9A271997083D00E8AD31 /* TAGTabBarController.h */,
+				CBDA9A281997083D00E8AD31 /* TAGTabBarController.m */,
+			);
+			name = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -442,6 +458,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBDA9A2B19970DCD00E8AD31 /* cancel@2x.png in Resources */,
 				CB2673A1198DE3FA00CB02A1 /* InfoPlist.strings in Resources */,
 				CBDA9A1D1996CCCA00E8AD31 /* cameraUnselected@2x.png in Resources */,
 				CB068153198ECA4100B13E49 /* navBarLogo@2x.png in Resources */,
@@ -511,6 +528,7 @@
 				CB0681691991FCF100B13E49 /* TAGTagTableViewCell.m in Sources */,
 				CB068159198ECCEB00B13E49 /* TAGErrorAlert.m in Sources */,
 				CB06813E198E9EB000B13E49 /* TAGAuthStore.m in Sources */,
+				CBDA9A291997083D00E8AD31 /* TAGTabBarController.m in Sources */,
 				CBDA9A121996C4D800E8AD31 /* TAGSuggestionViewController.m in Sources */,
 				CB2673A3198DE3FA00CB02A1 /* main.m in Sources */,
 				CB068138198E9ABE00B13E49 /* TAGSessionStore.m in Sources */,

@@ -17,6 +17,7 @@
 @property (nonatomic) UIImagePickerController *_imagePickerController;
 @property (nonatomic, strong) UIView *_overlayView;
 @property (nonatomic, strong) UIImageView *_photo;
+@property (nonatomic) BOOL _showPicker;
 
 @end
 
@@ -27,6 +28,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        NSLog(@"Suggestion Initialized");
+
+        self._showPicker = YES;
     }
     return self;
 }
@@ -35,13 +39,48 @@
     self._photo = [UIImageView new];
     self._photo.frame = CGRectMake(0.0f, kBigPadding, 320.0f, 320.0f);
 
-    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+    if (self._showPicker) {
+        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self initAppearance];
+}
+
+- (void)initAppearance
+{
+    self.navigationController.navigationBar.translucent = NO;
+
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
+    [[UINavigationBar appearance] setBarTintColor:kPureWhite];
+
+    [[UIToolbar appearance] setBarStyle:UIBarStyleBlackOpaque];
+    [[UIToolbar appearance] setBarTintColor:kTagitBlack];
+    [self setHeaderLogo];
+    [self addNavigationItems];
+}
+
+- (void)addNavigationItems{
+    UIImage *cancel = [UIImage imageNamed:@"cancel.png"];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:cancel landscapeImagePhone:cancel style:UIBarButtonItemStylePlain target:self action:@selector(cancelSuggestion)];
+    [self.navigationItem.leftBarButtonItem setTintColor:[UIColor blackColor]];
+}
+
+- (void)setHeaderLogo {
+    [[self navigationItem] setTitleView:nil];
+    UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 165.0f, 32.5f)];
+    logoView.contentMode = UIViewContentModeScaleAspectFill;
+    UIImage *logoImage = [UIImage imageNamed:@"art_navBarLogo.png"];
+    [logoView setImage:logoImage];
+    self.navigationItem.titleView = logoView;
+}
+
+- (void)cancelSuggestion {
+    [self.parentViewController.tabBarController setSelectedIndex:0];
 }
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
@@ -98,7 +137,7 @@
     };
     self._photo.image = image;
     [self.view addSubview:self._photo];
-
+    self._showPicker = NO;
     [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
 

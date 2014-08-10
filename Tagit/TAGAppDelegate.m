@@ -10,6 +10,7 @@
 #import "TAGLoginViewController.h"
 #import "TAGTagsViewController.h"
 #import "TAGSuggestionViewController.h"
+#import "TAGTabBarController.h"
 
 #import "TAGStyleConstants.h"
 
@@ -60,10 +61,13 @@
 
     TAGTagsViewController *feedViewController = [TAGTagsViewController new];
     UINavigationController *tagFeedNavController = [[UINavigationController alloc]initWithRootViewController:feedViewController];
+
     TAGSuggestionViewController *suggestionViewController = [TAGSuggestionViewController new];
     UINavigationController *suggestionNavController = [[UINavigationController alloc]initWithRootViewController:suggestionViewController];
+    suggestionViewController.hidesBottomBarWhenPushed = YES;
 
     [tagTabBarController setViewControllers:@[tagFeedNavController, suggestionNavController]];
+
     [self styleTabBar:tagTabBarController.tabBar];
 
     [[self window] setRootViewController:tagTabBarController];
@@ -72,16 +76,14 @@
 - (void)styleTabBar:(UITabBar *)tabBar {
     [[UITabBar appearance] setBarTintColor:kTagitBlack];
     [[UITabBar appearance] setSelectedImageTintColor:kPureWhite];
-    NSArray *tabBarTitlesMap = @[@"Feed", @"Camera"];
     NSArray *tabBarImagesMap = @[@"tag", @"camera"];
 
     [[tabBar items] enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger index, BOOL *stop){
-        [self setTabItemImages:item withTitle:[tabBarTitlesMap objectAtIndex:index] andImageName:[tabBarImagesMap objectAtIndex:index]];
+        [self setTabItemImages:item forImageName:[tabBarImagesMap objectAtIndex:index]];
     }];
 }
 
-- (void)setTabItemImages:(UITabBarItem *)item withTitle:(NSString *)title andImageName:(NSString *)imageName {
-    [item setTitle:title];
+- (void)setTabItemImages:(UITabBarItem *)item forImageName:(NSString *)imageName {
     [item setImage:[[UIImage imageNamed:[imageName stringByAppendingString:@"Unselected.png"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [item setSelectedImage:[[UIImage imageNamed:[imageName stringByAppendingString:@"Selected.png"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [item setTitleTextAttributes:@{ NSForegroundColorAttributeName : kTagitDeselectedGrey } forState:UIControlStateNormal];
