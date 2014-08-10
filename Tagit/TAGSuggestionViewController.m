@@ -30,7 +30,6 @@
     if (self) {
         // Custom initialization
         NSLog(@"Suggestion Initialized");
-
         self._showPicker = YES;
     }
     return self;
@@ -126,7 +125,9 @@
     return imagePickerController;
 }
 
+#pragma UIImagePickerControllerProtocol methods
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    self._showPicker = NO;
     UIImage *image = info[UIImagePickerControllerOriginalImage];
 
     CGSize imageSize = image.size;
@@ -145,10 +146,16 @@
     };
     self._photo.image = image;
     [self.view addSubview:self._photo];
-    self._showPicker = NO;
     [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    if (self._showPicker == YES) {
+        [self.parentViewController.tabBarController setSelectedIndex:0];
+    }
+
+    [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)didReceiveMemoryWarning
 {
