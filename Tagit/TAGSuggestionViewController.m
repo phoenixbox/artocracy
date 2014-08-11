@@ -9,6 +9,7 @@
 #import "TAGSuggestionViewController.h"
 #import "TAGCameraOverlay.h"
 #import "TAGImagePickerController.h"
+#import "TAGMapViewController.h"
 
 // Constants
 #import "TAGStyleConstants.h"
@@ -17,6 +18,7 @@
 
 @property (nonatomic) TAGImagePickerController *_imagePickerController;
 @property (nonatomic, strong) UIView *_overlayView;
+@property (nonatomic, strong) TAGMapViewController *_mapController;
 @property (nonatomic, strong) UIImageView *_photo;
 @property (nonatomic, strong) UIScrollView *_scrollView;
 @property (nonatomic) BOOL _showPicker;
@@ -36,9 +38,9 @@
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     self._photo = [UIImageView new];
-    self._photo.frame = CGRectMake(0.0f, kBigPadding, 320.0f, 320.0f);
+    self._photo.frame = CGRectMake(0.0f, kBigPadding*2, 320.0f, 320.0f);
 
     if (self._showPicker) {
         [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
@@ -50,6 +52,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self initAppearance];
+    [self renderMap];
 }
 
 - (void)initAppearance
@@ -82,6 +85,14 @@
     UIImage *logoImage = [UIImage imageNamed:@"art_navBarLogo.png"];
     [logoView setImage:logoImage];
     self.navigationItem.titleView = logoView;
+}
+
+- (void)renderMap {
+    self._mapController = [TAGMapViewController new];
+//    [self._mapController.view setFrame:CGRectMake(0.0f,320.0f,self.view.frame.size.width, 200.0f)];
+
+    [self addChildViewController:self._mapController];
+    [self.view addSubview:self._mapController.view];
 }
 
 - (void)cancelSuggestion {

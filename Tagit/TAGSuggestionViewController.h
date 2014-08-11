@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAGSuggestionViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+// Location Modules
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
+
+
+@interface TAGSuggestionViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate,MKMapViewDelegate, CLLocationManagerDelegate>
 
 @end
