@@ -47,7 +47,7 @@
     self._mapView = [[MKMapView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x,
                                                                320.0f,
                                                                self.view.frame.size.width,
-                                                               200.0f)];
+                                                               100.0f)];
 
     [self._mapView setMapType:MKMapTypeStandard];
     self._mapView.delegate = self;

@@ -23,6 +23,11 @@
 @property (nonatomic, strong) UIScrollView *_scrollView;
 @property (nonatomic) BOOL _showPicker;
 
+@property (nonatomic, strong) UILabel *_locationTitle;
+@property (nonatomic, strong) UILabel *_address;
+
+@property (nonatomic, strong) UIPickerView *_canvasPicker;
+
 @end
 
 @implementation TAGSuggestionViewController
@@ -43,7 +48,7 @@
     self._photo.frame = CGRectMake(0.0f, kBigPadding*2, 320.0f, 320.0f);
 
     if (self._showPicker) {
-        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+//        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
     }
 }
 
@@ -52,7 +57,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self initAppearance];
+    [self renderScrollView];
     [self renderMap];
+    [self renderLocation];
+    [self renderForm];
 }
 
 - (void)initAppearance
@@ -87,12 +95,59 @@
     self.navigationItem.titleView = logoView;
 }
 
+- (void)renderScrollView {
+    self._scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    [self._scrollView setContentSize:CGSizeMake(self.view.bounds.size.width,self.view.bounds.size.height)];
+
+    self._scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    self._scrollView.delegate = self;
+
+    [self.view addSubview:self._scrollView];
+}
+
 - (void)renderMap {
     self._mapController = [TAGMapViewController new];
-//    [self._mapController.view setFrame:CGRectMake(0.0f,320.0f,self.view.frame.size.width, 200.0f)];
 
     [self addChildViewController:self._mapController];
-    [self.view addSubview:self._mapController.view];
+    [self._scrollView addSubview:self._mapController.view];
+}
+
+- (void)renderLocation {
+    self._locationTitle = [[UILabel alloc] initWithFrame:CGRectMake(kBigPadding,
+                                                                   430.0f,
+                                                                   70.0f,
+                                                                    40.0f)];
+
+    float addressXCoord = self._locationTitle.frame.origin.x + self._locationTitle.frame.size.width + kSmallPadding;
+    // NOTE: The alignment of labels to the bottom edge with height delta - 16 - 12 = 4
+    self._address = [[UILabel alloc] initWithFrame:CGRectMake(addressXCoord,
+                                                              430.0f + 4.0f,
+                                                              100.0f,
+                                                              40.0f)];
+
+    NSAttributedString *locationCopy = [self attributeText:@"Location" forFontSize:16.0f];
+    [self._locationTitle setAttributedText:locationCopy];
+    [self sizeLabelToFit:self._locationTitle numberOfLines:0];
+    [self._scrollView addSubview:self._locationTitle];
+
+    NSAttributedString *addressCopy = [self attributeText:@"123 Ape Street, San Francisco, CA 93221" forFontSize:12.0f];
+    [self._address setAttributedText:addressCopy];
+    [self sizeLabelToFit:self._address numberOfLines:1];
+    [self._scrollView addSubview:self._address];
+}
+
+- (NSAttributedString *)attributeText:(NSString *)text forFontSize:(CGFloat)size{
+    return [[NSAttributedString alloc]initWithString:text attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:size]}];
+}
+
+
+- (void)sizeLabelToFit:(UILabel *)label numberOfLines:(CGFloat)lineNumber {
+    [label setNumberOfLines:lineNumber];
+    [label sizeToFit];
+}
+
+- (void)renderForm {
+
 }
 
 - (void)cancelSuggestion {
@@ -157,7 +212,7 @@
         UIGraphicsEndImageContext();
     };
     self._photo.image = image;
-    [self.view addSubview:self._photo];
+    [self._scrollView addSubview:self._photo];
     [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -168,6 +223,9 @@
 
     [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma UIPicker methods
+
 
 - (void)didReceiveMemoryWarning
 {

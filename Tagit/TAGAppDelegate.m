@@ -10,7 +10,6 @@
 #import "TAGLoginViewController.h"
 #import "TAGTagsViewController.h"
 #import "TAGSuggestionViewController.h"
-#import "TAGTabBarController.h"
 
 #import "TAGStyleConstants.h"
 
