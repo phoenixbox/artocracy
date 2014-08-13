@@ -29,6 +29,8 @@
 @property (nonatomic, strong) UILabel *_canvasTypeTitle;
 @property (nonatomic, strong) UISegmentedControl *_canvasTypeSegment;
 
+@property (nonatomic, strong) UIButton *_submitButton;
+
 @end
 
 @implementation TAGSuggestionViewController
@@ -107,7 +109,7 @@
 }
 
 - (void)setScrollViewContentSize {
-    CGFloat fullHeight = self._canvasTypeSegment.frame.origin.y + 100.0f;
+    CGFloat fullHeight = self._submitButton.frame.origin.y + 150.0f;
 
     [self._scrollView setContentSize:CGSizeMake(self.view.bounds.size.width,fullHeight)];
 }
@@ -170,6 +172,23 @@
     CGPoint segmentCenter = CGPointMake(self.view.center.x, self._canvasTypeTitle.frame.origin.y + 50.0f);
     [self._canvasTypeSegment setCenter:segmentCenter];
     [self._scrollView addSubview:self._canvasTypeSegment];
+    [self renderLoginButton];
+}
+
+- (void)renderLoginButton {
+    CGFloat yCoord = self._canvasTypeSegment.frame.origin.y + self._canvasTypeSegment.frame.size.height + kBigPadding;
+    CGRect buttonFrame = CGRectMake(kBigPadding, yCoord, self.view.frame.size.width - kBigPadding*2, kBigPadding*4);
+
+    self._submitButton = [[UIButton alloc]initWithFrame:buttonFrame];
+    [self._submitButton setTitle:@"Submit" forState:UIControlStateNormal];
+    [self._submitButton setTitleColor:kPureWhite forState:UIControlStateNormal];
+    self._submitButton.backgroundColor = kTagitBlack;
+    [self._submitButton addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
+    [self._scrollView addSubview:self._submitButton];
+}
+
+- (void)submit {
+    NSLog(@"Implement Submission");
 }
 
 - (void)cancelSuggestion {
