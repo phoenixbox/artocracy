@@ -21,12 +21,13 @@
 @property (nonatomic, strong) TAGMapViewController *_mapController;
 @property (nonatomic, strong) UIImageView *_photo;
 @property (nonatomic, strong) UIScrollView *_scrollView;
-@property (nonatomic) BOOL _showPicker;
+@property (nonatomic) BOOL _showImagePicker;
 
 @property (nonatomic, strong) UILabel *_locationTitle;
 @property (nonatomic, strong) UILabel *_address;
 
-@property (nonatomic, strong) UIPickerView *_canvasPicker;
+@property (nonatomic, strong) UILabel *_canvasTypeTitle;
+@property (nonatomic, strong) UISegmentedControl *_canvasTypeSegment;
 
 @end
 
@@ -38,7 +39,7 @@
     if (self) {
         // Custom initialization
         NSLog(@"Suggestion Initialized");
-        self._showPicker = YES;
+        self._showImagePicker = YES;
     }
     return self;
 }
@@ -47,7 +48,7 @@
     self._photo = [UIImageView new];
     self._photo.frame = CGRectMake(0.0f, kBigPadding*2, 320.0f, 320.0f);
 
-    if (self._showPicker) {
+    if (self._showImagePicker) {
 //        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
     }
 }
@@ -61,6 +62,8 @@
     [self renderMap];
     [self renderLocation];
     [self renderForm];
+
+    [self setScrollViewContentSize];
 }
 
 - (void)initAppearance
@@ -97,12 +100,16 @@
 
 - (void)renderScrollView {
     self._scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    [self._scrollView setContentSize:CGSizeMake(self.view.bounds.size.width,self.view.bounds.size.height)];
-
     self._scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     self._scrollView.delegate = self;
 
     [self.view addSubview:self._scrollView];
+}
+
+- (void)setScrollViewContentSize {
+    CGFloat fullHeight = self._canvasTypeSegment.frame.origin.y + 100.0f;
+
+    [self._scrollView setContentSize:CGSizeMake(self.view.bounds.size.width,fullHeight)];
 }
 
 - (void)renderMap {
@@ -147,7 +154,22 @@
 }
 
 - (void)renderForm {
+    float yCoord = 430.0f + self._locationTitle.frame.size.height + kBigPadding;
+    self._canvasTypeTitle = [[UILabel alloc] initWithFrame:CGRectMake(kBigPadding,
+                                                                    yCoord,
+                                                                    100.0f,
+                                                                    40.0f)];
+    NSAttributedString *canvasTypeCopy = [self attributeText:@"Canvas Type" forFontSize:16.0f];
+    [self._canvasTypeTitle setAttributedText:canvasTypeCopy];
+    [self sizeLabelToFit:self._canvasTypeTitle numberOfLines:1];
+    [self._scrollView addSubview:self._canvasTypeTitle];
 
+    NSArray *segments = @[ @"Commercial Wall", @"Public Wall"];
+    self._canvasTypeSegment = [[UISegmentedControl alloc] initWithItems:segments];
+    [self._canvasTypeSegment setTintColor:[UIColor blackColor]];
+    CGPoint segmentCenter = CGPointMake(self.view.center.x, self._canvasTypeTitle.frame.origin.y + 50.0f);
+    [self._canvasTypeSegment setCenter:segmentCenter];
+    [self._scrollView addSubview:self._canvasTypeSegment];
 }
 
 - (void)cancelSuggestion {
@@ -194,7 +216,7 @@
 
 #pragma UIImagePickerControllerProtocol methods
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    self._showPicker = NO;
+    self._showImagePicker = NO;
     UIImage *image = info[UIImagePickerControllerOriginalImage];
 
     CGSize imageSize = image.size;
@@ -217,15 +239,12 @@
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    if (self._showPicker == YES) {
+    if (self._showImagePicker == YES) {
         [self.parentViewController.tabBarController setSelectedIndex:0];
     }
 
     [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
-
-#pragma UIPicker methods
-
 
 - (void)didReceiveMemoryWarning
 {
