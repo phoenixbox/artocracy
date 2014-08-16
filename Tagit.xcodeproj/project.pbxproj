@@ -50,6 +50,10 @@
 		CBDA9A3C19982FA600E8AD31 /* TAGMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A3B19982FA600E8AD31 /* TAGMapView.m */; };
 		CBDA9A3F1998437B00E8AD31 /* TAGMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A3E1998437B00E8AD31 /* TAGMapAnnotation.m */; };
 		CBDA9A4319985A6B00E8AD31 /* map_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A4219985A6B00E8AD31 /* map_icon@2x.png */; };
+		CBDA9A4C199B202400E8AD31 /* TAGSuggestionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A4B199B202400E8AD31 /* TAGSuggestionStore.m */; };
+		CBDA9A50199B203D00E8AD31 /* TAGSuggestion.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A4F199B203D00E8AD31 /* TAGSuggestion.m */; };
+		CBDA9A53199B2F6700E8AD31 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDA9A51199B2F6700E8AD31 /* AWSRuntime.framework */; };
+		CBDA9A54199B2F6700E8AD31 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDA9A52199B2F6700E8AD31 /* AWSS3.framework */; };
 		D07B4ED854414D49BBA5AC7F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F209F9462484A069D763253 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +136,13 @@
 		CBDA9A3D1998437B00E8AD31 /* TAGMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGMapAnnotation.h; sourceTree = "<group>"; };
 		CBDA9A3E1998437B00E8AD31 /* TAGMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGMapAnnotation.m; sourceTree = "<group>"; };
 		CBDA9A4219985A6B00E8AD31 /* map_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_icon@2x.png"; sourceTree = "<group>"; };
+		CBDA9A4A199B202400E8AD31 /* TAGSuggestionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionStore.h; sourceTree = "<group>"; };
+		CBDA9A4B199B202400E8AD31 /* TAGSuggestionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionStore.m; sourceTree = "<group>"; };
+		CBDA9A4E199B203D00E8AD31 /* TAGSuggestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestion.h; sourceTree = "<group>"; };
+		CBDA9A4F199B203D00E8AD31 /* TAGSuggestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestion.m; sourceTree = "<group>"; };
+		CBDA9A51199B2F6700E8AD31 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSRuntime.framework; path = "../../../../Downloads/Amazon/aws-ios-sdk-1.7.1/AWSRuntime.framework"; sourceTree = "<group>"; };
+		CBDA9A52199B2F6700E8AD31 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSS3.framework; path = "../../../../Downloads/Amazon/aws-ios-sdk-1.7.1/AWSS3.framework"; sourceTree = "<group>"; };
+		CBDA9A55199B308300E8AD31 /* TAGAppConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAGAppConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +150,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBDA9A53199B2F6700E8AD31 /* AWSRuntime.framework in Frameworks */,
+				CBDA9A54199B2F6700E8AD31 /* AWSS3.framework in Frameworks */,
 				CB267399198DE3FA00CB02A1 /* CoreGraphics.framework in Frameworks */,
 				CB26739B198DE3FA00CB02A1 /* UIKit.framework in Frameworks */,
 				CB267397198DE3FA00CB02A1 /* Foundation.framework in Frameworks */,
@@ -177,6 +190,8 @@
 				CB06813D198E9EB000B13E49 /* TAGAuthStore.m */,
 				CB06815A198ECED200B13E49 /* TAGTagStore.h */,
 				CB06815B198ECED200B13E49 /* TAGTagStore.m */,
+				CBDA9A4A199B202400E8AD31 /* TAGSuggestionStore.h */,
+				CBDA9A4B199B202400E8AD31 /* TAGSuggestionStore.m */,
 			);
 			name = Stores;
 			sourceTree = "<group>";
@@ -197,6 +212,8 @@
 				CB06815F198ED06300B13E49 /* TAGTag.m */,
 				CB068161198ED08400B13E49 /* TAGTagChannel.h */,
 				CB068162198ED08400B13E49 /* TAGTagChannel.m */,
+				CBDA9A4E199B203D00E8AD31 /* TAGSuggestion.h */,
+				CBDA9A4F199B203D00E8AD31 /* TAGSuggestion.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -246,6 +263,8 @@
 		CB267395198DE3FA00CB02A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CBDA9A51199B2F6700E8AD31 /* AWSRuntime.framework */,
+				CBDA9A52199B2F6700E8AD31 /* AWSS3.framework */,
 				CB267396198DE3FA00CB02A1 /* Foundation.framework */,
 				CB267398198DE3FA00CB02A1 /* CoreGraphics.framework */,
 				CB26739A198DE3FA00CB02A1 /* UIKit.framework */,
@@ -368,6 +387,7 @@
 				CB06813F198E9FD000B13E49 /* TAGRoutesConstants.h */,
 				CB0681641991F6C200B13E49 /* TAGCopyConstants.h */,
 				CB0681651991F71500B13E49 /* TAGComponentConstants.h */,
+				CBDA9A55199B308300E8AD31 /* TAGAppConstants.h */,
 			);
 			name = Constants;
 			sourceTree = "<group>";
@@ -552,6 +572,7 @@
 				CB068159198ECCEB00B13E49 /* TAGErrorAlert.m in Sources */,
 				CBDA9A3F1998437B00E8AD31 /* TAGMapAnnotation.m in Sources */,
 				CBDA9A3C19982FA600E8AD31 /* TAGMapView.m in Sources */,
+				CBDA9A4C199B202400E8AD31 /* TAGSuggestionStore.m in Sources */,
 				CB06813E198E9EB000B13E49 /* TAGAuthStore.m in Sources */,
 				CBDA9A121996C4D800E8AD31 /* TAGSuggestionViewController.m in Sources */,
 				CB2673A3198DE3FA00CB02A1 /* main.m in Sources */,
@@ -562,6 +583,7 @@
 				CB068160198ED06300B13E49 /* TAGTag.m in Sources */,
 				CB06815C198ECED200B13E49 /* TAGTagStore.m in Sources */,
 				CB068143198EA9EF00B13E49 /* TAGTagsViewController.m in Sources */,
+				CBDA9A50199B203D00E8AD31 /* TAGSuggestion.m in Sources */,
 				CBDA9A191996C9C300E8AD31 /* TAGCameraOverlay.m in Sources */,
 				CB068163198ED08400B13E49 /* TAGTagChannel.m in Sources */,
 				CBDA9A301997158500E8AD31 /* TAGImagePickerController.m in Sources */,
@@ -682,6 +704,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/shanerogers/Downloads/Amazon/aws-ios-sdk-1.7.1",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tagit/Tagit-Prefix.pch";
 				INFOPLIST_FILE = "Tagit/Tagit-Info.plist";
@@ -696,6 +722,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/shanerogers/Downloads/Amazon/aws-ios-sdk-1.7.1",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tagit/Tagit-Prefix.pch";
 				INFOPLIST_FILE = "Tagit/Tagit-Info.plist";

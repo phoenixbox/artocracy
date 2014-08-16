@@ -17,7 +17,11 @@
 // ** Session
 #define kAPIUserLogin @"http://192.168.1.116:3000/api/v1/users/login"
 
-// ** Session
+// ** Tags
 #define kAPITagsIndex @"http://192.168.1.116:3000/api/v1/tags"
+
+// ** Tags
+#define kAPISubmissionCreate @"http://192.168.1.116:3000/api/v1/submissions"
+
 
 #endif

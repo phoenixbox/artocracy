@@ -10,6 +10,9 @@
 #import "TAGCameraOverlay.h"
 #import "TAGImagePickerController.h"
 #import "TAGMapViewController.h"
+#import "TAGSuggestionStore.h"
+
+#import "TAGErrorAlert.h"
 
 // Constants
 #import "TAGStyleConstants.h"
@@ -20,6 +23,7 @@
 @property (nonatomic, strong) UIView *_overlayView;
 @property (nonatomic, strong) TAGMapViewController *_mapController;
 @property (nonatomic, strong) UIImageView *_photo;
+@property (nonatomic, strong) NSData *_photoData;
 @property (nonatomic, strong) UIScrollView *_scrollView;
 @property (nonatomic) BOOL _showImagePicker;
 
@@ -183,12 +187,21 @@
     [self._submitButton setTitle:@"Submit" forState:UIControlStateNormal];
     [self._submitButton setTitleColor:kPureWhite forState:UIControlStateNormal];
     self._submitButton.backgroundColor = kTagitBlack;
-    [self._submitButton addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
+    [self._submitButton addTarget:self action:@selector(submitSuggestion:) forControlEvents:UIControlEventTouchUpInside];
     [self._scrollView addSubview:self._submitButton];
 }
 
-- (void)submit {
-    NSLog(@"Implement Submission");
+- (void)submitSuggestion:(id)sender {
+    TAGSuggestionStore *suggestionStore = [TAGSuggestionStore sharedStore];
+
+    void(^completionBlock)(NSString *imageURL, NSError *err)=^(NSString *imageURL, NSError *err){
+        if(!err){
+            NSLog(@"Implement Callback");
+        } else {
+            [TAGErrorAlert render:err];
+        }
+    };
+    [suggestionStore saveSuggestionPhoto:self._photoData withCompletionBlock:completionBlock];
 }
 
 - (void)cancelSuggestion {
@@ -197,7 +210,7 @@
 
 - (void)retakePhoto {
     [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
-    [self._photo setImage:nil];
+//    [self._photo setImage:nil];
 }
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
@@ -252,7 +265,9 @@
         image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
     };
+
     self._photo.image = image;
+    self._photoData = UIImageJPEGRepresentation(image, 1.0);
     [self._scrollView addSubview:self._photo];
     [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
