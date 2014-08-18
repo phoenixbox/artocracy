@@ -80,17 +80,18 @@
 }
 
 - (void)createSuggestion:(NSMutableDictionary *)parameters withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))returnToUserProfile {
-    returnToUserProfile(nil, nil);
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-//
-//    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPISubmissionCreate withRouteParams:nil optionalParams:nil];
-//
-//    [manager POST:requestURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        // Return to the users profile
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error: %@", error);
-//    }];
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+
+    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPISubmissionCreate];
+
+    [manager POST:requestURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // Return to the users profile
+        returnToUserProfile(nil, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 - (NSString *)pictureBucket {

@@ -28,7 +28,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
-    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPITagsIndex withRouteParams:nil optionalParams:nil];
+    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPITagsIndex];
 
     [manager GET:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString* rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];

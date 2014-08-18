@@ -10,6 +10,6 @@
 
 @interface TAGAuthStore : NSObject
 
-+ (NSString *)authenticateRequest:(NSString *)requestURL withRouteParams:(NSString *)routeParams optionalParams:(NSString *)optionalParams;
++ (NSString *)authenticateRequest:(NSString *)requestURL;
 
 @end
