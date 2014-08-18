@@ -139,15 +139,16 @@
             NSDictionary *address = @{ @"address" : placemark.name,
                                        @"city" : placemark.subAdministrativeArea,
                                        @"state" : placemark.administrativeArea,
-                                       @"postalCode" : placemark.postalCode,
+                                       @"zip_code" : placemark.postalCode,
+                                       @"country" :placemark.ISOcountryCode
                                        };
             [suggestionParams addEntriesFromDictionary:address];
 
             NSString *latitude = [NSString stringWithFormat:@"%f", self._currentUserLocation.coordinate.latitude];
             NSString *longitude = [NSString stringWithFormat:@"%f", self._currentUserLocation.coordinate.longitude];
 
-            [suggestionParams setObject:latitude forKey:@"lat"];
-            [suggestionParams setObject:longitude forKey:@"long"];
+            [suggestionParams setObject:latitude forKey:@"latitude"];
+            [suggestionParams setObject:longitude forKey:@"longitude"];
 
             finishedGeocodingBlock(suggestionParams, nil);
         }

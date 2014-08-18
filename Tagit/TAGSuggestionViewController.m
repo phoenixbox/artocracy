@@ -205,10 +205,9 @@
             NSString *selectedCanvasType = [self._canvasTypeSegment titleForSegmentAtIndex:self._canvasTypeSegment.selectedSegmentIndex];
             [suggestionParams setObject:selectedCanvasType forKey:@"canvas_type"];
             [suggestionParams setObject:self._imageLocation forKey:@"image_url"];
-
             // Send this data to the server
             TAGSuggestionStore *store = [TAGSuggestionStore sharedStore];
-            [store createSuggestion:suggestionParams withCompletionBlock:suggestionCreated];
+            [store createSuggestion:suggestionParams withCompletionBlock:returnToUserProfile];
         };
 
         void(^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *err)=^(NSURL *s3ImageLocation, NSError *err){
@@ -226,7 +225,7 @@
     }
 }
 
-void (^suggestionCreated)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err){
+void (^returnToUserProfile)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err){
     NSLog(@"REDIRECT USER TO THEIR PROFILE PAGE");
     // RESTART: Implement the successful server side storage of the suggestion and pop the selection creator off of the stack
     //    OR

@@ -7,7 +7,6 @@
 //
 
 #import "TAGSuggestionStore.h"
-#import "TAGsuggestion.h"
 #import "TAGAuthStore.h"
 #import "TAGErrorAlert.h"
 
@@ -52,6 +51,26 @@
     [self.tm uploadData:imageData bucket:@"artocracy.bananas" key:uuid];
 }
 
+- (void)createSuggestion:(NSMutableDictionary *)parameters withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))returnToUserProfile {
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPISuggestionsCreate];
+    NSDictionary *suggestionParams = @{@"suggestion": parameters};
+
+    [manager POST:requestURL parameters:suggestionParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString* rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        TAGSuggestion *suggestion = [[TAGSuggestion alloc] initWithString:rawJSON error:nil];
+
+        returnToUserProfile(suggestion, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+#pragma AmazonServiceRequest Protocol Methods
+
 -(void)request:(AmazonServiceRequest *)request didReceiveResponse:(NSURLResponse *)response
 {
     NSLog(@"didReceiveResponse called: %@", response);
@@ -77,25 +96,6 @@
 {
     self.imageUploaded(request.url,error);
     NSLog(@"didFailWithError called: %@", error);
-}
-
-- (void)createSuggestion:(NSMutableDictionary *)parameters withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))returnToUserProfile {
-
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-
-    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPISubmissionCreate];
-
-    [manager POST:requestURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        // Return to the users profile
-        returnToUserProfile(nil, nil);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-}
-
-- (NSString *)pictureBucket {
-    return [[NSString stringWithFormat:@"%@-%@", PICTURE_BUCKET, ACCESS_KEY_ID] lowercaseString];
 }
 
 @end
