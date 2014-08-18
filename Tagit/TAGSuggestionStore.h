@@ -15,11 +15,14 @@
 
 @interface TAGSuggestionStore : NSObject <AmazonServiceRequestDelegate>
 
+@property (nonatomic, retain) S3TransferManager *tm;
 @property (nonatomic, retain) AmazonS3Client *s3;
+@property (nonatomic, copy) void(^imageUploaded)(NSURL *s3ImageLocation, NSError *);
 
 + (TAGSuggestionStore *)sharedStore;
 
-- (void)saveSuggestionPhoto:(NSData *)imageData withCompletionBlock:(void (^)(NSString *imageURL, NSError *err))block;
-- (void)createSuggestion:(NSDictionary *)parameters withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))block;
+- (void)saveSuggestionImage:(NSData *)imageData withCompletionBlock:(void (^)(NSURL *s3ImageLocation, NSError *))imageUploadedBlock;
+
+- (void)createSuggestion:(NSMutableDictionary *)parameters withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))returnToUserProfile;
 
 @end

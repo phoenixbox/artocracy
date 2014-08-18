@@ -35,6 +35,8 @@
 
 @property (nonatomic, strong) UIButton *_submitButton;
 
+@property (nonatomic, strong) NSURL *_imageLocation;
+
 @end
 
 @implementation TAGSuggestionViewController
@@ -159,6 +161,7 @@
     [label sizeToFit];
 }
 
+// TODO: Add form field validations
 - (void)renderForm {
     float yCoord = 430.0f + self._locationTitle.frame.size.height + kBigPadding;
     self._canvasTypeTitle = [[UILabel alloc] initWithFrame:CGRectMake(kBigPadding,
@@ -175,6 +178,7 @@
     [self._canvasTypeSegment setTintColor:[UIColor blackColor]];
     CGPoint segmentCenter = CGPointMake(self.view.center.x, self._canvasTypeTitle.frame.origin.y + 50.0f);
     [self._canvasTypeSegment setCenter:segmentCenter];
+
     [self._scrollView addSubview:self._canvasTypeSegment];
     [self renderLoginButton];
 }
@@ -192,17 +196,42 @@
 }
 
 - (void)submitSuggestion:(id)sender {
-    TAGSuggestionStore *suggestionStore = [TAGSuggestionStore sharedStore];
+    if (self._canvasTypeSegment.selectedSegmentIndex != -1) {
+        TAGSuggestionStore *suggestionStore = [TAGSuggestionStore sharedStore];
 
-    void(^completionBlock)(NSString *imageURL, NSError *err)=^(NSString *imageURL, NSError *err){
-        if(!err){
-            NSLog(@"Implement Callback");
-        } else {
-            [TAGErrorAlert render:err];
-        }
-    };
-    [suggestionStore saveSuggestionPhoto:self._photoData withCompletionBlock:completionBlock];
+        void(^finishedGeocodingBlock)(NSMutableDictionary *suggestionParams, NSError *err)=^(NSMutableDictionary *suggestionParams, NSError *err){
+
+            // Add the remaining selection params
+            NSString *selectedCanvasType = [self._canvasTypeSegment titleForSegmentAtIndex:self._canvasTypeSegment.selectedSegmentIndex];
+            [suggestionParams setObject:selectedCanvasType forKey:@"canvas_type"];
+            [suggestionParams setObject:self._imageLocation forKey:@"image_url"];
+
+            // Send this data to the server
+            TAGSuggestionStore *store = [TAGSuggestionStore sharedStore];
+            [store createSuggestion:suggestionParams withCompletionBlock:suggestionCreated];
+        };
+
+        void(^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *err)=^(NSURL *s3ImageLocation, NSError *err){
+            if(!err){
+                self._imageLocation = s3ImageLocation;
+                [self._mapController reverseGeocodeUserLocationWithCompletionBlock:finishedGeocodingBlock];
+            } else {
+                [TAGErrorAlert render:err];
+            }
+        };
+
+        [suggestionStore saveSuggestionImage:self._photoData withCompletionBlock:imageUploadedBlock];
+    } else {
+        NSLog(@"Implement Form Validations");
+    }
 }
+
+void (^suggestionCreated)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err){
+    NSLog(@"REDIRECT USER TO THEIR PROFILE PAGE");
+    // RESTART: Implement the successful server side storage of the suggestion and pop the selection creator off of the stack
+    //    OR
+    //    Show an alert success or confirmation page
+};
 
 - (void)cancelSuggestion {
     [self.parentViewController.tabBarController setSelectedIndex:0];
@@ -267,7 +296,7 @@
     };
 
     self._photo.image = image;
-    self._photoData = UIImageJPEGRepresentation(image, 1.0);
+    self._photoData = UIImageJPEGRepresentation(image, 0.2);
     [self._scrollView addSubview:self._photo];
     [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }

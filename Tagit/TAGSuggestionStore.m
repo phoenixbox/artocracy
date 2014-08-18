@@ -32,35 +32,65 @@
     static TAGSuggestionStore *suggestionStore = nil;
 
     if (!suggestionStore) {
-        suggestionStore = [[TAGSuggestionStore alloc]init];
+        suggestionStore = [[TAGSuggestionStore alloc] init];
     };
     return suggestionStore;
 }
 
-- (void)saveSuggestionPhoto:(NSData *)imageData withCompletionBlock:(void (^)(NSString *imageURL, NSError *err))block {
-    self.s3 = [[AmazonS3Client alloc] initWithAccessKey:ACCESS_KEY_ID withSecretKey:SECRET_KEY];
-    self.s3.endpoint = [AmazonEndpoints s3Endpoint:US_WEST_2];
+- (void)saveSuggestionImage:(NSData *)imageData withCompletionBlock:(void (^)(NSURL *s3ImageLocation, NSError *))imageUploadedBlock {
+    self.imageUploaded = imageUploadedBlock;
+    AmazonS3Client *s3 = [[AmazonS3Client alloc] initWithAccessKey:ACCESS_KEY_ID withSecretKey:SECRET_KEY];
+    s3.endpoint = [AmazonEndpoints s3Endpoint:US_WEST_2];
 
-    S3PutObjectRequest *por = [[S3PutObjectRequest alloc] initWithKey:@"BANANA" inBucket:@"mule.inventoryvideos"];
-    por.contentType = @"image/jpeg";
-    por.data        = imageData;
+    self.tm = [S3TransferManager new];
+    self.tm.s3 = s3;
+    self.tm.delegate = self;
 
-    por.delegate = self;
-    [self.s3 putObject:por];
+    NSString *uuid = [[NSUUID UUID] UUIDString];
+    NSLog(@"%@",uuid);
+
+    [self.tm uploadData:imageData bucket:@"artocracy.bananas" key:uuid];
 }
 
-- (void)createSuggestion:(NSDictionary *)parameters withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))block {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+-(void)request:(AmazonServiceRequest *)request didReceiveResponse:(NSURLResponse *)response
+{
+    NSLog(@"didReceiveResponse called: %@", response);
+}
 
-    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPISubmissionCreate withRouteParams:nil optionalParams:nil];
+-(void)request:(AmazonServiceRequest *)request didReceiveData:(NSData *)data
+{
+    NSLog(@"didReceiveData called");
+}
 
-    [manager POST:requestURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+-(void)request:(AmazonServiceRequest *)request didSendData:(long long)bytesWritten totalBytesWritten:(long long)totalBytesWritten totalBytesExpectedToWrite:(long long)totalBytesExpectedToWrite;
+{
+    NSLog(@"didSendData called: %lld - %lld / %lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
+}
 
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
+-(void)request:(AmazonServiceRequest *)request didCompleteWithResponse:(AmazonServiceResponse *)response
+{
+    self.imageUploaded(request.url,nil);
+    NSLog(@"didCompleteWithResponse called: %@", response);
+}
+
+-(void)request:(AmazonServiceRequest *)request didFailWithError:(NSError *)error
+{
+    self.imageUploaded(request.url,error);
+    NSLog(@"didFailWithError called: %@", error);
+}
+
+- (void)createSuggestion:(NSMutableDictionary *)parameters withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))returnToUserProfile {
+    returnToUserProfile(nil, nil);
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+//
+//    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPISubmissionCreate withRouteParams:nil optionalParams:nil];
+//
+//    [manager POST:requestURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        // Return to the users profile
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error: %@", error);
+//    }];
 }
 
 - (NSString *)pictureBucket {
