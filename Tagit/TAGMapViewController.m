@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong) MKMapView *_mapView;
 @property (nonatomic, strong) CLLocationManager *_myLocationManager;
-@property (nonatomic, strong) CLGeocoder *_geocoder;
+@property (nonatomic, retain) MKUserLocation *_currentUserLocation;
 @property (nonatomic) CGSize _searchViewSize;
 
 @end
@@ -67,8 +67,10 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    self._currentUserLocation = userLocation;
+
     [mapView removeAnnotations:[mapView annotations]];
-    
+
     float latitude = userLocation.coordinate.latitude;
     float longitude = userLocation.coordinate.longitude;
 
@@ -127,6 +129,37 @@
     return result;
 }
 
+- (void)reverseGeocodeUserLocationWithCompletionBlock:(void (^)(NSMutableDictionary *suggestionParams, NSError *err))finishedGeocodingBlock {
+    NSMutableDictionary *suggestionParams = [NSMutableDictionary new];
+    CLGeocoder *geocoder = [CLGeocoder new];
+
+    [geocoder reverseGeocodeLocation:self._currentUserLocation.location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error == nil && placemarks.count > 0){
+            CLPlacemark *placemark = placemarks[0];
+            NSDictionary *address = @{ @"address" : placemark.name,
+                                       @"city" : placemark.subAdministrativeArea,
+                                       @"state" : placemark.administrativeArea,
+                                       @"postalCode" : placemark.postalCode,
+                                       };
+            [suggestionParams addEntriesFromDictionary:address];
+
+            NSString *latitude = [NSString stringWithFormat:@"%f", self._currentUserLocation.coordinate.latitude];
+            NSString *longitude = [NSString stringWithFormat:@"%f", self._currentUserLocation.coordinate.longitude];
+
+            [suggestionParams setObject:latitude forKey:@"lat"];
+            [suggestionParams setObject:longitude forKey:@"long"];
+
+            finishedGeocodingBlock(suggestionParams, nil);
+        }
+        else if (error == nil && placemarks.count == 0){
+            NSLog(@"No results were returned.");
+        }
+        else if (error != nil){
+            NSLog(@"An error occurred = %@", error);
+            finishedGeocodingBlock(nil, error);
+        }
+    }];
+}
 
 /*
 #pragma mark - Navigation

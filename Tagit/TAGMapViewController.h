@@ -10,4 +10,6 @@
 
 @interface TAGMapViewController : UIViewController
 
+- (void)reverseGeocodeUserLocationWithCompletionBlock:(void (^)(NSMutableDictionary *suggestionParams, NSError *err))finishedGeocodingBlock;
+
 @end
