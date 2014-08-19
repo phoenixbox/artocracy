@@ -10,6 +10,7 @@
 #import "TAGLoginViewController.h"
 #import "TAGTagsViewController.h"
 #import "TAGSuggestionViewController.h"
+#import "TAGProfileViewController.h"
 
 #import "TAGStyleConstants.h"
 
@@ -58,14 +59,20 @@
 - (void)initializeNavigationControllers{
     UITabBarController *tagTabBarController = [UITabBarController new];
 
+    // Tags View Controller - TabBar item #1
     TAGTagsViewController *feedViewController = [TAGTagsViewController new];
     UINavigationController *tagFeedNavController = [[UINavigationController alloc]initWithRootViewController:feedViewController];
 
+    // Suggestion View Controller - TabBar item #2
     TAGSuggestionViewController *suggestionViewController = [TAGSuggestionViewController new];
     UINavigationController *suggestionNavController = [[UINavigationController alloc]initWithRootViewController:suggestionViewController];
     suggestionViewController.hidesBottomBarWhenPushed = YES;
 
-    [tagTabBarController setViewControllers:@[tagFeedNavController, suggestionNavController]];
+    // User Profile View Controller - TabBar item #3
+    TAGProfileViewController *profileViewController = [TAGProfileViewController new];
+    UINavigationController *profileNavController = [[UINavigationController alloc]initWithRootViewController:profileViewController];
+
+    [tagTabBarController setViewControllers:@[tagFeedNavController, suggestionNavController, profileNavController]];
 
     [self styleTabBar:tagTabBarController.tabBar];
 
@@ -75,7 +82,8 @@
 - (void)styleTabBar:(UITabBar *)tabBar {
     [[UITabBar appearance] setBarTintColor:kTagitBlack];
     [[UITabBar appearance] setSelectedImageTintColor:kPureWhite];
-    NSArray *tabBarImagesMap = @[@"tag", @"camera"];
+
+    NSArray *tabBarImagesMap = @[@"tag", @"camera", @"profile"];
 
     [[tabBar items] enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger index, BOOL *stop){
         [self setTabItemImages:item forImageName:[tabBarImagesMap objectAtIndex:index]];
