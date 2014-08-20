@@ -9,7 +9,15 @@
 #import "TAGProfileViewController.h"
 #import "TAGStyleConstants.h"
 
+#import "TAGProfileHeader.h"
+
+// Compose the collection presenter view controller
+#import "TAGCollectionPresenterViewController.h"
+
 @interface TAGProfileViewController ()
+
+@property (nonatomic, strong) TAGProfileHeader *_profileHeader;
+@property (nonatomic, strong) TAGCollectionPresenterViewController *_collectionPresenter;
 
 @end
 
@@ -29,6 +37,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self initAppearance];
+    [self renderProfileSection];
+    [self renderCollectionPresenter];
 }
 
 - (void)initAppearance
@@ -60,6 +70,28 @@
 }
 
 - (void)settings:(id)paramSender {
+}
+
+- (void)renderProfileSection {
+    self._profileHeader = [[TAGProfileHeader alloc]initWithFrame:CGRectMake(0.0f,
+                                                                           0.0f,
+                                                                           self.view.frame.size.width,
+                                                                           75.0f)];
+    [self.view addSubview:self._profileHeader];
+}
+
+
+-(void)renderCollectionPresenter {
+    float yCoord = self._profileHeader.frame.origin.y + self._profileHeader.frame.size.height;
+
+    self._collectionPresenter = [TAGCollectionPresenterViewController new];
+    [self._collectionPresenter.view setFrame:CGRectMake(0.0f,
+                                                       yCoord,
+                                                       self.view.frame.size.width,
+                                                       self.view.frame.size.height - yCoord)];
+
+    [self addChildViewController:self._collectionPresenter];
+    [self.view addSubview:self._collectionPresenter.view];
 }
 
 - (void)didReceiveMemoryWarning

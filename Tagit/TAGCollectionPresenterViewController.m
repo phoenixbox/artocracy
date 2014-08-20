@@ -7,8 +7,12 @@
 //
 
 #import "TAGCollectionPresenterViewController.h"
+#import "TAGCollectionControls.h"
 
 @interface TAGCollectionPresenterViewController ()
+
+@property (nonatomic, strong) TAGCollectionControls *_collectionControls;
+@property (nonatomic) BOOL _collectionView;
 
 @end
 
@@ -19,6 +23,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self._collectionView = true;
     }
     return self;
 }
@@ -27,6 +32,27 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.view setBackgroundColor:[UIColor greenColor]];
+
+    [self renderCollectionControls];
+    [self renderCollectionPresenter];
+}
+
+- (void)renderCollectionControls {
+    self._collectionControls = [[TAGCollectionControls alloc]initWithFrame:CGRectMake(0.0f,
+                                                                                      0.0f,
+                                                                                      self.view.frame.size.width,
+                                                                                      50.0f)];
+    [self.view addSubview:self._collectionControls];
+}
+
+- (void)renderCollectionPresenter {
+    // Trigger this on controls tap - pass a block into the control function that will trigger this method
+    if (self._collectionView) {
+        // Generate the collection view
+    } else {
+        // Generate the table view
+    }
 }
 
 - (void)didReceiveMemoryWarning
