@@ -36,6 +36,17 @@
     return suggestionStore;
 }
 
+- (void)addUniqueSuggestion:(TAGSuggestion *)suggestion {
+    if(!self.allUsersSuggestions){
+        self.allUsersSuggestions = [NSMutableArray new];
+    }
+
+    NSInteger ind = [self.allUsersSuggestions indexOfObject:suggestion];
+    if (ind == NSNotFound) {
+        [self.allUsersSuggestions addObject:suggestion];
+    }
+}
+
 - (void)saveSuggestionImage:(NSData *)imageData withCompletionBlock:(void (^)(NSURL *s3ImageLocation, NSError *))imageUploadedBlock {
     self.imageUploaded = imageUploadedBlock;
     AmazonS3Client *s3 = [[AmazonS3Client alloc] initWithAccessKey:ACCESS_KEY_ID withSecretKey:SECRET_KEY];

@@ -40,6 +40,9 @@
 		CB6DA4E119A32A4800BB71EE /* profileSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB6DA4DF19A32A4800BB71EE /* profileSelected@2x.png */; };
 		CB6DA4E219A32A4800BB71EE /* profileUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB6DA4E019A32A4800BB71EE /* profileUnselected@2x.png */; };
 		CB6DA4E419A32AE800BB71EE /* settingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB6DA4E319A32AE800BB71EE /* settingsIcon@2x.png */; };
+		CB6DA4E819A478CC00BB71EE /* TAGProfileHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6DA4E719A478CC00BB71EE /* TAGProfileHeader.m */; };
+		CB6DA4EB19A47AAD00BB71EE /* TAGCollectionControls.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6DA4EA19A47AAD00BB71EE /* TAGCollectionControls.m */; };
+		CBD4DCE919A47D370024209D /* TAGCollectionPresenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD4DCE819A47D370024209D /* TAGCollectionPresenterViewController.m */; };
 		CBDA9A121996C4D800E8AD31 /* TAGSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewController.m */; };
 		CBDA9A191996C9C300E8AD31 /* TAGCameraOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A181996C9C300E8AD31 /* TAGCameraOverlay.m */; };
 		CBDA9A1C1996CCCA00E8AD31 /* cameraSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A1A1996CCCA00E8AD31 /* cameraSelected@2x.png */; };
@@ -125,6 +128,12 @@
 		CB6DA4DF19A32A4800BB71EE /* profileSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "profileSelected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/profileSelected@2x.png"; sourceTree = "<group>"; };
 		CB6DA4E019A32A4800BB71EE /* profileUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "profileUnselected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/profileUnselected@2x.png"; sourceTree = "<group>"; };
 		CB6DA4E319A32AE800BB71EE /* settingsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "settingsIcon@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/settingsIcon@2x.png"; sourceTree = "<group>"; };
+		CB6DA4E619A478CC00BB71EE /* TAGProfileHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGProfileHeader.h; sourceTree = "<group>"; };
+		CB6DA4E719A478CC00BB71EE /* TAGProfileHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGProfileHeader.m; sourceTree = "<group>"; };
+		CB6DA4E919A47AAD00BB71EE /* TAGCollectionControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCollectionControls.h; sourceTree = "<group>"; };
+		CB6DA4EA19A47AAD00BB71EE /* TAGCollectionControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCollectionControls.m; sourceTree = "<group>"; };
+		CBD4DCE719A47D370024209D /* TAGCollectionPresenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCollectionPresenterViewController.h; sourceTree = "<group>"; };
+		CBD4DCE819A47D370024209D /* TAGCollectionPresenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCollectionPresenterViewController.m; sourceTree = "<group>"; };
 		CBDA9A101996C4D700E8AD31 /* TAGSuggestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionViewController.h; sourceTree = "<group>"; };
 		CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionViewController.m; sourceTree = "<group>"; };
 		CBDA9A171996C9C300E8AD31 /* TAGCameraOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCameraOverlay.h; sourceTree = "<group>"; };
@@ -351,6 +360,7 @@
 		CB2673C7198DE9FC00CB02A1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				CB6DA4E519A478BA00BB71EE /* Profile */,
 				CBDA9A161996C99500E8AD31 /* Suggestion */,
 				CB06816A1991FCF800B13E49 /* Common */,
 				CB0681661991FCD000B13E49 /* Tags */,
@@ -414,6 +424,17 @@
 			name = Profile;
 			sourceTree = "<group>";
 		};
+		CB6DA4E519A478BA00BB71EE /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				CB6DA4E619A478CC00BB71EE /* TAGProfileHeader.h */,
+				CB6DA4E719A478CC00BB71EE /* TAGProfileHeader.m */,
+				CB6DA4E919A47AAD00BB71EE /* TAGCollectionControls.h */,
+				CB6DA4EA19A47AAD00BB71EE /* TAGCollectionControls.m */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
 		CBDA9A0F1996C30A00E8AD31 /* Suggestion */ = {
 			isa = PBXGroup;
 			children = (
@@ -439,6 +460,8 @@
 			children = (
 				CBDA9A2E1997158500E8AD31 /* TAGImagePickerController.h */,
 				CBDA9A2F1997158500E8AD31 /* TAGImagePickerController.m */,
+				CBD4DCE719A47D370024209D /* TAGCollectionPresenterViewController.h */,
+				CBD4DCE819A47D370024209D /* TAGCollectionPresenterViewController.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -609,7 +632,10 @@
 				CB068160198ED06300B13E49 /* TAGTag.m in Sources */,
 				CB06815C198ECED200B13E49 /* TAGTagStore.m in Sources */,
 				CB068143198EA9EF00B13E49 /* TAGTagsViewController.m in Sources */,
+				CB6DA4EB19A47AAD00BB71EE /* TAGCollectionControls.m in Sources */,
+				CB6DA4E819A478CC00BB71EE /* TAGProfileHeader.m in Sources */,
 				CBDA9A50199B203D00E8AD31 /* TAGSuggestion.m in Sources */,
+				CBD4DCE919A47D370024209D /* TAGCollectionPresenterViewController.m in Sources */,
 				CBDA9A191996C9C300E8AD31 /* TAGCameraOverlay.m in Sources */,
 				CB068163198ED08400B13E49 /* TAGTagChannel.m in Sources */,
 				CBDA9A301997158500E8AD31 /* TAGImagePickerController.m in Sources */,

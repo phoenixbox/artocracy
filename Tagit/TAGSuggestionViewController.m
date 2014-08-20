@@ -199,6 +199,13 @@
     if (self._canvasTypeSegment.selectedSegmentIndex != -1) {
         TAGSuggestionStore *suggestionStore = [TAGSuggestionStore sharedStore];
 
+        // TODO: Understand how to not inline these blocks
+        void (^returnToUserProfile)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err){
+            [[TAGSuggestionStore sharedStore] addUniqueSuggestion:suggestion];
+
+            [self.parentViewController.tabBarController setSelectedIndex:2];
+        };
+
         void(^finishedGeocodingBlock)(NSMutableDictionary *suggestionParams, NSError *err)=^(NSMutableDictionary *suggestionParams, NSError *err){
 
             // Add the remaining selection params
@@ -224,13 +231,6 @@
         NSLog(@"Implement Form Validations");
     }
 }
-
-void (^returnToUserProfile)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err){
-    NSLog(@"REDIRECT USER TO THEIR PROFILE PAGE");
-    // RESTART: Implement the successful server side storage of the suggestion and pop the selection creator off of the stack
-    //    OR
-    //    Show an alert success or confirmation page
-};
 
 - (void)cancelSuggestion {
     [self.parentViewController.tabBarController setSelectedIndex:0];

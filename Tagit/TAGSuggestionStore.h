@@ -19,10 +19,13 @@
 @property (nonatomic, retain) AmazonS3Client *s3;
 @property (nonatomic, copy) void(^imageUploaded)(NSURL *s3ImageLocation, NSError *);
 
+@property (nonatomic, strong) NSMutableArray *allUsersSuggestions;
+
 + (TAGSuggestionStore *)sharedStore;
 
-- (void)saveSuggestionImage:(NSData *)imageData withCompletionBlock:(void (^)(NSURL *s3ImageLocation, NSError *))imageUploadedBlock;
+- (void)addUniqueSuggestion:(TAGSuggestion *)suggestion;
 
+- (void)saveSuggestionImage:(NSData *)imageData withCompletionBlock:(void (^)(NSURL *s3ImageLocation, NSError *))imageUploadedBlock;
 - (void)createSuggestion:(NSMutableDictionary *)parameters withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))returnToUserProfile;
 
 @end
