@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAGCollectionPresenterViewController : UIViewController
+extern NSString *const kCollectionViewPresenter;
+extern NSString *const kTableViewPresenter;
+
+@interface TAGCollectionPresenterViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end

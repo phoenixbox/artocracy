@@ -42,7 +42,16 @@
 		CB6DA4E419A32AE800BB71EE /* settingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB6DA4E319A32AE800BB71EE /* settingsIcon@2x.png */; };
 		CB6DA4E819A478CC00BB71EE /* TAGProfileHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6DA4E719A478CC00BB71EE /* TAGProfileHeader.m */; };
 		CB6DA4EB19A47AAD00BB71EE /* TAGCollectionControls.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6DA4EA19A47AAD00BB71EE /* TAGCollectionControls.m */; };
+		CBD194FB19A5C0C600C6B449 /* heartSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD194F519A5C0C600C6B449 /* heartSelected@2x.png */; };
+		CBD194FC19A5C0C600C6B449 /* heartUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD194F619A5C0C600C6B449 /* heartUnselected@2x.png */; };
+		CBD194FD19A5C0C600C6B449 /* lightbulbSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD194F719A5C0C600C6B449 /* lightbulbSelected@2x.png */; };
+		CBD1950119A5C15100C6B449 /* gridSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD194FF19A5C15100C6B449 /* gridSelected@2x.png */; };
+		CBD1950219A5C15100C6B449 /* gridUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD1950019A5C15100C6B449 /* gridUnselected@2x.png */; };
+		CBD1950519A5C15E00C6B449 /* listSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD1950319A5C15E00C6B449 /* listSelected@2x.png */; };
+		CBD1950619A5C15E00C6B449 /* listUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD1950419A5C15E00C6B449 /* listUnselected@2x.png */; };
+		CBD1950819A5C1C700C6B449 /* lightbulbUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD1950719A5C1C700C6B449 /* lightbulbUnselected@2x.png */; };
 		CBD4DCE919A47D370024209D /* TAGCollectionPresenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD4DCE819A47D370024209D /* TAGCollectionPresenterViewController.m */; };
+		CBD4DCEC19A482620024209D /* TAGCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD4DCEB19A482620024209D /* TAGCollectionView.m */; };
 		CBDA9A121996C4D800E8AD31 /* TAGSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewController.m */; };
 		CBDA9A191996C9C300E8AD31 /* TAGCameraOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A181996C9C300E8AD31 /* TAGCameraOverlay.m */; };
 		CBDA9A1C1996CCCA00E8AD31 /* cameraSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A1A1996CCCA00E8AD31 /* cameraSelected@2x.png */; };
@@ -132,8 +141,18 @@
 		CB6DA4E719A478CC00BB71EE /* TAGProfileHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGProfileHeader.m; sourceTree = "<group>"; };
 		CB6DA4E919A47AAD00BB71EE /* TAGCollectionControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCollectionControls.h; sourceTree = "<group>"; };
 		CB6DA4EA19A47AAD00BB71EE /* TAGCollectionControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCollectionControls.m; sourceTree = "<group>"; };
+		CBD194F519A5C0C600C6B449 /* heartSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heartSelected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/heartSelected@2x.png"; sourceTree = "<group>"; };
+		CBD194F619A5C0C600C6B449 /* heartUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heartUnselected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/heartUnselected@2x.png"; sourceTree = "<group>"; };
+		CBD194F719A5C0C600C6B449 /* lightbulbSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "lightbulbSelected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/lightbulbSelected@2x.png"; sourceTree = "<group>"; };
+		CBD194FF19A5C15100C6B449 /* gridSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gridSelected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/gridSelected@2x.png"; sourceTree = "<group>"; };
+		CBD1950019A5C15100C6B449 /* gridUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gridUnselected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/gridUnselected@2x.png"; sourceTree = "<group>"; };
+		CBD1950319A5C15E00C6B449 /* listSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "listSelected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/listSelected@2x.png"; sourceTree = "<group>"; };
+		CBD1950419A5C15E00C6B449 /* listUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "listUnselected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/listUnselected@2x.png"; sourceTree = "<group>"; };
+		CBD1950719A5C1C700C6B449 /* lightbulbUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "lightbulbUnselected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/lightbulbUnselected@2x.png"; sourceTree = "<group>"; };
 		CBD4DCE719A47D370024209D /* TAGCollectionPresenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCollectionPresenterViewController.h; sourceTree = "<group>"; };
 		CBD4DCE819A47D370024209D /* TAGCollectionPresenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCollectionPresenterViewController.m; sourceTree = "<group>"; };
+		CBD4DCEA19A482620024209D /* TAGCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCollectionView.h; sourceTree = "<group>"; };
+		CBD4DCEB19A482620024209D /* TAGCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCollectionView.m; sourceTree = "<group>"; };
 		CBDA9A101996C4D700E8AD31 /* TAGSuggestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionViewController.h; sourceTree = "<group>"; };
 		CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionViewController.m; sourceTree = "<group>"; };
 		CBDA9A171996C9C300E8AD31 /* TAGCameraOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCameraOverlay.h; sourceTree = "<group>"; };
@@ -380,6 +399,7 @@
 		CB2673CC198DEEA300CB02A1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CBD194F119A5C08200C6B449 /* Components */,
 				CB6DA4E319A32AE800BB71EE /* settingsIcon@2x.png */,
 				CB6DA4DF19A32A4800BB71EE /* profileSelected@2x.png */,
 				CB6DA4E019A32A4800BB71EE /* profileUnselected@2x.png */,
@@ -431,8 +451,33 @@
 				CB6DA4E719A478CC00BB71EE /* TAGProfileHeader.m */,
 				CB6DA4E919A47AAD00BB71EE /* TAGCollectionControls.h */,
 				CB6DA4EA19A47AAD00BB71EE /* TAGCollectionControls.m */,
+				CBD4DCEA19A482620024209D /* TAGCollectionView.h */,
+				CBD4DCEB19A482620024209D /* TAGCollectionView.m */,
 			);
 			name = Profile;
+			sourceTree = "<group>";
+		};
+		CBD194F119A5C08200C6B449 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				CBD194F219A5C08F00C6B449 /* CollectionControls */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		CBD194F219A5C08F00C6B449 /* CollectionControls */ = {
+			isa = PBXGroup;
+			children = (
+				CBD1950719A5C1C700C6B449 /* lightbulbUnselected@2x.png */,
+				CBD1950319A5C15E00C6B449 /* listSelected@2x.png */,
+				CBD1950419A5C15E00C6B449 /* listUnselected@2x.png */,
+				CBD194FF19A5C15100C6B449 /* gridSelected@2x.png */,
+				CBD1950019A5C15100C6B449 /* gridUnselected@2x.png */,
+				CBD194F519A5C0C600C6B449 /* heartSelected@2x.png */,
+				CBD194F619A5C0C600C6B449 /* heartUnselected@2x.png */,
+				CBD194F719A5C0C600C6B449 /* lightbulbSelected@2x.png */,
+			);
+			name = CollectionControls;
 			sourceTree = "<group>";
 		};
 		CBDA9A0F1996C30A00E8AD31 /* Suggestion */ = {
@@ -550,17 +595,25 @@
 				CBDA9A1D1996CCCA00E8AD31 /* cameraUnselected@2x.png in Resources */,
 				CB068153198ECA4100B13E49 /* navBarLogo@2x.png in Resources */,
 				CBDA9A4319985A6B00E8AD31 /* map_icon@2x.png in Resources */,
+				CBD1950819A5C1C700C6B449 /* lightbulbUnselected@2x.png in Resources */,
 				CB6DA4E419A32AE800BB71EE /* settingsIcon@2x.png in Resources */,
 				CB068151198EC98600B13E49 /* filterIcon@2x.png in Resources */,
 				CB06814F198EC64A00B13E49 /* tagUnselected@2x.png in Resources */,
 				CBDA9A1F1996DE7300E8AD31 /* art_logo@2x.png in Resources */,
 				CB06814E198EC64A00B13E49 /* tagSelected@2x.png in Resources */,
+				CBD1950519A5C15E00C6B449 /* listSelected@2x.png in Resources */,
 				CBDA9A251996E15000E8AD31 /* art_navBarLogo@2x.png in Resources */,
 				CB2673A9198DE3FA00CB02A1 /* Images.xcassets in Resources */,
+				CBD194FC19A5C0C600C6B449 /* heartUnselected@2x.png in Resources */,
+				CBD194FD19A5C0C600C6B449 /* lightbulbSelected@2x.png in Resources */,
+				CBD194FB19A5C0C600C6B449 /* heartSelected@2x.png in Resources */,
 				CB615CF91995F4FB00624A8F /* profile_photo@2x.png in Resources */,
 				CBDA9A2D1997136B00E8AD31 /* camera_nav@2x.png in Resources */,
 				CBDA9A231996DFEA00E8AD31 /* art_subheader@2x.png in Resources */,
 				CB06816E1995D75C00B13E49 /* ape_do_good_printing_SF@2x.png in Resources */,
+				CBD1950219A5C15100C6B449 /* gridUnselected@2x.png in Resources */,
+				CBD1950119A5C15100C6B449 /* gridSelected@2x.png in Resources */,
+				CBD1950619A5C15E00C6B449 /* listUnselected@2x.png in Resources */,
 				CB06814B198EC5F300B13E49 /* bulbUnselected@2x.png in Resources */,
 				CBDA9A1C1996CCCA00E8AD31 /* cameraSelected@2x.png in Resources */,
 				CB06814A198EC5F300B13E49 /* bulbSelected@2x.png in Resources */,
@@ -633,6 +686,7 @@
 				CB06815C198ECED200B13E49 /* TAGTagStore.m in Sources */,
 				CB068143198EA9EF00B13E49 /* TAGTagsViewController.m in Sources */,
 				CB6DA4EB19A47AAD00BB71EE /* TAGCollectionControls.m in Sources */,
+				CBD4DCEC19A482620024209D /* TAGCollectionView.m in Sources */,
 				CB6DA4E819A478CC00BB71EE /* TAGProfileHeader.m in Sources */,
 				CBDA9A50199B203D00E8AD31 /* TAGSuggestion.m in Sources */,
 				CBD4DCE919A47D370024209D /* TAGCollectionPresenterViewController.m in Sources */,
