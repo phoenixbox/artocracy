@@ -11,6 +11,7 @@
 
 // Classes
 #import "TAGTagTableViewCell.h"
+#import "TAGViewHelpers.h"
 
 //Constants
 #import "TAGComponentConstants.h"
@@ -58,9 +59,10 @@
                                                           yCoord,
                                                           100.0f,
                                                           15.0f)];
-    NSAttributedString *text = [self attributeHeaderText:@"Ape Do Good Printing"];
+
+    NSAttributedString *text = [TAGViewHelpers attributeText:@"Ape Do Good Printing" forFontSize:10.0f];
     [self.tagTitle setAttributedText:text];
-    [self sizeLabelToFit:self.tagTitle];
+    [TAGViewHelpers sizeLabelToFit:self.tagTitle numberOfLines:0];
 
     [self.contentView addSubview:self.tagTitle];
 }
@@ -74,20 +76,12 @@
                                                                yCoord,
                                                                100.0f,
                                                                15.0f)];
-    NSAttributedString *text = [self attributeHeaderText:@"Lonnie Spoon"];
+
+    NSAttributedString *text = [TAGViewHelpers attributeText:@"Lonnie Spoon" forFontSize:10.0f];
     [self.artistName setAttributedText:text];
-    [self sizeLabelToFit:self.artistName];
+    [TAGViewHelpers sizeLabelToFit:self.artistName numberOfLines:0];
 
     [self.contentView addSubview:self.artistName];
-}
-
-- (NSAttributedString *)attributeHeaderText:(NSString *)text {
-    return [[NSAttributedString alloc]initWithString:text attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:10.0]}];
-}
-
-- (void)sizeLabelToFit:(UILabel *)label {
-    [label setNumberOfLines:0];
-    [label sizeToFit];
 }
 
 - (void)renderCellImage {

@@ -11,6 +11,7 @@
 #import "TAGImagePickerController.h"
 #import "TAGMapViewController.h"
 #import "TAGSuggestionStore.h"
+#import "TAGViewHelpers.h"
 
 #import "TAGErrorAlert.h"
 
@@ -140,25 +141,15 @@
                                                               100.0f,
                                                               40.0f)];
 
-    NSAttributedString *locationCopy = [self attributeText:@"Location" forFontSize:16.0f];
+    NSAttributedString *locationCopy = [TAGViewHelpers attributeText:@"Location" forFontSize:16.0f];
     [self._locationTitle setAttributedText:locationCopy];
-    [self sizeLabelToFit:self._locationTitle numberOfLines:0];
+    [TAGViewHelpers sizeLabelToFit:self._locationTitle numberOfLines:0];
     [self._scrollView addSubview:self._locationTitle];
 
-    NSAttributedString *addressCopy = [self attributeText:@"123 Ape Street, San Francisco, CA 93221" forFontSize:12.0f];
+    NSAttributedString *addressCopy = [TAGViewHelpers attributeText:@"123 Ape Street, San Francisco, CA 93221" forFontSize:12.0f];
     [self._address setAttributedText:addressCopy];
-    [self sizeLabelToFit:self._address numberOfLines:1];
+    [TAGViewHelpers sizeLabelToFit:self._address numberOfLines:1];
     [self._scrollView addSubview:self._address];
-}
-
-- (NSAttributedString *)attributeText:(NSString *)text forFontSize:(CGFloat)size{
-    return [[NSAttributedString alloc]initWithString:text attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:size]}];
-}
-
-
-- (void)sizeLabelToFit:(UILabel *)label numberOfLines:(CGFloat)lineNumber {
-    [label setNumberOfLines:lineNumber];
-    [label sizeToFit];
 }
 
 // TODO: Add form field validations
@@ -168,9 +159,9 @@
                                                                     yCoord,
                                                                     100.0f,
                                                                     40.0f)];
-    NSAttributedString *canvasTypeCopy = [self attributeText:@"Canvas Type" forFontSize:16.0f];
+    NSAttributedString *canvasTypeCopy = [TAGViewHelpers attributeText:@"Canvas Type" forFontSize:16.0f];
     [self._canvasTypeTitle setAttributedText:canvasTypeCopy];
-    [self sizeLabelToFit:self._canvasTypeTitle numberOfLines:1];
+    [TAGViewHelpers sizeLabelToFit:self._canvasTypeTitle numberOfLines:1];
     [self._scrollView addSubview:self._canvasTypeTitle];
 
     NSArray *segments = @[ @"Commercial Wall", @"Public Wall"];

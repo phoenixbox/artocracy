@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB009B5E19A9A24200FC06A0 /* TAGViewHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = CB009B5D19A9A24200FC06A0 /* TAGViewHelpers.m */; };
 		CB068138198E9ABE00B13E49 /* TAGSessionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB068137198E9ABE00B13E49 /* TAGSessionStore.m */; };
 		CB06813E198E9EB000B13E49 /* TAGAuthStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB06813D198E9EB000B13E49 /* TAGAuthStore.m */; };
 		CB068143198EA9EF00B13E49 /* TAGTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB068142198EA9EF00B13E49 /* TAGTagsViewController.m */; };
@@ -86,6 +87,8 @@
 /* Begin PBXFileReference section */
 		8F209F9462484A069D763253 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F0B104C482945B0BBD57DDD /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		CB009B5C19A9A24200FC06A0 /* TAGViewHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGViewHelpers.h; sourceTree = "<group>"; };
+		CB009B5D19A9A24200FC06A0 /* TAGViewHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGViewHelpers.m; sourceTree = "<group>"; };
 		CB068136198E9ABE00B13E49 /* TAGSessionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSessionStore.h; sourceTree = "<group>"; };
 		CB068137198E9ABE00B13E49 /* TAGSessionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSessionStore.m; sourceTree = "<group>"; };
 		CB06813C198E9EB000B13E49 /* TAGAuthStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGAuthStore.h; sourceTree = "<group>"; };
@@ -209,6 +212,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB009B5B19A9A1F300FC06A0 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				CB009B5C19A9A24200FC06A0 /* TAGViewHelpers.h */,
+				CB009B5D19A9A24200FC06A0 /* TAGViewHelpers.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		CB068134198E9A8F00B13E49 /* Data Layer */ = {
 			isa = PBXGroup;
 			children = (
@@ -358,6 +370,7 @@
 		CB2673C5198DE9E100CB02A1 /* Presentation Layer */ = {
 			isa = PBXGroup;
 			children = (
+				CB009B5B19A9A1F300FC06A0 /* Helpers */,
 				CB2673C7198DE9FC00CB02A1 /* Components */,
 				CB2673C6198DE9F200CB02A1 /* View Controllers */,
 			);
@@ -692,6 +705,7 @@
 				CBD4DCE919A47D370024209D /* TAGCollectionPresenterViewController.m in Sources */,
 				CBDA9A191996C9C300E8AD31 /* TAGCameraOverlay.m in Sources */,
 				CB068163198ED08400B13E49 /* TAGTagChannel.m in Sources */,
+				CB009B5E19A9A24200FC06A0 /* TAGViewHelpers.m in Sources */,
 				CBDA9A301997158500E8AD31 /* TAGImagePickerController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
