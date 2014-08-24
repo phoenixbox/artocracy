@@ -17,4 +17,8 @@
 #define kSmallPadding 5.0f
 #define kBigPadding 10.0f
 
+// **Profile Header
+#define kProfileXSpacing 10.0f
+#define kProfileYCoord 7.5f
+
 #endif

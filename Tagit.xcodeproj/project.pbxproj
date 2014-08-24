@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CB009B5E19A9A24200FC06A0 /* TAGViewHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = CB009B5D19A9A24200FC06A0 /* TAGViewHelpers.m */; };
+		CB009B6119A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB009B6019A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.m */; };
 		CB068138198E9ABE00B13E49 /* TAGSessionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB068137198E9ABE00B13E49 /* TAGSessionStore.m */; };
 		CB06813E198E9EB000B13E49 /* TAGAuthStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB06813D198E9EB000B13E49 /* TAGAuthStore.m */; };
 		CB068143198EA9EF00B13E49 /* TAGTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB068142198EA9EF00B13E49 /* TAGTagsViewController.m */; };
@@ -89,6 +90,8 @@
 		9F0B104C482945B0BBD57DDD /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		CB009B5C19A9A24200FC06A0 /* TAGViewHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGViewHelpers.h; sourceTree = "<group>"; };
 		CB009B5D19A9A24200FC06A0 /* TAGViewHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGViewHelpers.m; sourceTree = "<group>"; };
+		CB009B5F19A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGProfileHeaderSummaryViewController.h; sourceTree = "<group>"; };
+		CB009B6019A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGProfileHeaderSummaryViewController.m; sourceTree = "<group>"; };
 		CB068136198E9ABE00B13E49 /* TAGSessionStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSessionStore.h; sourceTree = "<group>"; };
 		CB068137198E9ABE00B13E49 /* TAGSessionStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSessionStore.m; sourceTree = "<group>"; };
 		CB06813C198E9EB000B13E49 /* TAGAuthStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGAuthStore.h; sourceTree = "<group>"; };
@@ -453,6 +456,8 @@
 			children = (
 				CB6DA4DC19A3270900BB71EE /* TAGProfileViewController.h */,
 				CB6DA4DD19A3270900BB71EE /* TAGProfileViewController.m */,
+				CB009B5F19A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.h */,
+				CB009B6019A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -683,6 +688,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB0681691991FCF100B13E49 /* TAGTagTableViewCell.m in Sources */,
+				CB009B6119A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.m in Sources */,
 				CB068159198ECCEB00B13E49 /* TAGErrorAlert.m in Sources */,
 				CBDA9A3F1998437B00E8AD31 /* TAGMapAnnotation.m in Sources */,
 				CBDA9A3C19982FA600E8AD31 /* TAGMapView.m in Sources */,
