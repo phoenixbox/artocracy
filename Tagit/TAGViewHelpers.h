@@ -14,4 +14,6 @@
 
 + (void)sizeLabelToFit:(UILabel *)label numberOfLines:(CGFloat)lineNumber;
 
++ (void)scaleAndSetBackgroundImageNamed:(NSString *)imageName forView:(UIView *)targetView;
+
 @end

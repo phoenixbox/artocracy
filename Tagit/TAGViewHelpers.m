@@ -20,4 +20,14 @@
     [label sizeToFit];
 }
 
++ (void)scaleAndSetBackgroundImageNamed:(NSString *)imageName forView:(UIView *)targetView {
+    UIGraphicsBeginImageContext(targetView.frame.size);
+    // Bounds of the view is very important
+    [[UIImage imageNamed:imageName] drawInRect:targetView.bounds];
+    UIImage *redrawn = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [targetView setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
+}
+
+
 @end
