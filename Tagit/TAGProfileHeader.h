@@ -16,8 +16,7 @@
 @property (nonatomic, strong) UILabel *username;
 
 @property (nonatomic, strong) TAGProfileHeaderSummaryViewController *suggestionsSummary;
-
-@property (nonatomic, strong) UIView *favoriteSummary;
+@property (nonatomic, strong) TAGProfileHeaderSummaryViewController *favoritesSummary;
 
 @property (nonatomic) float xSpacing;
 @property (nonatomic) float yCoord;

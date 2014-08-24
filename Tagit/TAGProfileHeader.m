@@ -27,7 +27,7 @@
 }
 
 - (void)addProfile {
-    self.profile = [[UIView alloc]initWithFrame:CGRectMake(self.xSpacing,
+    self.profile = [[UIView alloc]initWithFrame:CGRectMake(kProfileXSpacing,
                                                              7.5f,
                                                              60.0f,
                                                               60.0f)];
@@ -40,7 +40,7 @@
 }
 
 - (void)addName {
-    float usernameXCoord = self.xSpacing * 2 + self.profile.frame.size.width;
+    float usernameXCoord = kProfileXSpacing * 2 + self.profile.frame.size.width;
     self.username = [[UILabel alloc]initWithFrame:CGRectMake(usernameXCoord,
                                                               27.5f,
                                                               120.0f,
@@ -55,7 +55,7 @@
 }
 
 - (void)addSuggestionsSummaryViewController {
-    self.suggestionsSummary = [TAGProfileHeaderSummaryViewController new];
+    self.suggestionsSummary = [[TAGProfileHeaderSummaryViewController new] initWithImage:@"lightbulbSelected.png" andLabel:@"suggestions"];
 
     [self.suggestionsSummary.view setFrame:CGRectMake(190.0f,
                                                      kProfileYCoord,
@@ -66,7 +66,15 @@
 }
 
 - (void)addFavoritesDetails {
-    NSLog(@"Implement suggestion details");
+    self.favoritesSummary = [[TAGProfileHeaderSummaryViewController new] initWithImage:@"heartSelected.png" andLabel:@"favorites"];
+    float favoritesXCoord = self.suggestionsSummary.view.frame.origin.x + self.suggestionsSummary.view.frame.size.width + kProfileXSpacing;
+
+    [self.favoritesSummary.view setFrame:CGRectMake(favoritesXCoord,
+                                                      kProfileYCoord,
+                                                      50.0f,
+                                                      57.5f)];
+
+    [self addSubview:self.favoritesSummary.view];
 }
 
 /*
