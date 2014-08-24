@@ -20,6 +20,7 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 @property (nonatomic, strong) TAGCollectionControls *_collectionControls;
 @property (nonatomic, strong) TAGCollectionView *_collectionView;
 @property (nonatomic, strong) NSString *_presenterType;
+@property (nonatomic, strong) UIScrollView *_scrollView;
 
 // TODO: use of enums
 
@@ -44,7 +45,10 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
     [self.view setBackgroundColor:[UIColor greenColor]];
 
     [self renderCollectionControls];
+    [self renderScrollView];
     [self chooseCollectionPresenter];
+
+    [self setScrollViewContentSize];
 }
 
 - (void)renderCollectionControls {
@@ -65,12 +69,30 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
     }
 }
 
+- (void)renderScrollView {
+    float scrollYCoord = CGRectGetMaxY(self._collectionControls.bounds);
+    float scrollHeight = self.view.frame.size.height - self._collectionControls.frame.size.height;
+
+    self._scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f,
+                                                                      scrollYCoord,
+                                                                      self.view.frame.size.width,
+                                                                      scrollHeight)];
+    self._scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    self._scrollView.delegate = self;
+
+    [self.view addSubview:self._scrollView];
+}
+
+- (void)setScrollViewContentSize {
+    float scrollContentHeight = self.view.frame.size.height - self._collectionControls.frame.size.height + 100.0f;
+
+    [self._scrollView setContentSize:CGSizeMake(self.view.bounds.size.width,scrollContentHeight)];
+}
+
+
 - (void)buildCollectionView {
-    float yCoord = self._collectionControls.frame.origin.y + self._collectionControls.frame.size.height;
-
-
     self._collectionView = [[TAGCollectionView alloc]initWithFrame:CGRectMake(0.0f,
-                                                                             yCoord,
+                                                                             0.0f,
                                                                              self.view.frame.size.width,
                                                                               self.view.frame.size.height) collectionViewLayout:[self buildCollectionViewCellLayout]];
 
@@ -80,8 +102,8 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
     // Custom cell here identifier here
     [self._collectionView setDelegate:self];
     [self._collectionView setDataSource:self];
-    // TODO: Collection view needs to be added to a scroll view
-    [self.view addSubview:self._collectionView];
+
+    [self._scrollView addSubview:self._collectionView];
 }
 
 -(UICollectionViewFlowLayout *)buildCollectionViewCellLayout {
