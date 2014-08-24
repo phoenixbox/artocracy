@@ -10,9 +10,10 @@
 
 @interface TAGProfileHeaderSummaryViewController : UIViewController
 
-@property (nonatomic, strong) UIView *suggestionIcon;
-@property (nonatomic, strong) UILabel *suggestionCounter;
-@property (nonatomic, strong) UILabel *suggestionLabel;
+@property (nonatomic, strong) UIView *icon;
+@property (nonatomic, strong) UILabel *counter;
+@property (nonatomic, strong) UILabel *label;
 
+- (id)initWithImage:(NSString *)imageName andLabel:(NSString *)labelName;
 
 @end

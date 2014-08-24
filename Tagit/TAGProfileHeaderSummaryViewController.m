@@ -15,6 +15,9 @@
 
 @interface TAGProfileHeaderSummaryViewController ()
 
+@property (nonatomic, strong) NSString *_imageName;
+@property (nonatomic, strong) NSString *_labelName;
+
 @end
 
 @implementation TAGProfileHeaderSummaryViewController
@@ -28,66 +31,73 @@
     return self;
 }
 
+- (id)initWithImage:(NSString *)imageName andLabel:(NSString *)labelName {
+    if ((self = [super init])) {
+        self._imageName = imageName;
+        self._labelName = labelName;
+    }
+
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    [self renderSuggestionIcon];
-    [self renderSuggestionCounter];
-    [self renderSuggestionLabel];
+    [self.view setBackgroundColor:[UIColor greenColor]];
+
+    [self renderIcon];
+    [self renderCounter];
+    [self renderLabel];
 }
 
-- (void)renderSuggestionIcon {
+- (void)renderIcon {
     CGRect iconRect = CGRectMake(0.0f,
                                  0.0,
                                  25.0f,
                                  25.0f);
 
-    self.suggestionIcon = [[UIView alloc] initWithFrame:iconRect];
+    self.icon = [[UIView alloc] initWithFrame:iconRect];
 
-    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"lightbulbSelected.png" forView:self.suggestionIcon];
+    [TAGViewHelpers scaleAndSetBackgroundImageNamed:self._imageName forView:self.icon];
 
-    [self.view addSubview:self.suggestionIcon];
+    [self.view addSubview:self.icon];
 }
 
-// GOOD SUBCOMPONENT VIEWS! :) Keep it up - Lost reference to the element positions - fix sub view controller
+- (void)renderCounter {
+    float counterXCoord = self.icon.frame.size.width;
 
-- (void)renderSuggestionCounter {
-    float counterXCoord = self.suggestionIcon.frame.origin.x + self.suggestionIcon.frame.size.width;
-
-    CGRect suggestionCounterRect = CGRectMake(counterXCoord,
-                                              kProfileYCoord,
-                                              25.0f,
-                                              25.0f);
-    self.suggestionCounter = [[UILabel alloc] initWithFrame:suggestionCounterRect];
-    [self.suggestionCounter setBackgroundColor:[UIColor orangeColor]];
+    CGRect CounterRect = CGRectMake(counterXCoord,
+                                    0.0f,
+                                    25.0f,
+                                    25.0f);
+    self.counter = [[UILabel alloc] initWithFrame:CounterRect];
+    [self.counter setBackgroundColor:[UIColor orangeColor]];
 
     NSAttributedString *text = [TAGViewHelpers attributeText:@"7" forFontSize:10.0f];
-    [self.suggestionCounter setAttributedText:text];
-    [self.suggestionCounter setTextAlignment:NSTextAlignmentCenter];
-    [TAGViewHelpers sizeLabelToFit:self.suggestionCounter numberOfLines:0];
+    [self.counter setAttributedText:text];
+    [self.counter setTextAlignment:NSTextAlignmentCenter];
 
-    [self.view addSubview:self.suggestionCounter];
+    [self.view addSubview:self.counter];
 }
 
-- (void)renderSuggestionLabel {
-    float labelXCoord = self.suggestionIcon.frame.origin.x;
-    float labelYCoord = self.suggestionIcon.frame.origin.y + self.suggestionIcon.frame.size.height + 7.5f;
+- (void)renderLabel {
+    float labelYCoord = self.icon.frame.origin.y + self.icon.frame.size.height + 7.5f;
 
-    CGRect suggestionLabelRect = CGRectMake(labelXCoord,
-                                            labelYCoord,
-                                            50.0f,
-                                            25.0f);
-    self.suggestionLabel = [[UILabel alloc]initWithFrame:suggestionLabelRect];
-    [self.suggestionLabel setBackgroundColor:[UIColor whiteColor]];
+    CGRect LabelRect = CGRectMake(0.0f,
+                                  labelYCoord,
+                                  50.0f,
+                                  15.0f);
+    self.label = [[UILabel alloc]initWithFrame:LabelRect];
+    [self.label setBackgroundColor:[UIColor whiteColor]];
 
-    NSAttributedString *text = [TAGViewHelpers attributeText:@"suggestions" forFontSize:8.0f];
-    [self.suggestionLabel setAttributedText:text];
-    [self.suggestionLabel setTextAlignment:NSTextAlignmentCenter];
-    [TAGViewHelpers sizeLabelToFit:self.suggestionLabel numberOfLines:0];
+    NSAttributedString *text = [TAGViewHelpers attributeText:self._labelName forFontSize:8.0f];
+    [self.label setAttributedText:text];
+    [self.label setTextAlignment:NSTextAlignmentCenter];
+//    [TAGViewHelpers sizeLabelToFit:self.label numberOfLines:0];
 
-    [self.view addSubview:self.suggestionLabel];
+    [self.view addSubview:self.label];
 }
 
 
