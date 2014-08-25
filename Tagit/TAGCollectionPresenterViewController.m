@@ -13,6 +13,11 @@
 NSString *const kCollectionViewPresenter = @"CollectionView";
 NSString *const kTableViewPresenter = @"TableView";
 
+NSString *const kCollectionToggle = @"toggleCollection";
+NSString *const kListToggle = @"toggleList";
+NSString *const kSuggestionsToggle = @"toggleSuggestions";
+NSString *const kFavoritesToggle = @"toggleFavorites";
+
 static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 
 @interface TAGCollectionPresenterViewController ()
@@ -21,8 +26,6 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 @property (nonatomic, strong) TAGCollectionView *_collectionView;
 @property (nonatomic, strong) NSString *_presenterType;
 @property (nonatomic, strong) UIScrollView *_scrollView;
-
-// TODO: use of enums
 
 @end
 
@@ -50,10 +53,34 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 }
 
 - (void)renderCollectionControls {
+    void(^actionBlock)(NSString *actionType)=^(NSString *actionType){
+        void (^selectedCase)() = @{
+           kCollectionToggle : ^{
+               NSLog(kCollectionToggle);
+           },
+           kListToggle : ^{
+               NSLog(kListToggle);
+           },
+           kSuggestionsToggle : ^{
+               NSLog(kSuggestionsToggle);
+           },
+           kFavoritesToggle : ^{
+               NSLog(kFavoritesToggle);
+           },
+           }[actionType];
+
+        if (selectedCase != nil) {
+            selectedCase();
+        }
+    };
+    NSArray *callbackNames = @[kCollectionToggle, kListToggle, kSuggestionsToggle, kFavoritesToggle];
+
     self._collectionControls = [[TAGCollectionControls alloc]initWithFrame:CGRectMake(0.0f,
                                                                                       0.0f,
                                                                                       self.view.frame.size.width,
-                                                                                      50.0f)];
+                                                                                      50.0f)
+                                                                forActions:callbackNames
+                                                                 withBlock:actionBlock];
     [self.view addSubview:self._collectionControls];
 }
 
