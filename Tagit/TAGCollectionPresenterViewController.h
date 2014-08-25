@@ -11,6 +11,6 @@
 extern NSString *const kCollectionViewPresenter;
 extern NSString *const kTableViewPresenter;
 
-@interface TAGCollectionPresenterViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate>
+@interface TAGCollectionPresenterViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @end

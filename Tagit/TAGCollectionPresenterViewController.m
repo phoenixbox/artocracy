@@ -7,8 +7,14 @@
 //
 
 #import "TAGCollectionPresenterViewController.h"
-#import "TAGCollectionControls.h"
+
+// Components
 #import "TAGCollectionView.h"
+#import "TAGCollectionControls.h"
+#import "TAGProfileTableViewCell.h"
+
+// Constants
+#import "TAGComponentConstants.h"
 
 NSString *const kCollectionViewPresenter = @"CollectionView";
 NSString *const kTableViewPresenter = @"TableView";
@@ -24,6 +30,8 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 
 @property (nonatomic, strong) TAGCollectionControls *_collectionControls;
 @property (nonatomic, strong) TAGCollectionView *_collectionView;
+@property (nonatomic, strong) UITableView *_tableView;
+
 @property (nonatomic, strong) NSString *_presenterType;
 @property (nonatomic, strong) UIScrollView *_scrollView;
 
@@ -89,6 +97,7 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 
 - (void)chooseCollectionPresenter:(NSString *)presenterType {
     if (presenterType == nil || presenterType == kCollectionToggle) {
+        // RESTART: build or toggle visibility of the view [yourView setHidden:YES/NO]
         [self buildCollectionView];
     } else if (presenterType == kListToggle) {
         [self buildListView];
@@ -108,8 +117,45 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
     [self.view addSubview:self._scrollView];
 }
 
-- (void) buildListView {
-    NSLog(@"BUILD THE LIST");
+- (void)buildListView {
+    self._tableView = [[UITableView alloc] initWithFrame:self._scrollView.bounds];
+    [self._tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kProfileTableCellIdentifier];
+    self._tableView.delegate = self;
+    self._tableView.dataSource = self;
+    self._tableView.alwaysBounceVertical = NO;
+    self._tableView.scrollEnabled = YES;
+    self._tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self._tableView.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
+    self._tableView.separatorColor = [UIColor blackColor];
+    [self._tableView setBackgroundColor:[UIColor whiteColor]];
+
+    [self._scrollView addSubview:self._tableView];
+}
+
+#pragma UITableViewDelgate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    TAGProfileTableViewCell *cell = (TAGProfileTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableCellIdentifier];
+
+    if([tableView isEqual:self._tableView]){
+        cell = [[TAGProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableCellIdentifier];
+
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
+
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return kProfileTableRowHeight;
 }
 
 - (void)buildCollectionView {
