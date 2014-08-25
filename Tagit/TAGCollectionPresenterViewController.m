@@ -49,23 +49,26 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 
     [self renderCollectionControls];
     [self renderScrollView];
-    [self chooseCollectionPresenter];
+    [self chooseCollectionPresenter:nil];
 }
 
 - (void)renderCollectionControls {
+    __block TAGCollectionPresenterViewController *_this = self;
+
     void(^actionBlock)(NSString *actionType)=^(NSString *actionType){
+        __block TAGCollectionPresenterViewController *presenterView = _this;
         void (^selectedCase)() = @{
            kCollectionToggle : ^{
-               NSLog(kCollectionToggle);
+               [presenterView chooseCollectionPresenter:kCollectionToggle];
            },
            kListToggle : ^{
-               NSLog(kListToggle);
+               [presenterView chooseCollectionPresenter:kListToggle];
            },
            kSuggestionsToggle : ^{
-               NSLog(kSuggestionsToggle);
+               NSLog(@"Filter: Suggestions!");
            },
            kFavoritesToggle : ^{
-               NSLog(kFavoritesToggle);
+               NSLog(@"Filter: Favorites!");
            },
            }[actionType];
 
@@ -84,13 +87,11 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
     [self.view addSubview:self._collectionControls];
 }
 
-- (void)chooseCollectionPresenter {
-    // Trigger this on controls tap - pass a block into the control function that will trigger this method
-    if (self._presenterType == kCollectionViewPresenter) {
-        // Generate the collection view
+- (void)chooseCollectionPresenter:(NSString *)presenterType {
+    if (presenterType == nil || presenterType == kCollectionToggle) {
         [self buildCollectionView];
-    } else {
-        // Generate the table view
+    } else if (presenterType == kListToggle) {
+        [self buildListView];
     }
 }
 
@@ -105,6 +106,10 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
     self._scrollView.bounces = NO;
 
     [self.view addSubview:self._scrollView];
+}
+
+- (void) buildListView {
+    NSLog(@"BUILD THE LIST");
 }
 
 - (void)buildCollectionView {
