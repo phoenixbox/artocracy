@@ -257,10 +257,10 @@
     UIImage *overlayImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
-    UIImageView *overlayIV = [[UIImageView alloc] initWithFrame:f];
-    overlayIV.image = overlayImage;
-    overlayIV.alpha = 0.7f;
-    [imagePickerController setCameraOverlayView:overlayIV];
+    UIImageView *overlay = [[UIImageView alloc] initWithFrame:f];
+    overlay.image = overlayImage;
+    overlay.alpha = 0.7f;
+    [imagePickerController setCameraOverlayView:overlay];
 
     return imagePickerController;
 }
