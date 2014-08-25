@@ -42,13 +42,11 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.view setBackgroundColor:[UIColor greenColor]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 
     [self renderCollectionControls];
     [self renderScrollView];
     [self chooseCollectionPresenter];
-
-    [self setScrollViewContentSize];
 }
 
 - (void)renderCollectionControls {
@@ -71,30 +69,19 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 
 - (void)renderScrollView {
     float scrollYCoord = CGRectGetMaxY(self._collectionControls.bounds);
-    float scrollHeight = self.view.frame.size.height - self._collectionControls.frame.size.height;
-
     self._scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f,
                                                                       scrollYCoord,
                                                                       self.view.frame.size.width,
-                                                                      scrollHeight)];
+                                                                      330.0f)];
     self._scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     self._scrollView.delegate = self;
+    self._scrollView.bounces = NO;
 
     [self.view addSubview:self._scrollView];
 }
 
-- (void)setScrollViewContentSize {
-    float scrollContentHeight = self.view.frame.size.height - self._collectionControls.frame.size.height + 100.0f;
-
-    [self._scrollView setContentSize:CGSizeMake(self.view.bounds.size.width,scrollContentHeight)];
-}
-
-
 - (void)buildCollectionView {
-    self._collectionView = [[TAGCollectionView alloc]initWithFrame:CGRectMake(0.0f,
-                                                                             0.0f,
-                                                                             self.view.frame.size.width,
-                                                                              self.view.frame.size.height) collectionViewLayout:[self buildCollectionViewCellLayout]];
+    self._collectionView = [[TAGCollectionView alloc]initWithFrame:self._scrollView.bounds collectionViewLayout:[self buildCollectionViewCellLayout]];
 
     [self._collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kCollectionViewCellIdentifier];
     [self._collectionView setBackgroundColor:[UIColor whiteColor]];
@@ -106,7 +93,7 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
     [self._scrollView addSubview:self._collectionView];
 }
 
--(UICollectionViewFlowLayout *)buildCollectionViewCellLayout {
+- (UICollectionViewFlowLayout *)buildCollectionViewCellLayout {
     UICollectionViewFlowLayout *flowLayout = [UICollectionViewFlowLayout new];
     flowLayout.minimumLineSpacing = 5.0f;
     flowLayout.minimumInteritemSpacing = 5.0f;
@@ -114,7 +101,6 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     flowLayout.sectionInset = UIEdgeInsetsMake(2.5f, 0.0f, 2.5f, 0.0f);
 
-    //RESTART: Formatting the collection layout to have custom the protocol methods necessary for the cells to be formatted etc.
     return flowLayout;
 }
 
@@ -122,16 +108,16 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 //    return [self._suggestions count]
-    return 10;
+    return 18;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionViewCellIdentifier forIndexPath:indexPath];
 
     UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ape_do_good_printing_SF.png"]];
+
     [cell setBackgroundView:backgroundImage];
     [cell.backgroundView setContentMode:UIViewContentModeScaleAspectFit];
-    // TODO: Assign the custom cell attributes
     return cell;
 }
 

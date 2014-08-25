@@ -82,13 +82,15 @@
 
 
 -(void)renderCollectionPresenter {
-    float yCoord = self._profileHeader.frame.origin.y + self._profileHeader.frame.size.height;
+    float yCoord = CGRectGetMaxY(self._profileHeader.bounds);
+
+    float presenterHeight = self.view.frame.size.height - self._profileHeader.frame.size.height - self.parentViewController.tabBarController.tabBar.frame.size.height;
 
     self._collectionPresenter = [TAGCollectionPresenterViewController new];
     [self._collectionPresenter.view setFrame:CGRectMake(0.0f,
                                                        yCoord,
                                                        self.view.frame.size.width,
-                                                       self.view.frame.size.height - yCoord)];
+                                                       presenterHeight)];
 
     [self addChildViewController:self._collectionPresenter];
     [self.view addSubview:self._collectionPresenter.view];
