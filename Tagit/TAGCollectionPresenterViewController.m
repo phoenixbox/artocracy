@@ -11,7 +11,8 @@
 // Components
 #import "TAGCollectionView.h"
 #import "TAGCollectionControls.h"
-#import "TAGProfileTableViewCell.h"
+#import "TAGProfileTableViewSuggestionCell.h"
+#import "TAGProfileTableViewFavoriteCell.h"
 
 // Constants
 #import "TAGComponentConstants.h"
@@ -24,8 +25,6 @@ NSString *const kListToggle = @"toggleList";
 NSString *const kSuggestionsToggle = @"toggleSuggestions";
 NSString *const kFavoritesToggle = @"toggleFavorites";
 
-static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
-
 @interface TAGCollectionPresenterViewController ()
 
 @property (nonatomic, strong) TAGCollectionControls *_collectionControls;
@@ -34,6 +33,8 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 
 @property (nonatomic, strong) NSString *_presenterType;
 @property (nonatomic, strong) UIScrollView *_scrollView;
+
+@property (nonatomic, strong) NSString *_currentTableViewCellIdentifier;
 
 @end
 
@@ -45,6 +46,7 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
     if (self) {
         // Custom initialization
         self._presenterType = kCollectionViewPresenter;
+        self._currentTableViewCellIdentifier =kProfileTableSuggestionCellIdentifier;
     }
     return self;
 }
@@ -73,10 +75,16 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
                [presenterView chooseCollectionPresenter:kListToggle];
            },
            kSuggestionsToggle : ^{
-               NSLog(@"Filter: Suggestions!");
+               NSLog(@"TOGGLE/FILTER: Suggestions!");
            },
            kFavoritesToggle : ^{
-               NSLog(@"Filter: Favorites!");
+               if ([self shouldToggleToCell:kProfileTableFavoriteCellIdentifier]) {
+                   self._tableView = nil;
+                   self._currentTableViewCellIdentifier = kProfileTableFavoriteCellIdentifier;
+                   [self buildListView];
+               } else {
+                   NSLog(@"Filter: Suggestions!");
+               }
            },
            }[actionType];
 
@@ -95,9 +103,12 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
     [self.view addSubview:self._collectionControls];
 }
 
+- (BOOL) shouldToggleToCell:(NSString *)identifier {
+    return ![self._tableView isHidden] && self._currentTableViewCellIdentifier != identifier;
+}
+
 - (void)chooseCollectionPresenter:(NSString *)presenterType {
     if (presenterType == nil || presenterType == kCollectionToggle) {
-        // RESTART: build or toggle visibility of the view [yourView setHidden:YES/NO]
         [self buildCollectionView];
     } else if (presenterType == kListToggle) {
         [self buildListView];
@@ -120,7 +131,7 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 - (void)buildListView {
     if (!self._tableView) {
         self._tableView = [[UITableView alloc] initWithFrame:self._scrollView.bounds];
-        [self._tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kProfileTableCellIdentifier];
+        [self._tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:self._currentTableViewCellIdentifier];
         self._tableView.delegate = self;
         self._tableView.dataSource = self;
         self._tableView.alwaysBounceVertical = NO;
@@ -146,16 +157,25 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
+        TAGProfileTableViewSuggestionCell *cell = (TAGProfileTableViewSuggestionCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableSuggestionCellIdentifier];
 
-    TAGProfileTableViewCell *cell = (TAGProfileTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableCellIdentifier];
+        if([tableView isEqual:self._tableView]){
+            cell = [[TAGProfileTableViewSuggestionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableSuggestionCellIdentifier];
 
-    if([tableView isEqual:self._tableView]){
-        cell = [[TAGProfileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableCellIdentifier];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
+        return cell;
+    } else {
+        TAGProfileTableViewFavoriteCell *cell = (TAGProfileTableViewFavoriteCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableFavoriteCellIdentifier];
 
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        if([tableView isEqual:self._tableView]){
+            cell = [[TAGProfileTableViewFavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableFavoriteCellIdentifier];
+
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
+        return cell;
     }
-
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -166,7 +186,7 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
     if (!self._collectionView) {
         self._collectionView = [[TAGCollectionView alloc]initWithFrame:self._scrollView.bounds collectionViewLayout:[self buildCollectionViewCellLayout]];
 
-        [self._collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kCollectionViewCellIdentifier];
+        [self._collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kProfileCollectionCellIdentifier];
         [self._collectionView setBackgroundColor:[UIColor whiteColor]];
 
         // Custom cell here identifier here
@@ -204,7 +224,7 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionViewCellIdentifier forIndexPath:indexPath];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kProfileCollectionCellIdentifier forIndexPath:indexPath];
 
     UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ape_do_good_printing_SF.png"]];
 

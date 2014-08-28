@@ -6,17 +6,27 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
-#import "TAGProfileTableViewCell.h"
+#import "TAGProfileTableViewSuggestionCell.h"
 
-@implementation TAGProfileTableViewCell
+@implementation TAGProfileTableViewSuggestionCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        [self setTitle];
     }
     return self;
+}
+
+- (void)setTitle {
+    self.title = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.origin.x + 100.0f,
+                                                         30.0f,
+                                                         100.0f,
+                                                          40.0f)];
+    [self.title setText:@"Suggestion Cell"];
+    [self addSubview:self.title];
 }
 
 - (void)awakeFromNib

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAGProfileTableViewCell : UITableViewCell
+@interface TAGProfileTableViewSuggestionCell : UITableViewCell
+
+@property (nonatomic, strong) UILabel *title;
 
 @end
