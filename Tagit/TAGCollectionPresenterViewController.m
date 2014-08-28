@@ -132,9 +132,7 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 
         [self._scrollView addSubview:self._tableView];
     } else {
-        [self._scrollView bringSubviewToFront:self._tableView];
-        [self._tableView setHidden:NO];
-        [self._collectionView setHidden:YES];
+        [self show:self._tableView andHide:self._collectionView];
     }
 }
 
@@ -177,10 +175,14 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 
         [self._scrollView addSubview:self._collectionView];
     } else {
-        [self._scrollView bringSubviewToFront:self._collectionView];
-        [self._collectionView setHidden:NO];
-        [self._tableView setHidden:YES];
+        [self show:self._collectionView andHide:self._tableView];
     }
+}
+
+- (void)show:(UIView *)showView andHide:(UIView *)hideView {
+    [self._scrollView bringSubviewToFront:showView];
+    [showView setHidden:NO];
+    [hideView setHidden:YES];
 }
 
 - (UICollectionViewFlowLayout *)buildCollectionViewCellLayout {
