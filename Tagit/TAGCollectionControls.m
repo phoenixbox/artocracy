@@ -10,15 +10,6 @@
 
 @implementation TAGCollectionControls
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
 - (id)initWithFrame:(CGRect)frame forActions:(NSArray *)callbackNames withBlock:(void (^)(NSString *action))actionBlock {
     self = [super initWithFrame:frame];
     if (self) {
@@ -44,7 +35,7 @@
     [self.gridViewButton setBackgroundImage:[UIImage imageNamed:@"gridSelected"] forState:UIControlStateSelected];
     [self.gridViewButton.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [self.gridViewButton setSelected:YES];
-    [self.gridViewButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.gridViewButton addTarget:self action:@selector(_buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
 
     float listViewButtonXCoord = self.xSpacing*2 + self.buttonWidth;
     self.listViewButton = [[UIButton alloc] initWithFrame:CGRectMake(listViewButtonXCoord,
@@ -55,7 +46,7 @@
     [self.listViewButton setBackgroundImage:[UIImage imageNamed:@"listUnselected"] forState:UIControlStateNormal];
     [self.listViewButton setBackgroundImage:[UIImage imageNamed:@"listSelected"] forState:UIControlStateSelected];
     [self.listViewButton.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    [self.listViewButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.listViewButton addTarget:self action:@selector(_buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
     float suggestionsButtonXCoord = self.xSpacing*3 + self.buttonWidth*2;
     self.suggestionsButton = [[UIButton alloc] initWithFrame:CGRectMake(suggestionsButtonXCoord,
                                                                      5.0f,
@@ -65,7 +56,7 @@
     [self.suggestionsButton setBackgroundImage:[UIImage imageNamed:@"lightbulbUnselected"] forState:UIControlStateNormal];
     [self.suggestionsButton setBackgroundImage:[UIImage imageNamed:@"lightbulbSelected"] forState:UIControlStateSelected];
     [self.suggestionsButton.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    [self.suggestionsButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.suggestionsButton addTarget:self action:@selector(_buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.suggestionsButton setSelected:YES];
 
 
@@ -78,7 +69,7 @@
     [self.favoritesButton setBackgroundImage:[UIImage imageNamed:@"heartUnselected"] forState:UIControlStateNormal];
     [self.favoritesButton setBackgroundImage:[UIImage imageNamed:@"heartSelected"] forState:UIControlStateSelected];
     [self.favoritesButton.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    [self.favoritesButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.favoritesButton addTarget:self action:@selector(_buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
 
 
     [self addSubview:self.gridViewButton];
@@ -87,10 +78,34 @@
     [self addSubview:self.favoritesButton];
 }
 
-- (void)buttonTapped:(UIButton *)paramSender {
-    [paramSender setSelected:YES];
-    self.actionBlock(self.callbackNames[paramSender.tag]);
+#pragma Private
+
+- (void)_buttonTapped:(UIButton *)paramSender {
+    if(!paramSender.selected) {
+        [paramSender setSelected:YES];
+
+        if (paramSender.tag == 0) {
+            [self _deselectCounterpart:1];
+        } else if (paramSender.tag == 1) {
+            [self _deselectCounterpart:0];
+        } else if (paramSender.tag == 2) {
+            [self _deselectCounterpart:3];
+        } else if (paramSender.tag == 3) {
+            [self _deselectCounterpart:2];
+        }
+
+        self.actionBlock(self.callbackNames[paramSender.tag]);
+    }
 }
+
+- (void)_deselectCounterpart:(NSInteger)tag {
+    for (UIButton * button in [self subviews]) {
+        if (button.tag == tag) {
+            [button setSelected:NO];
+        }
+    }
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.
