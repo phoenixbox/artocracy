@@ -118,18 +118,24 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 }
 
 - (void)buildListView {
-    self._tableView = [[UITableView alloc] initWithFrame:self._scrollView.bounds];
-    [self._tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kProfileTableCellIdentifier];
-    self._tableView.delegate = self;
-    self._tableView.dataSource = self;
-    self._tableView.alwaysBounceVertical = NO;
-    self._tableView.scrollEnabled = YES;
-    self._tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self._tableView.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
-    self._tableView.separatorColor = [UIColor blackColor];
-    [self._tableView setBackgroundColor:[UIColor whiteColor]];
+    if (!self._tableView) {
+        self._tableView = [[UITableView alloc] initWithFrame:self._scrollView.bounds];
+        [self._tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kProfileTableCellIdentifier];
+        self._tableView.delegate = self;
+        self._tableView.dataSource = self;
+        self._tableView.alwaysBounceVertical = NO;
+        self._tableView.scrollEnabled = YES;
+        self._tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self._tableView.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
+        self._tableView.separatorColor = [UIColor blackColor];
+        [self._tableView setBackgroundColor:[UIColor whiteColor]];
 
-    [self._scrollView addSubview:self._tableView];
+        [self._scrollView addSubview:self._tableView];
+    } else {
+        [self._scrollView bringSubviewToFront:self._tableView];
+        [self._tableView setHidden:NO];
+        [self._collectionView setHidden:YES];
+    }
 }
 
 #pragma UITableViewDelgate
@@ -159,16 +165,22 @@ static NSString *kCollectionViewCellIdentifier = @"CollectionCell";
 }
 
 - (void)buildCollectionView {
-    self._collectionView = [[TAGCollectionView alloc]initWithFrame:self._scrollView.bounds collectionViewLayout:[self buildCollectionViewCellLayout]];
+    if (!self._collectionView) {
+        self._collectionView = [[TAGCollectionView alloc]initWithFrame:self._scrollView.bounds collectionViewLayout:[self buildCollectionViewCellLayout]];
 
-    [self._collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kCollectionViewCellIdentifier];
-    [self._collectionView setBackgroundColor:[UIColor whiteColor]];
+        [self._collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kCollectionViewCellIdentifier];
+        [self._collectionView setBackgroundColor:[UIColor whiteColor]];
 
-    // Custom cell here identifier here
-    [self._collectionView setDelegate:self];
-    [self._collectionView setDataSource:self];
+        // Custom cell here identifier here
+        [self._collectionView setDelegate:self];
+        [self._collectionView setDataSource:self];
 
-    [self._scrollView addSubview:self._collectionView];
+        [self._scrollView addSubview:self._collectionView];
+    } else {
+        [self._scrollView bringSubviewToFront:self._collectionView];
+        [self._collectionView setHidden:NO];
+        [self._tableView setHidden:YES];
+    }
 }
 
 - (UICollectionViewFlowLayout *)buildCollectionViewCellLayout {
