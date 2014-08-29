@@ -167,7 +167,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     self._tableView.scrollEnabled = YES;
     self._tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self._tableView.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
-    self._tableView.separatorColor = [UIColor blackColor];
+    self._tableView.separatorColor = [UIColor clearColor];
     [self._tableView setBackgroundColor:[UIColor whiteColor]];
 
     [self._scrollView addSubview:self._tableView];
