@@ -75,15 +75,23 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
                [presenterView chooseCollectionPresenter:kListToggle];
            },
            kSuggestionsToggle : ^{
-               NSLog(@"TOGGLE/FILTER: Suggestions!");
+               if ([self tableViewExistsAndIsVisible]) {
+                   if ([self shouldToggleToCell:kProfileTableSuggestionCellIdentifier]) {
+                       [self toggleTableViewCellsTo:kProfileTableSuggestionCellIdentifier];
+                   }
+               } else {
+                   self._currentTableViewCellIdentifier = kProfileTableSuggestionCellIdentifier;
+                   NSLog(@"FILTER COLLECTION TO SUGGESTIONS!");
+               }
            },
            kFavoritesToggle : ^{
-               if ([self shouldToggleToCell:kProfileTableFavoriteCellIdentifier]) {
-                   self._tableView = nil;
-                   self._currentTableViewCellIdentifier = kProfileTableFavoriteCellIdentifier;
-                   [self buildListView];
+               if ([self tableViewExistsAndIsVisible]) {
+                   if ([self shouldToggleToCell:kProfileTableFavoriteCellIdentifier]) {
+                       [self toggleTableViewCellsTo:kProfileTableFavoriteCellIdentifier];
+                   }
                } else {
-                   NSLog(@"Filter: Suggestions!");
+                   self._currentTableViewCellIdentifier = kProfileTableFavoriteCellIdentifier;
+                   NSLog(@"FILTER COLLECTION TO FAVORITES!");
                }
            },
            }[actionType];
@@ -103,8 +111,26 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     [self.view addSubview:self._collectionControls];
 }
 
-- (BOOL) shouldToggleToCell:(NSString *)identifier {
+- (void)toggleTableViewCellsTo:(NSString *)identifier {
+    self._tableView = nil;
+    self._currentTableViewCellIdentifier = identifier;
+    [self buildListView];
+}
+
+- (BOOL)tableViewExistsAndIsVisible {
+    return self._tableView != nil && ![self._tableView isHidden];
+}
+
+- (BOOL)collectionViewIsVisible {
+    return self._collectionView != nil && ![self._collectionView isHidden];
+}
+
+- (BOOL)shouldToggleToCell:(NSString *)identifier {
     return ![self._tableView isHidden] && self._currentTableViewCellIdentifier != identifier;
+}
+
+- (BOOL)shouldToggleToList:(NSString *)identifier {
+    return ![self._collectionView isHidden] && self._currentTableViewCellIdentifier != identifier;
 }
 
 - (void)chooseCollectionPresenter:(NSString *)presenterType {

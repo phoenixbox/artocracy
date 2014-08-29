@@ -93,9 +93,8 @@
         } else if (paramSender.tag == 3) {
             [self _deselectCounterpart:2];
         }
-
-        self.actionBlock(self.callbackNames[paramSender.tag]);
     }
+    self.actionBlock(self.callbackNames[paramSender.tag]);
 }
 
 - (void)_deselectCounterpart:(NSInteger)tag {
