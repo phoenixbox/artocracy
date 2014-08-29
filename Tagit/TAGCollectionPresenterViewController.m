@@ -75,7 +75,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
                [presenterView chooseCollectionPresenter:kListToggle];
            },
            kSuggestionsToggle : ^{
-               if ([self tableViewExistsAndIsVisible]) {
+               if ([self tableViewExists]) {
                    if ([self shouldToggleToCell:kProfileTableSuggestionCellIdentifier]) {
                        [self toggleTableViewCellsTo:kProfileTableSuggestionCellIdentifier];
                    }
@@ -85,7 +85,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
                }
            },
            kFavoritesToggle : ^{
-               if ([self tableViewExistsAndIsVisible]) {
+               if ([self tableViewExists]) {
                    if ([self shouldToggleToCell:kProfileTableFavoriteCellIdentifier]) {
                        [self toggleTableViewCellsTo:kProfileTableFavoriteCellIdentifier];
                    }
@@ -117,12 +117,12 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     [self buildListView];
 }
 
-- (BOOL)tableViewExistsAndIsVisible {
-    return self._tableView != nil && ![self._tableView isHidden];
+- (BOOL)tableViewExists {
+    return self._tableView != nil;
 }
 
-- (BOOL)collectionViewIsVisible {
-    return self._collectionView != nil && ![self._collectionView isHidden];
+- (BOOL)collectionViewExists {
+    return self._collectionView != nil;
 }
 
 - (BOOL)shouldToggleToCell:(NSString *)identifier {
@@ -155,22 +155,21 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 }
 
 - (void)buildListView {
-    if (!self._tableView) {
-        self._tableView = [[UITableView alloc] initWithFrame:self._scrollView.bounds];
-        [self._tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:self._currentTableViewCellIdentifier];
-        self._tableView.delegate = self;
-        self._tableView.dataSource = self;
-        self._tableView.alwaysBounceVertical = NO;
-        self._tableView.scrollEnabled = YES;
-        self._tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self._tableView.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
-        self._tableView.separatorColor = [UIColor blackColor];
-        [self._tableView setBackgroundColor:[UIColor whiteColor]];
+    [self removeCollectionAndTable];
 
-        [self._scrollView addSubview:self._tableView];
-    } else {
-        [self show:self._tableView andHide:self._collectionView];
-    }
+    self._tableView = [[UITableView alloc] initWithFrame:self._scrollView.bounds];
+    [self._tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:self._currentTableViewCellIdentifier];
+    self._tableView.delegate = self;
+    self._tableView.dataSource = self;
+    self._tableView.alwaysBounceVertical = NO;
+    self._tableView.scrollEnabled = YES;
+    self._tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self._tableView.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
+    self._tableView.separatorColor = [UIColor blackColor];
+    [self._tableView setBackgroundColor:[UIColor whiteColor]];
+
+    [self._scrollView addSubview:self._tableView];
+    NSLog(@"VIEW COUNT %ld", [[self.view subviews]count]);
 }
 
 #pragma UITableViewDelgate
@@ -209,20 +208,24 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 }
 
 - (void)buildCollectionView {
-    if (!self._collectionView) {
-        self._collectionView = [[TAGCollectionView alloc]initWithFrame:self._scrollView.bounds collectionViewLayout:[self buildCollectionViewCellLayout]];
+    [self removeCollectionAndTable];
 
-        [self._collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kProfileCollectionCellIdentifier];
-        [self._collectionView setBackgroundColor:[UIColor whiteColor]];
+    self._collectionView = [[TAGCollectionView alloc]initWithFrame:self._scrollView.bounds collectionViewLayout:[self buildCollectionViewCellLayout]];
 
-        // Custom cell here identifier here
-        [self._collectionView setDelegate:self];
-        [self._collectionView setDataSource:self];
+    [self._collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kProfileCollectionCellIdentifier];
+    [self._collectionView setBackgroundColor:[UIColor whiteColor]];
 
-        [self._scrollView addSubview:self._collectionView];
-    } else {
-        [self show:self._collectionView andHide:self._tableView];
-    }
+    // Custom cell here identifier here
+    [self._collectionView setDelegate:self];
+    [self._collectionView setDataSource:self];
+
+    [self._scrollView addSubview:self._collectionView];
+    NSLog(@"VIEW COUNT %ld", [[self.view subviews]count]);
+}
+
+- (void)removeCollectionAndTable {
+    self._collectionView = nil;
+    self._tableView = nil;
 }
 
 - (void)show:(UIView *)showView andHide:(UIView *)hideView {
@@ -251,7 +254,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kProfileCollectionCellIdentifier forIndexPath:indexPath];
-
+    
     UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ape_do_good_printing_SF.png"]];
 
     [cell setBackgroundView:backgroundImage];
