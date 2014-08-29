@@ -81,6 +81,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
                    }
                } else {
                    self._currentTableViewCellIdentifier = kProfileTableSuggestionCellIdentifier;
+                   [self buildCollectionView];
                    NSLog(@"FILTER COLLECTION TO SUGGESTIONS!");
                }
            },
@@ -91,6 +92,8 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
                    }
                } else {
                    self._currentTableViewCellIdentifier = kProfileTableFavoriteCellIdentifier;
+                   [self buildCollectionView];
+
                    NSLog(@"FILTER COLLECTION TO FAVORITES!");
                }
            },
@@ -112,7 +115,6 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 }
 
 - (void)toggleTableViewCellsTo:(NSString *)identifier {
-    self._tableView = nil;
     self._currentTableViewCellIdentifier = identifier;
     [self buildListView];
 }
@@ -254,8 +256,14 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kProfileCollectionCellIdentifier forIndexPath:indexPath];
-    
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ape_do_good_printing_SF.png"]];
+
+    // TODO: Visual differentiatior to be replaced by varied data type retrieval
+    UIImageView *backgroundImage = [UIImageView new];
+    if([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
+        [backgroundImage setImage:[UIImage imageNamed:@"ape_do_good_printing_SF.png"]];
+    } else {
+        [backgroundImage setImage:[UIImage imageNamed:@"open_arms_SF.png"]];
+    }
 
     [cell setBackgroundView:backgroundImage];
     [cell.backgroundView setContentMode:UIViewContentModeScaleAspectFit];
