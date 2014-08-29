@@ -21,7 +21,7 @@
         [self addProfile];
         [self addName];
         [self addSuggestionsSummaryViewController];
-        [self addFavoritesDetails];
+        [self addFavoritesSummaryViewController];
     }
     return self;
 }
@@ -65,7 +65,7 @@
     [self addSubview:self.suggestionsSummary.view];
 }
 
-- (void)addFavoritesDetails {
+- (void)addFavoritesSummaryViewController {
     self.favoritesSummary = [[TAGProfileHeaderSummaryViewController new] initWithImage:@"heartSelected.png" andLabel:@"favorites"];
     float favoritesXCoord = self.suggestionsSummary.view.frame.origin.x + self.suggestionsSummary.view.frame.size.width + kProfileXSpacing;
 

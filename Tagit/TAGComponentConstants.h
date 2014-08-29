@@ -18,6 +18,6 @@
 #define kProfileTableSuggestionCellIdentifier @"TAGProfileTableViewSuggestionCell"
 #define kProfileTableFavoriteCellIdentifier @"TAGProfileTableViewFavoriteCell"
 
-#define kProfileTableRowHeight 100.0f
+#define kProfileTableRowHeight 102.5f
 
 #endif
