@@ -10,6 +10,20 @@
 
 @interface TAGProfileTableViewFavoriteCell : UITableViewCell
 
-@property (nonatomic, strong) UILabel *title;
+@property (nonatomic, strong) UIView *image;
+
+@property (nonatomic, strong) UILabel *artistLabel;
+@property (nonatomic, strong) UILabel *artistName;
+
+@property (nonatomic, strong) UILabel *locationLabel;
+@property (nonatomic, strong) UILabel *locationName;
+
+@property (nonatomic, strong) UILabel *canvasTypeLabel;
+@property (nonatomic, strong) UILabel *canvasTypeName;
+
+@property (nonatomic, strong) UIView *visualSep;
+
+@property (nonatomic, strong) UIView *favoritesIcon;
+@property (nonatomic, strong) UILabel *counter;
 
 @end
