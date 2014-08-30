@@ -27,5 +27,6 @@
 @property (nonatomic, strong) UILabel *counter;
 
 @property (nonatomic, assign) float cellHeight;
+@property (nonatomic, assign) NSString *imageName;
 
 @end

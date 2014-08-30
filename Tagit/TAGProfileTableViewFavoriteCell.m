@@ -17,10 +17,12 @@
     if (self) {
         // Initialization code
         self.cellHeight = 100.0f;
+        self.imageName = @"heartSelected.png";
         [self setImage];
         [self initializeProperties];
         [self addLabelsAndNames];
         [self addVisualSep];
+        [self addFavoritesCounter];
     }
     return self;
 }
@@ -53,7 +55,7 @@
     float labelHeight = 10.0f;
     float vertSpacing = (self.cellHeight - (labelCount*labelHeight))/(labelCount+1);
     float labelWidth = 130.0f;
-    float xOrigin = self.image.frame.size.width + 10.0f;
+    float xOrigin = self.cellHeight + 9.5f;
 
     for (int i=0; i<labelCount; i++) {
         float yOrigin;
@@ -81,12 +83,38 @@
 
     float sepHeight = self.cellHeight * (1 - (percentageFromTop * 2));
 
-    [self.visualSep setFrame:CGRectMake(244.0f,
+    [self.visualSep setFrame:CGRectMake(249.0f,
                                        self.cellHeight * percentageFromTop,
                                        2.0f,
                                        sepHeight)];
     [self.visualSep setBackgroundColor:[UIColor greenColor]];
     [self addSubview:self.visualSep];
+}
+
+- (void)addFavoritesCounter {
+    // TODO: xOrigin should be relative to an el not hardcoded
+    float counterSq = 25.0f;
+    float yOrigin = (self.cellHeight/2) - (counterSq/2);
+
+    CGRect counterRect = CGRectMake(249.0f + 2.0f + 9.5f,
+                                 yOrigin,
+                                 counterSq,
+                                 counterSq);
+
+    [self.counter setFrame:counterRect];
+    [self.counter setBackgroundColor:[UIColor orangeColor]];
+    NSAttributedString *text = [TAGViewHelpers attributeText:@"7" forFontSize:10.0f];
+    [self.counter setAttributedText:text];
+    [self.counter setTextAlignment:NSTextAlignmentCenter];
+    [self addSubview:self.counter];
+
+    CGRect iconRect = CGRectMake(self.counter.frame.origin.x + counterSq,
+                               yOrigin,
+                               counterSq,
+                               counterSq);
+    [self.favoritesIcon setFrame:iconRect];
+    [TAGViewHelpers scaleAndSetBackgroundImageNamed:self.imageName forView:self.favoritesIcon];
+    [self addSubview:self.favoritesIcon];
 }
 
 - (void)awakeFromNib
