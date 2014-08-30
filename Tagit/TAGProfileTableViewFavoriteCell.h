@@ -26,4 +26,6 @@
 @property (nonatomic, strong) UIView *favoritesIcon;
 @property (nonatomic, strong) UILabel *counter;
 
+@property (nonatomic, assign) float cellHeight;
+
 @end
