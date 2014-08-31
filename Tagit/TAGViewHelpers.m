@@ -22,7 +22,7 @@
 
 + (void)scaleAndSetBackgroundImageNamed:(NSString *)imageName forView:(UIView *)targetView {
     UIImage *image = [UIImage imageNamed:imageName];
-    UIGraphicsBeginImageContextWithOptions(targetView.frame.size, YES, image.scale);
+    UIGraphicsBeginImageContextWithOptions(targetView.frame.size, NO, image.scale);
     [image drawInRect:targetView.bounds];
     UIImage* redrawn = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

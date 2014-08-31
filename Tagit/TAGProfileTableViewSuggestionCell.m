@@ -7,6 +7,9 @@
 //
 
 #import "TAGProfileTableViewSuggestionCell.h"
+#import "TAGViewHelpers.h"
+#import "TAGComponentConstants.h"
+#import "TAGSuggestionListPiecesTableCell.h"
 
 @implementation TAGProfileTableViewSuggestionCell
 
@@ -15,18 +18,120 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        [self setTitle];
+        self.cellHeight = 100.0f;
+        [self addImage];
+        [self addLocation];
+        [self addPiecesTable];
+        [self addCounter];
     }
     return self;
 }
 
-- (void)setTitle {
-    self.title = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.origin.x + 100.0f,
-                                                         30.0f,
-                                                         100.0f,
-                                                          40.0f)];
-    [self.title setText:@"Suggestion Cell"];
-    [self addSubview:self.title];
+- (void)addImage {
+    CGRect imageFrame = CGRectMake(0, 0, self.cellHeight, self.cellHeight);
+    self.image = [[UIView alloc] initWithFrame:imageFrame];
+
+    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"folsom_st_SF.png" forView:self.image];
+
+    [self addSubview:self.image];
+}
+
+- (void)addLocation {
+    self.locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.image.frame.size.width + 5.0f,
+                                                                  5.0f,
+                                                                  36.0f,
+                                                                   10.0f)];
+
+
+    NSAttributedString *location = [TAGViewHelpers attributeText:@"Location:" forFontSize:8.0f];
+    [self.locationLabel setAttributedText:location];
+    [self addSubview:self.locationLabel];
+
+    float xOrigin = self.locationLabel.frame.origin.x +self.locationLabel.frame.size.width;
+    float addressWidth = 320.0f - self.locationLabel.frame.origin.x - 5.0f;
+
+    self.locationAddress = [[UILabel alloc] initWithFrame:CGRectMake(xOrigin,
+                                                                   5.0f,
+                                                                   addressWidth,
+                                                                   10.0f)];
+    NSAttributedString *address = [TAGViewHelpers attributeText:@" 1285 Folsom St, San Francisco, CA 94103" forFontSize:8.0f];
+    [self.locationAddress setAttributedText:address];
+    [self.locationAddress setTextAlignment:NSTextAlignmentLeft];
+    [TAGViewHelpers sizeLabelToFit:self.locationAddress numberOfLines:0];
+    [self addSubview:self.locationAddress];
+}
+
+- (void)addPiecesTable {
+    self.piecesTable = [UITableView new];
+    CGRect piecesRect = CGRectMake(100.0f, 20.0f, 176.0f, 80.0f);
+
+    self.piecesTable = [[UITableView alloc] initWithFrame:piecesRect];
+    CGAffineTransform rotate = CGAffineTransformMakeRotation(-M_PI_2);
+    [self.piecesTable setTransform:rotate];
+    // VIP: Must set the frame again on the table after rotation
+    [self.piecesTable setFrame:piecesRect];
+    [self.piecesTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kSuggestionListPiecesTableCellIdentifier];
+    self.piecesTable.delegate = self;
+    self.piecesTable.dataSource = self;
+    self.piecesTable.alwaysBounceVertical = NO;
+    self.piecesTable.scrollEnabled = YES;
+    self.piecesTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
+    self.piecesTable.separatorColor = [UIColor whiteColor];
+
+    [self.piecesTable setBackgroundColor:[UIColor whiteColor]];
+
+    [self addSubview:self.piecesTable];
+}
+
+- (void)addCounter {
+    float counterXCoord = self.piecesTable.frame.origin.x + self.piecesTable.frame.size.width + 9.5f;
+    float counterSq = 25.0f;
+
+    float iconYOrigin = (self.cellHeight/2) - (counterSq);
+    CGRect iconRect = CGRectMake(counterXCoord,
+                                    iconYOrigin,
+                                    counterSq,
+                                    counterSq);
+
+    self.pieceIcon = [[UILabel alloc]initWithFrame:iconRect];
+    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"pieceIcon.png" forView:self.pieceIcon];
+    [self addSubview:self.pieceIcon];
+
+    CGRect counterRect = CGRectMake(counterXCoord,
+                                 self.cellHeight/2,
+                                 counterSq,
+                                 counterSq);
+    self.counter = [[UILabel alloc] initWithFrame:counterRect];
+    [self.counter setBackgroundColor:[UIColor orangeColor]];
+    NSAttributedString *text = [TAGViewHelpers attributeText:@"7" forFontSize:10.0f];
+    [self.counter setAttributedText:text];
+    [self.counter setTextAlignment:NSTextAlignmentCenter];
+    [self addSubview:self.counter];
+}
+
+#pragma UITableViewDelgate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 20;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TAGSuggestionListPiecesTableCell *cell = (TAGSuggestionListPiecesTableCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableSuggestionCellIdentifier];
+
+    if([tableView isEqual:self.piecesTable]){
+        cell = [[TAGSuggestionListPiecesTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableSuggestionCellIdentifier];
+
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
+
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 80.0f;
 }
 
 - (void)awakeFromNib

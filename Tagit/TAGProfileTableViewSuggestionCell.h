@@ -8,8 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAGProfileTableViewSuggestionCell : UITableViewCell
+@interface TAGProfileTableViewSuggestionCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) UILabel *title;
+@property (nonatomic, strong) UIView *image;
+@property (nonatomic, strong) UILabel *location;
+
+@property (nonatomic, strong) UILabel *locationLabel;
+@property (nonatomic, strong) UILabel *locationAddress;
+
+@property (nonatomic, strong) UIView *visualSep;
+
+@property (nonatomic, strong) UIView *pieceIcon;
+@property (nonatomic, strong) UILabel *counter;
+
+@property (nonatomic, strong) UITableView *piecesTable;
+
+@property (nonatomic, assign) float cellHeight;
+@property (nonatomic, assign) NSString *imageName;
 
 @end

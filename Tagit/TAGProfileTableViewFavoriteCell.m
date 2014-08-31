@@ -18,7 +18,7 @@
         // Initialization code
         self.cellHeight = 100.0f;
         self.imageName = @"heartSelected.png";
-        [self setImage];
+        [self addImage];
         [self initializeProperties];
         [self addLabelsAndNames];
         [self addVisualSep];
@@ -27,7 +27,7 @@
     return self;
 }
 
-- (void)setImage {
+- (void)addImage {
     CGRect imageFrame = CGRectMake(0, 0, self.cellHeight, self.cellHeight);
     self.image = [[UIView alloc] initWithFrame:imageFrame];
 
