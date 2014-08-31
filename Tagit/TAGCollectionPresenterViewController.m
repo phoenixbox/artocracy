@@ -7,6 +7,7 @@
 //
 
 #import "TAGCollectionPresenterViewController.h"
+#import "TAGDetailViewController.h"
 
 // Components
 #import "TAGCollectionView.h"
@@ -207,6 +208,20 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return kProfileTableRowHeight;
+}
+
+// hook into the didSelectRowAtIndexPath to instantiate a DetailViewController and push it atop the stack
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //  Init the detail view controller
+    TAGDetailViewController *tagDetailViewController = [[TAGDetailViewController alloc]init];
+
+//TODO Find the selection from the associated store per touch
+//    NSArray *allObjects = [[TAGCurretnStore sharedStore] allObjects];
+//    TAGObject *selection = [allObjects objectAtIndex:[indexPath row]];
+//    [tagDetailViewController setViewWithSelection:selection];
+
+    [[self navigationController] pushViewController:tagDetailViewController animated:YES];
 }
 
 - (void)buildCollectionView {
