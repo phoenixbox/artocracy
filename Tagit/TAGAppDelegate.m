@@ -83,7 +83,7 @@
     [[UITabBar appearance] setBarTintColor:kTagitBlack];
     [[UITabBar appearance] setSelectedImageTintColor:kPureWhite];
 
-    NSArray *tabBarImagesMap = @[@"tag", @"camera", @"profile"];
+    NSArray *tabBarImagesMap = @[@"art", @"camera", @"profile"];
 
     [[tabBar items] enumerateObjectsUsingBlock:^(UITabBarItem *item, NSUInteger index, BOOL *stop){
         [self setTabItemImages:item forImageName:[tabBarImagesMap objectAtIndex:index]];

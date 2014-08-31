@@ -58,6 +58,8 @@
 		CBD3D2D819B2889600A2DE75 /* pieceIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD3D2D719B2889600A2DE75 /* pieceIcon@2x.png */; };
 		CBD3D2DA19B28DDB00A2DE75 /* folsom_st_SF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD3D2D919B28DDB00A2DE75 /* folsom_st_SF@2x.png */; };
 		CBD3D2E019B29F3500A2DE75 /* TAGSuggestionListPiecesTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD3D2DF19B29F3500A2DE75 /* TAGSuggestionListPiecesTableCell.m */; };
+		CBD3D2E319B2CE3500A2DE75 /* artSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD3D2E119B2CE3500A2DE75 /* artSelected@2x.png */; };
+		CBD3D2E419B2CE3500A2DE75 /* artUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD3D2E219B2CE3500A2DE75 /* artUnselected@2x.png */; };
 		CBD4DCE919A47D370024209D /* TAGCollectionPresenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD4DCE819A47D370024209D /* TAGCollectionPresenterViewController.m */; };
 		CBD4DCEC19A482620024209D /* TAGCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD4DCEB19A482620024209D /* TAGCollectionView.m */; };
 		CBDA9A121996C4D800E8AD31 /* TAGSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewController.m */; };
@@ -170,6 +172,8 @@
 		CBD3D2D919B28DDB00A2DE75 /* folsom_st_SF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "folsom_st_SF@2x.png"; path = "../../../../../Dropbox/tagit/stock/cropped/folsom_st_SF@2x.png"; sourceTree = "<group>"; };
 		CBD3D2DE19B29F3500A2DE75 /* TAGSuggestionListPiecesTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionListPiecesTableCell.h; sourceTree = "<group>"; };
 		CBD3D2DF19B29F3500A2DE75 /* TAGSuggestionListPiecesTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionListPiecesTableCell.m; sourceTree = "<group>"; };
+		CBD3D2E119B2CE3500A2DE75 /* artSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "artSelected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/artSelected@2x.png"; sourceTree = "<group>"; };
+		CBD3D2E219B2CE3500A2DE75 /* artUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "artUnselected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/artUnselected@2x.png"; sourceTree = "<group>"; };
 		CBD4DCE719A47D370024209D /* TAGCollectionPresenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCollectionPresenterViewController.h; sourceTree = "<group>"; };
 		CBD4DCE819A47D370024209D /* TAGCollectionPresenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCollectionPresenterViewController.m; sourceTree = "<group>"; };
 		CBD4DCEA19A482620024209D /* TAGCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCollectionView.h; sourceTree = "<group>"; };
@@ -430,6 +434,8 @@
 		CB2673CC198DEEA300CB02A1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CBD3D2E119B2CE3500A2DE75 /* artSelected@2x.png */,
+				CBD3D2E219B2CE3500A2DE75 /* artUnselected@2x.png */,
 				CBD3D2D919B28DDB00A2DE75 /* folsom_st_SF@2x.png */,
 				CBD3D2D719B2889600A2DE75 /* pieceIcon@2x.png */,
 				CBD3D2D519B03D3400A2DE75 /* open_arms_SF@2x.png */,
@@ -633,11 +639,13 @@
 			files = (
 				CBDA9A2B19970DCD00E8AD31 /* cancel@2x.png in Resources */,
 				CB2673A1198DE3FA00CB02A1 /* InfoPlist.strings in Resources */,
+				CBD3D2E319B2CE3500A2DE75 /* artSelected@2x.png in Resources */,
 				CB6DA4E219A32A4800BB71EE /* profileUnselected@2x.png in Resources */,
 				CBDA9A1D1996CCCA00E8AD31 /* cameraUnselected@2x.png in Resources */,
 				CB068153198ECA4100B13E49 /* navBarLogo@2x.png in Resources */,
 				CBDA9A4319985A6B00E8AD31 /* map_icon@2x.png in Resources */,
 				CBD1950819A5C1C700C6B449 /* lightbulbUnselected@2x.png in Resources */,
+				CBD3D2E419B2CE3500A2DE75 /* artUnselected@2x.png in Resources */,
 				CBD3D2DA19B28DDB00A2DE75 /* folsom_st_SF@2x.png in Resources */,
 				CB6DA4E419A32AE800BB71EE /* settingsIcon@2x.png in Resources */,
 				CB068151198EC98600B13E49 /* filterIcon@2x.png in Resources */,
