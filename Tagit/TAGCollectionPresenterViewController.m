@@ -7,7 +7,7 @@
 //
 
 #import "TAGCollectionPresenterViewController.h"
-#import "TAGDetailViewController.h"
+#import "TAGPieceDetailViewController.h"
 
 // Components
 #import "TAGCollectionView.h"
@@ -214,7 +214,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //  Init the detail view controller
-    TAGDetailViewController *tagDetailViewController = [[TAGDetailViewController alloc]init];
+    TAGPieceDetailViewController *tagDetailViewController = [[TAGPieceDetailViewController alloc]init];
 
 //TODO Find the selection from the associated store per touch
 //    NSArray *allObjects = [[TAGCurretnStore sharedStore] allObjects];

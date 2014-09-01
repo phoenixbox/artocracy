@@ -9,11 +9,11 @@
 // Libs
 #import "FontAwesomeKit/FAKFontAwesome.h"
 
-#import "TAGDetailViewController.h"
+#import "TAGPieceDetailViewController.h"
 #import "TAGStyleConstants.h"
 #import "TAGViewHelpers.h"
 
-@interface TAGDetailViewController ()
+@interface TAGPieceDetailViewController ()
 
 @property (nonatomic, strong)UIView *_header;
 @property (nonatomic, strong)UIView *_artistThumbnail;
@@ -21,13 +21,17 @@
 @property (nonatomic, strong)UILabel *_artistName;
 @property (nonatomic, strong)UILabel *_location;
 
+@property (nonatomic, strong)UILabel *_favoriteCounter;
+
 @property (nonatomic, strong)UIView *_image;
 @property (nonatomic, strong)UIButton *_likeButton;
 @property (nonatomic, strong)UIButton *_commentButton;
 
+@property (nonatomic, strong)UIScrollView *_scrollView;
+
 @end
 
-@implementation TAGDetailViewController
+@implementation TAGPieceDetailViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,11 +39,28 @@
     if (self) {
         // Custom initialization
         [self initAppearance];
+        [self renderScrollView];
         [self renderHeader];
         [self renderCellImage];
-        [self renderTagImageButtons];
+        [self renderFavoriteCounter];
+//        [self renderActionButtons];
+        [self setScrollViewContentSize];
     }
     return self;
+}
+
+- (void)renderScrollView {
+    self._scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    self._scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    self._scrollView.delegate = self;
+
+    [self.view addSubview:self._scrollView];
+}
+
+- (void)setScrollViewContentSize {
+    CGFloat fullHeight = self._commentButton.frame.origin.y + 350.0f;
+
+    [self._scrollView setContentSize:CGSizeMake(self.view.bounds.size.width,fullHeight)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -106,7 +127,7 @@
 
     [self setBackgroundImage:@"profile_photo.png" forView:self._artistThumbnail];
 
-    [self.view addSubview:self._artistThumbnail];
+    [self._scrollView addSubview:self._artistThumbnail];
 }
 
 - (void)buildTagTitle {
@@ -122,7 +143,7 @@
     [self._pieceTitle setAttributedText:text];
     [TAGViewHelpers sizeLabelToFit:self._pieceTitle numberOfLines:0];
 
-    [self.view addSubview:self._pieceTitle];
+    [self._scrollView addSubview:self._pieceTitle];
 }
 
 - (void)buildArtistName {
@@ -139,7 +160,7 @@
     [self._artistName setAttributedText:text];
     [TAGViewHelpers sizeLabelToFit:self._artistName numberOfLines:0];
 
-    [self.view addSubview:self._artistName];
+    [self._scrollView addSubview:self._artistName];
 }
 
 - (void)renderCellImage {
@@ -151,10 +172,30 @@
 
     [self setBackgroundImage:@"ape_do_good_printing_SF.png" forView:self._image];
 
-    [self.view addSubview:self._image];
+    [self._scrollView addSubview:self._image];
 }
 
-- (void)renderTagImageButtons {
+- (void)renderFavoriteCounter {
+    CGFloat xCoord = self.view.frame.origin.x + kSmallPadding;
+    self._favoriteCounter = [[UILabel alloc] initWithFrame:CGRectMake(xCoord,
+                                                                  367.5f,
+                                                                  100.0f,
+                                                                  20.0f)];
+    FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
+    NSAttributedString *heartFont = [heart attributedString];
+    NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
+
+    NSMutableAttributedString *favoriteCount =[[NSMutableAttributedString alloc] initWithString:@" 1023" attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0]}];
+
+    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,heartIcon.length)];
+    [heartIcon appendAttributedString:favoriteCount];
+
+    [self._favoriteCounter setAttributedText:heartIcon];
+
+    [self.view addSubview:self._favoriteCounter];
+}
+
+- (void)renderActionButtons {
     [self renderLikeButton];
     [self renderCommentButton];
 }
@@ -199,7 +240,7 @@
     button.layer.cornerRadius = 2.0f;
     button.layer.masksToBounds = YES;
     
-    [self.view addSubview:button];
+    [self._scrollView addSubview:button];
 }
 
 
