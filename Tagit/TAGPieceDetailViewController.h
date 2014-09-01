@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAGPieceDetailViewController : UIViewController <UIScrollViewDelegate>
+@interface TAGPieceDetailViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @end

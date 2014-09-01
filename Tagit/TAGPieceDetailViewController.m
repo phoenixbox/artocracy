@@ -10,8 +10,14 @@
 #import "FontAwesomeKit/FAKFontAwesome.h"
 
 #import "TAGPieceDetailViewController.h"
-#import "TAGStyleConstants.h"
 #import "TAGViewHelpers.h"
+
+// Constants
+#import "TAGComponentConstants.h"
+#import "TAGStyleConstants.h"
+
+// Components
+#import "TAGLateralTableViewCell.h"
 
 @interface TAGPieceDetailViewController ()
 
@@ -23,11 +29,16 @@
 
 @property (nonatomic, strong)UILabel *_favoriteCounter;
 
+@property (nonatomic, strong)UILabel *_associatedTitle;
+@property (nonatomic, strong)UITableView *_associatedWorkTable;
+
 @property (nonatomic, strong)UIView *_image;
 @property (nonatomic, strong)UIButton *_likeButton;
 @property (nonatomic, strong)UIButton *_commentButton;
 
 @property (nonatomic, strong)UIScrollView *_scrollView;
+
+@property (nonatomic, assign) float _cellDimension;
 
 @end
 
@@ -38,11 +49,13 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self._cellDimension = 100.f;
         [self initAppearance];
         [self renderScrollView];
         [self renderHeader];
         [self renderCellImage];
         [self renderFavoriteCounter];
+        [self renderArtistAssocWork];
 //        [self renderActionButtons];
         [self setScrollViewContentSize];
     }
@@ -58,8 +71,8 @@
 }
 
 - (void)setScrollViewContentSize {
-    CGFloat fullHeight = self._commentButton.frame.origin.y + 350.0f;
-
+    float yCoord = CGRectGetMaxY(self._associatedTitle.frame) + kSmallPadding;
+    CGFloat fullHeight = yCoord + 200.0f + kSmallPadding;
     [self._scrollView setContentSize:CGSizeMake(self.view.bounds.size.width,fullHeight)];
 }
 
@@ -180,7 +193,7 @@
     self._favoriteCounter = [[UILabel alloc] initWithFrame:CGRectMake(xCoord,
                                                                   367.5f,
                                                                   100.0f,
-                                                                  20.0f)];
+                                                                  10.0f)];
     FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
     NSAttributedString *heartFont = [heart attributedString];
     NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
@@ -191,7 +204,84 @@
 
     [self._favoriteCounter setAttributedText:heartIcon];
 
-    [self.view addSubview:self._favoriteCounter];
+    [self._scrollView addSubview:self._favoriteCounter];
+}
+
+- (void)renderArtistAssocWork {
+    [self renderAssociatedTitle];
+    [self renderAssociatedWorkTable];
+}
+
+- (void)renderAssociatedTitle {
+    NSMutableAttributedString *preString =[[NSMutableAttributedString alloc] initWithString:@"Other work by: " attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:10.0]}];
+
+    NSAttributedString *postString =[[NSAttributedString alloc] initWithString:self._artistName.text attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0]}];
+
+    [preString appendAttributedString:postString];
+
+    self._associatedTitle = [UILabel new];
+
+    float yCoord = CGRectGetMaxY(self._favoriteCounter.frame) + kSmallPadding;
+
+    [self._associatedTitle setFrame:CGRectMake(self._favoriteCounter.frame.origin.x,
+                                    yCoord,
+                                    100.0f,
+                                    20.0f)];
+
+    [self._associatedTitle setAttributedText:preString];
+    [TAGViewHelpers sizeLabelToFit:self._associatedTitle numberOfLines:1];
+
+    [self._scrollView addSubview:self._associatedTitle];
+}
+
+- (void)renderAssociatedWorkTable {
+    self._associatedWorkTable = [UITableView new];
+
+    float yCoord = CGRectGetMaxY(self._associatedTitle.frame) + kSmallPadding;
+
+    CGRect piecesRect = CGRectMake(0.0f, yCoord, 320.0f, self._cellDimension);
+
+    self._associatedWorkTable = [[UITableView alloc] initWithFrame:piecesRect];
+    CGAffineTransform rotate = CGAffineTransformMakeRotation(-M_PI_2);
+    [self._associatedWorkTable setTransform:rotate];
+    // VIP: Must set the frame again on the table after rotation
+    [self._associatedWorkTable setFrame:piecesRect];
+    [self._associatedWorkTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGLateralTableViewCell];
+    self._associatedWorkTable.delegate = self;
+    self._associatedWorkTable.dataSource = self;
+    self._associatedWorkTable.alwaysBounceVertical = NO;
+    self._associatedWorkTable.scrollEnabled = YES;
+    self._associatedWorkTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
+    self._associatedWorkTable.separatorColor = [UIColor whiteColor];
+
+    [self._associatedWorkTable setBackgroundColor:[UIColor whiteColor]];
+
+    [self._scrollView addSubview:self._associatedWorkTable];
+}
+
+
+#pragma UITableViewDelgate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TAGLateralTableViewCell *cell = (TAGLateralTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTAGLateralTableViewCell];
+
+    if([tableView isEqual:self._associatedWorkTable]){
+        cell = [[TAGLateralTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTAGLateralTableViewCell forCellDimension:self._cellDimension];
+
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100.0f;
 }
 
 - (void)renderActionButtons {
