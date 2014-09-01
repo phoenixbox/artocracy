@@ -9,7 +9,7 @@
 #import "TAGProfileTableViewSuggestionCell.h"
 #import "TAGViewHelpers.h"
 #import "TAGComponentConstants.h"
-#import "TAGSuggestionListPiecesTableCell.h"
+#import "TAGLateralTableViewCell.h"
 
 @implementation TAGProfileTableViewSuggestionCell
 
@@ -19,6 +19,7 @@
     if (self) {
         // Initialization code
         self.cellHeight = 100.0f;
+        self.lateralTableCellDimension = 80.0f;
         [self addImage];
         [self addLocation];
         [self addPiecesTable];
@@ -63,14 +64,14 @@
 
 - (void)addPiecesTable {
     self.piecesTable = [UITableView new];
-    CGRect piecesRect = CGRectMake(100.0f, 20.0f, 176.0f, 80.0f);
+    CGRect piecesRect = CGRectMake(100.0f, 20.0f, 176.0f, self.lateralTableCellDimension);
 
     self.piecesTable = [[UITableView alloc] initWithFrame:piecesRect];
     CGAffineTransform rotate = CGAffineTransformMakeRotation(-M_PI_2);
     [self.piecesTable setTransform:rotate];
     // VIP: Must set the frame again on the table after rotation
     [self.piecesTable setFrame:piecesRect];
-    [self.piecesTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kSuggestionListPiecesTableCellIdentifier];
+    [self.piecesTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGLateralTableViewCell];
     self.piecesTable.delegate = self;
     self.piecesTable.dataSource = self;
     self.piecesTable.alwaysBounceVertical = NO;
@@ -119,10 +120,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TAGSuggestionListPiecesTableCell *cell = (TAGSuggestionListPiecesTableCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableSuggestionCellIdentifier];
+    TAGLateralTableViewCell *cell = (TAGLateralTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableSuggestionCellIdentifier];
 
     if([tableView isEqual:self.piecesTable]){
-        cell = [[TAGSuggestionListPiecesTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableSuggestionCellIdentifier];
+        cell = [[TAGLateralTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableSuggestionCellIdentifier forCellDimension:self.lateralTableCellDimension];
 
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }

@@ -57,7 +57,7 @@
 		CBD3D2D619B03D3400A2DE75 /* open_arms_SF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD3D2D519B03D3400A2DE75 /* open_arms_SF@2x.png */; };
 		CBD3D2D819B2889600A2DE75 /* pieceIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD3D2D719B2889600A2DE75 /* pieceIcon@2x.png */; };
 		CBD3D2DA19B28DDB00A2DE75 /* folsom_st_SF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD3D2D919B28DDB00A2DE75 /* folsom_st_SF@2x.png */; };
-		CBD3D2E019B29F3500A2DE75 /* TAGSuggestionListPiecesTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD3D2DF19B29F3500A2DE75 /* TAGSuggestionListPiecesTableCell.m */; };
+		CBD3D2E019B29F3500A2DE75 /* TAGLateralTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD3D2DF19B29F3500A2DE75 /* TAGLateralTableViewCell.m */; };
 		CBD3D2E319B2CE3500A2DE75 /* artSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD3D2E119B2CE3500A2DE75 /* artSelected@2x.png */; };
 		CBD3D2E419B2CE3500A2DE75 /* artUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD3D2E219B2CE3500A2DE75 /* artUnselected@2x.png */; };
 		CBD3D2E819B2D67D00A2DE75 /* TAGPieceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD3D2E719B2D67D00A2DE75 /* TAGPieceDetailViewController.m */; };
@@ -172,8 +172,8 @@
 		CBD3D2D519B03D3400A2DE75 /* open_arms_SF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "open_arms_SF@2x.png"; path = "../../../../../Dropbox/tagit/stock/cropped/open_arms_SF@2x.png"; sourceTree = "<group>"; };
 		CBD3D2D719B2889600A2DE75 /* pieceIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pieceIcon@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/pieceIcon@2x.png"; sourceTree = "<group>"; };
 		CBD3D2D919B28DDB00A2DE75 /* folsom_st_SF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "folsom_st_SF@2x.png"; path = "../../../../../Dropbox/tagit/stock/cropped/folsom_st_SF@2x.png"; sourceTree = "<group>"; };
-		CBD3D2DE19B29F3500A2DE75 /* TAGSuggestionListPiecesTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionListPiecesTableCell.h; sourceTree = "<group>"; };
-		CBD3D2DF19B29F3500A2DE75 /* TAGSuggestionListPiecesTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionListPiecesTableCell.m; sourceTree = "<group>"; };
+		CBD3D2DE19B29F3500A2DE75 /* TAGLateralTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGLateralTableViewCell.h; sourceTree = "<group>"; };
+		CBD3D2DF19B29F3500A2DE75 /* TAGLateralTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGLateralTableViewCell.m; sourceTree = "<group>"; };
 		CBD3D2E119B2CE3500A2DE75 /* artSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "artSelected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/artSelected@2x.png"; sourceTree = "<group>"; };
 		CBD3D2E219B2CE3500A2DE75 /* artUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "artUnselected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/artUnselected@2x.png"; sourceTree = "<group>"; };
 		CBD3D2E619B2D67D00A2DE75 /* TAGPieceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGPieceDetailViewController.h; sourceTree = "<group>"; };
@@ -506,8 +506,8 @@
 				CBD3D2D019AB00F300A2DE75 /* TAGProfileTableViewSuggestionCell.m */,
 				CBD3D2D219AEF34F00A2DE75 /* TAGProfileTableViewFavoriteCell.h */,
 				CBD3D2D319AEF34F00A2DE75 /* TAGProfileTableViewFavoriteCell.m */,
-				CBD3D2DE19B29F3500A2DE75 /* TAGSuggestionListPiecesTableCell.h */,
-				CBD3D2DF19B29F3500A2DE75 /* TAGSuggestionListPiecesTableCell.m */,
+				CBD3D2DE19B29F3500A2DE75 /* TAGLateralTableViewCell.h */,
+				CBD3D2DF19B29F3500A2DE75 /* TAGLateralTableViewCell.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -740,7 +740,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB0681691991FCF100B13E49 /* TAGTagTableViewCell.m in Sources */,
-				CBD3D2E019B29F3500A2DE75 /* TAGSuggestionListPiecesTableCell.m in Sources */,
+				CBD3D2E019B29F3500A2DE75 /* TAGLateralTableViewCell.m in Sources */,
 				CB009B6119A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.m in Sources */,
 				CBD3D2D119AB00F300A2DE75 /* TAGProfileTableViewSuggestionCell.m in Sources */,
 				CB068159198ECCEB00B13E49 /* TAGErrorAlert.m in Sources */,

@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAGSuggestionListPiecesTableCell : UITableViewCell
+@interface TAGLateralTableViewCell : UITableViewCell
 
+@property (nonatomic, assign) float cellDimension;
 @property (nonatomic, strong) UIView *image;
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forCellDimension:(float)dimension;
 
 @end

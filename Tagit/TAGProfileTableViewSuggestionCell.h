@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UITableView *piecesTable;
 
 @property (nonatomic, assign) float cellHeight;
+@property (nonatomic, assign) float lateralTableCellDimension;
 @property (nonatomic, assign) NSString *imageName;
 
 @end

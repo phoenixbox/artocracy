@@ -6,16 +6,17 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
-#import "TAGSuggestionListPiecesTableCell.h"
+#import "TAGLateralTableViewCell.h"
 #import "TAGViewHelpers.h"
 
-@implementation TAGSuggestionListPiecesTableCell
+@implementation TAGLateralTableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forCellDimension:(float)dimension
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        self.cellDimension = dimension;
         [self addImage];
     }
     return self;
@@ -27,7 +28,7 @@
 
     CGAffineTransform rotate = CGAffineTransformMakeRotation(M_PI_2);
     [self.image setTransform:rotate];
-    [self.image setFrame:CGRectMake(0,0,80.0f,80.0f)];
+    [self.image setFrame:CGRectMake(0,0,self.cellDimension,self.cellDimension)];
     [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"open_arms_SF.png" forView:self.image];
 
     [self addSubview:self.image];

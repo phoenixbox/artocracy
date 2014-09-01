@@ -20,6 +20,6 @@
 
 #define kProfileTableRowHeight 102.5f
 
-#define kSuggestionListPiecesTableCellIdentifier @"TAGSuggestionListPiecesTableCell"
+#define kTAGLateralTableViewCell @"TAGLateralTableViewCell"
 
 #endif
