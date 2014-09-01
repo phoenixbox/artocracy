@@ -56,7 +56,7 @@
         [self renderCellImage];
         [self renderFavoriteCounter];
         [self renderArtistAssocWork];
-//        [self renderActionButtons];
+        [self renderActionButtons];
         [self setScrollViewContentSize];
     }
     return self;
@@ -295,22 +295,27 @@
 }
 
 - (void)renderLikeButton{
-    CGFloat xCoord = self.view.frame.origin.x + kSmallPadding;
+    float xCoord = self.view.frame.origin.x + kSmallPadding;
+    float yCoord = CGRectGetMaxY(self._associatedWorkTable.frame) + kSmallPadding;
+
     self._likeButton = [[UIButton alloc] initWithFrame:CGRectMake(xCoord,
-                                                                 367.5f,
-                                                                 50.0f,
-                                                                 20.0f)];
+                                                                  yCoord,
+                                                                  50.0f,
+                                                                  20.0f)];
     FAKFontAwesome *heartIcon = [FAKFontAwesome heartIconWithSize:10];
     [TAGViewHelpers formatButton:self._likeButton forIcon:heartIcon withCopy:@"Like  "];
     [self._scrollView addSubview:self._likeButton];
 }
 
 - (void)renderCommentButton{
-    CGFloat xCoord = self.view.frame.origin.x + kBigPadding + 50.0f;
-    self._commentButton = [[UIButton alloc] initWithFrame:CGRectMake(xCoord,
-                                                                    367.5f,
-                                                                    70.0f,
-                                                                    20.0f)];
+    float xCoord = CGRectGetMaxX(self._likeButton.frame) + kSmallPadding;
+    float yCoord = self._likeButton.frame.origin.y;
+
+    self._likeButton = [[UIButton alloc] initWithFrame:CGRectMake(xCoord,
+                                                                  yCoord,
+                                                                  70.0f,
+                                                                  20.0f)];
+
     FAKFontAwesome *commentIcon = [FAKFontAwesome commentIconWithSize:10];
     [TAGViewHelpers formatButton:self._likeButton forIcon:commentIcon withCopy:@"Comment  "];
     [self._scrollView  addSubview:self._likeButton];
