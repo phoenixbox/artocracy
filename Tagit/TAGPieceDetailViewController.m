@@ -176,6 +176,29 @@
     [self._scrollView addSubview:self._artistName];
 }
 
+- (void)renderFavoriteCounter {
+    CGFloat xCoord = 280.0f;
+    CGFloat yCoord = self._artistName.frame.origin.y;
+
+    self._favoriteCounter = [[UILabel alloc] initWithFrame:CGRectMake(xCoord,
+                                                                      yCoord,
+                                                                      100.0f,
+                                                                      10.0f)];
+    FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
+    NSAttributedString *heartFont = [heart attributedString];
+    NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
+
+    NSMutableAttributedString *favoriteCount =[[NSMutableAttributedString alloc] initWithString:@" 1023" attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0]}];
+    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,heartIcon.length)];
+    [heartIcon appendAttributedString:favoriteCount];
+
+    [self._favoriteCounter setAttributedText:heartIcon];
+    [TAGViewHelpers sizeLabelToFit:self._favoriteCounter numberOfLines:1];
+
+    [self._scrollView addSubview:self._favoriteCounter];
+}
+
+
 - (void)renderCellImage {
     CGFloat xCoord = self.view.frame.origin.x;
     CGFloat yCoord = self._artistThumbnail.frame.origin.y + self._artistThumbnail.frame.size.height + kBigPadding;
@@ -186,25 +209,6 @@
     [self setBackgroundImage:@"ape_do_good_printing_SF.png" forView:self._image];
 
     [self._scrollView addSubview:self._image];
-}
-
-- (void)renderFavoriteCounter {
-    CGFloat xCoord = self.view.frame.origin.x + kSmallPadding;
-    self._favoriteCounter = [[UILabel alloc] initWithFrame:CGRectMake(xCoord,
-                                                                  367.5f,
-                                                                  100.0f,
-                                                                  10.0f)];
-    FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
-    NSAttributedString *heartFont = [heart attributedString];
-    NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
-
-    NSMutableAttributedString *favoriteCount =[[NSMutableAttributedString alloc] initWithString:@" 1023" attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0]}];
-    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,heartIcon.length)];
-    [heartIcon appendAttributedString:favoriteCount];
-
-    [self._favoriteCounter setAttributedText:heartIcon];
-
-    [self._scrollView addSubview:self._favoriteCounter];
 }
 
 - (void)renderArtistAssocWork {
@@ -221,12 +225,13 @@
 
     self._associatedTitle = [UILabel new];
 
-    float yCoord = CGRectGetMaxY(self._favoriteCounter.frame) + kSmallPadding;
+    float xCoord = self.view.frame.origin.x + kSmallPadding;
+    float yCoord = CGRectGetMaxY(self._image.frame) + kSmallPadding;
 
-    [self._associatedTitle setFrame:CGRectMake(self._favoriteCounter.frame.origin.x,
-                                    yCoord,
-                                    100.0f,
-                                    20.0f)];
+    [self._associatedTitle setFrame:CGRectMake(xCoord,
+                                               yCoord,
+                                               100.0f,
+                                               20.0f)];
 
     [self._associatedTitle setAttributedText:preString];
     [TAGViewHelpers sizeLabelToFit:self._associatedTitle numberOfLines:1];
