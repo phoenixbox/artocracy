@@ -186,7 +186,6 @@
     NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
 
     NSMutableAttributedString *favoriteCount =[[NSMutableAttributedString alloc] initWithString:@" 1023" attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0]}];
-
     [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,heartIcon.length)];
     [heartIcon appendAttributedString:favoriteCount];
 
@@ -206,10 +205,9 @@
                                                                  367.5f,
                                                                  50.0f,
                                                                  20.0f)];
-
     FAKFontAwesome *heartIcon = [FAKFontAwesome heartIconWithSize:10];
-
-    [self formatButton:self._likeButton forIcon:heartIcon withCopy:@"Like  "];
+    [TAGViewHelpers formatButton:self._likeButton forIcon:heartIcon withCopy:@"Like  "];
+    [self._scrollView addSubview:self._likeButton];
 }
 
 - (void)renderCommentButton{
@@ -218,31 +216,15 @@
                                                                     367.5f,
                                                                     70.0f,
                                                                     20.0f)];
-
     FAKFontAwesome *commentIcon = [FAKFontAwesome commentIconWithSize:10];
-
-    [self formatButton:self._commentButton forIcon:commentIcon withCopy:@"Comment  "];
+    [TAGViewHelpers formatButton:self._likeButton forIcon:commentIcon withCopy:@"Comment  "];
+    [self._scrollView  addSubview:self._likeButton];
 }
 
 - (void)setBackgroundImage:(NSString *)imageName forView:(UIView *)view {
     UIImage *image = [UIImage imageNamed:imageName];
     view.backgroundColor = [UIColor colorWithPatternImage:image];
 }
-
-- (void)formatButton:(UIButton *)button forIcon:(FAKFontAwesome *)icon withCopy:(NSString *)buttonCopy {
-    NSAttributedString *iconFont = [icon attributedString];
-    NSMutableAttributedString *iconCopy =[[NSMutableAttributedString alloc] initWithString:buttonCopy attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0]}];
-    [iconCopy appendAttributedString:iconFont];
-    [iconCopy addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0,iconCopy.length)];
-    [button setAttributedTitle:iconCopy forState:UIControlStateNormal];
-    [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [button setBackgroundColor:kTagitBlack];
-    button.layer.cornerRadius = 2.0f;
-    button.layer.masksToBounds = YES;
-    
-    [self._scrollView addSubview:button];
-}
-
 
 - (void)viewDidLoad
 {

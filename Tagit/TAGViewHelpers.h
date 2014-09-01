@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+// Libs
+#import "FontAwesomeKit/FAKFontAwesome.h"
+
 @interface TAGViewHelpers : NSObject
 
 + (NSAttributedString *)attributeText:(NSString *)text forFontSize:(CGFloat)size;
@@ -15,5 +18,7 @@
 + (void)sizeLabelToFit:(UILabel *)label numberOfLines:(CGFloat)lineNumber;
 
 + (void)scaleAndSetBackgroundImageNamed:(NSString *)imageName forView:(UIView *)targetView;
+
++ (void)formatButton:(UIButton *)button forIcon:(FAKFontAwesome *)icon withCopy:(NSString *)buttonCopy;
 
 @end
