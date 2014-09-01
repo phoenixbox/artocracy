@@ -16,6 +16,8 @@
 @property (nonatomic, strong)UILabel *artistName;
 @property (nonatomic, strong)UILabel *location;
 
+@property (nonatomic, strong)UILabel *favoriteCounter;
+
 @property (nonatomic, strong)UIView *image;
 @property (nonatomic, strong)UIButton *likeButton;
 @property (nonatomic, strong)UIButton *commentButton;

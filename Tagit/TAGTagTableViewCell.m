@@ -34,6 +34,7 @@
     [self buildArtistThumbnail];
     [self buildTagTitle];
     [self buildArtistName];
+    [self renderFavoriteCounter];
 }
 
 - (void)buildArtistThumbnail {
@@ -83,6 +84,29 @@
 
     [self.contentView addSubview:self.artistName];
 }
+
+- (void)renderFavoriteCounter {
+    CGFloat xCoord = 280.0f;
+    CGFloat yCoord = self.artistName.frame.origin.y;
+
+    self.favoriteCounter = [[UILabel alloc] initWithFrame:CGRectMake(xCoord,
+                                                                      yCoord,
+                                                                      100.0f,
+                                                                      10.0f)];
+    FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
+    NSAttributedString *heartFont = [heart attributedString];
+    NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
+
+    NSMutableAttributedString *favoriteCount =[[NSMutableAttributedString alloc] initWithString:@" 1023" attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0]}];
+    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,heartIcon.length)];
+    [heartIcon appendAttributedString:favoriteCount];
+
+    [self.favoriteCounter setAttributedText:heartIcon];
+    [TAGViewHelpers sizeLabelToFit:self.favoriteCounter numberOfLines:1];
+
+    [self.contentView addSubview:self.favoriteCounter];
+}
+
 
 - (void)renderCellImage {
     CGFloat xCoord = self.frame.origin.x;
