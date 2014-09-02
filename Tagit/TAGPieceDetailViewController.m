@@ -32,7 +32,7 @@
 @property (nonatomic, strong)UILabel *_associatedTitle;
 @property (nonatomic, strong)UITableView *_associatedWorkTable;
 
-@property (nonatomic, strong)UIView *_image;
+@property (nonatomic, strong)UIView *_pieceImage;
 @property (nonatomic, strong)UIButton *_likeButton;
 @property (nonatomic, strong)UIButton *_commentButton;
 
@@ -53,13 +53,42 @@
         [self initAppearance];
         [self renderScrollView];
         [self renderHeader];
-        [self renderCellImage];
+        [self renderDetailImage]; // Common detail functions
         [self renderFavoriteCounter];
         [self renderArtistAssocWork];
         [self renderActionButtons];
         [self setScrollViewContentSize];
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    UIButton *backButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 40.0f, 40.0f)];
+    [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"back_icon"] forState:UIControlStateNormal];
+    [backButton setTintColor:[UIColor blackColor]];
+    [backButton addTarget:self action:@selector(popDetailView) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = backButtonItem;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+- (void)initAppearance
+{
+    self.navigationController.navigationBar.translucent = NO;
+
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
+    [[UINavigationBar appearance] setBarTintColor:kPureWhite];
+
+    [[UIToolbar appearance] setBarStyle:UIBarStyleBlackOpaque];
+    [[UIToolbar appearance] setBarTintColor:kTagitBlack];
+    [self setHeaderLogo];
+    [self addNavigationItems];
 }
 
 - (void)renderScrollView {
@@ -76,32 +105,9 @@
     [self._scrollView setContentSize:CGSizeMake(self.view.bounds.size.width,fullHeight)];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    UIButton *backButton = [[UIButton alloc] initWithFrame: CGRectMake(0, 0, 40.0f, 40.0f)];
-    [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"back_icon"] forState:UIControlStateNormal];
-    [backButton setTintColor:[UIColor blackColor]];
-    [backButton addTarget:self action:@selector(popDetailView) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItem = backButtonItem;
-}
-
 - (void)popDetailView {
     NSLog(@"Pop the controller");
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)initAppearance
-{
-    self.navigationController.navigationBar.translucent = NO;
-
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
-    [[UINavigationBar appearance] setBarTintColor:kPureWhite];
-
-    [[UIToolbar appearance] setBarStyle:UIBarStyleBlackOpaque];
-    [[UIToolbar appearance] setBarTintColor:kTagitBlack];
-    [self setHeaderLogo];
-    [self addNavigationItems];
 }
 
 - (void)addNavigationItems{
@@ -198,17 +204,16 @@
     [self._scrollView addSubview:self._favoriteCounter];
 }
 
-
-- (void)renderCellImage {
+- (void)renderDetailImage {
     CGFloat xCoord = self.view.frame.origin.x;
     CGFloat yCoord = self._artistThumbnail.frame.origin.y + self._artistThumbnail.frame.size.height + kBigPadding;
     CGRect imageFrame = CGRectMake(xCoord, yCoord, 320.0f, 320.0f);
 
-    self._image = [[UIView alloc] initWithFrame:imageFrame];
+    self._pieceImage = [[UIView alloc] initWithFrame:imageFrame];
 
-    [self setBackgroundImage:@"ape_do_good_printing_SF.png" forView:self._image];
+    [self setBackgroundImage:@"ape_do_good_printing_SF.png" forView:self._pieceImage];
 
-    [self._scrollView addSubview:self._image];
+    [self._scrollView addSubview:self._pieceImage];
 }
 
 - (void)renderArtistAssocWork {
@@ -226,7 +231,7 @@
     self._associatedTitle = [UILabel new];
 
     float xCoord = self.view.frame.origin.x + kSmallPadding;
-    float yCoord = CGRectGetMaxY(self._image.frame) + kSmallPadding;
+    float yCoord = CGRectGetMaxY(self._pieceImage.frame) + kSmallPadding;
 
     [self._associatedTitle setFrame:CGRectMake(xCoord,
                                                yCoord,
@@ -321,15 +326,10 @@
     [self._scrollView  addSubview:self._likeButton];
 }
 
+// TODO: Common detail function
 - (void)setBackgroundImage:(NSString *)imageName forView:(UIView *)view {
     UIImage *image = [UIImage imageNamed:imageName];
     view.backgroundColor = [UIColor colorWithPatternImage:image];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
