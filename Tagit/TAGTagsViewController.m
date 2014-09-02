@@ -25,6 +25,7 @@
 // ScrollView component hiding
 @property (nonatomic, assign) float _prevNavBarScrollViewYOffset;
 @property (nonatomic, assign) float _prevTabBarScrollViewYOffset;
+@property (nonatomic, assign) float _negDiff;
 @property (nonatomic, assign) CGRect _originalTabFrame;
 
 @end
@@ -167,8 +168,7 @@
 
     if (scrollOffset <= -scrollView.contentInset.top) { // Top Condition
         navFrame.origin.y = 20;
-    } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) { // Bottom Condition
-        NSLog(@"NAV SIZE %f", navSize);
+    } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) { // Bottom Condition;
         navFrame.origin.y = -navSize;
     } else {
         navFrame.origin.y = MIN(20, MAX(-navSize, navFrame.origin.y - navScrollDiff));
@@ -194,7 +194,11 @@
         tabFrame.origin.y = 520;
     } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) {
         tabFrame.origin.y = 570;
+    } else if (self._negDiff > 520 - navScrollDiff) {
+        tabFrame.origin.y = 520;
+        self._negDiff = 520 - navScrollDiff;
     } else {
+        self._negDiff = 520 - navScrollDiff;
         tabFrame.origin.y = MAX(520, MIN(520 - navScrollDiff,570));
     }
     [self.navigationController.tabBarController.tabBar setFrame:tabFrame];
@@ -220,7 +224,6 @@
     if (navFrame.origin.y < 20) {
         [self animateNavBarTo:-(navFrame.size.height - 21)];
     }
-    
     CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
     if (tabFrame.origin.y > 520) {
         [self animateTabBarTo:(571)];
