@@ -150,7 +150,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self hideNavBar:scrollView];
-//    [self hideTabBar:scrollView];
+    [self hideTabBar:scrollView];
 }
 
 - (void)hideNavBar:(UIScrollView *)scrollView {
@@ -178,18 +178,25 @@
     self._prevNavBarScrollViewYOffset = scrollOffset;
 }
 
-//- (void)hideTabBar:(UIScrollView *)scrollView {
-//    CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
-//
-//    if (scrollOffset >= scrollView.contentInset.top) {
-//        tabFrame.origin.y = 560;
-//    } else if ((scrollOffset - scrollHeight) <= scrollContentSizeHeight) {
-//        tabFrame.origin.y = 520;
-//    } else {
-//        tabFrame.origin.y = MIN(560, MAX(520, tabFrame.origin.y - navScrollDiff));
-//    }
-//    [self.navigationController.tabBarController.tabBar setFrame:tabFrame];
-//}
+- (void)hideTabBar:(UIScrollView *)scrollView {
+    CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
+
+    CGFloat scrollOffset = scrollView.contentOffset.y;
+
+    CGFloat navScrollDiff = scrollOffset - self._prevNavBarScrollViewYOffset;
+
+    CGFloat scrollHeight = scrollView.frame.size.height;
+    CGFloat scrollContentSizeHeight = scrollView.contentSize.height + scrollView.contentInset.bottom;
+
+    if (scrollOffset >= +scrollView.contentInset.bottom) {
+        tabFrame.origin.y = 560;
+    } else if ((scrollOffset - scrollHeight) <= scrollContentSizeHeight) {
+        tabFrame.origin.y = 520;
+    } else {
+        tabFrame.origin.y = MIN(560, MAX(520, tabFrame.origin.y - navScrollDiff));
+    }
+    [self.navigationController.tabBarController.tabBar setFrame:tabFrame];
+}
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
@@ -214,7 +221,7 @@
     CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
 //    NSLog(@"TAB FRAME: %ld", tabFrame.origin.y);
     if (tabFrame.origin.y > 520) {
-        [self animateTabBarTo:-(tabFrame.size.height - 21)];
+        [self animateTabBarTo:(tabFrame.size.height - 21)];
     }
 }
 
