@@ -149,11 +149,13 @@
 #pragma NavigationBar Hide On Scroll
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self hideNavBar:scrollView];
+//    [self hideTabBar:scrollView];
+}
+
+- (void)hideNavBar:(UIScrollView *)scrollView {
     CGRect navFrame = self.navigationController.navigationBar.frame;
-    CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
-
     CGFloat navSize = navFrame.size.height - 21;
-
     CGFloat navFramePercentageHidden = ((20 - navFrame.origin.y) / (navFrame.size.height - 1));
 
     CGFloat scrollOffset = scrollView.contentOffset.y;
@@ -171,20 +173,23 @@
         navFrame.origin.y = MIN(20, MAX(-navSize, navFrame.origin.y - navScrollDiff));
     }
 
-    if (scrollOffset >= scrollView.contentInset.top) {
-        tabFrame.origin.y = 560;
-    } else if ((scrollOffset - scrollHeight) <= scrollContentSizeHeight) {
-        tabFrame.origin.y = 520;
-    } else {
-        tabFrame.origin.y = MIN(560, MAX(520, tabFrame.origin.y - navScrollDiff));
-    }
-    [self.navigationController.tabBarController.tabBar setFrame:tabFrame];
-
     [self.navigationController.navigationBar setFrame:navFrame];
-
     [self updateBarButtonItems:(1 - navFramePercentageHidden)];
     self._prevNavBarScrollViewYOffset = scrollOffset;
 }
+
+//- (void)hideTabBar:(UIScrollView *)scrollView {
+//    CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
+//
+//    if (scrollOffset >= scrollView.contentInset.top) {
+//        tabFrame.origin.y = 560;
+//    } else if ((scrollOffset - scrollHeight) <= scrollContentSizeHeight) {
+//        tabFrame.origin.y = 520;
+//    } else {
+//        tabFrame.origin.y = MIN(560, MAX(520, tabFrame.origin.y - navScrollDiff));
+//    }
+//    [self.navigationController.tabBarController.tabBar setFrame:tabFrame];
+//}
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
