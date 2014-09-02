@@ -220,12 +220,11 @@
     if (navFrame.origin.y < 20) {
         [self animateNavBarTo:-(navFrame.size.height - 21)];
     }
-
-//    CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
-//    if (tabFrame.origin.y > 520) {
-    //    NSLog(@"TAB FRAME: %ld", tabFrame.origin.y);
-//        [self animateTabBarTo:(tabFrame.size.height - 21)];
-//    }
+    
+    CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
+    if (tabFrame.origin.y > 520) {
+        [self animateTabBarTo:(571)];
+    }
 }
 
 - (void)updateBarButtonItems:(CGFloat)alpha
