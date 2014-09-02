@@ -22,6 +22,11 @@
 
 @property (nonatomic, strong) UITableView *_tagsTable;
 
+// ScrollView component hiding
+@property (nonatomic, assign) float _prevNavBarScrollViewYOffset;
+@property (nonatomic, assign) float _prevTabBarScrollViewYOffset;
+@property (nonatomic, assign) CGRect _originalTabFrame;
+
 @end
 
 @implementation TAGTagsViewController
@@ -42,6 +47,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self renderTagsTable];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    self._originalTabFrame = self.tabBarController.tabBar.frame;
 }
 
 - (void)initAppearance
@@ -135,6 +144,106 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return kTagsTableRowHeight;
+}
+
+#pragma NavigationBar Hide On Scroll
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGRect navFrame = self.navigationController.navigationBar.frame;
+    CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
+
+    CGFloat navSize = navFrame.size.height - 21;
+
+    CGFloat navFramePercentageHidden = ((20 - navFrame.origin.y) / (navFrame.size.height - 1));
+
+    CGFloat scrollOffset = scrollView.contentOffset.y;
+
+    CGFloat navScrollDiff = scrollOffset - self._prevNavBarScrollViewYOffset;
+
+    CGFloat scrollHeight = scrollView.frame.size.height;
+    CGFloat scrollContentSizeHeight = scrollView.contentSize.height + scrollView.contentInset.bottom;
+
+    if (scrollOffset <= -scrollView.contentInset.top) {
+        navFrame.origin.y = 20;
+    } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) {
+        navFrame.origin.y = -navSize;
+    } else {
+        navFrame.origin.y = MIN(20, MAX(-navSize, navFrame.origin.y - navScrollDiff));
+    }
+
+    if (scrollOffset >= scrollView.contentInset.top) {
+        tabFrame.origin.y = 560;
+    } else if ((scrollOffset - scrollHeight) <= scrollContentSizeHeight) {
+        tabFrame.origin.y = 520;
+    } else {
+        tabFrame.origin.y = MIN(560, MAX(520, tabFrame.origin.y - navScrollDiff));
+    }
+    [self.navigationController.tabBarController.tabBar setFrame:tabFrame];
+
+    [self.navigationController.navigationBar setFrame:navFrame];
+
+    [self updateBarButtonItems:(1 - navFramePercentageHidden)];
+    self._prevNavBarScrollViewYOffset = scrollOffset;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self stoppedScrolling];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
+                  willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate) {
+        [self stoppedScrolling];
+    }
+}
+
+- (void)stoppedScrolling
+{
+    CGRect navFrame = self.navigationController.navigationBar.frame;
+    if (navFrame.origin.y < 20) {
+        [self animateNavBarTo:-(navFrame.size.height - 21)];
+    }
+
+    CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
+//    NSLog(@"TAB FRAME: %ld", tabFrame.origin.y);
+    if (tabFrame.origin.y > 520) {
+        [self animateTabBarTo:-(tabFrame.size.height - 21)];
+    }
+}
+
+- (void)updateBarButtonItems:(CGFloat)alpha
+{
+    [self.navigationItem.leftBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem* item, NSUInteger i, BOOL *stop) {
+        item.customView.alpha = alpha;
+    }];
+    [self.navigationItem.rightBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem* item, NSUInteger i, BOOL *stop) {
+        item.customView.alpha = alpha;
+    }];
+    self.navigationItem.titleView.alpha = alpha;
+    self.navigationController.navigationBar.tintColor = [self.navigationController.navigationBar.tintColor colorWithAlphaComponent:alpha];
+}
+
+- (void)animateNavBarTo:(CGFloat)y
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        CGRect frame = self.navigationController.navigationBar.frame;
+        CGFloat alpha = (frame.origin.y >= y ? 0 : 1);
+        frame.origin.y = y;
+        [self.navigationController.navigationBar setFrame:frame];
+        [self updateBarButtonItems:alpha];
+    }];
+}
+
+- (void)animateTabBarTo:(CGFloat)y {
+    [UIView animateWithDuration:0.2 animations:^{
+        CGRect frame = self.navigationController.tabBarController.tabBar.frame;
+//        CGFloat alpha = (frame.origin.y >= y ? 0 : 1);
+        frame.origin.y = y;
+        [self.navigationController.tabBarController.tabBar setFrame:frame];
+//        [self updateBarButtonItems:alpha];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
