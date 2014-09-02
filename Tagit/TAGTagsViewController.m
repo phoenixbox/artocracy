@@ -165,9 +165,10 @@
     CGFloat scrollHeight = scrollView.frame.size.height;
     CGFloat scrollContentSizeHeight = scrollView.contentSize.height + scrollView.contentInset.bottom;
 
-    if (scrollOffset <= -scrollView.contentInset.top) {
+    if (scrollOffset <= -scrollView.contentInset.top) { // Top Condition
         navFrame.origin.y = 20;
-    } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) {
+    } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) { // Bottom Condition
+        NSLog(@"NAV SIZE %f", navSize);
         navFrame.origin.y = -navSize;
     } else {
         navFrame.origin.y = MIN(20, MAX(-navSize, navFrame.origin.y - navScrollDiff));
@@ -183,19 +184,21 @@
 
     CGFloat scrollOffset = scrollView.contentOffset.y;
 
-    CGFloat navScrollDiff = scrollOffset - self._prevNavBarScrollViewYOffset;
+    // TODO: Remove hardcoded 64 here
+    CGFloat navScrollDiff = -64 - self._prevNavBarScrollViewYOffset;
 
     CGFloat scrollHeight = scrollView.frame.size.height;
     CGFloat scrollContentSizeHeight = scrollView.contentSize.height + scrollView.contentInset.bottom;
 
-    if (scrollOffset >= +scrollView.contentInset.bottom) {
-        tabFrame.origin.y = 560;
-    } else if ((scrollOffset - scrollHeight) <= scrollContentSizeHeight) {
+    if (scrollOffset <= -scrollView.contentInset.bottom) {
         tabFrame.origin.y = 520;
+    } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) {
+        tabFrame.origin.y = 570;
     } else {
-        tabFrame.origin.y = MIN(560, MAX(520, tabFrame.origin.y - navScrollDiff));
+        tabFrame.origin.y = MAX(520, MIN(520 - navScrollDiff,570));
     }
     [self.navigationController.tabBarController.tabBar setFrame:tabFrame];
+    self._prevNavBarScrollViewYOffset = scrollOffset;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -218,11 +221,11 @@
         [self animateNavBarTo:-(navFrame.size.height - 21)];
     }
 
-    CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
-//    NSLog(@"TAB FRAME: %ld", tabFrame.origin.y);
-    if (tabFrame.origin.y > 520) {
-        [self animateTabBarTo:(tabFrame.size.height - 21)];
-    }
+//    CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
+//    if (tabFrame.origin.y > 520) {
+    //    NSLog(@"TAB FRAME: %ld", tabFrame.origin.y);
+//        [self animateTabBarTo:(tabFrame.size.height - 21)];
+//    }
 }
 
 - (void)updateBarButtonItems:(CGFloat)alpha

@@ -19,18 +19,26 @@
 //#define kAPIUserLogin @"http://172.20.10.2:3000/api/v1/users/login"
 // Golden Gate
 #define kAPIUserLogin @"http://192.168.1.116:3000/api/v1/users/login"
+// Localhost
+//#define kAPIUserLogin @"http://0.0.0.0:3000/api/v1/users/login"
+
 
 // ** Tags
 // Bean Bag
 //#define kAPITagsIndex @"http://172.20.10.2:3000/api/v1/tags"
 // Golden Gate
 #define kAPITagsIndex @"http://192.168.1.116:3000/api/v1/tags"
+// Localhost
+//#define kAPITagsIndex @"http://0.0.0.0:3000/api/v1/tags"
 
 // ** Tags
 // Bean Bag
 //#define kAPISuggestionsCreate @"http://172.20.10.2:3000/api/v1/suggestions"
 // Golden Gate
 #define kAPISuggestionsCreate @"http://192.168.1.116:3000/api/v1/suggestions"
+// Localhost
+//#define kAPISuggestionsCreate @"http://0.0.0.0:3000/api/v1/suggestions"
+
 
 
 #endif
