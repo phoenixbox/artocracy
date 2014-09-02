@@ -49,15 +49,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self._cellDimension = 100.f;
-        [self initAppearance];
-        [self renderScrollView];
-        [self renderHeader];
-        [self renderDetailImage]; // Common detail functions
-        [self renderFavoriteCounter];
-        [self renderArtistAssocWork];
-        [self renderActionButtons];
-        [self setScrollViewContentSize];
     }
     return self;
 }
@@ -76,6 +67,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self._cellDimension = 100.f;
+    [self initAppearance];
+    [self renderScrollView];
+    [self renderHeader];
+    [self renderDetailImage]; // Common detail functions
+    [self renderFavoriteCounter];
+    [self renderArtistAssocWork];
+    [self renderActionButtons];
+    [self setScrollViewContentSize];
 }
 
 - (void)initAppearance

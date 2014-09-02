@@ -49,12 +49,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self._cellDimension = 100.f;
-        [self initAppearance];
-        [self renderScrollView];
-        [self renderHeader];
-        [self renderMap];
-        [self renderDetailImage]; // Common detail functions
     }
     return self;
 }
@@ -73,6 +67,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self._cellDimension = 100.f;
+    [self initAppearance];
+    [self renderScrollView];
+    [self renderHeader];
+    [self renderMap];
+    [self renderDetailImage]; // Common detail functions
 }
 
 - (void)initAppearance
