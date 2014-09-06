@@ -83,6 +83,7 @@
 		CBDA9A50199B203D00E8AD31 /* TAGSuggestion.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A4F199B203D00E8AD31 /* TAGSuggestion.m */; };
 		CBDA9A53199B2F6700E8AD31 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDA9A51199B2F6700E8AD31 /* AWSRuntime.framework */; };
 		CBDA9A54199B2F6700E8AD31 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDA9A52199B2F6700E8AD31 /* AWSS3.framework */; };
+		CBFA22EF19BBAC44001B4286 /* TAGSuggestionDetailsSection.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA22EE19BBAC44001B4286 /* TAGSuggestionDetailsSection.m */; };
 		D07B4ED854414D49BBA5AC7F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F209F9462484A069D763253 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -213,6 +214,8 @@
 		CBDA9A51199B2F6700E8AD31 /* AWSRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSRuntime.framework; path = "../../../../Downloads/Amazon/aws-ios-sdk-1.7.1/AWSRuntime.framework"; sourceTree = "<group>"; };
 		CBDA9A52199B2F6700E8AD31 /* AWSS3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AWSS3.framework; path = "../../../../Downloads/Amazon/aws-ios-sdk-1.7.1/AWSS3.framework"; sourceTree = "<group>"; };
 		CBDA9A55199B308300E8AD31 /* TAGAppConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAGAppConstants.h; sourceTree = "<group>"; };
+		CBFA22ED19BBAC44001B4286 /* TAGSuggestionDetailsSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionDetailsSection.h; sourceTree = "<group>"; };
+		CBFA22EE19BBAC44001B4286 /* TAGSuggestionDetailsSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionDetailsSection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -423,6 +426,7 @@
 		CB2673C7198DE9FC00CB02A1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				CBFA22EC19BBABE9001B4286 /* Detail */,
 				CB6DA4E519A478BA00BB71EE /* Profile */,
 				CBDA9A161996C99500E8AD31 /* Suggestion */,
 				CB06816A1991FCF800B13E49 /* Common */,
@@ -578,6 +582,15 @@
 				CBD4DCE819A47D370024209D /* TAGCollectionPresenterViewController.m */,
 			);
 			name = Common;
+			sourceTree = "<group>";
+		};
+		CBFA22EC19BBABE9001B4286 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				CBFA22ED19BBAC44001B4286 /* TAGSuggestionDetailsSection.h */,
+				CBFA22EE19BBAC44001B4286 /* TAGSuggestionDetailsSection.m */,
+			);
+			name = Detail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -767,6 +780,7 @@
 				CB068143198EA9EF00B13E49 /* TAGTagsViewController.m in Sources */,
 				CBD3D2E819B2D67D00A2DE75 /* TAGPieceDetailViewController.m in Sources */,
 				CB6DA4EB19A47AAD00BB71EE /* TAGCollectionControls.m in Sources */,
+				CBFA22EF19BBAC44001B4286 /* TAGSuggestionDetailsSection.m in Sources */,
 				CBD4DCEC19A482620024209D /* TAGCollectionView.m in Sources */,
 				CB6DA4E819A478CC00BB71EE /* TAGProfileHeader.m in Sources */,
 				CBDA9A50199B203D00E8AD31 /* TAGSuggestion.m in Sources */,

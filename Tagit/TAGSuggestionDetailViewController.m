@@ -13,10 +13,12 @@
 
 // Components
 #import "TAGMapViewController.h"
+#import "TAGSuggestionDetailsSection.h"
 
 // Constants
 #import "TAGStyleConstants.h"
 #import "TAGCopyConstants.h"
+#import "TAGComponentConstants.h"
 
 @interface TAGSuggestionDetailViewController ()
 
@@ -32,13 +34,7 @@
 // Map view
 @property (nonatomic, strong) TAGMapViewController *_mapController;
 // Suggestion Detail Section
-@property (nonatomic, strong)UILabel *_canvasTypeTitle;
-@property (nonatomic, strong)UILabel *_canvasType;
-@property (nonatomic, strong)UIButton *_favoriteButton;
-@property (nonatomic, strong)UILabel *_locationTitle;
-@property (nonatomic, strong)UILabel *_locationAddress;
-@property (nonatomic, strong)UILabel *_locationCity;
-@property (nonatomic, strong)UILabel *_locationState;
+@property (nonatomic, strong)TAGSuggestionDetailsSection *_suggestionDetailsSection;
 // Comment action
 @property (nonatomic, strong)UIButton *_commentButton;
 // Lateral Table
@@ -46,7 +42,6 @@
 @property (nonatomic, strong)UILabel *_proposalCount;
 @property (nonatomic, strong)UITableView *_proposalsTable;
 @property (nonatomic, assign) float _cellDimension;
-@property (nonatomic, assign) float _labelWidth;
 // Container scroll view
 @property (nonatomic, strong)UIScrollView *_scrollView;
 
@@ -78,16 +73,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self._cellDimension = 100.f;
-    self._labelWidth = 149.0f;
     [self initAppearance];
     [self renderScrollView];
     [self renderHeader];
     [self renderDetailImage]; // Common detail functions
 //    [self renderMap];
 
-    [self suggestionDetails];
-    [self renderFavoriteButton];
-    [self locationDetails];
+    [self renderSuggestionDetailsContainer];
     [self renderSuggestedPiecesTable];
 }
 
@@ -192,86 +184,39 @@
     [self._scrollView addSubview:self._suggestionImage];
 }
 
-- (void)suggestionDetails {
-    float xCoord = self.view.frame.origin.x + kSmallPadding;
-
-    self._canvasTypeTitle = [[UILabel alloc]initWithFrame:CGRectMake(xCoord,
-                                                                    CGRectGetMaxY(self._suggestionImage.frame) + kSmallPadding,
-                                                                    149.0f,
-                                                                     20.0f)];
-    NSAttributedString *canvasTitle =[TAGViewHelpers attributeText:@"Canvas Type" forFontSize:12.0f];
-    [self._canvasTypeTitle setAttributedText:canvasTitle];
-    [TAGViewHelpers sizeLabelToFit:self._canvasTypeTitle numberOfLines:0];
-
-    self._canvasType = [[UILabel alloc]initWithFrame:CGRectMake(xCoord,
-                                                                 CGRectGetMaxY(self._canvasTypeTitle.frame) + kSmallPadding,
-                                                                 149.0f,
-                                                                 20.0f)];
-
-    NSAttributedString *canvasType =[TAGViewHelpers attributeText:@"Commercial Wall" forFontSize:10.0f];
-    [self._canvasType setAttributedText:canvasType];
-    [TAGViewHelpers sizeLabelToFit:self._userName numberOfLines:0];
-
-    [self.view addSubview:self._canvasTypeTitle];
-    [self.view addSubview:self._canvasType];
-}
-
-- (void)locationDetails {
-    float xCoord = CGRectGetMaxX(self._favoriteButton.frame) + kSmallPadding;
-
-    self._locationTitle = [[UILabel alloc]initWithFrame:CGRectMake(xCoord,
-                                                                     CGRectGetMaxY(self._suggestionImage.frame) + kSmallPadding,
-                                                                     self._labelWidth,
-                                                                     20.0f)];
-    NSAttributedString *locationTitle =[TAGViewHelpers attributeText:@"Location" forFontSize:12.0f];
-    [self._locationTitle setAttributedText:locationTitle];
-    [TAGViewHelpers sizeLabelToFit:self._locationTitle numberOfLines:0];
-    [self.view addSubview:self._locationTitle];
-
-    self._locationAddress = [UILabel new];
-    self._locationCity = [UILabel new];
-    self._locationState = [UILabel new];
-    NSArray *labels = [[NSArray alloc] initWithObjects:self._locationAddress, self._locationCity, self._locationState, nil];
-    NSArray *text = [[NSArray alloc] initWithObjects:kLocationAddress,kLocationCity,kLocationState, nil];
-
-    NSUInteger labelCount = [labels count];
-
-    float xOrigin = CGRectGetMaxX(self._favoriteButton.frame) + 5.0f;
-
-    for (int i=0; i<labelCount; i++) {
-        float yOrigin;
-
-        if (i == 0) {
-            yOrigin = CGRectGetMaxY(self._locationTitle.frame) + kSmallPadding;
-        } else {
-            yOrigin = yOrigin + 15.0f;
-        }
-
-        UILabel *label = [labels objectAtIndex:i];
-        label = [[UILabel alloc]initWithFrame:CGRectMake(xOrigin,
-                                                         yOrigin,
-                                                         self._labelWidth,
-                                                         10.0f)];
-
-        NSAttributedString *labelText =[TAGViewHelpers attributeText:[text objectAtIndex:i] forFontSize:10.0f];
-        [label setAttributedText:labelText];
-        [self.view addSubview:label];
-    }
-}
-
-- (void)renderFavoriteButton {
-    float yCoord = self._canvasTypeTitle.frame.origin.y + (((CGRectGetMaxY(self._canvasType.frame) - self._canvasTypeTitle.frame.origin.y)/2));
-    self._favoriteButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f,
-                                                                      0.0f,
-                                                                      40.0f,
-                                                                      40.0f)];
-    CGPoint buttonCenter = CGPointMake(self.view.frame.size.width/2, yCoord);
-    [self._favoriteButton setCenter:buttonCenter];
-    [self._favoriteButton setBackgroundColor:[UIColor blackColor]];
-    [self.view addSubview:self._favoriteButton];
+- (void)renderSuggestionDetailsContainer {
+    self._suggestionDetailsSection = [[TAGSuggestionDetailsSection alloc] initWithFrame:CGRectMake(0.0f,
+                                                                             CGRectGetMaxY(self._suggestionImage.frame),
+                                                                             self.view.frame.size.width,
+                                                                              65.0f)];
+    [self._suggestionDetailsSection setBackgroundColor:[UIColor yellowColor]];
+    [self.view addSubview:self._suggestionDetailsSection];
 }
 
 - (void)renderSuggestedPiecesTable {
+////    @property (nonatomic, strong)UILabel *_proposalTitle;
+////    @property (nonatomic, strong)UILabel *_proposalCount;
+////    @property (nonatomic, strong)UITableView *_proposalsTable;
+//    self._proposalTitle = [UILabel alloc]initWithFrame:CGRectGetMaxY(self._canv)
+//    self._proposalsTable = [UITableView new];
+//    CGRect piecesRect = CGRectMake(100.0f, 20.0f, 176.0f, 80.0f);
+//
+//    self._proposalsTable = [[UITableView alloc] initWithFrame:piecesRect];
+//    CGAffineTransform rotate = CGAffineTransformMakeRotation(-M_PI_2);
+//    [self._proposalsTable setTransform:rotate];
+//    // VIP: Must set the frame again on the table after rotation
+//    [self._proposalsTable setFrame:piecesRect];
+//    [self._proposalsTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGLateralTableViewCell];
+//    self._proposalsTable.delegate = self;
+//    self._proposalsTable.dataSource = self;
+//    self._proposalsTable.alwaysBounceVertical = NO;
+//    self._proposalsTable.scrollEnabled = YES;
+//    self._proposalsTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
+//    self._proposalsTable.separatorColor = [UIColor whiteColor];
+//
+//    [self._proposalsTable setBackgroundColor:[UIColor whiteColor]];
+//
+//    [self.view addSubview:self._proposalsTable];
 }
 
 // TODO: Common detail function
