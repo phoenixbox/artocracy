@@ -36,6 +36,15 @@
     return self;
 }
 
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithNibName:nil bundle:nil];
+    if (self) {
+        // Custom initialization
+        self.mapFrame = frame;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -44,10 +53,7 @@
 }
 
 - (void)addMapToView {
-    self._mapView = [[MKMapView alloc]initWithFrame:CGRectMake(self.view.frame.origin.x,
-                                                               320.0f,
-                                                               self.view.frame.size.width,
-                                                               100.0f)];
+    self._mapView = [[MKMapView alloc]initWithFrame:self.mapFrame];
 
     [self._mapView setMapType:MKMapTypeStandard];
     self._mapView.delegate = self;
