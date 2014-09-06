@@ -12,7 +12,7 @@
 #define kTagsTableCellIdentifier @"TAGTagsTableViewCell"
 #define kTagsTableRowHeight 400.0f
 
-#define kProfileCollectionCellIdentifier @"TAGProfileCollectionViewCell"
+#define kCollectionCellIdentifier @"TAGCollectionViewCell"
 //#define kProfileTableRowHeight 100.0f
 
 #define kProfileTableSuggestionCellIdentifier @"TAGProfileTableViewSuggestionCell"

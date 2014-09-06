@@ -16,9 +16,14 @@
 #import "TAGCollectionControls.h"
 #import "TAGProfileTableViewSuggestionCell.h"
 #import "TAGProfileTableViewFavoriteCell.h"
+#import "TAGCollectionViewCell.h"
 
 // Constants
 #import "TAGComponentConstants.h"
+
+// Pods
+#import "URBMediaFocusViewController.h"
+
 
 NSString *const kCollectionViewPresenter = @"CollectionView";
 NSString *const kTableViewPresenter = @"TableView";
@@ -38,6 +43,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 @property (nonatomic, strong) UIScrollView *_scrollView;
 
 @property (nonatomic, strong) NSString *_currentTableViewCellIdentifier;
+@property (nonatomic, strong) URBMediaFocusViewController *_lightboxViewController;
 
 @end
 
@@ -229,7 +235,6 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 //    TAGObject *selection = [allObjects objectAtIndex:[indexPath row]];
 //    [tagDetailViewController setViewWithSelection:selection];
 
-
 }
 
 - (void)buildCollectionView {
@@ -237,8 +242,9 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 
     self._collectionView = [[TAGCollectionView alloc]initWithFrame:self._scrollView.bounds collectionViewLayout:[self buildCollectionViewCellLayout]];
 
-    [self._collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kProfileCollectionCellIdentifier];
+    [self._collectionView registerClass:[TAGCollectionViewCell class] forCellWithReuseIdentifier:kCollectionCellIdentifier];
     [self._collectionView setBackgroundColor:[UIColor whiteColor]];
+
 
     // Custom cell here identifier here
     [self._collectionView setDelegate:self];
@@ -278,14 +284,18 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kProfileCollectionCellIdentifier forIndexPath:indexPath];
+    TAGCollectionViewCell *cell = (TAGCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kCollectionCellIdentifier forIndexPath:indexPath];
 
     // TODO: Visual differentiatior to be replaced by varied data type retrieval
     UIImageView *backgroundImage = [UIImageView new];
     if([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
-        [backgroundImage setImage:[UIImage imageNamed:@"ape_do_good_printing_SF.png"]];
+        UIImage *image = [UIImage imageNamed:@"ape_do_good_printing_SF.png"];
+        cell.image = image;
+        [backgroundImage setImage:cell.image];
     } else {
-        [backgroundImage setImage:[UIImage imageNamed:@"open_arms_SF.png"]];
+        UIImage *image = [UIImage imageNamed:@"open_arms_SF.png"];
+        cell.image = image;
+        [backgroundImage setImage:cell.image];
     }
 
     [cell setBackgroundView:backgroundImage];
@@ -293,8 +303,14 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Selected cell number %@", indexPath);
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    self._lightboxViewController = [[URBMediaFocusViewController alloc] initWithNibName:nil bundle:nil];
+    self._lightboxViewController.shouldDismissOnImageTap = YES;
+    self._lightboxViewController.shouldShowPhotoActions = YES;
+
+    TAGCollectionViewCell *targetCell = (TAGCollectionViewCell *)[self._collectionView cellForItemAtIndexPath:indexPath];
+
+    [self._lightboxViewController showImage:targetCell.image fromView:targetCell];
 }
 
 - (void)didReceiveMemoryWarning

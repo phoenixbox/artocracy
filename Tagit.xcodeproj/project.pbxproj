@@ -84,6 +84,7 @@
 		CBDA9A53199B2F6700E8AD31 /* AWSRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDA9A51199B2F6700E8AD31 /* AWSRuntime.framework */; };
 		CBDA9A54199B2F6700E8AD31 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDA9A52199B2F6700E8AD31 /* AWSS3.framework */; };
 		CBFA22EF19BBAC44001B4286 /* TAGSuggestionDetailsSection.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA22EE19BBAC44001B4286 /* TAGSuggestionDetailsSection.m */; };
+		CBFA22F519BBCADC001B4286 /* TAGCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA22F419BBCADC001B4286 /* TAGCollectionViewCell.m */; };
 		D07B4ED854414D49BBA5AC7F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F209F9462484A069D763253 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -216,6 +217,8 @@
 		CBDA9A55199B308300E8AD31 /* TAGAppConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAGAppConstants.h; sourceTree = "<group>"; };
 		CBFA22ED19BBAC44001B4286 /* TAGSuggestionDetailsSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionDetailsSection.h; sourceTree = "<group>"; };
 		CBFA22EE19BBAC44001B4286 /* TAGSuggestionDetailsSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionDetailsSection.m; sourceTree = "<group>"; };
+		CBFA22F319BBCADC001B4286 /* TAGCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCollectionViewCell.h; sourceTree = "<group>"; };
+		CBFA22F419BBCADC001B4286 /* TAGCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -492,10 +495,11 @@
 		CB6DA4DB19A326D700BB71EE /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				CBFA22F219BBC696001B4286 /* Header */,
 				CB6DA4DC19A3270900BB71EE /* TAGProfileViewController.h */,
 				CB6DA4DD19A3270900BB71EE /* TAGProfileViewController.m */,
-				CB009B5F19A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.h */,
-				CB009B6019A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.m */,
+				CBD4DCE719A47D370024209D /* TAGCollectionPresenterViewController.h */,
+				CBD4DCE819A47D370024209D /* TAGCollectionPresenterViewController.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -503,18 +507,10 @@
 		CB6DA4E519A478BA00BB71EE /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				CB6DA4E619A478CC00BB71EE /* TAGProfileHeader.h */,
-				CB6DA4E719A478CC00BB71EE /* TAGProfileHeader.m */,
-				CB6DA4E919A47AAD00BB71EE /* TAGCollectionControls.h */,
-				CB6DA4EA19A47AAD00BB71EE /* TAGCollectionControls.m */,
+				CBFA22F119BBC681001B4286 /* Header */,
+				CBFA22F019BBC652001B4286 /* Cells */,
 				CBD4DCEA19A482620024209D /* TAGCollectionView.h */,
 				CBD4DCEB19A482620024209D /* TAGCollectionView.m */,
-				CBD3D2CF19AB00F300A2DE75 /* TAGProfileTableViewSuggestionCell.h */,
-				CBD3D2D019AB00F300A2DE75 /* TAGProfileTableViewSuggestionCell.m */,
-				CBD3D2D219AEF34F00A2DE75 /* TAGProfileTableViewFavoriteCell.h */,
-				CBD3D2D319AEF34F00A2DE75 /* TAGProfileTableViewFavoriteCell.m */,
-				CBD3D2DE19B29F3500A2DE75 /* TAGLateralTableViewCell.h */,
-				CBD3D2DF19B29F3500A2DE75 /* TAGLateralTableViewCell.m */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -578,8 +574,6 @@
 			children = (
 				CBDA9A2E1997158500E8AD31 /* TAGImagePickerController.h */,
 				CBDA9A2F1997158500E8AD31 /* TAGImagePickerController.m */,
-				CBD4DCE719A47D370024209D /* TAGCollectionPresenterViewController.h */,
-				CBD4DCE819A47D370024209D /* TAGCollectionPresenterViewController.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -591,6 +585,41 @@
 				CBFA22EE19BBAC44001B4286 /* TAGSuggestionDetailsSection.m */,
 			);
 			name = Detail;
+			sourceTree = "<group>";
+		};
+		CBFA22F019BBC652001B4286 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CBD3D2CF19AB00F300A2DE75 /* TAGProfileTableViewSuggestionCell.h */,
+				CBD3D2D019AB00F300A2DE75 /* TAGProfileTableViewSuggestionCell.m */,
+				CBD3D2D219AEF34F00A2DE75 /* TAGProfileTableViewFavoriteCell.h */,
+				CBD3D2D319AEF34F00A2DE75 /* TAGProfileTableViewFavoriteCell.m */,
+				CBD3D2DE19B29F3500A2DE75 /* TAGLateralTableViewCell.h */,
+				CBD3D2DF19B29F3500A2DE75 /* TAGLateralTableViewCell.m */,
+				CBFA22F319BBCADC001B4286 /* TAGCollectionViewCell.h */,
+				CBFA22F419BBCADC001B4286 /* TAGCollectionViewCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		CBFA22F119BBC681001B4286 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				CB6DA4E619A478CC00BB71EE /* TAGProfileHeader.h */,
+				CB6DA4E719A478CC00BB71EE /* TAGProfileHeader.m */,
+				CB6DA4E919A47AAD00BB71EE /* TAGCollectionControls.h */,
+				CB6DA4EA19A47AAD00BB71EE /* TAGCollectionControls.m */,
+			);
+			name = Header;
+			sourceTree = "<group>";
+		};
+		CBFA22F219BBC696001B4286 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				CB009B5F19A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.h */,
+				CB009B6019A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.m */,
+			);
+			name = Header;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -759,6 +788,7 @@
 			files = (
 				CB0681691991FCF100B13E49 /* TAGTagTableViewCell.m in Sources */,
 				CBD3D2E019B29F3500A2DE75 /* TAGLateralTableViewCell.m in Sources */,
+				CBFA22F519BBCADC001B4286 /* TAGCollectionViewCell.m in Sources */,
 				CB009B6119A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.m in Sources */,
 				CBD3D2D119AB00F300A2DE75 /* TAGProfileTableViewSuggestionCell.m in Sources */,
 				CB068159198ECCEB00B13E49 /* TAGErrorAlert.m in Sources */,
