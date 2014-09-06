@@ -14,6 +14,7 @@
 // Components
 #import "TAGMapViewController.h"
 #import "TAGSuggestionDetailsSection.h"
+#import "TAGLateralTableViewCell.h"
 
 // Constants
 #import "TAGStyleConstants.h"
@@ -72,7 +73,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self._cellDimension = 100.f;
+    self._cellDimension = 165.f;
     [self initAppearance];
     [self renderScrollView];
     [self renderHeader];
@@ -80,7 +81,7 @@
 //    [self renderMap];
 
     [self renderSuggestionDetailsContainer];
-    [self renderSuggestedPiecesTable];
+    [self renderProposalsTable];
 }
 
 - (void)initAppearance
@@ -199,30 +200,74 @@
     [self.view addSubview:self._suggestionDetailsSection];
 }
 
-- (void)renderSuggestedPiecesTable {
-////    @property (nonatomic, strong)UILabel *_proposalTitle;
-////    @property (nonatomic, strong)UILabel *_proposalCount;
-////    @property (nonatomic, strong)UITableView *_proposalsTable;
-//    self._proposalTitle = [UILabel alloc]initWithFrame:CGRectGetMaxY(self._canv)
-//    self._proposalsTable = [UITableView new];
-//    CGRect piecesRect = CGRectMake(100.0f, 20.0f, 176.0f, 80.0f);
-//
-//    self._proposalsTable = [[UITableView alloc] initWithFrame:piecesRect];
-//    CGAffineTransform rotate = CGAffineTransformMakeRotation(-M_PI_2);
-//    [self._proposalsTable setTransform:rotate];
-//    // VIP: Must set the frame again on the table after rotation
-//    [self._proposalsTable setFrame:piecesRect];
-//    [self._proposalsTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGLateralTableViewCell];
-//    self._proposalsTable.delegate = self;
-//    self._proposalsTable.dataSource = self;
-//    self._proposalsTable.alwaysBounceVertical = NO;
-//    self._proposalsTable.scrollEnabled = YES;
-//    self._proposalsTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
-//    self._proposalsTable.separatorColor = [UIColor whiteColor];
-//
-//    [self._proposalsTable setBackgroundColor:[UIColor whiteColor]];
-//
-//    [self.view addSubview:self._proposalsTable];
+- (void)renderProposalsTable {
+    [self renderTableHeader];
+    float yCoord = CGRectGetMaxY(self._proposalTitle.frame) + kSmallPadding;
+
+    CGRect piecesRect = CGRectMake(0.0f, yCoord, 320.0f, self._cellDimension);
+
+    self._proposalsTable = [[UITableView alloc] initWithFrame:piecesRect];
+    CGAffineTransform rotate = CGAffineTransformMakeRotation(-M_PI_2);
+    [self._proposalsTable setTransform:rotate];
+
+    // VIP: Must set the frame again on the table after rotation
+    [self._proposalsTable setFrame:piecesRect];
+    [self._proposalsTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGLateralTableViewCellIdentifier];
+    self._proposalsTable.delegate = self;
+    self._proposalsTable.dataSource = self;
+    self._proposalsTable.alwaysBounceVertical = NO;
+    self._proposalsTable.scrollEnabled = YES;
+    self._proposalsTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
+    self._proposalsTable.separatorColor = [UIColor blackColor];
+
+    [self._proposalsTable setBackgroundColor:[UIColor whiteColor]];
+
+    [self.view addSubview:self._proposalsTable];
+}
+
+- (void)renderTableHeader {
+    float yCoord = CGRectGetMaxY(self._suggestionDetailsSection.frame);
+    self._proposalTitle = [[UILabel alloc]initWithFrame:CGRectMake(kSmallPadding,
+                                                                   yCoord,
+                                                                   100.0f,
+                                                                   20.0f)];
+    NSAttributedString *proposalTitle = [TAGViewHelpers attributeText:@"Proposals" forFontSize:12.0f];
+    [self._proposalTitle setAttributedText:proposalTitle];
+
+
+    self._proposalCount = [[UILabel alloc]initWithFrame:CGRectMake(self.view.frame.size.width - (2*kBigPadding),
+                                                                   yCoord,
+                                                                   100.0f,
+                                                                   20.0f)];
+    NSAttributedString *proposalCount = [TAGViewHelpers attributeText:@"10" forFontSize:12.0f];
+    [self._proposalCount setAttributedText:proposalCount];
+
+    [self.view addSubview:self._proposalTitle];
+    [self.view addSubview:self._proposalCount];
+}
+
+#pragma UITableViewDelgate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TAGLateralTableViewCell *cell = (TAGLateralTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTAGLateralTableViewCellIdentifier];
+
+    if([tableView isEqual:self._proposalsTable]){
+        cell = [[TAGLateralTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTAGLateralTableViewCellIdentifier forCellDimension:self._cellDimension];
+
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return self._cellDimension;
 }
 
 // TODO: Common detail function

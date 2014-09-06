@@ -71,7 +71,7 @@
     [self.piecesTable setTransform:rotate];
     // VIP: Must set the frame again on the table after rotation
     [self.piecesTable setFrame:piecesRect];
-    [self.piecesTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGLateralTableViewCell];
+    [self.piecesTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGLateralTableViewCellIdentifier];
     self.piecesTable.delegate = self;
     self.piecesTable.dataSource = self;
     self.piecesTable.alwaysBounceVertical = NO;

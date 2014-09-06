@@ -256,7 +256,7 @@
     [self._associatedWorkTable setTransform:rotate];
     // VIP: Must set the frame again on the table after rotation
     [self._associatedWorkTable setFrame:piecesRect];
-    [self._associatedWorkTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGLateralTableViewCell];
+    [self._associatedWorkTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGLateralTableViewCellIdentifier];
     self._associatedWorkTable.delegate = self;
     self._associatedWorkTable.dataSource = self;
     self._associatedWorkTable.alwaysBounceVertical = NO;
@@ -280,10 +280,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TAGLateralTableViewCell *cell = (TAGLateralTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTAGLateralTableViewCell];
+    TAGLateralTableViewCell *cell = (TAGLateralTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTAGLateralTableViewCellIdentifier];
 
     if([tableView isEqual:self._associatedWorkTable]){
-        cell = [[TAGLateralTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTAGLateralTableViewCell forCellDimension:self._cellDimension];
+        cell = [[TAGLateralTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTAGLateralTableViewCellIdentifier forCellDimension:self._cellDimension];
 
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
@@ -291,7 +291,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100.0f;
+    return self._cellDimension;
 }
 
 - (void)renderActionButtons {
