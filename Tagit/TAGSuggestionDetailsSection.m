@@ -17,12 +17,12 @@
 
 @implementation TAGSuggestionDetailsSection
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame withBlock:(void (^)(BOOL selected))actionBlock {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         self.labelWidth = 149.0f;
+        self.actionBlock = actionBlock;
 
         [self renderCanvasInfo];
         [self renderFavoriteButton];
@@ -63,10 +63,28 @@
                                                                       40.0f)];
     CGPoint buttonCenter = CGPointMake(self.frame.size.width/2, yCoord);
     [self.favoriteButton setCenter:buttonCenter];
-    [self.favoriteButton setBackgroundColor:[UIColor blackColor]];
+    [self.favoriteButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+
+
+
+    self.favoriteButton.layer.cornerRadius = self.favoriteButton.frame.size.width/2;
+    self.favoriteButton.layer.masksToBounds = YES;
+
+    [self.favoriteButton setBackgroundImage:[UIImage imageNamed:@"heartUnselected.png"] forState:UIControlStateNormal];
+    [self.favoriteButton setBackgroundImage:[UIImage imageNamed:@"heartSelected.png"] forState:UIControlStateSelected];
+
     [self addSubview:self.favoriteButton];
 }
 
+- (void)buttonTapped:(UIButton *)paramSender {
+    if(!paramSender.selected) {
+        [paramSender setSelected:YES];
+        self.actionBlock(true);
+    } else {
+        [paramSender setSelected:NO];
+        self.actionBlock(false);
+    }
+}
 
 - (void)renderLocationInfo {
     float xCoord = CGRectGetMaxX(self.favoriteButton.frame) + kSmallPadding;

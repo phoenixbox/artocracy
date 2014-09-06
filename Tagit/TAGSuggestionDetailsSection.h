@@ -10,6 +10,8 @@
 
 @interface TAGSuggestionDetailsSection : UIView
 
+- (id)initWithFrame:(CGRect)frame withBlock:(void (^)(BOOL selected))actionBlock;
+
 @property (nonatomic, strong)UILabel *canvasTypeTitle;
 @property (nonatomic, strong)UILabel *canvasType;
 @property (nonatomic, strong)UIButton *favoriteButton;
@@ -18,5 +20,7 @@
 @property (nonatomic, strong)UILabel *locationCity;
 @property (nonatomic, strong)UILabel *locationState;
 @property (nonatomic, assign) float labelWidth;
+
+@property (copy)void (^actionBlock)(BOOL);
 
 @end
