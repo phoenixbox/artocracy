@@ -1,5 +1,5 @@
 //
-//  TAGFeedViewController.m
+//  TAGPieceViewController.m
 //  Tagit
 //
 //  Created by Shane Rogers on 8/3/14.
@@ -7,7 +7,7 @@
 //
 
 // Classes
-#import "TAGTagsViewController.h"
+#import "TAGPieceViewController.h"
 #import "TAGTagStore.h"
 
 // Components
@@ -18,7 +18,7 @@
 #import "TAGStyleConstants.h"
 #import "TAGComponentConstants.h"
 
-@interface TAGTagsViewController ()
+@interface TAGPieceViewController ()
 
 @property (nonatomic, strong) UITableView *_tagsTable;
 
@@ -30,7 +30,7 @@
 
 @end
 
-@implementation TAGTagsViewController
+@implementation TAGPieceViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

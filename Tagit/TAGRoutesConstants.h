@@ -16,7 +16,7 @@
 // Routes
 // ** Session
 // Bean Bag
-#define kAPIUserLogin @"http://192.168.6.104:3000/api/v1/users/login"
+#define kAPIUserLogin @"http://192.168.2.9:3000/api/v1/users/login"
 // Golden Gate
 //#define kAPIUserLogin @"http://192.168.1.116:3000/api/v1/users/login"
 // Localhost
@@ -25,7 +25,7 @@
 
 // ** Tags
 // Bean Bag
-#define kAPITagsIndex @"http://192.168.6.104:3000/api/v1/tags"
+#define kAPITagsIndex @"http://192.168.2.9:3000/api/v1/tags"
 // Golden Gate
 //#define kAPITagsIndex @"http://192.168.1.116:3000/api/v1/tags"
 // Localhost
@@ -33,7 +33,7 @@
 
 // ** Tags
 // Bean Bag
-#define kAPISuggestionsCreate @"http://192.168.6.104:3000/api/v1/suggestions"
+#define kAPISuggestionsCreate @"http://192.168.2.9:3000/api/v1/suggestions"
 // Golden Gate
 //#define kAPISuggestionsCreate @"http://192.168.1.116:3000/api/v1/suggestions"
 // Localhost

@@ -1,5 +1,5 @@
 //
-//  TAGFeedViewController.h
+//  TAGPieceViewController.h
 //  Tagit
 //
 //  Created by Shane Rogers on 8/3/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAGTagsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface TAGPieceViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

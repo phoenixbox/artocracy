@@ -8,7 +8,7 @@
 
 #import "TAGAppDelegate.h"
 #import "TAGLoginViewController.h"
-#import "TAGTagsViewController.h"
+#import "TAGPieceViewController.h"
 #import "TAGSuggestionViewController.h"
 #import "TAGProfileViewController.h"
 
@@ -60,8 +60,8 @@
     UITabBarController *tagTabBarController = [UITabBarController new];
 
     // Tags View Controller - TabBar item #1
-    TAGTagsViewController *feedViewController = [TAGTagsViewController new];
-    UINavigationController *tagFeedNavController = [[UINavigationController alloc]initWithRootViewController:feedViewController];
+    TAGPieceViewController *piecesViewController = [TAGPieceViewController new];
+    UINavigationController *tagFeedNavController = [[UINavigationController alloc]initWithRootViewController:piecesViewController];
 
     // Suggestion View Controller - TabBar item #2
     TAGSuggestionViewController *suggestionViewController = [TAGSuggestionViewController new];
