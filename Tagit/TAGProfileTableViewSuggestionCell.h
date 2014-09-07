@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+// Pods
+#import "URBMediaFocusViewController.h"
+
 @interface TAGProfileTableViewSuggestionCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UIView *image;
@@ -26,5 +29,7 @@
 @property (nonatomic, assign) float cellHeight;
 @property (nonatomic, assign) float lateralTableCellDimension;
 @property (nonatomic, assign) NSString *imageName;
+
+@property (nonatomic, strong) URBMediaFocusViewController *lightboxViewController;
 
 @end

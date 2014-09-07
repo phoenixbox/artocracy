@@ -21,6 +21,9 @@
 #import "TAGCopyConstants.h"
 #import "TAGComponentConstants.h"
 
+// Pods
+#import "URBMediaFocusViewController.h"
+
 @interface TAGSuggestionDetailViewController ()
 
 // Header section
@@ -33,7 +36,7 @@
 @property (nonatomic, strong)UIView *_suggestionImage;
 
 // Map view
-@property (nonatomic, strong) TAGMapViewController *_mapController;
+@property (nonatomic, strong)TAGMapViewController *_mapController;
 // Suggestion Detail Section
 @property (nonatomic, strong)TAGSuggestionDetailsSection *_suggestionDetailsSection;
 // Comment action
@@ -42,7 +45,9 @@
 @property (nonatomic, strong)UILabel *_proposalTitle;
 @property (nonatomic, strong)UILabel *_proposalCount;
 @property (nonatomic, strong)UITableView *_proposalsTable;
-@property (nonatomic, assign) float _cellDimension;
+@property (nonatomic, strong)URBMediaFocusViewController *_lightboxViewController;
+@property (nonatomic, assign)float _cellDimension;
+
 // Container scroll view
 @property (nonatomic, strong)UIScrollView *_scrollView;
 
@@ -260,7 +265,7 @@
 
     if([tableView isEqual:self._proposalsTable]){
         cell = [[TAGLateralTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTAGLateralTableViewCellIdentifier forCellDimension:self._cellDimension];
-
+        [cell addImage:@"open_arms_SF.png"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     return cell;
@@ -269,6 +274,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return self._cellDimension;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self._lightboxViewController = [[URBMediaFocusViewController alloc] initWithNibName:nil bundle:nil];
+    self._lightboxViewController.shouldDismissOnImageTap = YES;
+    self._lightboxViewController.shouldShowPhotoActions = YES;
+    TAGLateralTableViewCell *targetCell = (TAGLateralTableViewCell *)[self._proposalsTable cellForRowAtIndexPath:indexPath];
+    [self._lightboxViewController showImage:targetCell.artImage fromView:targetCell];
+}
+
 
 // TODO: Common detail function
 - (void)setBackgroundImage:(NSString *)imageName forView:(UIView *)view {

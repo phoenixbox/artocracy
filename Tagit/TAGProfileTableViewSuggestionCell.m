@@ -6,9 +6,16 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
+// Subject
 #import "TAGProfileTableViewSuggestionCell.h"
+
+// Helpers
 #import "TAGViewHelpers.h"
+
+// Constants
 #import "TAGComponentConstants.h"
+
+// Components
 #import "TAGLateralTableViewCell.h"
 
 @implementation TAGProfileTableViewSuggestionCell
@@ -124,7 +131,7 @@
 
     if([tableView isEqual:self.piecesTable]){
         cell = [[TAGLateralTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableSuggestionCellIdentifier forCellDimension:self.lateralTableCellDimension];
-
+        [cell addImage:@"open_arms_SF.png"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
 
@@ -133,6 +140,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 80.0f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.lightboxViewController = [[URBMediaFocusViewController alloc] initWithNibName:nil bundle:nil];
+    self.lightboxViewController.shouldDismissOnImageTap = YES;
+    self.lightboxViewController.shouldShowPhotoActions = YES;
+    TAGLateralTableViewCell *targetCell = (TAGLateralTableViewCell *)[self.piecesTable cellForRowAtIndexPath:indexPath];
+    [self.lightboxViewController showImage:targetCell.artImage fromView:targetCell];
 }
 
 - (void)awakeFromNib

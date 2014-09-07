@@ -17,19 +17,19 @@
     if (self) {
         // Initialization code
         self.cellDimension = dimension;
-        [self addImage];
     }
     return self;
 }
 
-- (void)addImage {
+- (void)addImage:(NSString *)imageName {
     self.image = [[UIView alloc]initWithFrame:CGRectMake(0,0,0,0)];
 
+    self.artImage = [UIImage imageNamed:imageName];
 
     CGAffineTransform rotate = CGAffineTransformMakeRotation(M_PI_2);
     [self.image setTransform:rotate];
     [self.image setFrame:CGRectMake(0,0,self.cellDimension,self.cellDimension)];
-    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"open_arms_SF.png" forView:self.image];
+    [TAGViewHelpers scaleAndSetBackgroundImageNamed:imageName forView:self.image];
 
     [self addSubview:self.image];
 }

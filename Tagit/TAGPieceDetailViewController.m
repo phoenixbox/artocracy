@@ -19,6 +19,9 @@
 // Components
 #import "TAGLateralTableViewCell.h"
 
+// Pods
+#import "URBMediaFocusViewController.h"
+
 @interface TAGPieceDetailViewController ()
 
 @property (nonatomic, strong)UIView *_header;
@@ -31,6 +34,7 @@
 
 @property (nonatomic, strong)UILabel *_associatedTitle;
 @property (nonatomic, strong)UITableView *_associatedWorkTable;
+@property (nonatomic, strong)URBMediaFocusViewController *_lightboxViewController;
 
 @property (nonatomic, strong)UIView *_pieceImage;
 @property (nonatomic, strong)UIButton *_likeButton;
@@ -284,7 +288,7 @@
 
     if([tableView isEqual:self._associatedWorkTable]){
         cell = [[TAGLateralTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTAGLateralTableViewCellIdentifier forCellDimension:self._cellDimension];
-
+        [cell addImage:@"open_arms_SF.png"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     return cell;
@@ -293,6 +297,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return self._cellDimension;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self._lightboxViewController = [[URBMediaFocusViewController alloc] initWithNibName:nil bundle:nil];
+    self._lightboxViewController.shouldDismissOnImageTap = YES;
+    self._lightboxViewController.shouldShowPhotoActions = YES;
+    TAGLateralTableViewCell *targetCell = (TAGLateralTableViewCell *)[self._associatedWorkTable cellForRowAtIndexPath:indexPath];
+    [self._lightboxViewController showImage:targetCell.artImage fromView:targetCell];
+}
+
 
 - (void)renderActionButtons {
     [self renderLikeButton];
