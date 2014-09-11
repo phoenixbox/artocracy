@@ -12,6 +12,12 @@
 #import "TAGSuggestionViewController.h"
 #import "TAGProfileViewController.h"
 
+// Tester
+#import "TAGPiecesCollectionViewController.h"
+
+// Pods
+#import "CSStickyHeaderFlowLayout.h"
+
 #import "TAGStyleConstants.h"
 
 @implementation TAGAppDelegate
@@ -59,9 +65,15 @@
 - (void)initializeNavigationControllers{
     UITabBarController *tagTabBarController = [UITabBarController new];
 
-    // Tags View Controller - TabBar item #1
-    TAGPieceViewController *piecesViewController = [TAGPieceViewController new];
-    UINavigationController *tagFeedNavController = [[UINavigationController alloc]initWithRootViewController:piecesViewController];
+    // Tags View Controller - TabBar item #1 **** Original Implementation
+//    TAGPieceViewController *piecesViewController = [TAGPieceViewController new];
+//    UINavigationController *tagFeedNavController = [[UINavigationController alloc]initWithRootViewController:piecesViewController];
+
+    // Pieces Tester View Controller - TabBar item #1 **** Original Implementation
+
+    TAGPiecesCollectionViewController *pieceCollectionViewController = [[TAGPiecesCollectionViewController alloc]initWithCollectionViewLayout:[CSStickyHeaderFlowLayout new]];
+    UINavigationController *piecesFeedNavController = [[UINavigationController alloc] initWithRootViewController:pieceCollectionViewController];
+
 
     // Suggestion View Controller - TabBar item #2
     TAGSuggestionViewController *suggestionViewController = [TAGSuggestionViewController new];
@@ -72,7 +84,7 @@
     TAGProfileViewController *profileViewController = [TAGProfileViewController new];
     UINavigationController *profileNavController = [[UINavigationController alloc]initWithRootViewController:profileViewController];
 
-    [tagTabBarController setViewControllers:@[tagFeedNavController, suggestionNavController, profileNavController]];
+    [tagTabBarController setViewControllers:@[piecesFeedNavController, suggestionNavController, profileNavController]];
 
     [self styleTabBar:tagTabBarController.tabBar];
 

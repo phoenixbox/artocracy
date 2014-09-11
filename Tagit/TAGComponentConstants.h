@@ -22,4 +22,7 @@
 
 #define kTAGLateralTableViewCellIdentifier @"TAGLateralTableViewCell"
 
+// Sticky headers
+#define kPieceStickyHeader @"TAGPieceStickyHeader"
+
 #endif
