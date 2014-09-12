@@ -60,10 +60,11 @@
     UINib *cell = [UINib nibWithNibName:@"TAGPieceCell" bundle:nil];
     [self._collectionView registerNib:cell forCellWithReuseIdentifier:@"cell"];
 
+    UINib *headerNib = [UINib nibWithNibName:@"TAGPieceSectionHeader" bundle:nil];
+    [self._collectionView registerNib:headerNib forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"sectionHeader"];
+
     [self._collectionView setBackgroundColor:[UIColor whiteColor]];
 
-
-    // Custom cell here identifier here
     [self._collectionView setDelegate:self];
     [self._collectionView setDataSource:self];
 
@@ -73,9 +74,9 @@
 
 - (UICollectionViewFlowLayout *)buildCollectionViewCellLayout {
     UICollectionViewFlowLayout *flowLayout = [CSStickyHeaderFlowLayout new];
+    // NOTE: Important to match the dimensions in the xib
     flowLayout.itemSize = CGSizeMake(320.0f,80.0f);
-//    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-//    flowLayout.sectionInset = UIEdgeInsetsMake(2.5f, 0.0f, 2.5f, 0.0f);
+    flowLayout.headerReferenceSize = CGSizeMake(0.0f,50.0f);
 
     return flowLayout;
 }
@@ -94,39 +95,32 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    NSDictionary *obj = self._sections[indexPath.section];
-
     // Just identifiers for views
     TAGPieceCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell"
-                                                             forIndexPath:indexPath];
+                                                                   forIndexPath:indexPath];
 
+    NSDictionary *obj = self._sections[indexPath.section];
     cell.textLabel.text = [[obj allValues] firstObject];
 
     return cell;
 }
 
-//- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-//    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-//
-//        NSDictionary *obj = self._sections[indexPath.section];
-//
-//        TAGPieceCell *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind
-//                                                          withReuseIdentifier:@"cell"
-//                                                                 forIndexPath:indexPath];
-//
-//        cell.textLabel.text = [[obj allKeys] firstObject];
-//
-//        return cell;
-//    } else if ([kind isEqualToString:CSStickyHeaderParallaxHeader]) {
-//        // JUST the parallax header view - i.e. the Map/Search Bar etc
-//        //        UICollectionReusableView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind
-//        //                                                                            withReuseIdentifier:@"header"
-//        //                                                                                   forIndexPath:indexPath];
-//
-//        return [collectionView cellForItemAtIndexPath:indexPath];
-//    }
-//    return nil;
-//}
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+
+        TAGPieceCell *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind
+                                                                withReuseIdentifier:@"sectionHeader"
+                                                                       forIndexPath:indexPath];
+
+        NSDictionary *obj = self._sections[indexPath.section];
+        cell.textLabel.text = [[obj allKeys] firstObject];
+
+        return cell;
+    } else if ([kind isEqualToString:CSStickyHeaderParallaxHeader]) {
+        return [collectionView cellForItemAtIndexPath:indexPath];
+    }
+    return nil;
+}
 
 
 //////////////////////////////
