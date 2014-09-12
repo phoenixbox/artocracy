@@ -71,7 +71,7 @@
 
     // Pieces Tester View Controller - TabBar item #1 **** Original Implementation
 
-    TAGPiecesCollectionViewController *pieceCollectionViewController = [[TAGPiecesCollectionViewController alloc]initWithCollectionViewLayout:[CSStickyHeaderFlowLayout new]];
+    TAGPiecesCollectionViewController *pieceCollectionViewController = [TAGPiecesCollectionViewController new];
     UINavigationController *piecesFeedNavController = [[UINavigationController alloc] initWithRootViewController:pieceCollectionViewController];
 
 

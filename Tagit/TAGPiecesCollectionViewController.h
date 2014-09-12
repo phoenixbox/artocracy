@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAGPiecesCollectionViewController : UICollectionViewController
+@interface TAGPiecesCollectionViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end
