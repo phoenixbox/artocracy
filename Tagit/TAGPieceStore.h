@@ -1,5 +1,5 @@
 //
-//  TAGFeedStore.h
+//  TAGPieceStore.h
 //  Tagit
 //
 //  Created by Shane Rogers on 8/3/14.
@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "TAGTagChannel.h"
 
-@interface TAGTagStore : NSObject{
+@interface TAGPieceStore : NSObject{
     NSMutableArray *tags;
 }
 
-+ (TAGTagStore *)sharedStore;
++ (TAGPieceStore *)sharedStore;
 
 - (void)fetchPiecesWithCompletion:(void (^)(TAGTagChannel *feedChannel, NSError *err))block;
 

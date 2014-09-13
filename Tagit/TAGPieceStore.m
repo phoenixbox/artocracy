@@ -1,25 +1,25 @@
 //
-//  TAGFeedStore.m
+//  TAGPieceStore.m
 //  Tagit
 //
 //  Created by Shane Rogers on 8/3/14.
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
-#import "TAGTagStore.h"
+#import "TAGPieceStore.h"
 #import "TAGAuthStore.h"
 #import "TAGTagChannel.h"
 
 #import "TAGRoutesConstants.h"
 #import "AFNetworking.h"
 
-@implementation TAGTagStore
+@implementation TAGPieceStore
 
-+ (TAGTagStore *)sharedStore {
-    static TAGTagStore *tagStore = nil;
++ (TAGPieceStore *)sharedStore {
+    static TAGPieceStore *tagStore = nil;
 
     if (!tagStore) {
-        tagStore = [[TAGTagStore alloc]init];
+        tagStore = [[TAGPieceStore alloc]init];
     };
     return tagStore;
 }

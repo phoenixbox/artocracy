@@ -10,7 +10,7 @@
 
 // Classes
 #import "TAGPieceViewController.h"
-#import "TAGTagStore.h"
+#import "TAGPieceStore.h"
 
 // Components
 #import "TAGErrorAlert.h"
@@ -99,7 +99,7 @@
 //            [self._requestIndicator stopAnimating];
         }
     };
-    [[TAGTagStore sharedStore] fetchTagsWithCompletion:completionBlock];
+    [[TAGPieceStore sharedStore] fetchPiecesWithCompletion:completionBlock];
 }
 
 - (void)setActivityIndicator {
