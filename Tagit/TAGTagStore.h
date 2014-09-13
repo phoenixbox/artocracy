@@ -15,6 +15,6 @@
 
 + (TAGTagStore *)sharedStore;
 
-- (void)fetchTagsWithCompletion:(void (^)(TAGTagChannel *feedChannel, NSError *err))block;
+- (void)fetchPiecesWithCompletion:(void (^)(TAGTagChannel *feedChannel, NSError *err))block;
 
 @end

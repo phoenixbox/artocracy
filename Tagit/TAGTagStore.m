@@ -24,7 +24,7 @@
     return tagStore;
 }
 
-- (void)fetchTagsWithCompletion:(void (^)(TAGTagChannel *tagChannel, NSError *err))block {
+- (void)fetchPiecesWithCompletion:(void (^)(TAGTagChannel *tagChannel, NSError *err))block {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
