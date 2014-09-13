@@ -26,6 +26,12 @@
 @property (nonatomic, strong) NSArray *_sections;
 @property (nonatomic, strong) TAGCollectionView *_collectionView;
 
+// ScrollView component hiding
+@property (nonatomic, assign) float _prevNavBarScrollViewYOffset;
+@property (nonatomic, assign) float _prevTabBarScrollViewYOffset;
+@property (nonatomic, assign) float _negDiff;
+@property (nonatomic, assign) CGRect _originalTabFrame;
+
 @end
 
 @implementation TAGPiecesCollectionViewController
@@ -57,6 +63,11 @@
     [self buildCollectionView];
 }
 
+// ScrollView component hiding
+- (void)viewDidAppear:(BOOL)animated {
+    self._originalTabFrame = self.tabBarController.tabBar.frame;
+}
+
 - (void)initAppearance
 {
     self.navigationController.navigationBar.translucent = NO;
@@ -70,7 +81,7 @@
     [self addNavigationItems];
 }
 
-- (void)addNavigationItems{
+- (void)addNavigationItems {
     UIImage *filterImage = [UIImage imageNamed:@"filterIcon.png"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:filterImage landscapeImagePhone:filterImage style:UIBarButtonItemStylePlain target:self action:@selector(toggleFilter)];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
@@ -87,7 +98,6 @@
 
 - (void)toggleFilter {
 }
-
 
 - (void)buildCollectionView {
     self._collectionView = [[TAGCollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:[self buildCollectionViewCellLayout]];
@@ -200,5 +210,144 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma NavigationBar Hide On Scroll
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self hideNavBar:scrollView];
+    [self hideTabBar:scrollView];
+}
+
+- (void)hideNavBar:(UIScrollView *)scrollView {
+    CGRect navFrame = self.navigationController.navigationBar.frame;
+    CGFloat navSize = navFrame.size.height - 21;
+    CGFloat navFramePercentageHidden = ((20 - navFrame.origin.y) / (navFrame.size.height - 1));
+
+    CGFloat scrollOffset = scrollView.contentOffset.y;
+
+    CGFloat navScrollDiff = scrollOffset - self._prevNavBarScrollViewYOffset;
+
+    CGFloat scrollHeight = scrollView.frame.size.height;
+    CGFloat scrollContentSizeHeight = scrollView.contentSize.height + scrollView.contentInset.bottom;
+
+    if (scrollOffset <= -scrollView.contentInset.top) { // Top Condition
+        navFrame.origin.y = 20;
+    } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) { // Bottom Condition;
+        navFrame.origin.y = -navSize;
+    } else {
+        navFrame.origin.y = MIN(20, MAX(-navSize, navFrame.origin.y - navScrollDiff));
+    }
+    CGFloat yOrigin = 0.0f - (20.0f - navFrame.origin.y);
+    [self updateCollectionViewYOrigin:yOrigin];
+
+    [self.navigationController.navigationBar setFrame:navFrame];
+    [self updateBarButtonItems:(1 - navFramePercentageHidden)];
+    self._prevNavBarScrollViewYOffset = scrollOffset;
+}
+
+- (void)updateCollectionViewYOrigin:(CGFloat)origin {
+    CGRect collectionFrame = self._collectionView.frame;
+    collectionFrame.origin.y = origin;
+    [self._collectionView setFrame:collectionFrame];
+
+}
+
+- (void)hideTabBar:(UIScrollView *)scrollView {
+    CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
+
+    CGFloat scrollOffset = scrollView.contentOffset.y;
+
+    // TODO: Remove hardcoded 64 here
+    CGFloat navScrollDiff = -64 - self._prevNavBarScrollViewYOffset;
+
+    CGFloat scrollHeight = scrollView.frame.size.height;
+    CGFloat scrollContentSizeHeight = scrollView.contentSize.height + scrollView.contentInset.bottom;
+
+    if (scrollOffset <= -scrollView.contentInset.bottom) {
+        tabFrame.origin.y = 520;
+    } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) {
+        tabFrame.origin.y = 570;
+    } else if (self._negDiff > 520 - navScrollDiff) {
+        tabFrame.origin.y = 520;
+        self._negDiff = 520 - navScrollDiff;
+    } else {
+        self._negDiff = 520 - navScrollDiff;
+        tabFrame.origin.y = MAX(520, MIN(520 - navScrollDiff,570));
+    }
+    [self.navigationController.tabBarController.tabBar setFrame:tabFrame];
+    self._prevNavBarScrollViewYOffset = scrollOffset;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self stoppedScrolling];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
+                  willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate) {
+        [self stoppedScrolling];
+    }
+}
+
+- (void)stoppedScrolling
+{
+    CGRect navFrame = self.navigationController.navigationBar.frame;
+    if (navFrame.origin.y < 20) {
+        [self animateNavBarTo:-(navFrame.size.height - 21)];
+    }
+//    CGRect collectionFrame = self._collectionView.frame;
+//    if (collectionFrame.origin.y < 20) {
+//        [self animateCollectionTo:-45];
+//    }
+
+    CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
+    if (tabFrame.origin.y > 520) {
+        [self animateTabBarTo:(571)];
+    }
+}
+
+- (void)updateBarButtonItems:(CGFloat)alpha
+{
+    [self.navigationItem.leftBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem* item, NSUInteger i, BOOL *stop) {
+        item.customView.alpha = alpha;
+    }];
+    [self.navigationItem.rightBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem* item, NSUInteger i, BOOL *stop) {
+        item.customView.alpha = alpha;
+    }];
+    self.navigationItem.titleView.alpha = alpha;
+    self.navigationController.navigationBar.tintColor = [self.navigationController.navigationBar.tintColor colorWithAlphaComponent:alpha];
+}
+
+- (void)animateNavBarTo:(CGFloat)y
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        CGRect frame = self.navigationController.navigationBar.frame;
+        CGFloat alpha = (frame.origin.y >= y ? 0 : 1);
+        frame.origin.y = y;
+        [self.navigationController.navigationBar setFrame:frame];
+        [self updateBarButtonItems:alpha];
+    }];
+}
+
+- (void)animateCollectionTo:(CGFloat)y
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        CGRect frame = self._collectionView.frame;
+        frame.origin.y = y;
+        [self._collectionView setFrame:frame];
+    }];
+}
+
+- (void)animateTabBarTo:(CGFloat)y {
+    [UIView animateWithDuration:0.2 animations:^{
+        CGRect frame = self.navigationController.tabBarController.tabBar.frame;
+        //        CGFloat alpha = (frame.origin.y >= y ? 0 : 1);
+        frame.origin.y = y;
+        [self.navigationController.tabBarController.tabBar setFrame:frame];
+        //        [self updateBarButtonItems:alpha];
+    }];
+}
 
 @end
