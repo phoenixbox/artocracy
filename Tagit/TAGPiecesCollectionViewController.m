@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
+// CONTEXT: Index page with sticky header cells
+
 #import "TAGPiecesCollectionViewController.h"
 
 #import "TAGCollectionView.h"
@@ -14,6 +16,7 @@
 
 // Constants
 #import "TAGComponentConstants.h"
+#import "TAGStyleConstants.h"
 
 // Pods
 #import "CSStickyHeaderFlowLayout.h"
@@ -49,8 +52,40 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self initAppearance];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self buildCollectionView];
+}
+
+- (void)initAppearance
+{
+    self.navigationController.navigationBar.translucent = NO;
+
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
+    [[UINavigationBar appearance] setBarTintColor:kPureWhite];
+
+    [[UIToolbar appearance] setBarStyle:UIBarStyleBlackOpaque];
+    [[UIToolbar appearance] setBarTintColor:kTagitBlack];
+    [self setHeaderLogo];
+    [self addNavigationItems];
+}
+
+- (void)addNavigationItems{
+    UIImage *filterImage = [UIImage imageNamed:@"filterIcon.png"];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:filterImage landscapeImagePhone:filterImage style:UIBarButtonItemStylePlain target:self action:@selector(toggleFilter)];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+}
+
+- (void)setHeaderLogo {
+    [[self navigationItem] setTitleView:nil];
+    UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 165.0f, 32.5f)];
+    logoView.contentMode = UIViewContentModeScaleAspectFill;
+    UIImage *logoImage = [UIImage imageNamed:@"art_navBarLogo.png"];
+    [logoView setImage:logoImage];
+    self.navigationItem.titleView = logoView;
+}
+
+- (void)toggleFilter {
 }
 
 

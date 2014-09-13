@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
+// CONTEXT: Old implementation of index page not using xibs
+
 // Classes
 #import "TAGPieceViewController.h"
 #import "TAGTagStore.h"
