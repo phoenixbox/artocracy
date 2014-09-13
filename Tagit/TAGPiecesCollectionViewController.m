@@ -194,22 +194,6 @@
 //    NSLog(@"Cell selected");
 //}
 //
-//- (void)didReceiveMemoryWarning
-//{
-//    [super didReceiveMemoryWarning];
-//    // Dispose of any resources that can be recreated.
-//}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma NavigationBar Hide On Scroll
 
@@ -264,9 +248,9 @@
     CGFloat scrollHeight = scrollView.frame.size.height;
     CGFloat scrollContentSizeHeight = scrollView.contentSize.height + scrollView.contentInset.bottom;
 
-    if (scrollOffset <= -scrollView.contentInset.bottom) {
+    if (scrollOffset >= -scrollView.contentInset.bottom) { // Top Condition
         tabFrame.origin.y = 520;
-    } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) {
+    } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) { // Bottom Condition
         tabFrame.origin.y = 570;
     } else if (self._negDiff > 520 - navScrollDiff) {
         tabFrame.origin.y = 520;
@@ -333,23 +317,18 @@
     }];
 }
 
-- (void)animateCollectionTo:(CGFloat)y
-{
-    [UIView animateWithDuration:0.2 animations:^{
-        CGRect frame = self._collectionView.frame;
-        frame.origin.y = y;
-        [self._collectionView setFrame:frame];
-    }];
-}
-
 - (void)animateTabBarTo:(CGFloat)y {
     [UIView animateWithDuration:0.2 animations:^{
         CGRect frame = self.navigationController.tabBarController.tabBar.frame;
-        //        CGFloat alpha = (frame.origin.y >= y ? 0 : 1);
         frame.origin.y = y;
         [self.navigationController.tabBarController.tabBar setFrame:frame];
-        //        [self updateBarButtonItems:alpha];
     }];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 @end
