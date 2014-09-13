@@ -237,6 +237,7 @@
     } else {
         navFrame.origin.y = MIN(20, MAX(-navSize, navFrame.origin.y - navScrollDiff));
     }
+
     CGFloat yOrigin = 0.0f - (20.0f - navFrame.origin.y);
     [self updateCollectionViewYOrigin:yOrigin];
 
@@ -297,11 +298,6 @@
     if (navFrame.origin.y < 20) {
         [self animateNavBarTo:-(navFrame.size.height - 21)];
     }
-//    CGRect collectionFrame = self._collectionView.frame;
-//    if (collectionFrame.origin.y < 20) {
-//        [self animateCollectionTo:-45];
-//    }
-
     CGRect tabFrame = self.navigationController.tabBarController.tabBar.frame;
     if (tabFrame.origin.y > 520) {
         [self animateTabBarTo:(571)];
@@ -327,6 +323,12 @@
         CGFloat alpha = (frame.origin.y >= y ? 0 : 1);
         frame.origin.y = y;
         [self.navigationController.navigationBar setFrame:frame];
+
+        // NavBar & collection frame should move in tandem
+        CGRect collectionFrame = self._collectionView.frame;
+        collectionFrame.origin.y = - (20 - frame.origin.y);
+        [self._collectionView setFrame:collectionFrame];
+
         [self updateBarButtonItems:alpha];
     }];
 }
