@@ -178,6 +178,7 @@
         [TAGViewHelpers formatLabel:cell.pieceLabel withCopy:@"Ape Do Good Printing"];
         [TAGViewHelpers formatLabel:cell.favoriteCount withCopy:@"100"];
         [cell.favoriteCount setTextAlignment:NSTextAlignmentRight];
+        [TAGViewHelpers sizeLabelToFit:cell.favoriteCount numberOfLines:0.0f];
 
         [cell styleCounter];
 
