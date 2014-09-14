@@ -8,35 +8,54 @@
 
 #import "TAGMapView.h"
 
+// Libs
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
+
+// Components
+#import "TAGMapAnnotation.h"
+#import "TAGErrorAlert.h"
+
 @interface TAGMapView ()
 
 @property (nonatomic, strong) CLLocationManager *_myLocationManager;
 @property (nonatomic, strong) CLGeocoder *_geocoder;
 @property (nonatomic) CGSize _searchViewSize;
 
+@property (nonatomic, retain) MKUserLocation *_currentUserLocation;
+
 @end
 
 @implementation TAGMapView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame forDelegate:(TAGSuggestionParallaxHeaderCell *)delegate
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        [self setMapType:MKMapTypeStandard];
-        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-
-        CLLocationCoordinate2D noLocation;
-        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(noLocation, 500, 500);
-        MKCoordinateRegion adjustedRegion = [self regionThatFits:viewRegion];
-        [self setRegion:adjustedRegion animated:YES];
-
-        // Display the user
-        self.showsUserLocation = YES;
-        // Enable tracking mode which overrides default and forces user to be at the center of the map
-        self.userTrackingMode = MKUserTrackingModeFollow;
+        self.delegate = delegate;
+        [self configureMap];
     }
     return self;
+}
+
+- (void)configureMap {
+    [self setMapType:MKMapTypeStandard];
+
+    // ERROR
+//    self._mapView.delegate = self;
+
+    [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+
+    // Set the initial zoom level
+    CLLocationCoordinate2D noLocation;
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(noLocation, 500, 500);
+    MKCoordinateRegion adjustedRegion = [self regionThatFits:viewRegion];
+    [self setRegion:adjustedRegion animated:YES];
+
+
+    self.showsUserLocation = YES;
+    self.userTrackingMode = MKUserTrackingModeFollow;
 }
 
 /*

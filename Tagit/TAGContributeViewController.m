@@ -144,14 +144,9 @@
     else if ([kind isEqualToString:CSStickyHeaderParallaxHeader]) {
         TAGSuggestionParallaxHeaderCell *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind                                                                            withReuseIdentifier:@"mapHeader" forIndexPath:indexPath];
 
-//        [cell setMapView:[TAGMapViewController new]];
-//        [cell setMapView:[MKMapView new]];
+        TAGMapView *map = [[TAGMapView alloc]initWithFrame:cell.mapView.frame forDelegate:cell];
+        [cell.mapView addSubview:map];
 
-//        self._mapController = [TAGMapViewController new];
-//
-//        [self addChildViewController:self._mapController];
-//        [self._scrollView addSubview:self._mapController.view];
-//
         return cell;
 
     }

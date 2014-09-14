@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
-// Location modules
-#import <MapKit/MapKit.h>
-#import <CoreLocation/CoreLocation.h>
+#import "TAGSuggestionParallaxHeaderCell.h"
 
-@interface TAGMapView : MKMapView <MKMapViewDelegate, CLLocationManagerDelegate>
+@interface TAGMapView : MKMapView
+
+- (id)initWithFrame:(CGRect)frame forDelegate:(UICollectionViewCell *)delegate;
 
 @end

@@ -8,14 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-// Location Modules
+// Map Module
 #import <MapKit/MapKit.h>
+// Location module
 #import <CoreLocation/CoreLocation.h>
 
 #import "TAGMapView.h"
 
-@interface TAGSuggestionParallaxHeaderCell : UICollectionViewCell
+@interface TAGSuggestionParallaxHeaderCell : UICollectionViewCell <MKMapViewDelegate, CLLocationManagerDelegate>
+@property (weak, nonatomic) IBOutlet UIView *mapView;
+@property (weak, nonatomic) MKMapView *map;
 
-@property (weak, nonatomic) IBOutlet TAGMapView *mapView;
+@property (nonatomic, strong) CLLocationManager *_myLocationManager;
+@property (nonatomic, retain) MKUserLocation *currentUserLocation;
+@property (nonatomic) CGSize searchViewSize;
+
 
 @end
