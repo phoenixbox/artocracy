@@ -8,8 +8,11 @@
 
 #import "TAGContributeViewController.h"
 
+#import "TAGMapViewController.h"
 #import "TAGCollectionView.h"
 #import "TAGSuggestionCell.h"
+
+#import "TAGSuggestionParallaxHeaderCell.h"
 
 // Helpers
 #import "TAGViewHelpers.h"
@@ -24,6 +27,7 @@
 
 @property (nonatomic, strong) TAGCollectionView *_collectionView;
 @property (nonatomic, strong) UINib *headerNib;
+@property (nonatomic, strong) TAGMapViewController *_mapController;
 
 @end
 
@@ -138,8 +142,16 @@
       return [collectionView cellForItemAtIndexPath:indexPath];
     }
     else if ([kind isEqualToString:CSStickyHeaderParallaxHeader]) {
-        UICollectionReusableView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind                                                                            withReuseIdentifier:@"mapHeader" forIndexPath:indexPath];
+        TAGSuggestionParallaxHeaderCell *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind                                                                            withReuseIdentifier:@"mapHeader" forIndexPath:indexPath];
 
+//        [cell setMapView:[TAGMapViewController new]];
+//        [cell setMapView:[MKMapView new]];
+
+//        self._mapController = [TAGMapViewController new];
+//
+//        [self addChildViewController:self._mapController];
+//        [self._scrollView addSubview:self._mapController.view];
+//
         return cell;
 
     }

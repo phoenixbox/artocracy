@@ -1,5 +1,5 @@
 //
-//  TAGSuggestionCell.h
+//  TAGSuggestionParallaxHeaderCell.h
 //  Tagit
 //
 //  Created by Shane Rogers on 9/14/14.
@@ -12,8 +12,10 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface TAGSuggestionCell : UICollectionViewCell
+#import "TAGMapView.h"
 
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@interface TAGSuggestionParallaxHeaderCell : UICollectionViewCell
+
+@property (weak, nonatomic) IBOutlet TAGMapView *mapView;
 
 @end

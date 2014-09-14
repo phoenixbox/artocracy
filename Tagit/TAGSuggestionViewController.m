@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
-
+// CONTEXT: Old suggeastion view controller
 
 #import "TAGSuggestionViewController.h"
 #import "TAGCameraOverlay.h"
