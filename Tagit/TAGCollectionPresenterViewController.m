@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
+// CONTEXT: Profile controls and tables/collections
+
 #import "TAGCollectionPresenterViewController.h"
 
 #import "TAGPieceDetailViewController.h"

@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
+// CONTEXT: Main controller of the profile section
+
 #import "TAGProfileViewController.h"
 #import "TAGStyleConstants.h"
 

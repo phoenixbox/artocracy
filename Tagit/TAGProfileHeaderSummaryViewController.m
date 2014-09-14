@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
+// CONTEXT: On the profile page - in the header - aggregate counters for faves / summaries
+
 // Classes
 #import "TAGProfileHeaderSummaryViewController.h"
 #import "TAGViewHelpers.h"
