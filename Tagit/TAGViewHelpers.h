@@ -15,10 +15,14 @@
 
 + (NSAttributedString *)attributeText:(NSString *)text forFontSize:(CGFloat)size;
 
++ (void)formatLabel:(UILabel *)label withCopy:(NSString *)copy;
+
 + (void)sizeLabelToFit:(UILabel *)label numberOfLines:(CGFloat)lineNumber;
+
++ (NSMutableAttributedString *)createIcon:(FAKFontAwesome *)icon withColor:(UIColor *)color;
 
 + (void)scaleAndSetBackgroundImageNamed:(NSString *)imageName forView:(UIView *)targetView;
 
-+ (void)formatButton:(UIButton *)button forIcon:(FAKFontAwesome *)icon withCopy:(NSString *)buttonCopy;
++ (void)formatButton:(UIButton *)button forIcon:(NSMutableAttributedString *)icon withCopy:(NSString *)buttonCopy;
 
 @end

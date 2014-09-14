@@ -49,7 +49,6 @@
 		CB6DA4EB19A47AAD00BB71EE /* TAGCollectionControls.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6DA4EA19A47AAD00BB71EE /* TAGCollectionControls.m */; };
 		CB9BC69A19BCFD7500BE0EFC /* TAGPiecesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BC69919BCFD7500BE0EFC /* TAGPiecesCollectionViewController.m */; };
 		CB9BC69E19BD07D100BE0EFC /* TAGPieceCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BC69D19BD07D100BE0EFC /* TAGPieceCollectionCell.m */; };
-		CB9BC6A119BD09F900BE0EFC /* TAGStickyHeaderCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BC6A019BD09F900BE0EFC /* TAGStickyHeaderCollectionCell.m */; };
 		CBD194FB19A5C0C600C6B449 /* heartSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD194F519A5C0C600C6B449 /* heartSelected@2x.png */; };
 		CBD194FC19A5C0C600C6B449 /* heartUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD194F619A5C0C600C6B449 /* heartUnselected@2x.png */; };
 		CBD194FD19A5C0C600C6B449 /* lightbulbSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBD194F719A5C0C600C6B449 /* lightbulbSelected@2x.png */; };
@@ -174,8 +173,6 @@
 		CB9BC69919BCFD7500BE0EFC /* TAGPiecesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGPiecesCollectionViewController.m; sourceTree = "<group>"; };
 		CB9BC69C19BD07D100BE0EFC /* TAGPieceCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGPieceCollectionCell.h; sourceTree = "<group>"; };
 		CB9BC69D19BD07D100BE0EFC /* TAGPieceCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGPieceCollectionCell.m; sourceTree = "<group>"; };
-		CB9BC69F19BD09F900BE0EFC /* TAGStickyHeaderCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGStickyHeaderCollectionCell.h; sourceTree = "<group>"; };
-		CB9BC6A019BD09F900BE0EFC /* TAGStickyHeaderCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGStickyHeaderCollectionCell.m; sourceTree = "<group>"; };
 		CBD194F519A5C0C600C6B449 /* heartSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heartSelected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/heartSelected@2x.png"; sourceTree = "<group>"; };
 		CBD194F619A5C0C600C6B449 /* heartUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heartUnselected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/heartUnselected@2x.png"; sourceTree = "<group>"; };
 		CBD194F719A5C0C600C6B449 /* lightbulbSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "lightbulbSelected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/lightbulbSelected@2x.png"; sourceTree = "<group>"; };
@@ -329,8 +326,6 @@
 				CB9BC69919BCFD7500BE0EFC /* TAGPiecesCollectionViewController.m */,
 				CB9BC69C19BD07D100BE0EFC /* TAGPieceCollectionCell.h */,
 				CB9BC69D19BD07D100BE0EFC /* TAGPieceCollectionCell.m */,
-				CB9BC69F19BD09F900BE0EFC /* TAGStickyHeaderCollectionCell.h */,
-				CB9BC6A019BD09F900BE0EFC /* TAGStickyHeaderCollectionCell.m */,
 			);
 			name = Pieces;
 			sourceTree = "<group>";
@@ -845,7 +840,6 @@
 				CBDA9A3619982CA200E8AD31 /* TAGMapViewController.m in Sources */,
 				CB33FD7D19C2AA0F0017F4EF /* TAGPieceCell.m in Sources */,
 				CB068160198ED06300B13E49 /* TAGTag.m in Sources */,
-				CB9BC6A119BD09F900BE0EFC /* TAGStickyHeaderCollectionCell.m in Sources */,
 				CB06815C198ECED200B13E49 /* TAGPieceStore.m in Sources */,
 				CB068143198EA9EF00B13E49 /* TAGPieceViewController.m in Sources */,
 				CBD3D2E819B2D67D00A2DE75 /* TAGPieceDetailViewController.m in Sources */,

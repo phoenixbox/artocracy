@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
+// CONTEXT: Old tag feed view cell
+
 #import <UIKit/UIKit.h>
 
 @interface TAGTagTableViewCell : UITableViewCell

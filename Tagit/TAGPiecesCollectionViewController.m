@@ -18,6 +18,9 @@
 #import "TAGComponentConstants.h"
 #import "TAGStyleConstants.h"
 
+// Helpers
+#import "TAGViewHelpers.h"
+
 // Pods
 #import "CSStickyHeaderFlowLayout.h"
 
@@ -120,8 +123,8 @@
 - (UICollectionViewFlowLayout *)buildCollectionViewCellLayout {
     UICollectionViewFlowLayout *flowLayout = [CSStickyHeaderFlowLayout new];
     // NOTE: Important to match the dimensions in the xib
-    flowLayout.itemSize = CGSizeMake(320.0f,80.0f);
-    flowLayout.headerReferenceSize = CGSizeMake(0.0f,50.0f);
+    flowLayout.itemSize = CGSizeMake(320.0f,350.0f);
+    flowLayout.headerReferenceSize = CGSizeMake(0.0f,40.0f);
 
     return flowLayout;
 }
@@ -143,9 +146,18 @@
     // Just identifiers for views
     TAGPieceCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell"
                                                                    forIndexPath:indexPath];
+    [cell setBackgroundColor:[UIColor whiteColor]];
+    // UIImageView *pieceImage;
+    [cell.pieceImage setImage:[UIImage imageNamed:@"ape_do_good_printing_SF.png"]];
 
-    NSDictionary *obj = self._sections[indexPath.section];
-    cell.textLabel.text = [[obj allValues] firstObject];
+    FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
+    NSMutableAttributedString *heartIcon = [TAGViewHelpers createIcon:heart withColor:[UIColor blackColor]];
+    FAKFontAwesome *comment = [FAKFontAwesome commentIconWithSize:10];
+    NSMutableAttributedString *commentIcon = [TAGViewHelpers createIcon:comment withColor:[UIColor blackColor]];
+
+    [TAGViewHelpers formatButton:cell.likeButton forIcon:heartIcon withCopy:@"Like  "];
+    [TAGViewHelpers formatButton:cell.commentButton forIcon:commentIcon withCopy:@"Comment  "];
+
 
     return cell;
 }
@@ -156,9 +168,18 @@
         TAGPieceCell *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                                 withReuseIdentifier:@"sectionHeader"
                                                                        forIndexPath:indexPath];
+        [cell setBackgroundColor:[UIColor whiteColor]];
 
-        NSDictionary *obj = self._sections[indexPath.section];
-        cell.textLabel.text = [[obj allKeys] firstObject];
+        [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"profile_photo.png" forView:cell.artistThumbnail];
+        cell.artistThumbnail.layer.cornerRadius = cell.artistThumbnail.frame.size.width/2;
+        cell.artistThumbnail.layer.masksToBounds = YES;
+        [TAGViewHelpers formatLabel:cell.artistLabel withCopy:@"Lonnie Spoon"];
+        [TAGViewHelpers sizeLabelToFit:cell.artistLabel numberOfLines:0.0f];
+        [TAGViewHelpers formatLabel:cell.pieceLabel withCopy:@"Ape Do Good Printing"];
+        [TAGViewHelpers formatLabel:cell.favoriteCount withCopy:@"100"];
+        [cell.favoriteCount setTextAlignment:NSTextAlignmentRight];
+
+        [cell styleCounter];
 
         return cell;
     } else if ([kind isEqualToString:CSStickyHeaderParallaxHeader]) {

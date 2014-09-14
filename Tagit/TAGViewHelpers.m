@@ -17,10 +17,22 @@
     return [[NSAttributedString alloc]initWithString:text attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:size]}];
 }
 
++ (void)formatLabel:(UILabel *)label withCopy:(NSString *)copy {
+    [label setAttributedText:[self attributeText:copy forFontSize:10.0f]];
+    [self sizeLabelToFit:label numberOfLines:1.0f];
+}
+
 + (void)sizeLabelToFit:(UILabel *)label numberOfLines:(CGFloat)lineNumber {
     // 0 is default
     [label setNumberOfLines:lineNumber];
     [label sizeToFit];
+}
+
++ (NSMutableAttributedString *)createIcon:(FAKFontAwesome *)icon withColor:(UIColor *)color {
+    NSAttributedString *heartFont = [icon attributedString];
+    NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
+    [heartIcon addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0,heartIcon.length)];
+    return heartIcon;
 }
 
 + (void)scaleAndSetBackgroundImageNamed:(NSString *)imageName forView:(UIView *)targetView {
@@ -32,10 +44,9 @@
     [targetView setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
 }
 
-+ (void)formatButton:(UIButton *)button forIcon:(FAKFontAwesome *)icon withCopy:(NSString *)buttonCopy {
-    NSAttributedString *iconFont = [icon attributedString];
++ (void)formatButton:(UIButton *)button forIcon:(NSMutableAttributedString *)icon withCopy:(NSString *)buttonCopy {
     NSMutableAttributedString *iconCopy =[[NSMutableAttributedString alloc] initWithString:buttonCopy attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0]}];
-    [iconCopy appendAttributedString:iconFont];
+    [iconCopy appendAttributedString:icon];
     [iconCopy addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0,iconCopy.length)];
     [button setAttributedTitle:iconCopy forState:UIControlStateNormal];
     [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
