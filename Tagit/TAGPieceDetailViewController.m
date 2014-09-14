@@ -320,7 +320,10 @@
                                                                   yCoord,
                                                                   50.0f,
                                                                   20.0f)];
-    FAKFontAwesome *heartIcon = [FAKFontAwesome heartIconWithSize:10];
+
+    FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
+    NSMutableAttributedString *heartIcon = [TAGViewHelpers createIcon:heart withColor:[UIColor blackColor]];
+
     [TAGViewHelpers formatButton:self._likeButton forIcon:heartIcon withCopy:@"Like  "];
     [self._scrollView addSubview:self._likeButton];
 }
@@ -333,8 +336,8 @@
                                                                   yCoord,
                                                                   70.0f,
                                                                   20.0f)];
-
-    FAKFontAwesome *commentIcon = [FAKFontAwesome commentIconWithSize:10];
+    FAKFontAwesome *comment = [FAKFontAwesome commentIconWithSize:10];
+    NSMutableAttributedString *commentIcon = [TAGViewHelpers createIcon:comment withColor:[UIColor blackColor]];
     [TAGViewHelpers formatButton:self._likeButton forIcon:commentIcon withCopy:@"Comment  "];
     [self._scrollView  addSubview:self._likeButton];
 }
