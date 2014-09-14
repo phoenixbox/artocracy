@@ -11,6 +11,7 @@
 #import "TAGPieceViewController.h"
 #import "TAGSuggestionViewController.h"
 #import "TAGProfileViewController.h"
+#import "TAGContributeViewController.h"
 
 // Tester
 #import "TAGPiecesCollectionViewController.h"
@@ -65,26 +66,26 @@
 - (void)initializeNavigationControllers{
     UITabBarController *tagTabBarController = [UITabBarController new];
 
-    // Tags View Controller - TabBar item #1 **** Original Implementation
-//    TAGPieceViewController *piecesViewController = [TAGPieceViewController new];
-//    UINavigationController *tagFeedNavController = [[UINavigationController alloc]initWithRootViewController:piecesViewController];
-
-    // Pieces Tester View Controller - TabBar item #1 **** Original Implementation
-
     TAGPiecesCollectionViewController *pieceCollectionViewController = [TAGPiecesCollectionViewController new];
     UINavigationController *piecesFeedNavController = [[UINavigationController alloc] initWithRootViewController:pieceCollectionViewController];
 
 
-    // Suggestion View Controller - TabBar item #2
-    TAGSuggestionViewController *suggestionViewController = [TAGSuggestionViewController new];
-    UINavigationController *suggestionNavController = [[UINavigationController alloc]initWithRootViewController:suggestionViewController];
-    suggestionViewController.hidesBottomBarWhenPushed = YES;
+//    // Suggestion View Controller - TabBar item #2
+//    TAGSuggestionViewController *suggestionViewController = [TAGSuggestionViewController new];
+//    UINavigationController *suggestionNavController = [[UINavigationController alloc]initWithRootViewController:suggestionViewController];
+//    // Hide the tab bar when on this view
+//    suggestionViewController.hidesBottomBarWhenPushed = YES;
+
+
+    TAGContributeViewController *contributeViewController = [TAGContributeViewController new];
+    UINavigationController *contributeNavController = [[UINavigationController alloc]initWithRootViewController:contributeViewController];
+    contributeNavController.hidesBottomBarWhenPushed = YES;
 
     // User Profile View Controller - TabBar item #3
     TAGProfileViewController *profileViewController = [TAGProfileViewController new];
     UINavigationController *profileNavController = [[UINavigationController alloc]initWithRootViewController:profileViewController];
 
-    [tagTabBarController setViewControllers:@[piecesFeedNavController, suggestionNavController, profileNavController]];
+    [tagTabBarController setViewControllers:@[piecesFeedNavController, contributeNavController, profileNavController]];
 
     [self styleTabBar:tagTabBarController.tabBar];
 

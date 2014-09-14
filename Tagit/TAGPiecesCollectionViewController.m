@@ -11,7 +11,6 @@
 #import "TAGPiecesCollectionViewController.h"
 
 #import "TAGCollectionView.h"
-#import "TAGCollectionViewCell.h"
 #import "TAGPieceCell.h"
 
 // Constants
@@ -188,34 +187,6 @@
     }
     return nil;
 }
-
-
-//////////////////////////////
-//#pragma UICollectionView Protocol Methods
-//
-//-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-//    return 18;
-//}
-//
-//- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    TAGCollectionViewCell *cell = (TAGCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kCollectionCellIdentifier forIndexPath:indexPath];
-//
-//    // TODO: Visual differentiatior to be replaced by varied data type retrieval
-//    UIImageView *backgroundImage = [UIImageView new];
-//
-//    UIImage *image = [UIImage imageNamed:@"ape_do_good_printing_SF.png"];
-//    cell.image = image;
-//    [backgroundImage setImage:cell.image];
-//
-//    [cell setBackgroundView:backgroundImage];
-//    [cell.backgroundView setContentMode:UIViewContentModeScaleAspectFit];
-//    return cell;
-//}
-//
-//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    NSLog(@"Cell selected");
-//}
-//
 
 #pragma NavigationBar Hide On Scroll
 
