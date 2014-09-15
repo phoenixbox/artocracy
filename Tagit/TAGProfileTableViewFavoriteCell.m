@@ -87,7 +87,7 @@
                                        self.cellHeight * percentageFromTop,
                                        2.0f,
                                        sepHeight)];
-    [self.visualSep setBackgroundColor:[UIColor greenColor]];
+    [self.visualSep setBackgroundColor:[UIColor grayColor]];
     [self addSubview:self.visualSep];
 }
 

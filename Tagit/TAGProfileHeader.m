@@ -17,7 +17,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        [self setBackgroundColor:[UIColor grayColor]];
+        [self setBackgroundColor:[UIColor whiteColor]];
         [self addProfile];
         [self addName];
         [self addSuggestionsSummaryViewController];
@@ -50,7 +50,7 @@
     [self.username setAttributedText:text];
     [TAGViewHelpers sizeLabelToFit:self.username numberOfLines:0.0f];
 
-    [self.username setBackgroundColor:[UIColor greenColor]];
+    [self.username setBackgroundColor:[UIColor whiteColor]];
     [self addSubview:self.username];
 }
 

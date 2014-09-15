@@ -47,7 +47,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    [self.view setBackgroundColor:[UIColor greenColor]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 
     [self renderIcon];
     [self renderCounter];
@@ -75,7 +75,7 @@
                                     25.0f,
                                     25.0f);
     self.counter = [[UILabel alloc] initWithFrame:CounterRect];
-    [self.counter setBackgroundColor:[UIColor orangeColor]];
+    [self.counter setBackgroundColor:[UIColor whiteColor]];
 
     NSAttributedString *text = [TAGViewHelpers attributeText:@"7" forFontSize:10.0f];
     [self.counter setAttributedText:text];
