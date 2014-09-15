@@ -69,14 +69,6 @@
     TAGPiecesCollectionViewController *pieceCollectionViewController = [TAGPiecesCollectionViewController new];
     UINavigationController *piecesFeedNavController = [[UINavigationController alloc] initWithRootViewController:pieceCollectionViewController];
 
-
-//    // Suggestion View Controller - TabBar item #2
-//    TAGSuggestionViewController *suggestionViewController = [TAGSuggestionViewController new];
-//    UINavigationController *suggestionNavController = [[UINavigationController alloc]initWithRootViewController:suggestionViewController];
-//    // Hide the tab bar when on this view
-//    suggestionViewController.hidesBottomBarWhenPushed = YES;
-
-
     TAGContributeViewController *contributeViewController = [TAGContributeViewController new];
     UINavigationController *contributeNavController = [[UINavigationController alloc]initWithRootViewController:contributeViewController];
     contributeNavController.hidesBottomBarWhenPushed = YES;

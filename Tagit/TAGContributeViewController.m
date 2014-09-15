@@ -46,14 +46,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
     [self buildCollectionView];
     [self initAppearance];
 
     CSStickyHeaderFlowLayout *layout = (id)self._collectionView.collectionViewLayout;
 
     if ([layout isKindOfClass:[CSStickyHeaderFlowLayout class]]) {
-        layout.parallaxHeaderReferenceSize = CGSizeMake(320, 100);
-        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(320, 80); // Bigger shifts it up
+        layout.parallaxHeaderReferenceSize = CGSizeMake(320, 50);
+        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(320, 20); // Bigger shifts it up
     }
     // KNOW: think the header identifier here is specific to CSStickyHeaderParallaxHeader
     UINib *parallaxHeader = [UINib nibWithNibName:@"TAGSuggestionHeader" bundle:nil];
@@ -72,10 +73,6 @@
     UIImage *cancel = [UIImage imageNamed:@"cancel.png"];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:cancel landscapeImagePhone:cancel style:UIBarButtonItemStylePlain target:self action:@selector(cancelSuggestion)];
     [self.navigationItem.leftBarButtonItem setTintColor:[UIColor blackColor]];
-
-    UIImage *retake = [UIImage imageNamed:@"camera_nav.png"];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:retake landscapeImagePhone:retake style:UIBarButtonItemStylePlain target:self action:@selector(retakePhoto)];
-    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor blackColor]];
 }
 
 - (void)setHeaderLogo {
@@ -88,9 +85,15 @@
 }
 
 - (void)cancelSuggestion {
+    [self.parentViewController.tabBarController setSelectedIndex:0];
 }
+
 - (void)retakePhoto {
+    NSLog(@"Implement Photo Retake");
+//    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+    //    [self._photo setImage:nil];
 }
+
 
 - (void)buildCollectionView {
     self._collectionView = [[TAGCollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:[self buildCollectionViewCellLayout]];
@@ -107,9 +110,10 @@
 
 - (UICollectionViewFlowLayout *)buildCollectionViewCellLayout {
     UICollectionViewFlowLayout *flowLayout = [CSStickyHeaderFlowLayout new];
-    // NOTE: Important to match the dimensions in the xib
-    flowLayout.itemSize = CGSizeMake(320.0f,350.0f);
-    flowLayout.headerReferenceSize = CGSizeMake(0.0f,40.0f);
+
+    flowLayout.itemSize = CGSizeMake(320.0f,450.0f); // Same dimensions as the xib
+    // TODO: Should be 0 but that disables scroll?
+    flowLayout.headerReferenceSize = CGSizeMake(0.0f,10.0f);
 
     return flowLayout;
 }
@@ -133,8 +137,24 @@
                                                                    forIndexPath:indexPath];
     // Setup cells appropriately
     [cell setBackgroundColor:[UIColor whiteColor]];
+    [cell.suggestionImage setBackgroundColor:[UIColor blueColor]];
+
+    [cell.canvasType setTintColor:[UIColor blackColor]];
+
+    [cell.retakePhoto addTarget:self action:@selector(retakePhoto) forControlEvents:UIControlEventTouchUpInside];
+
+    [cell.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
+    [cell.submitButton setTitleColor:kPureWhite forState:UIControlStateNormal];
+    cell.submitButton.backgroundColor = kTagitBlack;
+    [cell.submitButton addTarget:self action:@selector(submitSuggestion:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [cell updateStyle];
 
     return cell;
+}
+
+- (void)submitSuggestion:(id)paramSender {
+    NSLog(@"Implement Suggestion Submit");
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
