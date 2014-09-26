@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAGContributeViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface TAGContributeViewController : UIViewController <UICollectionViewDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource, UINavigationControllerDelegate>
 
 @end

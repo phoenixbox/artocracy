@@ -14,7 +14,7 @@
 
 @interface TAGSuggestionCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UIView *suggestionImage;
+@property (weak, nonatomic) IBOutlet UIImage *suggestionImage;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *canvasType;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 @property (weak, nonatomic) IBOutlet UIButton *retakePhoto;

@@ -6,11 +6,14 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
+// CONTEXT: New Photo contribution view controlller
+
 #import "TAGContributeViewController.h"
 
 #import "TAGMapViewController.h"
 #import "TAGCollectionView.h"
 #import "TAGSuggestionCell.h"
+#import "TAGImagePickerController.h"
 
 #import "TAGSuggestionParallaxHeaderCell.h"
 
@@ -28,6 +31,13 @@
 @property (nonatomic, strong) TAGCollectionView *_collectionView;
 @property (nonatomic, strong) UINib *headerNib;
 @property (nonatomic, strong) TAGMapViewController *_mapController;
+@property (nonatomic) TAGImagePickerController *_imagePickerController;
+@property (nonatomic, strong) TAGSuggestionCell *_primaryCell;
+
+@property (nonatomic, strong) NSData *_photoData;
+@property (nonatomic) BOOL _showImagePicker;
+
+@property (nonatomic, strong) UIImage *_lastTakenPhoto;
 
 @end
 
@@ -49,6 +59,8 @@
 
     [self buildCollectionView];
     [self initAppearance];
+    self._primaryCell = [TAGSuggestionCell new];
+    self._lastTakenPhoto = [UIImage new];
 
     CSStickyHeaderFlowLayout *layout = (id)self._collectionView.collectionViewLayout;
 
@@ -90,9 +102,76 @@
 
 - (void)retakePhoto {
     NSLog(@"Implement Photo Retake");
-//    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
-    //    [self._photo setImage:nil];
+    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+    [self._primaryCell  setSuggestionImage:nil];
 }
+
+- (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
+    TAGImagePickerController *imagePickerController = [TAGImagePickerController sharedImagePicker];
+    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    imagePickerController.sourceType = sourceType;
+    imagePickerController.delegate = self;
+    [imagePickerController setShowsCameraControls:YES];
+
+    if (sourceType == UIImagePickerControllerSourceTypeCamera)
+    {
+        self._imagePickerController = [self buildSquareOverlay:imagePickerController];
+    }
+
+    [self presentViewController:self._imagePickerController animated:YES completion:nil];
+}
+
+- (TAGImagePickerController *)buildSquareOverlay:(TAGImagePickerController *)imagePickerController {
+    CGRect f = imagePickerController.view.bounds;
+    f.size.height -= imagePickerController.navigationBar.bounds.size.height;
+    UIGraphicsBeginImageContext(f.size);
+    [[UIColor colorWithWhite:0.0f alpha:.8] set];
+    UIRectFillUsingBlendMode(CGRectMake(0, 0, f.size.width, 124.0), kCGBlendModeNormal);
+    UIRectFillUsingBlendMode(CGRectMake(0, 444, f.size.width, 52), kCGBlendModeNormal);
+    UIImage *overlayImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    UIImageView *overlay = [[UIImageView alloc] initWithFrame:f];
+    overlay.image = overlayImage;
+    overlay.alpha = 0.7f;
+    [imagePickerController setCameraOverlayView:overlay];
+
+    return imagePickerController;
+}
+
+#pragma UIImagePickerControllerProtocol methods
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    self._showImagePicker = NO;
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+
+    CGSize imageSize = image.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    if (width != height) {
+        CGFloat newDimension = MIN(width, height);
+        CGFloat widthOffset = (width - newDimension) / 2;
+        CGFloat heightOffset = (height - newDimension) / 2;
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(newDimension, newDimension), NO, 0.);
+        [image drawAtPoint:CGPointMake(-widthOffset, -heightOffset)
+                 blendMode:kCGBlendModeCopy
+                     alpha:1.0];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    };
+    self._lastTakenPhoto = image;
+    self._primaryCell.suggestionImage = self._lastTakenPhoto;
+    self._photoData = UIImageJPEGRepresentation(self._lastTakenPhoto, 0.2);
+    [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    if (self._showImagePicker == YES) {
+        [self.parentViewController.tabBarController setSelectedIndex:0];
+    }
+
+    [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 
 - (void)buildCollectionView {
@@ -133,24 +212,25 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
     // Specify the cell identifier to be used
-    TAGSuggestionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell"
+    self._primaryCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell"
                                                                    forIndexPath:indexPath];
     // Setup cells appropriately
-    [cell setBackgroundColor:[UIColor whiteColor]];
-    [cell.suggestionImage setBackgroundColor:[UIColor blueColor]];
+    [self._primaryCell setBackgroundColor:[UIColor whiteColor]];
 
-    [cell.canvasType setTintColor:[UIColor blackColor]];
+    [self._primaryCell.canvasType setTintColor:[UIColor blackColor]];
 
-    [cell.retakePhoto addTarget:self action:@selector(retakePhoto) forControlEvents:UIControlEventTouchUpInside];
+    [self._primaryCell.retakePhoto addTarget:self action:@selector(retakePhoto) forControlEvents:UIControlEventTouchUpInside];
 
-    [cell.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
-    [cell.submitButton setTitleColor:kPureWhite forState:UIControlStateNormal];
-    cell.submitButton.backgroundColor = kTagitBlack;
-    [cell.submitButton addTarget:self action:@selector(submitSuggestion:) forControlEvents:UIControlEventTouchUpInside];
+    self._primaryCell.suggestionImage = self._lastTakenPhoto;
+
+    [self._primaryCell.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
+    [self._primaryCell.submitButton setTitleColor:kPureWhite forState:UIControlStateNormal];
+    self._primaryCell.submitButton.backgroundColor = kTagitBlack;
+    [self._primaryCell.submitButton addTarget:self action:@selector(submitSuggestion:) forControlEvents:UIControlEventTouchUpInside];
     
-    [cell updateStyle];
+    [self._primaryCell updateStyle];
 
-    return cell;
+    return self._primaryCell;
 }
 
 - (void)submitSuggestion:(id)paramSender {

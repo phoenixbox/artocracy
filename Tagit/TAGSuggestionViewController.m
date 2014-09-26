@@ -27,8 +27,8 @@
 @property (nonatomic, strong) TAGMapViewController *_mapController;
 @property (nonatomic, strong) UIImageView *_photo;
 @property (nonatomic, strong) NSData *_photoData;
-@property (nonatomic, strong) UIScrollView *_scrollView;
 @property (nonatomic) BOOL _showImagePicker;
+@property (nonatomic, strong) UIScrollView *_scrollView;
 
 @property (nonatomic, strong) UILabel *_locationTitle;
 @property (nonatomic, strong) UILabel *_address;
