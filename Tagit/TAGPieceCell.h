@@ -16,8 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *pieceImage;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
-@property (weak, nonatomic) IBOutlet UILabel *heartIcon;
 
+@property (weak, nonatomic) IBOutlet UILabel *heartIcon;
 @property (weak, nonatomic) IBOutlet UILabel *favoriteCount;
 
 - (void)styleCounter;

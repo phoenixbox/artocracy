@@ -110,7 +110,7 @@
     UINib *headerNib = [UINib nibWithNibName:@"TAGPieceSectionHeader" bundle:nil];
     [self._collectionView registerNib:headerNib forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"sectionHeader"];
 
-    [self._collectionView setBackgroundColor:[UIColor whiteColor]];
+    [self._collectionView setBackgroundColor:[UIColor grayColor]];
 
     [self._collectionView setDelegate:self];
     [self._collectionView setDataSource:self];
@@ -123,7 +123,7 @@
     UICollectionViewFlowLayout *flowLayout = [CSStickyHeaderFlowLayout new];
     // NOTE: Important to match the dimensions in the xib
     flowLayout.itemSize = CGSizeMake(320.0f,350.0f);
-    flowLayout.headerReferenceSize = CGSizeMake(0.0f,40.0f);
+    flowLayout.headerReferenceSize = CGSizeMake(0.0f,50.0f);
 
     return flowLayout;
 }
@@ -156,7 +156,6 @@
 
     [TAGViewHelpers formatButton:cell.likeButton forIcon:heartIcon withCopy:@"Like  "];
     [TAGViewHelpers formatButton:cell.commentButton forIcon:commentIcon withCopy:@"Comment  "];
-
 
     return cell;
 }
