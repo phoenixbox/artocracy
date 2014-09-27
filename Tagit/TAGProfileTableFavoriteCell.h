@@ -28,7 +28,6 @@
 @property (nonatomic, strong) UILabel *favoritesLabel;
 
 @property (nonatomic, assign) float cellHeight;
-@property (nonatomic, assign) NSString *imageName;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forModel:(NSDictionary *)model;
 

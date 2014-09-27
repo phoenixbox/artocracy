@@ -14,6 +14,7 @@
 
 // Constants
 #import "TAGComponentConstants.h"
+#import "TAGStyleConstants.h"
 
 // Components
 #import "TAGLateralTableViewCell.h"
@@ -26,11 +27,13 @@
     if (self) {
         // Initialization code
         self.cellHeight = 100.0f;
-        self.lateralTableCellDimension = 80.0f;
+
         [self addImage];
-        [self addLocation];
-        [self addPiecesTable];
-        [self addCounter];
+        [self initializeProperties];
+        [self addLabels];
+        [self addVisualSep];
+        [self addPiecesCounter];
+        [self addUpvotesCounter];
     }
     return self;
 }
@@ -39,115 +42,148 @@
     CGRect imageFrame = CGRectMake(0, 0, self.cellHeight, self.cellHeight);
     self.image = [[UIView alloc] initWithFrame:imageFrame];
 
-    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"folsom_st_SF.png" forView:self.image];
+    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"folsom_st_SF" forView:self.image];
 
     [self addSubview:self.image];
 }
 
-- (void)addLocation {
-    self.locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.image.frame.size.width + 5.0f,
-                                                                  5.0f,
-                                                                  36.0f,
-                                                                   10.0f)];
+- (void)initializeProperties {
+    self.image = [UIView new];
 
+    self.suggesterLabel = [UILabel new];
+    self.suggestername = [UILabel new];
 
-    NSAttributedString *location = [TAGViewHelpers attributeText:@"Location:" forFontSize:8.0f];
-    [self.locationLabel setAttributedText:location];
-    [self addSubview:self.locationLabel];
+    self.locationLabel = [UILabel new];
+    self.locationName = [UILabel new];
 
-    float xOrigin = self.locationLabel.frame.origin.x +self.locationLabel.frame.size.width;
-    float addressWidth = 320.0f - self.locationLabel.frame.origin.x - 5.0f;
+    self.canvasTypeLabel = [UILabel new];
+    self.canvasTypeName = [UILabel new];
+    self.visualSep = [UIView new];
 
-    self.locationAddress = [[UILabel alloc] initWithFrame:CGRectMake(xOrigin,
-                                                                   5.0f,
-                                                                   addressWidth,
-                                                                   10.0f)];
-    NSAttributedString *address = [TAGViewHelpers attributeText:@" 1285 Folsom St, San Francisco, CA 94103" forFontSize:8.0f];
-    [self.locationAddress setAttributedText:address];
-    [self.locationAddress setTextAlignment:NSTextAlignmentLeft];
-    [TAGViewHelpers sizeLabelToFit:self.locationAddress numberOfLines:0];
-    [self addSubview:self.locationAddress];
+    self.upvotesIcon = [UILabel new];
+    self.upvotesCounter = [UILabel new];
+    self.upvotesLabel = [UILabel new];
+
+    self.piecesIcon = [UIView new];
+    self.piecesCounter = [UILabel new];
+    self.piecesLabel = [UILabel new];
 }
 
-- (void)addPiecesTable {
-    self.piecesTable = [UITableView new];
-    CGRect piecesRect = CGRectMake(100.0f, 20.0f, 176.0f, self.lateralTableCellDimension);
 
-    self.piecesTable = [[UITableView alloc] initWithFrame:piecesRect];
-    CGAffineTransform rotate = CGAffineTransformMakeRotation(-M_PI_2);
-    [self.piecesTable setTransform:rotate];
-    // VIP: Must set the frame again on the table after rotation
-    [self.piecesTable setFrame:piecesRect];
-    [self.piecesTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGLateralTableViewCellIdentifier];
-    self.piecesTable.delegate = self;
-    self.piecesTable.dataSource = self;
-    self.piecesTable.alwaysBounceVertical = NO;
-    self.piecesTable.scrollEnabled = YES;
-    self.piecesTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
-    self.piecesTable.separatorColor = [UIColor whiteColor];
+- (void)addLabels {
+    NSArray *labels = [[NSArray alloc] initWithObjects:self.suggesterLabel, self.suggestername, self.locationLabel, self.locationName, self.canvasTypeLabel, self.canvasTypeName, nil];
+    NSArray *text = [[NSArray alloc] initWithObjects:@"Suggested By", @"Shane Rogers", @"Location", @"873 Market St", @"Canvas Type", @"Public Wall", nil];
 
-    [self.piecesTable setBackgroundColor:[UIColor whiteColor]];
+    NSUInteger labelCount = [labels count];
 
-    [self addSubview:self.piecesTable];
+    float labelHeight = 10.0f;
+    float vertSpacing = (self.cellHeight - (labelCount*labelHeight))/(labelCount+1);
+    float labelWidth = 130.0f;
+    float xOrigin = self.cellHeight + 9.5f;
+
+
+    for (int i=0; i<labelCount; i++) {
+        float yOrigin;
+
+        if (i == 0) {
+            yOrigin = vertSpacing;
+        } else {
+            yOrigin = vertSpacing + (i * (vertSpacing + labelHeight));
+        }
+
+        UILabel *label = [labels objectAtIndex:i];
+        [label setBackgroundColor:[UIColor clearColor]];
+        label = [[UILabel alloc]initWithFrame:CGRectMake(xOrigin,
+                                                         yOrigin,
+                                                         labelWidth,
+                                                         labelHeight)];
+        [TAGViewHelpers formatLabel:label withCopy:[text objectAtIndex:i]];
+        [self addSubview:label];
+    }
 }
 
-- (void)addCounter {
-    float counterXCoord = self.piecesTable.frame.origin.x + self.piecesTable.frame.size.width + 9.5f;
+- (void)addVisualSep {
+    // TODO: Couldnt get a hold of label origin to use as relative distance measure
+    float percentageFromTop = 0.1;
+
+    float sepHeight = self.cellHeight * (1 - (percentageFromTop * 2));
+
+    [self.visualSep setFrame:CGRectMake(249.0f,
+                                        self.cellHeight * percentageFromTop,
+                                        1.0f,
+                                        sepHeight)];
+
+    [self.visualSep setBackgroundColor:kTagitSeparatorGrey];
+    [self addSubview:self.visualSep];
+}
+
+- (void)addPiecesCounter {
+    // TODO: xOrigin should be relative to an el not hardcoded
     float counterSq = 25.0f;
+    float yOrigin = (self.cellHeight/4) - (counterSq/2);
 
-    float iconYOrigin = (self.cellHeight/2) - (counterSq);
-    CGRect iconRect = CGRectMake(counterXCoord,
-                                    iconYOrigin,
+    CGRect counterRect = CGRectMake(249.0f + 2.0f + 9.5f,
+                                    yOrigin,
                                     counterSq,
                                     counterSq);
 
-    self.pieceIcon = [[UILabel alloc]initWithFrame:iconRect];
-    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"pieceIcon.png" forView:self.pieceIcon];
-    [self addSubview:self.pieceIcon];
+    [self.piecesCounter setFrame:counterRect];
+    [self setLabel:self.piecesCounter withTitle:@"10" forFontSize:8.0f];
 
-    CGRect counterRect = CGRectMake(counterXCoord,
-                                 self.cellHeight/2,
+
+    CGRect iconRect = CGRectMake(self.piecesCounter.frame.origin.x + counterSq,
+                                 yOrigin,
                                  counterSq,
                                  counterSq);
-    self.counter = [[UILabel alloc] initWithFrame:counterRect];
-    [self.counter setBackgroundColor:[UIColor orangeColor]];
-    NSAttributedString *text = [TAGViewHelpers attributeText:@"7" forFontSize:10.0f];
-    [self.counter setAttributedText:text];
-    [self.counter setTextAlignment:NSTextAlignmentCenter];
-    [self addSubview:self.counter];
+    [self.piecesIcon setFrame:iconRect];
+
+    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"pieceIcon.png" forView:self.piecesIcon];
+    [self addSubview:self.piecesIcon];
+
+
+    [self.piecesLabel setFrame:CGRectMake(self.piecesCounter.frame.origin.x,
+                                             CGRectGetMaxY(self.piecesCounter.frame) - 10.0f,
+                                             counterSq*2,
+                                             counterSq)];
+    [self setLabel:self.piecesLabel withTitle:@"Ideas" forFontSize:8.0f];
 }
 
-#pragma UITableViewDelgate
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+- (void)addUpvotesCounter {
+    // TODO: xOrigin should be relative to an el not hardcoded
+    float counterSq = 25.0f;
+    float yOrigin = (self.cellHeight/2) + (counterSq/4);
+
+    CGRect counterRect = CGRectMake(249.0f + 2.0f + 9.5f,
+                                    yOrigin,
+                                    counterSq,
+                                    counterSq);
+
+    [self.upvotesCounter setFrame:counterRect];
+    [self setLabel:self.upvotesCounter withTitle:@"25" forFontSize:8.0f];
+
+
+    CGRect iconRect = CGRectMake(self.upvotesCounter.frame.origin.x + counterSq,
+                                 yOrigin,
+                                 counterSq,
+                                 counterSq);
+    [self.upvotesIcon setFrame:iconRect];
+
+    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"pieceIcon.png" forView:self.upvotesIcon];
+    [self addSubview:self.upvotesIcon];
+
+
+    [self.upvotesLabel setFrame:CGRectMake(self.upvotesCounter.frame.origin.x,
+                                          CGRectGetMaxY(self.upvotesCounter.frame) - 10.0f,
+                                          counterSq*2,
+                                          counterSq)];
+    [self setLabel:self.upvotesLabel withTitle:@"Upvotes" forFontSize:8.0f];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TAGLateralTableViewCell *cell = (TAGLateralTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableSuggestionCellIdentifier];
-
-    if([tableView isEqual:self.piecesTable]){
-        cell = [[TAGLateralTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableSuggestionCellIdentifier forCellDimension:self.lateralTableCellDimension];
-        [cell addImage:@"open_arms_SF.png"];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    }
-
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80.0f;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.lightboxViewController = [[URBMediaFocusViewController alloc] initWithNibName:nil bundle:nil];
-    self.lightboxViewController.shouldDismissOnImageTap = YES;
-    self.lightboxViewController.shouldShowPhotoActions = YES;
-    TAGLateralTableViewCell *targetCell = (TAGLateralTableViewCell *)[self.piecesTable cellForRowAtIndexPath:indexPath];
-    [self.lightboxViewController showImage:targetCell.artImage fromView:targetCell];
+- (void)setLabel:(UILabel *)label withTitle:(NSString *)title forFontSize:(CGFloat)size {
+    NSAttributedString *faveText = [TAGViewHelpers attributeText:title forFontSize:size];
+    [label setAttributedText:faveText];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [self addSubview:label];
 }
 
 - (void)awakeFromNib

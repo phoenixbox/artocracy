@@ -22,7 +22,6 @@
     if (self) {
         // Initialization code
         self.cellHeight = 100.0f;
-        self.imageName = @"heartSelected.png";
         [self addImage];
         [self initializeProperties];
         [self addLabels];
@@ -116,14 +115,17 @@
     [self.counter setFrame:counterRect];
     [self setLabel:self.counter withTitle:@"7" forFontSize:10.0f];
 
+
     CGRect iconRect = CGRectMake(self.counter.frame.origin.x + counterSq,
                                yOrigin,
                                counterSq,
                                counterSq);
     [self.favoritesIcon setFrame:iconRect];
-    [TAGViewHelpers scaleAndSetBackgroundImageNamed:self.imageName forView:self.favoritesIcon];
+
+    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"heartSelected.png" forView:self.favoritesIcon];
     [self addSubview:self.favoritesIcon];
 
+    
     [self.favoritesLabel setFrame:CGRectMake(self.counter.frame.origin.x,
                                              CGRectGetMaxY(self.counter.frame) - 10.0f,
                                              counterSq*2,
@@ -136,7 +138,6 @@
     [label setAttributedText:faveText];
     [label setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:label];
-
 }
 
 - (void)awakeFromNib

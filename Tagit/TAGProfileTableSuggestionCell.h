@@ -11,25 +11,29 @@
 // Pods
 #import "URBMediaFocusViewController.h"
 
-@interface TAGProfileTableSuggestionCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
+@interface TAGProfileTableSuggestionCell : UITableViewCell
 
 @property (nonatomic, strong) UIView *image;
-@property (nonatomic, strong) UILabel *location;
+
+@property (nonatomic, strong) UILabel *suggesterLabel;
+@property (nonatomic, strong) UILabel *suggestername;
 
 @property (nonatomic, strong) UILabel *locationLabel;
-@property (nonatomic, strong) UILabel *locationAddress;
+@property (nonatomic, strong) UILabel *locationName;
+
+@property (nonatomic, strong) UILabel *canvasTypeLabel;
+@property (nonatomic, strong) UILabel *canvasTypeName;
 
 @property (nonatomic, strong) UIView *visualSep;
 
-@property (nonatomic, strong) UIView *pieceIcon;
-@property (nonatomic, strong) UILabel *counter;
+@property (nonatomic, strong) UIView *upvotesIcon;
+@property (nonatomic, strong) UILabel *upvotesCounter;
+@property (nonatomic, strong) UILabel *upvotesLabel;
 
-@property (nonatomic, strong) UITableView *piecesTable;
+@property (nonatomic, strong) UIView *piecesIcon;
+@property (nonatomic, strong) UILabel *piecesCounter;
+@property (nonatomic, strong) UILabel *piecesLabel;
 
 @property (nonatomic, assign) float cellHeight;
-@property (nonatomic, assign) float lateralTableCellDimension;
-@property (nonatomic, assign) NSString *imageName;
-
-@property (nonatomic, strong) URBMediaFocusViewController *lightboxViewController;
 
 @end
