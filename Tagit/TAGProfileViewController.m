@@ -14,12 +14,12 @@
 #import "TAGProfileHeader.h"
 
 // Compose the collection presenter view controller
-#import "TAGCollectionPresenterViewController.h"
+#import "TAGProfileCollectionViewController.h"
 
 @interface TAGProfileViewController ()
 
 @property (nonatomic, strong) TAGProfileHeader *_profileHeader;
-@property (nonatomic, strong) TAGCollectionPresenterViewController *_collectionPresenter;
+@property (nonatomic, strong) TAGProfileCollectionViewController *_collectionPresenter;
 
 @end
 
@@ -82,13 +82,13 @@
     [self.view addSubview:self._profileHeader];
 }
 
-
 -(void)renderCollectionPresenter {
     float yCoord = CGRectGetMaxY(self._profileHeader.bounds);
 
     float presenterHeight = self.view.frame.size.height - self._profileHeader.frame.size.height - self.parentViewController.tabBarController.tabBar.frame.size.height;
 
-    self._collectionPresenter = [TAGCollectionPresenterViewController new];
+    // NOTE: Entry point for collection view controller
+    self._collectionPresenter = [TAGProfileCollectionViewController new];
     [self._collectionPresenter.view setFrame:CGRectMake(0.0f,
                                                        yCoord,
                                                        self.view.frame.size.width,

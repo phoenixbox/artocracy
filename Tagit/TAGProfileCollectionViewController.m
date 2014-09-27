@@ -8,7 +8,7 @@
 
 // CONTEXT: Profile controls and tables/collections
 
-#import "TAGCollectionPresenterViewController.h"
+#import "TAGProfileCollectionViewController.h"
 
 #import "TAGPieceDetailViewController.h"
 #import "TAGSuggestionDetailViewController.h"
@@ -16,8 +16,8 @@
 // Components
 #import "TAGCollectionView.h"
 #import "TAGCollectionControls.h"
-#import "TAGProfileTableViewSuggestionCell.h"
-#import "TAGProfileTableViewFavoriteCell.h"
+#import "TAGProfileTableSuggestionCell.h"
+#import "TAGProfileTableFavoriteCell.h"
 #import "TAGCollectionViewCell.h"
 
 // Constants
@@ -35,7 +35,7 @@ NSString *const kListToggle = @"toggleList";
 NSString *const kSuggestionsToggle = @"toggleSuggestions";
 NSString *const kFavoritesToggle = @"toggleFavorites";
 
-@interface TAGCollectionPresenterViewController ()
+@interface TAGProfileCollectionViewController ()
 
 @property (nonatomic, strong) TAGCollectionControls *_collectionControls;
 @property (nonatomic, strong) TAGCollectionView *_collectionView;
@@ -49,7 +49,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 
 @end
 
-@implementation TAGCollectionPresenterViewController
+@implementation TAGProfileCollectionViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -74,10 +74,10 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 }
 
 - (void)renderCollectionControls {
-    __block TAGCollectionPresenterViewController *_this = self;
+    __block TAGProfileCollectionViewController *_this = self;
 
     void(^actionBlock)(NSString *actionType)=^(NSString *actionType){
-        __block TAGCollectionPresenterViewController *presenterView = _this;
+        __block TAGProfileCollectionViewController *presenterView = _this;
         void (^selectedCase)() = @{
            kCollectionToggle : ^{
                [presenterView chooseCollectionPresenter:kCollectionToggle];
@@ -196,19 +196,19 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
-        TAGProfileTableViewSuggestionCell *cell = (TAGProfileTableViewSuggestionCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableSuggestionCellIdentifier];
+        TAGProfileTableSuggestionCell *cell = (TAGProfileTableSuggestionCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableSuggestionCellIdentifier];
 
         if([tableView isEqual:self._tableView]){
-            cell = [[TAGProfileTableViewSuggestionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableSuggestionCellIdentifier];
+            cell = [[TAGProfileTableSuggestionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableSuggestionCellIdentifier];
 
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
         return cell;
     } else {
-        TAGProfileTableViewFavoriteCell *cell = (TAGProfileTableViewFavoriteCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableFavoriteCellIdentifier];
+        TAGProfileTableFavoriteCell *cell = (TAGProfileTableFavoriteCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableFavoriteCellIdentifier];
 
         if([tableView isEqual:self._tableView]){
-            cell = [[TAGProfileTableViewFavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableFavoriteCellIdentifier];
+            cell = [[TAGProfileTableFavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableFavoriteCellIdentifier];
 
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }

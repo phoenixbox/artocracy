@@ -14,6 +14,7 @@
 #define kPureWhite [UIColor colorWithWhite:255.0f alpha:1.0f]
 #define kTagitBlack [UIColor colorWithWhite:0.0f alpha:1.0f]
 #define kTagitDeselectedGrey [UIColor colorWithRed:206/255.0f green:206/255.0f blue:206/255.0f alpha:1.0f]
+#define kTagitSeparatorGrey [UIColor colorWithRed:206/255.0f green:206/255.0f blue:206/255.0f alpha:0.5f]
 #define kSmallPadding 5.0f
 #define kBigPadding 10.0f
 

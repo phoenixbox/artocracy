@@ -7,7 +7,7 @@
 //
 
 // Subject
-#import "TAGProfileTableViewSuggestionCell.h"
+#import "TAGProfileTableSuggestionCell.h"
 
 // Helpers
 #import "TAGViewHelpers.h"
@@ -18,7 +18,7 @@
 // Components
 #import "TAGLateralTableViewCell.h"
 
-@implementation TAGProfileTableViewSuggestionCell
+@implementation TAGProfileTableSuggestionCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

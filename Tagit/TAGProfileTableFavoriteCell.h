@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAGProfileTableViewFavoriteCell : UITableViewCell
+@interface TAGProfileTableFavoriteCell : UITableViewCell
 
 @property (nonatomic, strong) UIView *image;
 
@@ -25,6 +25,7 @@
 
 @property (nonatomic, strong) UIView *favoritesIcon;
 @property (nonatomic, strong) UILabel *counter;
+@property (nonatomic, strong) UILabel *favoritesLabel;
 
 @property (nonatomic, assign) float cellHeight;
 @property (nonatomic, assign) NSString *imageName;

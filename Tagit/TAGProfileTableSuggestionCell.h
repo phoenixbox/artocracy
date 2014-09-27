@@ -11,7 +11,7 @@
 // Pods
 #import "URBMediaFocusViewController.h"
 
-@interface TAGProfileTableViewSuggestionCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
+@interface TAGProfileTableSuggestionCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UIView *image;
 @property (nonatomic, strong) UILabel *location;

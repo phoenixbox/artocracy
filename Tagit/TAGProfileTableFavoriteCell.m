@@ -6,10 +6,15 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
-#import "TAGProfileTableViewFavoriteCell.h"
+// CONTEXT: Favorite cell in the profile collection view
+
+#import "TAGProfileTableFavoriteCell.h"
 #import "TAGViewHelpers.h"
 
-@implementation TAGProfileTableViewFavoriteCell
+// Constants
+#import "TAGStyleConstants.h"
+
+@implementation TAGProfileTableFavoriteCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -46,6 +51,7 @@
     self.visualSep = [UIView new];
     self.favoritesIcon = [UIView new];
     self.counter = [UILabel new];
+    self.favoritesLabel = [UILabel new];
 }
 
 - (void)addLabelsAndNames {
@@ -67,11 +73,11 @@
         }
 
         UILabel *label = [labels objectAtIndex:i];
+        [label setBackgroundColor:[UIColor clearColor]];
         label = [[UILabel alloc]initWithFrame:CGRectMake(xOrigin,
                                                          yOrigin,
                                                          labelWidth,
                                                          labelHeight)];
-        [label setBackgroundColor:[UIColor blackColor]];
         [label setText:@"Woop!"];
         [self addSubview:label];
     }
@@ -85,9 +91,10 @@
 
     [self.visualSep setFrame:CGRectMake(249.0f,
                                        self.cellHeight * percentageFromTop,
-                                       2.0f,
+                                       1.0f,
                                        sepHeight)];
-    [self.visualSep setBackgroundColor:[UIColor grayColor]];
+
+    [self.visualSep setBackgroundColor:kTagitSeparatorGrey];
     [self addSubview:self.visualSep];
 }
 
@@ -102,11 +109,7 @@
                                  counterSq);
 
     [self.counter setFrame:counterRect];
-    [self.counter setBackgroundColor:[UIColor orangeColor]];
-    NSAttributedString *text = [TAGViewHelpers attributeText:@"7" forFontSize:10.0f];
-    [self.counter setAttributedText:text];
-    [self.counter setTextAlignment:NSTextAlignmentCenter];
-    [self addSubview:self.counter];
+    [self setLabel:self.counter withTitle:@"7" forFontSize:10.0f];
 
     CGRect iconRect = CGRectMake(self.counter.frame.origin.x + counterSq,
                                yOrigin,
@@ -115,6 +118,20 @@
     [self.favoritesIcon setFrame:iconRect];
     [TAGViewHelpers scaleAndSetBackgroundImageNamed:self.imageName forView:self.favoritesIcon];
     [self addSubview:self.favoritesIcon];
+
+    [self.favoritesLabel setFrame:CGRectMake(self.counter.frame.origin.x,
+                                             CGRectGetMaxY(self.counter.frame) - 10.0f,
+                                             counterSq*2,
+                                             counterSq)];
+    [self setLabel:self.favoritesLabel withTitle:@"Favorited" forFontSize:9.0f];
+}
+
+- (void)setLabel:(UILabel *)label withTitle:(NSString *)title forFontSize:(CGFloat)size {
+    NSAttributedString *faveText = [TAGViewHelpers attributeText:title forFontSize:size];
+    [label setAttributedText:faveText];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [self addSubview:label];
+
 }
 
 - (void)awakeFromNib

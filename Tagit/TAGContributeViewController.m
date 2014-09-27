@@ -224,8 +224,6 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    // RETHINK THE NEED TO HAVE A HANDLE TO THE CELL? what about in view did appear?
-
     // Specify the cell identifier to be used
     self._primaryCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell"
                                                                    forIndexPath:indexPath];
