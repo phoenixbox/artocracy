@@ -166,14 +166,15 @@
     self._lastTakenPhoto = image;
     self._photoData = UIImageJPEGRepresentation(image, 0.2);
 
-    __block TAGCollectionView *collectionView = self._collectionView;
+    [self._primaryCell.suggestionImage setImage:[UIImage imageNamed:self._photoName]];
+//    __block TAGCollectionView *collectionView = self._collectionView;
 
-    void (^completionBlock)(void) = ^(void){
-        NSLog(@"COMPLETION BLOCK");
-        [collectionView reloadData];
-    };
+//    void (^completionBlock)(void) = ^(void){
+//        NSLog(@"COMPLETION BLOCK");
+//        [collectionView reloadData];
+//    };
 
-    [self._imagePickerController dismissViewControllerAnimated:YES completion:completionBlock];
+    [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)transformToSquareImage:(UIImage *)image {
