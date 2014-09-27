@@ -33,9 +33,10 @@
 @property (nonatomic, strong) TAGMapViewController *_mapController;
 @property (nonatomic) TAGImagePickerController *_imagePickerController;
 @property (nonatomic, strong) TAGSuggestionCell *_primaryCell;
-
+//@property (nonatomic, strong) UIImageView *_photo;
 @property (nonatomic, strong) NSData *_photoData;
 @property (nonatomic) BOOL _showImagePicker;
+@property (nonatomic, strong) NSString *_photoName;
 
 @property (nonatomic, strong) UIImage *_lastTakenPhoto;
 
@@ -59,8 +60,11 @@
 
     [self buildCollectionView];
     [self initAppearance];
-    self._primaryCell = [TAGSuggestionCell new];
+//    self._photo = [UIImageView new];
+//    self._primaryCell = [TAGSuggestionCell new];
     self._lastTakenPhoto = [UIImage new];
+
+    self._photoName = @"ape_do_good_printing_SF.png";
 
     CSStickyHeaderFlowLayout *layout = (id)self._collectionView.collectionViewLayout;
 
@@ -74,6 +78,18 @@
           forSupplementaryViewOfKind:CSStickyHeaderParallaxHeader
                  withReuseIdentifier:@"mapHeader"];
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+//    [self._primaryCell.suggestionImage setImage:self._lastTakenPhoto];
+
+//    [self._primaryCell.suggestionImage setImage:[UIImage imageNamed:self._photoName]];
+
+    // SHOW PICKER STRAIGHT AWAY
+    if (self._showImagePicker) {
+        //        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+    }
+}
+
 
 - (void)initAppearance
 {
@@ -103,12 +119,13 @@
 - (void)retakePhoto {
     NSLog(@"Implement Photo Retake");
     [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
-    [self._primaryCell  setSuggestionImage:nil];
+//    [self._primaryCell setSuggestionImage:nil];
 }
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
     TAGImagePickerController *imagePickerController = [TAGImagePickerController sharedImagePicker];
-    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+//    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
     imagePickerController.sourceType = sourceType;
     imagePickerController.delegate = self;
     [imagePickerController setShowsCameraControls:YES];
@@ -144,6 +161,22 @@
     self._showImagePicker = NO;
     UIImage *image = info[UIImagePickerControllerOriginalImage];
 
+    [self transformToSquareImage:image];
+    self._photoName = @"open_arms_SF.png";
+    self._lastTakenPhoto = image;
+    self._photoData = UIImageJPEGRepresentation(image, 0.2);
+
+    __block TAGCollectionView *collectionView = self._collectionView;
+
+    void (^completionBlock)(void) = ^(void){
+        NSLog(@"COMPLETION BLOCK");
+        [collectionView reloadData];
+    };
+
+    [self._imagePickerController dismissViewControllerAnimated:YES completion:completionBlock];
+}
+
+-(void)transformToSquareImage:(UIImage *)image {
     CGSize imageSize = image.size;
     CGFloat width = imageSize.width;
     CGFloat height = imageSize.height;
@@ -157,11 +190,7 @@
                      alpha:1.0];
         image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-    };
-    self._lastTakenPhoto = image;
-    self._primaryCell.suggestionImage = self._lastTakenPhoto;
-    self._photoData = UIImageJPEGRepresentation(self._lastTakenPhoto, 0.2);
-    [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -210,6 +239,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    // RETHINK THE NEED TO HAVE A HANDLE TO THE CELL? what about in view did appear?
 
     // Specify the cell identifier to be used
     self._primaryCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell"
@@ -221,7 +251,15 @@
 
     [self._primaryCell.retakePhoto addTarget:self action:@selector(retakePhoto) forControlEvents:UIControlEventTouchUpInside];
 
-    self._primaryCell.suggestionImage = self._lastTakenPhoto;
+//    [self._primaryCell.suggestionImage setImage:self._lastTakenPhoto];
+
+    // WORKS
+    [self._primaryCell.suggestionImage setImage:[UIImage imageNamed:self._photoName]];
+
+//    if (self._photoName) {
+//        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self._photoName]];
+//        [self._primaryCell.suggestionImage addSubview:imageView];
+//    }
 
     [self._primaryCell.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
     [self._primaryCell.submitButton setTitleColor:kPureWhite forState:UIControlStateNormal];

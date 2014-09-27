@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
@@ -14,29 +13,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="450"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="npf-8e-ozs">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9VJ-ao-mqV">
-                        <rect key="frame" x="119" y="381" width="83" height="30"/>
+                        <rect key="frame" x="119" y="416" width="83" height="30"/>
                         <state key="normal" title="Submit">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
                     <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qOM-fJ-9qb">
-                        <rect key="frame" x="43" y="350" width="235" height="29"/>
+                        <rect key="frame" x="43" y="383" width="235" height="29"/>
                         <segments>
                             <segment title="Commercial Wall"/>
                             <segment title="Public Wall"/>
                         </segments>
                     </segmentedControl>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RC9-MN-92J">
-                        <rect key="frame" x="135" y="295" width="50" height="50"/>
+                        <rect key="frame" x="135" y="325" width="50" height="50"/>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="he2-Ct-e3Q">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -44,7 +42,7 @@
                 <outlet property="canvasType" destination="qOM-fJ-9qb" id="YpH-5a-Fwn"/>
                 <outlet property="retakePhoto" destination="RC9-MN-92J" id="Rlc-w2-Hxx"/>
                 <outlet property="submitButton" destination="9VJ-ao-mqV" id="1z7-ul-nOa"/>
-                <outlet property="suggestionImage" destination="npf-8e-ozs" id="2SJ-Va-f7l"/>
+                <outlet property="suggestionImage" destination="he2-Ct-e3Q" id="7iO-45-0zg"/>
             </connections>
         </collectionViewCell>
     </objects>

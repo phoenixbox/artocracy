@@ -49,7 +49,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        NSLog(@"Suggestion Initialized");
         self._showImagePicker = YES;
     }
     return self;
@@ -59,6 +58,7 @@
     self._photo = [UIImageView new];
     self._photo.frame = CGRectMake(0.0f, kBigPadding*2, 320.0f, 320.0f);
 
+    // SHOW PICKER STRAIGHT AWAY
     if (self._showImagePicker) {
 //        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
     }
