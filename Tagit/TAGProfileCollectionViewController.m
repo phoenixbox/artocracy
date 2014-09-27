@@ -12,6 +12,7 @@
 
 #import "TAGPieceDetailViewController.h"
 #import "TAGSuggestionDetailViewController.h"
+#import "TAGViewHelpers.h"
 
 // Components
 #import "TAGCollectionView.h"
@@ -195,6 +196,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
     if ([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
         TAGProfileTableSuggestionCell *cell = (TAGProfileTableSuggestionCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableSuggestionCellIdentifier];
 
@@ -203,15 +205,18 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
+
         return cell;
     } else {
         TAGProfileTableFavoriteCell *cell = (TAGProfileTableFavoriteCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableFavoriteCellIdentifier];
 
         if([tableView isEqual:self._tableView]){
-            cell = [[TAGProfileTableFavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableFavoriteCellIdentifier];
+            // Cell should accept the appropriate model which it will use to pull off the attrs
+            cell = [[TAGProfileTableFavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableFavoriteCellIdentifier forModel:@{}];
 
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
+
         return cell;
     }
 }

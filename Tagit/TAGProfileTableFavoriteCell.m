@@ -1,4 +1,4 @@
-//
+        //
 //  TAGProfileTableViewFavoriteCell.m
 //  Tagit
 //
@@ -16,7 +16,7 @@
 
 @implementation TAGProfileTableFavoriteCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forModel:(NSDictionary *)model
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -25,7 +25,7 @@
         self.imageName = @"heartSelected.png";
         [self addImage];
         [self initializeProperties];
-        [self addLabelsAndNames];
+        [self addLabels];
         [self addVisualSep];
         [self addFavoritesCounter];
     }
@@ -54,14 +54,19 @@
     self.favoritesLabel = [UILabel new];
 }
 
-- (void)addLabelsAndNames {
+- (void)addLabels {
     NSArray *labels = [[NSArray alloc] initWithObjects:self.artistLabel, self.artistName, self.locationLabel, self.locationName, self.canvasTypeLabel, self.canvasTypeName, nil];
+    NSArray *text = [[NSArray alloc] initWithObjects:@"Artist", @"Lonnie Spoon", @"Location", @"123 Street", @"Canvas Type", @"Commercial Wall", nil];
+
+//    NSDictionary *model = [[NSDictionary alloc] initWithObjectsAndKeys:@"Artist",self.artistLabel, @"Artist", self.artistName, @"Artist", self.locationLabel, @"Artist", self.locationName, @"Artist", self.canvasTypeLabel, @"Artist", self.canvasTypeName,nil];
+
     NSUInteger labelCount = [labels count];
 
     float labelHeight = 10.0f;
     float vertSpacing = (self.cellHeight - (labelCount*labelHeight))/(labelCount+1);
     float labelWidth = 130.0f;
     float xOrigin = self.cellHeight + 9.5f;
+
 
     for (int i=0; i<labelCount; i++) {
         float yOrigin;
@@ -78,7 +83,7 @@
                                                          yOrigin,
                                                          labelWidth,
                                                          labelHeight)];
-        [label setText:@"Woop!"];
+        [TAGViewHelpers formatLabel:label withCopy:[text objectAtIndex:i]];
         [self addSubview:label];
     }
 }
