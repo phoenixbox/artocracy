@@ -60,8 +60,6 @@
 
     [self buildCollectionView];
     [self initAppearance];
-//    self._photo = [UIImageView new];
-//    self._primaryCell = [TAGSuggestionCell new];
     self._lastTakenPhoto = [UIImage new];
 
     self._photoName = @"ape_do_good_printing_SF.png";
@@ -70,7 +68,7 @@
 
     if ([layout isKindOfClass:[CSStickyHeaderFlowLayout class]]) {
         layout.parallaxHeaderReferenceSize = CGSizeMake(320, 50);
-        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(320, 20); // Bigger shifts it up
+        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(320, 0); // Bigger shifts it up
     }
     // KNOW: think the header identifier here is specific to CSStickyHeaderParallaxHeader
     UINib *parallaxHeader = [UINib nibWithNibName:@"TAGSuggestionHeader" bundle:nil];
@@ -80,9 +78,6 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-//    [self._primaryCell.suggestionImage setImage:self._lastTakenPhoto];
-
-//    [self._primaryCell.suggestionImage setImage:[UIImage imageNamed:self._photoName]];
 
     // SHOW PICKER STRAIGHT AWAY
     if (self._showImagePicker) {
@@ -119,13 +114,11 @@
 - (void)retakePhoto {
     NSLog(@"Implement Photo Retake");
     [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
-//    [self._primaryCell setSuggestionImage:nil];
 }
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
     TAGImagePickerController *imagePickerController = [TAGImagePickerController sharedImagePicker];
     imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
-//    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
     imagePickerController.sourceType = sourceType;
     imagePickerController.delegate = self;
     [imagePickerController setShowsCameraControls:YES];
@@ -161,23 +154,6 @@
     self._showImagePicker = NO;
     UIImage *image = info[UIImagePickerControllerOriginalImage];
 
-    [self transformToSquareImage:image];
-    self._photoName = @"open_arms_SF.png";
-    self._lastTakenPhoto = image;
-    self._photoData = UIImageJPEGRepresentation(image, 0.2);
-
-    [self._primaryCell.suggestionImage setImage:[UIImage imageNamed:self._photoName]];
-//    __block TAGCollectionView *collectionView = self._collectionView;
-
-//    void (^completionBlock)(void) = ^(void){
-//        NSLog(@"COMPLETION BLOCK");
-//        [collectionView reloadData];
-//    };
-
-    [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
-}
-
--(void)transformToSquareImage:(UIImage *)image {
     CGSize imageSize = image.size;
     CGFloat width = imageSize.width;
     CGFloat height = imageSize.height;
@@ -191,7 +167,12 @@
                      alpha:1.0];
         image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
-    }
+    };
+
+    self._lastTakenPhoto = image;
+    self._photoData = UIImageJPEGRepresentation(image, 0.2);
+    [self._primaryCell.suggestionImage setImage:self._lastTakenPhoto];
+    [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -201,8 +182,6 @@
 
     [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
-
-
 
 - (void)buildCollectionView {
     self._collectionView = [[TAGCollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:[self buildCollectionViewCellLayout]];
@@ -252,15 +231,8 @@
 
     [self._primaryCell.retakePhoto addTarget:self action:@selector(retakePhoto) forControlEvents:UIControlEventTouchUpInside];
 
-//    [self._primaryCell.suggestionImage setImage:self._lastTakenPhoto];
-
     // WORKS
-    [self._primaryCell.suggestionImage setImage:[UIImage imageNamed:self._photoName]];
-
-//    if (self._photoName) {
-//        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self._photoName]];
-//        [self._primaryCell.suggestionImage addSubview:imageView];
-//    }
+    [self._primaryCell.suggestionImage setImage:self._lastTakenPhoto];
 
     [self._primaryCell.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
     [self._primaryCell.submitButton setTitleColor:kPureWhite forState:UIControlStateNormal];
