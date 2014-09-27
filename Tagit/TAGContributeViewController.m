@@ -152,6 +152,15 @@
 #pragma UIImagePickerControllerProtocol methods
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     self._showImagePicker = NO;
+    UIImage *image = [self cropImageToSquare:info];
+
+    self._lastTakenPhoto = image;
+    self._photoData = UIImageJPEGRepresentation(image, 0.2);
+    [self._primaryCell.suggestionImage setImage:self._lastTakenPhoto];
+    [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (UIImage *)cropImageToSquare:(NSDictionary *)info {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
 
     CGSize imageSize = image.size;
@@ -168,11 +177,7 @@
         image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
     };
-
-    self._lastTakenPhoto = image;
-    self._photoData = UIImageJPEGRepresentation(image, 0.2);
-    [self._primaryCell.suggestionImage setImage:self._lastTakenPhoto];
-    [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
+    return image;
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
