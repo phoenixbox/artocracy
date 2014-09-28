@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TAGPieceChannel.h"
 
-@interface TAGPieceStore : NSObject{
+@interface TAGPieceStore : JSONModel {
     NSMutableArray *tags;
 }
 

@@ -12,6 +12,6 @@
 
 @interface TAGPieceChannel : JSONModel
 
-@property (strong, nonatomic) NSMutableArray<TAGPieceItem> *pieceItems;
+@property (strong, nonatomic) NSMutableArray<TAGPiece> *pieces;
 
 @end

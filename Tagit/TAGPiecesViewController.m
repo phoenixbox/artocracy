@@ -34,6 +34,7 @@
 
 @property (nonatomic, strong) TAGCollectionView *_collectionView;
 @property (nonatomic, strong) UIActivityIndicatorView *_activityIndicator;
+@property (nonatomic, strong) TAGPieceChannel *_pieceChannel;
 
 // ScrollView component hiding
 @property (nonatomic, assign) float _prevNavBarScrollViewYOffset;
@@ -106,6 +107,7 @@
     void(^completionBlock)(TAGPieceChannel *obj, NSError *err)=^(TAGPieceChannel *obj, NSError *err){
         [self setHeaderLogo];
         if(!err){
+            self._pieceChannel = obj;
             [self._collectionView reloadData];
         } else {
             [TAGErrorAlert render:err];
@@ -148,7 +150,7 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     // Will be the store count
-    return 10;
+    return [self._pieceChannel.pieces count];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -161,8 +163,16 @@
     TAGPieceCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell"
                                                                    forIndexPath:indexPath];
     [cell setBackgroundColor:[UIColor whiteColor]];
-    // UIImageView *pieceImage;
-    [cell.pieceImage setImage:[UIImage imageNamed:@"ape_do_good_printing_SF.png"]];
+
+    if (self._pieceChannel.pieces.count > 0) {
+        TAGPiece *piece = [self._pieceChannel.pieces objectAtIndex:[indexPath section]];
+
+        NSURL *url = [NSURL URLWithString:piece.imageUrl];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        UIImage *img = [UIImage imageWithData:data];
+//        [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"profile_photo.png" forView:cell.artistThumbnail]; // If it needs scaling
+        [cell.pieceImage setImage:img];
+    }
 
     FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
     NSMutableAttributedString *heartIcon = [TAGViewHelpers createIcon:heart withColor:[UIColor blackColor]];
