@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
-#import "TAGTagChannel.h"
+#import "TAGPieceChannel.h"
 
-@implementation TAGTagChannel
+@implementation TAGPieceChannel
 
 @end

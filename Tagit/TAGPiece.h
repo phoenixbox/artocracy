@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
 
-@protocol TAGFeedItem @end
+@protocol TAGPieceItem @end
 
-@interface TAGTag : NSObject
+@interface TAGPiece : NSObject
 
 @property (nonatomic) NSNumber *id;
 @property (nonatomic, strong) NSString *title;
@@ -21,6 +21,6 @@
 @property (nonatomic, strong) NSString *state;
 @property (nonatomic, strong) NSString *zipCode;
 
-//@property (nonatomic, strong) NSString *image;
+@property (nonatomic, strong) NSString *image;
 
 @end

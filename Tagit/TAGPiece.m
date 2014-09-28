@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
-#import "TAGTag.h"
+#import "TAGPiece.h"
 
-@implementation TAGTag
+@implementation TAGPiece
 
 @end

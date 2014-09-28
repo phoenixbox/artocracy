@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TAGTag.h"
+#import "TAGPiece.h"
 #import "JSONModel.h"
 
-@interface TAGTagChannel : JSONModel
+@interface TAGPieceChannel : JSONModel
 
-@property (strong, nonatomic) NSMutableArray<TAGFeedItem> *feedItems;
+@property (strong, nonatomic) NSMutableArray<TAGPieceItem> *pieceItems;
 
 @end
