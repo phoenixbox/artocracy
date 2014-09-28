@@ -252,7 +252,6 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     [self._collectionView registerClass:[TAGCollectionViewCell class] forCellWithReuseIdentifier:kCollectionCellIdentifier];
     [self._collectionView setBackgroundColor:[UIColor whiteColor]];
 
-
     // Custom cell here identifier here
     [self._collectionView setDelegate:self];
     [self._collectionView setDataSource:self];
@@ -311,13 +310,15 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    self._lightboxViewController = [[URBMediaFocusViewController alloc] initWithNibName:nil bundle:nil];
-    self._lightboxViewController.shouldDismissOnImageTap = YES;
-    self._lightboxViewController.shouldShowPhotoActions = YES;
 
-    TAGCollectionViewCell *targetCell = (TAGCollectionViewCell *)[self._collectionView cellForItemAtIndexPath:indexPath];
+    if([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
+        TAGSuggestionDetailViewController *suggestionDetailController = [[TAGSuggestionDetailViewController alloc] init];
+        [[self navigationController] pushViewController:suggestionDetailController animated:YES];
 
-    [self._lightboxViewController showImage:targetCell.image fromView:targetCell];
+    } else {
+        TAGPieceDetailViewController *pieceDetailViewController = [[TAGPieceDetailViewController alloc] init];
+        [[self navigationController] pushViewController:pieceDetailViewController animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning

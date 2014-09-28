@@ -71,6 +71,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.view setBackgroundColor:[UIColor whiteColor]]; // Fix transparent transtion as pushed atop the stack
     self._cellDimension = 100.f;
     [self initAppearance];
     [self renderScrollView];
