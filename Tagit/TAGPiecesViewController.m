@@ -25,7 +25,6 @@
 
 @interface TAGPiecesViewController ()
 
-@property (nonatomic, strong) NSArray *_sections;
 @property (nonatomic, strong) TAGCollectionView *_collectionView;
 
 // ScrollView component hiding
@@ -43,15 +42,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self._sections = @[
-          @{@"Twitter":@"http://twitter.com"},
-          @{@"Facebook":@"http://facebook.com"},
-          @{@"Tumblr":@"http://tumblr.com"},
-          @{@"Pinterest":@"http://pinterest.com"},
-          @{@"Instagram":@"http://instagram.com"},
-          @{@"Github":@"http://github.com"},
-      ];
-
     }
     return self;
 }
@@ -133,7 +123,8 @@
 #pragma mark UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return [self._sections count];
+    // Will be the store count
+    return 10;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
