@@ -33,7 +33,6 @@
 @property (nonatomic, strong) TAGMapViewController *_mapController;
 @property (nonatomic) TAGImagePickerController *_imagePickerController;
 @property (nonatomic, strong) TAGSuggestionCell *_primaryCell;
-//@property (nonatomic, strong) UIImageView *_photo;
 @property (nonatomic, strong) NSData *_photoData;
 @property (nonatomic) BOOL _showImagePicker;
 @property (nonatomic, strong) NSString *_photoName;
@@ -49,6 +48,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self._showImagePicker = YES;
     }
     return self;
 }
@@ -81,7 +81,7 @@
 
     // SHOW PICKER STRAIGHT AWAY
     if (self._showImagePicker) {
-        //        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
     }
 }
 

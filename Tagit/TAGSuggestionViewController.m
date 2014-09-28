@@ -231,7 +231,6 @@
 
 - (void)retakePhoto {
     [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
-//    [self._photo setImage:nil];
 }
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {

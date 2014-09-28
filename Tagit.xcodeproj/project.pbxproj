@@ -95,6 +95,15 @@
 		CBDA9A54199B2F6700E8AD31 /* AWSS3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBDA9A52199B2F6700E8AD31 /* AWSS3.framework */; };
 		CBEA9E6419D741EA0009C6F9 /* TAGProfileTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBEA9E6319D741EA0009C6F9 /* TAGProfileTableViewCell.m */; };
 		CBEA9E6619D742130009C6F9 /* TAGProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBEA9E6519D742130009C6F9 /* TAGProfileTableViewCell.xib */; };
+		CBF057C019D88E40009292BA /* Walkway_Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF057BF19D88E40009292BA /* Walkway_Black.ttf */; };
+		CBF057C919D88E4C009292BA /* Walkway_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF057C119D88E4C009292BA /* Walkway_Bold.ttf */; };
+		CBF057CA19D88E4C009292BA /* Walkway_Oblique_Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF057C219D88E4C009292BA /* Walkway_Oblique_Black.ttf */; };
+		CBF057CB19D88E4C009292BA /* Walkway_Oblique_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF057C319D88E4C009292BA /* Walkway_Oblique_Bold.ttf */; };
+		CBF057CC19D88E4C009292BA /* Walkway_Oblique_SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF057C419D88E4C009292BA /* Walkway_Oblique_SemiBold.ttf */; };
+		CBF057CD19D88E4C009292BA /* Walkway_Oblique_UltraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF057C519D88E4C009292BA /* Walkway_Oblique_UltraBold.ttf */; };
+		CBF057CE19D88E4C009292BA /* Walkway_Oblique.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF057C619D88E4C009292BA /* Walkway_Oblique.ttf */; };
+		CBF057CF19D88E4C009292BA /* Walkway_SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF057C719D88E4C009292BA /* Walkway_SemiBold.ttf */; };
+		CBF057D019D88E4C009292BA /* Walkway_UltraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF057C819D88E4C009292BA /* Walkway_UltraBold.ttf */; };
 		CBFA22EF19BBAC44001B4286 /* TAGSuggestionDetailsSection.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA22EE19BBAC44001B4286 /* TAGSuggestionDetailsSection.m */; };
 		CBFA22F519BBCADC001B4286 /* TAGCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA22F419BBCADC001B4286 /* TAGCollectionViewCell.m */; };
 		D07B4ED854414D49BBA5AC7F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F209F9462484A069D763253 /* libPods.a */; };
@@ -246,6 +255,15 @@
 		CBEA9E6219D741EA0009C6F9 /* TAGProfileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGProfileTableViewCell.h; sourceTree = "<group>"; };
 		CBEA9E6319D741EA0009C6F9 /* TAGProfileTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGProfileTableViewCell.m; sourceTree = "<group>"; };
 		CBEA9E6519D742130009C6F9 /* TAGProfileTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGProfileTableViewCell.xib; sourceTree = "<group>"; };
+		CBF057BF19D88E40009292BA /* Walkway_Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Walkway_Black.ttf; path = ../../../../../Desktop/Stuff/REPL/Walkway/Walkway_Black.ttf; sourceTree = "<group>"; };
+		CBF057C119D88E4C009292BA /* Walkway_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Walkway_Bold.ttf; path = ../../../../../Desktop/Stuff/REPL/Walkway/Walkway_Bold.ttf; sourceTree = "<group>"; };
+		CBF057C219D88E4C009292BA /* Walkway_Oblique_Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Walkway_Oblique_Black.ttf; path = ../../../../../Desktop/Stuff/REPL/Walkway/Walkway_Oblique_Black.ttf; sourceTree = "<group>"; };
+		CBF057C319D88E4C009292BA /* Walkway_Oblique_Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Walkway_Oblique_Bold.ttf; path = ../../../../../Desktop/Stuff/REPL/Walkway/Walkway_Oblique_Bold.ttf; sourceTree = "<group>"; };
+		CBF057C419D88E4C009292BA /* Walkway_Oblique_SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Walkway_Oblique_SemiBold.ttf; path = ../../../../../Desktop/Stuff/REPL/Walkway/Walkway_Oblique_SemiBold.ttf; sourceTree = "<group>"; };
+		CBF057C519D88E4C009292BA /* Walkway_Oblique_UltraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Walkway_Oblique_UltraBold.ttf; path = ../../../../../Desktop/Stuff/REPL/Walkway/Walkway_Oblique_UltraBold.ttf; sourceTree = "<group>"; };
+		CBF057C619D88E4C009292BA /* Walkway_Oblique.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Walkway_Oblique.ttf; path = ../../../../../Desktop/Stuff/REPL/Walkway/Walkway_Oblique.ttf; sourceTree = "<group>"; };
+		CBF057C719D88E4C009292BA /* Walkway_SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Walkway_SemiBold.ttf; path = ../../../../../Desktop/Stuff/REPL/Walkway/Walkway_SemiBold.ttf; sourceTree = "<group>"; };
+		CBF057C819D88E4C009292BA /* Walkway_UltraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Walkway_UltraBold.ttf; path = ../../../../../Desktop/Stuff/REPL/Walkway/Walkway_UltraBold.ttf; sourceTree = "<group>"; };
 		CBFA22ED19BBAC44001B4286 /* TAGSuggestionDetailsSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionDetailsSection.h; sourceTree = "<group>"; };
 		CBFA22EE19BBAC44001B4286 /* TAGSuggestionDetailsSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionDetailsSection.m; sourceTree = "<group>"; };
 		CBFA22F319BBCADC001B4286 /* TAGCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCollectionViewCell.h; sourceTree = "<group>"; };
@@ -499,6 +517,7 @@
 		CB2673CC198DEEA300CB02A1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CBF057BE19D88E30009292BA /* Fonts */,
 				CBD3D2E919B3BA8B00A2DE75 /* back_icon@2x.png */,
 				CBD3D2E119B2CE3500A2DE75 /* artSelected@2x.png */,
 				CBD3D2E219B2CE3500A2DE75 /* artUnselected@2x.png */,
@@ -652,6 +671,22 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		CBF057BE19D88E30009292BA /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CBF057C119D88E4C009292BA /* Walkway_Bold.ttf */,
+				CBF057C219D88E4C009292BA /* Walkway_Oblique_Black.ttf */,
+				CBF057C319D88E4C009292BA /* Walkway_Oblique_Bold.ttf */,
+				CBF057C419D88E4C009292BA /* Walkway_Oblique_SemiBold.ttf */,
+				CBF057C519D88E4C009292BA /* Walkway_Oblique_UltraBold.ttf */,
+				CBF057C619D88E4C009292BA /* Walkway_Oblique.ttf */,
+				CBF057C719D88E4C009292BA /* Walkway_SemiBold.ttf */,
+				CBF057C819D88E4C009292BA /* Walkway_UltraBold.ttf */,
+				CBF057BF19D88E40009292BA /* Walkway_Black.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		CBFA22EC19BBABE9001B4286 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -777,18 +812,24 @@
 				CBDA9A2B19970DCD00E8AD31 /* cancel@2x.png in Resources */,
 				CB2673A1198DE3FA00CB02A1 /* InfoPlist.strings in Resources */,
 				CB0C3E1119C60C1000C58D9D /* TAGSuggestionCell.xib in Resources */,
+				CBF057D019D88E4C009292BA /* Walkway_UltraBold.ttf in Resources */,
 				CBD3D2E319B2CE3500A2DE75 /* artSelected@2x.png in Resources */,
+				CBF057CE19D88E4C009292BA /* Walkway_Oblique.ttf in Resources */,
 				CB6DA4E219A32A4800BB71EE /* profileUnselected@2x.png in Resources */,
 				CBDA9A1D1996CCCA00E8AD31 /* cameraUnselected@2x.png in Resources */,
 				CB068153198ECA4100B13E49 /* navBarLogo@2x.png in Resources */,
 				CBDA9A4319985A6B00E8AD31 /* map_icon@2x.png in Resources */,
+				CBF057CB19D88E4C009292BA /* Walkway_Oblique_Bold.ttf in Resources */,
 				CBD1950819A5C1C700C6B449 /* lightbulbUnselected@2x.png in Resources */,
 				CBD3D2E419B2CE3500A2DE75 /* artUnselected@2x.png in Resources */,
+				CBF057C919D88E4C009292BA /* Walkway_Bold.ttf in Resources */,
 				CBD3D2DA19B28DDB00A2DE75 /* folsom_st_SF@2x.png in Resources */,
+				CBF057CF19D88E4C009292BA /* Walkway_SemiBold.ttf in Resources */,
 				CB6DA4E419A32AE800BB71EE /* settingsIcon@2x.png in Resources */,
 				CB068151198EC98600B13E49 /* filterIcon@2x.png in Resources */,
 				CB06814F198EC64A00B13E49 /* tagUnselected@2x.png in Resources */,
 				CBDA9A1F1996DE7300E8AD31 /* art_logo@2x.png in Resources */,
+				CBF057CC19D88E4C009292BA /* Walkway_Oblique_SemiBold.ttf in Resources */,
 				CB06814E198EC64A00B13E49 /* tagSelected@2x.png in Resources */,
 				CBD3D2D819B2889600A2DE75 /* pieceIcon@2x.png in Resources */,
 				CBD1950519A5C15E00C6B449 /* listSelected@2x.png in Resources */,
@@ -806,14 +847,17 @@
 				CB06816E1995D75C00B13E49 /* ape_do_good_printing_SF@2x.png in Resources */,
 				CBD1950219A5C15100C6B449 /* gridUnselected@2x.png in Resources */,
 				CBD1950119A5C15100C6B449 /* gridSelected@2x.png in Resources */,
+				CBF057C019D88E40009292BA /* Walkway_Black.ttf in Resources */,
 				CBD1950619A5C15E00C6B449 /* listUnselected@2x.png in Resources */,
 				CB06814B198EC5F300B13E49 /* bulbUnselected@2x.png in Resources */,
 				CBDA9A1C1996CCCA00E8AD31 /* cameraSelected@2x.png in Resources */,
 				CB06814A198EC5F300B13E49 /* bulbSelected@2x.png in Resources */,
 				CBEA9E6619D742130009C6F9 /* TAGProfileTableViewCell.xib in Resources */,
+				CBF057CD19D88E4C009292BA /* Walkway_Oblique_UltraBold.ttf in Resources */,
 				CB6DA4E119A32A4800BB71EE /* profileSelected@2x.png in Resources */,
 				CBD3D2D619B03D3400A2DE75 /* open_arms_SF@2x.png in Resources */,
 				CB8BFB4A19D51E0B005F4272 /* TAGPieceSectionHeader.xib in Resources */,
+				CBF057CA19D88E4C009292BA /* Walkway_Oblique_Black.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

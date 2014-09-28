@@ -28,6 +28,18 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Walkway_UltraBold.ttf</string>
+		<string>Walkway_SemiBold.ttf</string>
+		<string>Walkway_Oblique.ttf</string>
+		<string>Walkway_Oblique_UltraBold.ttf</string>
+		<string>Walkway_Oblique_SemiBold.ttf</string>
+		<string>Walkway_Oblique_Bold.ttf</string>
+		<string>Walkway_Oblique_Black.ttf</string>
+		<string>Walkway_Bold.ttf</string>
+		<string>Walkway_Black.ttf</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

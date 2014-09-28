@@ -14,7 +14,7 @@
 @implementation TAGViewHelpers
 
 + (NSAttributedString *)attributeText:(NSString *)text forFontSize:(CGFloat)size {
-    return [[NSAttributedString alloc]initWithString:text attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:size]}];
+    return [[NSAttributedString alloc]initWithString:text attributes:@{NSFontAttributeName: [UIFont fontWithName:@"WalkwaySemiBold" size:size]}];
 }
 
 + (void)formatLabel:(UILabel *)label withCopy:(NSString *)copy {
