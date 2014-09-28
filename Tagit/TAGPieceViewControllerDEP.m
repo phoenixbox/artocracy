@@ -1,32 +1,28 @@
 //
-//  TAGPiecesCollectionViewController.m
+//  TAGPieceViewController.m
 //  Tagit
 //
-//  Created by Shane Rogers on 9/7/14.
+//  Created by Shane Rogers on 8/3/14.
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
-// CONTEXT: Index page with sticky header cells
+// CONTEXT: Old implementation of index page not using xibs
 
-#import "TAGPiecesCollectionViewController.h"
+// Classes
+#import "TAGPieceViewControllerDEP.h"
+#import "TAGPieceStore.h"
 
-#import "TAGCollectionView.h"
-#import "TAGPieceCell.h"
+// Components
+#import "TAGErrorAlert.h"
+#import "TAGTagTableViewCell.h"
 
 // Constants
-#import "TAGComponentConstants.h"
 #import "TAGStyleConstants.h"
+#import "TAGComponentConstants.h"
 
-// Helpers
-#import "TAGViewHelpers.h"
+@interface TAGPieceViewControllerDEP ()
 
-// Pods
-#import "CSStickyHeaderFlowLayout.h"
-
-@interface TAGPiecesCollectionViewController ()
-
-@property (nonatomic, strong) NSArray *_sections;
-@property (nonatomic, strong) TAGCollectionView *_collectionView;
+@property (nonatomic, strong) UITableView *_tagsTable;
 
 // ScrollView component hiding
 @property (nonatomic, assign) float _prevNavBarScrollViewYOffset;
@@ -36,22 +32,15 @@
 
 @end
 
-@implementation TAGPiecesCollectionViewController
+@implementation TAGPieceViewControllerDEP
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self._sections = @[
-          @{@"Twitter":@"http://twitter.com"},
-          @{@"Facebook":@"http://facebook.com"},
-          @{@"Tumblr":@"http://tumblr.com"},
-          @{@"Pinterest":@"http://pinterest.com"},
-          @{@"Instagram":@"http://instagram.com"},
-          @{@"Github":@"http://github.com"},
-      ];
-
+        [self initAppearance];
+//        [self fetchTags];
     }
     return self;
 }
@@ -60,12 +49,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self initAppearance];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-    [self buildCollectionView];
+    [self renderTagsTable];
 }
 
-// ScrollView component hiding
 - (void)viewDidAppear:(BOOL)animated {
     self._originalTabFrame = self.tabBarController.tabBar.frame;
 }
@@ -83,7 +69,7 @@
     [self addNavigationItems];
 }
 
-- (void)addNavigationItems {
+- (void)addNavigationItems{
     UIImage *filterImage = [UIImage imageNamed:@"filterIcon.png"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:filterImage landscapeImagePhone:filterImage style:UIBarButtonItemStylePlain target:self action:@selector(toggleFilter)];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
@@ -101,90 +87,66 @@
 - (void)toggleFilter {
 }
 
-- (void)buildCollectionView {
-    self._collectionView = [[TAGCollectionView alloc]initWithFrame:self.view.frame collectionViewLayout:[self buildCollectionViewCellLayout]];
+- (void)fetchTags {
+    [self setActivityIndicator];
 
-    UINib *cell = [UINib nibWithNibName:@"TAGPieceCell" bundle:nil];
-    [self._collectionView registerNib:cell forCellWithReuseIdentifier:@"cell"];
-
-    UINib *headerNib = [UINib nibWithNibName:@"TAGPieceSectionHeader" bundle:nil];
-    [self._collectionView registerNib:headerNib forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"sectionHeader"];
-
-    [self._collectionView setBackgroundColor:[UIColor grayColor]];
-
-    [self._collectionView setDelegate:self];
-    [self._collectionView setDataSource:self];
-
-    [self.view addSubview:self._collectionView];
-    NSLog(@"VIEW COUNT %ld", [[self.view subviews]count]);
+    void(^completionBlock)(TAGTagChannel *obj, NSError *err)=^(TAGTagChannel *obj, NSError *err){
+        [self setHeaderLogo];
+        if(!err){
+//            [[self feedTable]reloadData];
+        } else {
+            [TAGErrorAlert render:err];
+//            [self._requestIndicator stopAnimating];
+        }
+    };
+    [[TAGPieceStore sharedStore] fetchPiecesWithCompletion:completionBlock];
 }
 
-- (UICollectionViewFlowLayout *)buildCollectionViewCellLayout {
-    UICollectionViewFlowLayout *flowLayout = [CSStickyHeaderFlowLayout new];
-    // NOTE: Important to match the dimensions in the xib
-    flowLayout.itemSize = CGSizeMake(320.0f,350.0f);
-    flowLayout.headerReferenceSize = CGSizeMake(0.0f,50.0f);
-
-    return flowLayout;
+- (void)setActivityIndicator {
+    UIActivityIndicatorView *aiView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [[self navigationItem] setTitleView:aiView];
+    [aiView startAnimating];
 }
 
-/////////////////////// Sticky
+- (void)renderTagsTable {
+    self._tagsTable = [[UITableView alloc] initWithFrame:self.view.bounds];
+    [self._tagsTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTagsTableCellIdentifier];
+    self._tagsTable.delegate = self;
+    self._tagsTable.dataSource = self;
+    self._tagsTable.alwaysBounceVertical = NO;
+    self._tagsTable.scrollEnabled = YES;
+    self._tagsTable.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self._tagsTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
+    self._tagsTable.separatorColor = [UIColor clearColor];
+    [self._tagsTable setBackgroundColor:[UIColor whiteColor]];
 
-#pragma mark UICollectionViewDataSource
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return [self._sections count];
+    [self.view addSubview:self._tagsTable];
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+#pragma UITableViewDelgate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 10;
+}
 
-    // Just identifiers for views
-    TAGPieceCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell"
-                                                                   forIndexPath:indexPath];
-    [cell setBackgroundColor:[UIColor whiteColor]];
-    // UIImageView *pieceImage;
-    [cell.pieceImage setImage:[UIImage imageNamed:@"ape_do_good_printing_SF.png"]];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
-    NSMutableAttributedString *heartIcon = [TAGViewHelpers createIcon:heart withColor:[UIColor blackColor]];
-    FAKFontAwesome *comment = [FAKFontAwesome commentIconWithSize:10];
-    NSMutableAttributedString *commentIcon = [TAGViewHelpers createIcon:comment withColor:[UIColor blackColor]];
+    TAGTagTableViewCell *cell = (TAGTagTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTagsTableCellIdentifier];
 
-    [TAGViewHelpers formatButton:cell.likeButton forIcon:heartIcon withCopy:@"Like  "];
-    [TAGViewHelpers formatButton:cell.commentButton forIcon:commentIcon withCopy:@"Comment  "];
+    if([tableView isEqual:self._tagsTable]){
+        cell = [[TAGTagTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTagsTableCellIdentifier];
+
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
 
     return cell;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-
-        TAGPieceCell *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind
-                                                                withReuseIdentifier:@"sectionHeader"
-                                                                       forIndexPath:indexPath];
-        [cell setBackgroundColor:[UIColor whiteColor]];
-
-        [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"profile_photo.png" forView:cell.artistThumbnail];
-        cell.artistThumbnail.layer.cornerRadius = cell.artistThumbnail.frame.size.width/2;
-        cell.artistThumbnail.layer.masksToBounds = YES;
-        [TAGViewHelpers formatLabel:cell.artistLabel withCopy:@"Lonnie Spoon"];
-        [TAGViewHelpers sizeLabelToFit:cell.artistLabel numberOfLines:0.0f];
-        [TAGViewHelpers formatLabel:cell.pieceLabel withCopy:@"Ape Do Good Printing"];
-        [TAGViewHelpers formatLabel:cell.favoriteCount withCopy:@"100"];
-        [cell.favoriteCount setTextAlignment:NSTextAlignmentRight];
-        [TAGViewHelpers sizeLabelToFit:cell.favoriteCount numberOfLines:0.0f];
-
-        [cell styleCounter];
-
-        return cell;
-    } else if ([kind isEqualToString:CSStickyHeaderParallaxHeader]) {
-        return [collectionView cellForItemAtIndexPath:indexPath];
-    }
-    return nil;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return kTagsTableRowHeight;
 }
 
 #pragma NavigationBar Hide On Scroll
@@ -214,19 +176,9 @@
         navFrame.origin.y = MIN(20, MAX(-navSize, navFrame.origin.y - navScrollDiff));
     }
 
-    CGFloat yOrigin = 0.0f - (20.0f - navFrame.origin.y);
-    [self updateCollectionViewYOrigin:yOrigin];
-
     [self.navigationController.navigationBar setFrame:navFrame];
     [self updateBarButtonItems:(1 - navFramePercentageHidden)];
     self._prevNavBarScrollViewYOffset = scrollOffset;
-}
-
-- (void)updateCollectionViewYOrigin:(CGFloat)origin {
-    CGRect collectionFrame = self._collectionView.frame;
-    collectionFrame.origin.y = origin;
-    [self._collectionView setFrame:collectionFrame];
-
 }
 
 - (void)hideTabBar:(UIScrollView *)scrollView {
@@ -240,9 +192,9 @@
     CGFloat scrollHeight = scrollView.frame.size.height;
     CGFloat scrollContentSizeHeight = scrollView.contentSize.height + scrollView.contentInset.bottom;
 
-    if (scrollOffset >= -scrollView.contentInset.bottom) { // Top Condition
+    if (scrollOffset <= -scrollView.contentInset.bottom) {
         tabFrame.origin.y = 520;
-    } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) { // Bottom Condition
+    } else if ((scrollOffset + scrollHeight) >= scrollContentSizeHeight) {
         tabFrame.origin.y = 570;
     } else if (self._negDiff > 520 - navScrollDiff) {
         tabFrame.origin.y = 520;
@@ -299,12 +251,6 @@
         CGFloat alpha = (frame.origin.y >= y ? 0 : 1);
         frame.origin.y = y;
         [self.navigationController.navigationBar setFrame:frame];
-
-        // NavBar & collection frame should move in tandem
-        CGRect collectionFrame = self._collectionView.frame;
-        collectionFrame.origin.y = - (20 - frame.origin.y);
-        [self._collectionView setFrame:collectionFrame];
-
         [self updateBarButtonItems:alpha];
     }];
 }
@@ -312,8 +258,10 @@
 - (void)animateTabBarTo:(CGFloat)y {
     [UIView animateWithDuration:0.2 animations:^{
         CGRect frame = self.navigationController.tabBarController.tabBar.frame;
+//        CGFloat alpha = (frame.origin.y >= y ? 0 : 1);
         frame.origin.y = y;
         [self.navigationController.tabBarController.tabBar setFrame:frame];
+//        [self updateBarButtonItems:alpha];
     }];
 }
 
@@ -322,5 +270,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

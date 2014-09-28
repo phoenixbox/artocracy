@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAGPieceViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface TAGPieceViewControllerDEP : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

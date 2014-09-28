@@ -8,13 +8,13 @@
 
 #import "TAGAppDelegate.h"
 #import "TAGLoginViewController.h"
-#import "TAGPieceViewController.h"
+#import "TAGPieceViewControllerDEP.h"
 #import "TAGSuggestionViewController.h"
 #import "TAGProfileViewController.h"
 #import "TAGContributeViewController.h"
 
 // Tester
-#import "TAGPiecesCollectionViewController.h"
+#import "TAGPiecesViewController.h"
 
 // Pods
 #import "CSStickyHeaderFlowLayout.h"
@@ -66,9 +66,11 @@
 - (void)initializeNavigationControllers{
     UITabBarController *tagTabBarController = [UITabBarController new];
 
-    TAGPiecesCollectionViewController *pieceCollectionViewController = [TAGPiecesCollectionViewController new];
+    // Main Piece Index View Controller - TabBar item #1
+    TAGPiecesViewController *pieceCollectionViewController = [TAGPiecesViewController new];
     UINavigationController *piecesFeedNavController = [[UINavigationController alloc] initWithRootViewController:pieceCollectionViewController];
 
+    // Take a Photo View Controller - TabBar item #2
     TAGContributeViewController *contributeViewController = [TAGContributeViewController new];
     UINavigationController *contributeNavController = [[UINavigationController alloc]initWithRootViewController:contributeViewController];
     contributeNavController.hidesBottomBarWhenPushed = YES;
