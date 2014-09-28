@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TAGTagChannel.h"
+#import "TAGPieceChannel.h"
 
 @interface TAGPieceStore : NSObject{
     NSMutableArray *tags;
@@ -15,6 +15,6 @@
 
 + (TAGPieceStore *)sharedStore;
 
-- (void)fetchPiecesWithCompletion:(void (^)(TAGTagChannel *feedChannel, NSError *err))block;
+- (void)fetchPiecesWithCompletion:(void (^)(TAGPieceChannel *feedChannel, NSError *err))block;
 
 @end

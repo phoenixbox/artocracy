@@ -10,8 +10,15 @@
 
 #import "TAGPiecesViewController.h"
 
+// Data Layer
+#import "TAGPieceChannel.h"
+#import "TAGPieceStore.h"
+#import "TAGPiece.h"
+
+// Components
 #import "TAGCollectionView.h"
 #import "TAGPieceCell.h"
+#import "TAGErrorAlert.h"
 
 // Constants
 #import "TAGComponentConstants.h"
@@ -26,6 +33,7 @@
 @interface TAGPiecesViewController ()
 
 @property (nonatomic, strong) TAGCollectionView *_collectionView;
+@property (nonatomic, strong) UIActivityIndicatorView *_activityIndicator;
 
 // ScrollView component hiding
 @property (nonatomic, assign) float _prevNavBarScrollViewYOffset;
@@ -42,6 +50,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self fetchPieces];
     }
     return self;
 }
@@ -89,6 +98,21 @@
 }
 
 - (void)toggleFilter {
+}
+
+- (void)fetchPieces {
+    self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
+
+    void(^completionBlock)(TAGPieceChannel *obj, NSError *err)=^(TAGPieceChannel *obj, NSError *err){
+        [self setHeaderLogo];
+        if(!err){
+            [self._collectionView reloadData];
+        } else {
+            [TAGErrorAlert render:err];
+        }
+        [self._activityIndicator stopAnimating];
+    };
+    [[TAGPieceStore sharedStore] fetchPiecesWithCompletion:completionBlock];
 }
 
 - (void)buildCollectionView {

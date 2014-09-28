@@ -90,7 +90,7 @@
 - (void)fetchTags {
     [self setActivityIndicator];
 
-    void(^completionBlock)(TAGTagChannel *obj, NSError *err)=^(TAGTagChannel *obj, NSError *err){
+    void(^completionBlock)(TAGPieceChannel *obj, NSError *err)=^(TAGPieceChannel *obj, NSError *err){
         [self setHeaderLogo];
         if(!err){
 //            [[self feedTable]reloadData];
@@ -103,7 +103,7 @@
 }
 
 - (void)setActivityIndicator {
-    UIActivityIndicatorView *aiView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    UIActivityIndicatorView *aiView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [[self navigationItem] setTitleView:aiView];
     [aiView startAnimating];
 }

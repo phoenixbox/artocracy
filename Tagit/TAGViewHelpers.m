@@ -55,4 +55,11 @@
     button.layer.masksToBounds = YES;
 }
 
++ (UIActivityIndicatorView *)setActivityIndicatorForNavItem:(UINavigationItem *)item {
+    UIActivityIndicatorView *aiView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [item setTitleView:aiView];
+    [aiView startAnimating];
+    return aiView;
+}
+
 @end

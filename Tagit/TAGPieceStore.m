@@ -8,7 +8,7 @@
 
 #import "TAGPieceStore.h"
 #import "TAGAuthStore.h"
-#import "TAGTagChannel.h"
+#import "TAGPieceChannel.h"
 
 #import "TAGRoutesConstants.h"
 #import "AFNetworking.h"
@@ -24,7 +24,7 @@
     return tagStore;
 }
 
-- (void)fetchPiecesWithCompletion:(void (^)(TAGTagChannel *tagChannel, NSError *err))block {
+- (void)fetchPiecesWithCompletion:(void (^)(TAGPieceChannel *tagChannel, NSError *err))block {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
@@ -32,7 +32,7 @@
 
     [manager GET:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString* rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        TAGTagChannel *tagChannel = [[TAGTagChannel alloc] initWithString:rawJSON error:nil];
+        TAGPieceChannel *tagChannel = [[TAGPieceChannel alloc] initWithString:rawJSON error:nil];
         
         block(tagChannel, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

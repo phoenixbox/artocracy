@@ -25,4 +25,6 @@
 
 + (void)formatButton:(UIButton *)button forIcon:(NSMutableAttributedString *)icon withCopy:(NSString *)buttonCopy;
 
++ (UIActivityIndicatorView *)setActivityIndicatorForNavItem:(UINavigationItem *)item;
+
 @end
