@@ -34,7 +34,7 @@
 
         block(sessionStore, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        block(nil, error);
     }];
 }
 

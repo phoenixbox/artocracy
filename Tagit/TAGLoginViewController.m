@@ -147,6 +147,7 @@
             [self._requestIndicator stopAnimating];
         } else {
             [self renderErrorMessage:err];
+            [self._requestIndicator stopAnimating];
         }
     };
 
