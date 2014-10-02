@@ -126,7 +126,7 @@
     UINib *headerNib = [UINib nibWithNibName:@"TAGPieceSectionHeader" bundle:nil];
     [self._collectionView registerNib:headerNib forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"sectionHeader"];
 
-    [self._collectionView setBackgroundColor:[UIColor grayColor]];
+    [self._collectionView setBackgroundColor:[UIColor whiteColor]];
 
     [self._collectionView setDelegate:self];
     [self._collectionView setDataSource:self];

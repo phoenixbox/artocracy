@@ -17,7 +17,7 @@
 
 @property (nonatomic, retain) S3TransferManager *tm;
 @property (nonatomic, retain) AmazonS3Client *s3;
-@property (nonatomic, copy) void(^imageUploaded)(NSURL *s3ImageLocation, NSError *);
+@property (nonatomic, copy) void(^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *);
 
 @property (nonatomic, strong) NSMutableArray *allUsersSuggestions;
 

@@ -14,6 +14,8 @@
 #import "TAGCollectionView.h"
 #import "TAGSuggestionCell.h"
 #import "TAGImagePickerController.h"
+#import "TAGSuggestionStore.h"
+#import "TAGErrorAlert.h"
 
 #import "TAGSuggestionParallaxHeaderCell.h"
 
@@ -36,6 +38,7 @@
 @property (nonatomic, strong) NSData *_photoData;
 @property (nonatomic) BOOL _showImagePicker;
 @property (nonatomic, strong) NSString *_photoName;
+@property (nonatomic, strong) NSURL *_S3ImageLocation;
 
 @property (nonatomic, strong) UIImage *_lastTakenPhoto;
 
@@ -247,8 +250,43 @@
     return self._primaryCell;
 }
 
-- (void)submitSuggestion:(id)paramSender {
-    NSLog(@"Implement Suggestion Submit");
+- (void)submitSuggestion:(id)sender {
+    UISegmentedControl *canvasTypeControl = self._primaryCell.canvasType;
+    if (canvasTypeControl.selectedSegmentIndex != -1) {
+        TAGSuggestionStore *suggestionStore = [TAGSuggestionStore sharedStore];
+
+        // TODO: Understand how to not inline these blocks
+        void (^returnToUserProfile)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err) {
+            [[TAGSuggestionStore sharedStore] addUniqueSuggestion:suggestion];
+
+            [self.parentViewController.tabBarController setSelectedIndex:2];
+        };
+
+        void(^finishedGeocodingBlock)(NSMutableDictionary *suggestionParams, NSError *err)=^(NSMutableDictionary *suggestionParams, NSError *err) {
+            // Add the remaining required selection params for server persistence
+            NSString *selectedCanvasType = [canvasTypeControl titleForSegmentAtIndex:canvasTypeControl.selectedSegmentIndex];
+            [suggestionParams setObject:selectedCanvasType forKey:@"canvas_type"];
+            [suggestionParams setObject:self._S3ImageLocation forKey:@"image_url"];
+            // Send this data to the server
+            TAGSuggestionStore *store = [TAGSuggestionStore sharedStore];
+            [store createSuggestion:suggestionParams withCompletionBlock:returnToUserProfile];
+        };
+
+        void(^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *err)=^(NSURL *s3ImageLocation, NSError *err) {
+            // RESTART: dispatch delay used to trigger the block - follow through to the server side persistence
+            NSLog(@"IMAGE UPLOADED BLOCK");
+            if(!err){
+                self._S3ImageLocation = s3ImageLocation;
+                [self._mapController reverseGeocodeUserLocationWithCompletionBlock:finishedGeocodingBlock];
+            } else {
+                [TAGErrorAlert render:err];
+            }
+        };
+
+        [suggestionStore saveSuggestionImage:self._photoData withCompletionBlock:imageUploadedBlock];
+    } else {
+        NSLog(@"Implement Form Validations");
+    }
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {

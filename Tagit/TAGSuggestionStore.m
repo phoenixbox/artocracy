@@ -48,7 +48,7 @@
 }
 
 - (void)saveSuggestionImage:(NSData *)imageData withCompletionBlock:(void (^)(NSURL *s3ImageLocation, NSError *))imageUploadedBlock {
-    self.imageUploaded = imageUploadedBlock;
+    self.imageUploadedBlock = imageUploadedBlock;
     AmazonS3Client *s3 = [[AmazonS3Client alloc] initWithAccessKey:ACCESS_KEY_ID withSecretKey:SECRET_KEY];
     s3.endpoint = [AmazonEndpoints s3Endpoint:US_WEST_2];
 
@@ -59,7 +59,13 @@
     NSString *uuid = [[NSUUID UUID] UUIDString];
     NSLog(@"%@",uuid);
 
-    [self.tm uploadData:imageData bucket:@"artocracy.bananas" key:uuid];
+    S3PutObjectRequest *por = [[S3PutObjectRequest alloc] initWithKey:uuid inBucket:@"artocracy.bananas"];
+    por.contentType = @"image/jpeg";
+    por.cannedACL   = [S3CannedACL publicRead];
+    por.data        = imageData;
+    por.delegate    = self; // TODO: Required?
+
+    [self.tm upload:por];
 }
 
 - (void)createSuggestion:(NSMutableDictionary *)parameters withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))returnToUserProfile {
@@ -99,13 +105,20 @@
 
 -(void)request:(AmazonServiceRequest *)request didCompleteWithResponse:(AmazonServiceResponse *)response
 {
-    self.imageUploaded(request.url,nil);
+    self.imageUploadedBlock(request.url, nil);
+    // Weird requirement to dispatch block - needs more research
+    double delayInSeconds = 0.1;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        self.imageUploadedBlock(request.url, nil);
+    });
+
     NSLog(@"didCompleteWithResponse called: %@", response);
 }
 
 -(void)request:(AmazonServiceRequest *)request didFailWithError:(NSError *)error
 {
-    self.imageUploaded(request.url,error);
+    self.imageUploadedBlock(request.url,error);
     NSLog(@"didFailWithError called: %@", error);
 }
 
