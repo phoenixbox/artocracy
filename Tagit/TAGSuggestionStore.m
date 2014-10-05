@@ -69,7 +69,6 @@
 }
 
 - (void)createSuggestion:(NSMutableDictionary *)parameters withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))returnToUserProfile {
-
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
@@ -106,14 +105,6 @@
 -(void)request:(AmazonServiceRequest *)request didCompleteWithResponse:(AmazonServiceResponse *)response
 {
     self.imageUploadedBlock(request.url, nil);
-    // Weird requirement to dispatch block - needs more research
-    double delayInSeconds = 0.1;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        self.imageUploadedBlock(request.url, nil);
-    });
-
-    NSLog(@"didCompleteWithResponse called: %@", response);
 }
 
 -(void)request:(AmazonServiceRequest *)request didFailWithError:(NSError *)error
