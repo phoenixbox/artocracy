@@ -16,7 +16,6 @@
 #import "TAGImagePickerController.h"
 #import "TAGSuggestionStore.h"
 #import "TAGErrorAlert.h"
-#import "TAGMapView.h"
 
 #import "TAGSuggestionParallaxHeaderCell.h"
 
@@ -303,12 +302,9 @@
         self._headerCell = [collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                               withReuseIdentifier:@"mapHeader"
                                                                      forIndexPath:indexPath];
-
-        TAGMapView *mapView = [[TAGMapView alloc] initWithFrame:self._headerCell.mapView.frame forDelegate:self._headerCell];
-        [self._headerCell setMapView:mapView];
+        [self._headerCell addMapToCell];
 
         return self._headerCell;
-
     }
     return nil;
 }

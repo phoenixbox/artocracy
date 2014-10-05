@@ -86,7 +86,6 @@
 		CBDA9A2D1997136B00E8AD31 /* camera_nav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A2C1997136B00E8AD31 /* camera_nav@2x.png */; };
 		CBDA9A301997158500E8AD31 /* TAGImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A2F1997158500E8AD31 /* TAGImagePickerController.m */; };
 		CBDA9A3619982CA200E8AD31 /* TAGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A3519982CA200E8AD31 /* TAGMapViewController.m */; };
-		CBDA9A3C19982FA600E8AD31 /* TAGMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A3B19982FA600E8AD31 /* TAGMapView.m */; };
 		CBDA9A3F1998437B00E8AD31 /* TAGMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A3E1998437B00E8AD31 /* TAGMapAnnotation.m */; };
 		CBDA9A4319985A6B00E8AD31 /* map_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A4219985A6B00E8AD31 /* map_icon@2x.png */; };
 		CBDA9A4C199B202400E8AD31 /* TAGSuggestionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A4B199B202400E8AD31 /* TAGSuggestionStore.m */; };
@@ -240,8 +239,6 @@
 		CBDA9A2F1997158500E8AD31 /* TAGImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGImagePickerController.m; sourceTree = "<group>"; };
 		CBDA9A3419982CA200E8AD31 /* TAGMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGMapViewController.h; sourceTree = "<group>"; };
 		CBDA9A3519982CA200E8AD31 /* TAGMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGMapViewController.m; sourceTree = "<group>"; };
-		CBDA9A3A19982FA600E8AD31 /* TAGMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGMapView.h; sourceTree = "<group>"; };
-		CBDA9A3B19982FA600E8AD31 /* TAGMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGMapView.m; sourceTree = "<group>"; };
 		CBDA9A3D1998437B00E8AD31 /* TAGMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGMapAnnotation.h; sourceTree = "<group>"; };
 		CBDA9A3E1998437B00E8AD31 /* TAGMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGMapAnnotation.m; sourceTree = "<group>"; };
 		CBDA9A4219985A6B00E8AD31 /* map_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_icon@2x.png"; sourceTree = "<group>"; };
@@ -371,8 +368,6 @@
 			children = (
 				CB068157198ECCEB00B13E49 /* TAGErrorAlert.h */,
 				CB068158198ECCEB00B13E49 /* TAGErrorAlert.m */,
-				CBDA9A3A19982FA600E8AD31 /* TAGMapView.h */,
-				CBDA9A3B19982FA600E8AD31 /* TAGMapView.m */,
 				CBDA9A3D1998437B00E8AD31 /* TAGMapAnnotation.h */,
 				CBDA9A3E1998437B00E8AD31 /* TAGMapAnnotation.m */,
 			);
@@ -916,7 +911,6 @@
 				CBD3D2D119AB00F300A2DE75 /* TAGProfileTableSuggestionCell.m in Sources */,
 				CB068159198ECCEB00B13E49 /* TAGErrorAlert.m in Sources */,
 				CBDA9A3F1998437B00E8AD31 /* TAGMapAnnotation.m in Sources */,
-				CBDA9A3C19982FA600E8AD31 /* TAGMapView.m in Sources */,
 				CBDA9A4C199B202400E8AD31 /* TAGSuggestionStore.m in Sources */,
 				CB6DA4DE19A3270900BB71EE /* TAGProfileViewController.m in Sources */,
 				CBD3D2D419AEF34F00A2DE75 /* TAGProfileTableFavoriteCell.m in Sources */,
