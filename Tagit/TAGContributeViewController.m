@@ -16,6 +16,7 @@
 #import "TAGImagePickerController.h"
 #import "TAGSuggestionStore.h"
 #import "TAGErrorAlert.h"
+#import "TAGMapView.h"
 
 #import "TAGSuggestionParallaxHeaderCell.h"
 
@@ -35,6 +36,7 @@
 @property (nonatomic, strong) TAGMapViewController *_mapController;
 @property (nonatomic) TAGImagePickerController *_imagePickerController;
 @property (nonatomic, strong) TAGSuggestionCell *_primaryCell;
+@property (nonatomic, strong) TAGSuggestionParallaxHeaderCell *_headerCell;
 @property (nonatomic, strong) NSData *_photoData;
 @property (nonatomic) BOOL _showImagePicker;
 @property (nonatomic, strong) NSString *_photoName;
@@ -83,9 +85,9 @@
 - (void)viewDidAppear:(BOOL)animated {
 
     // SHOW PICKER STRAIGHT AWAY
-    if (self._showImagePicker) {
-        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
-    }
+//    if (self._showImagePicker) {
+//        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+//    }
 }
 
 
@@ -255,14 +257,15 @@
     if (canvasTypeControl.selectedSegmentIndex != -1) {
         TAGSuggestionStore *suggestionStore = [TAGSuggestionStore sharedStore];
 
-        // TODO: Understand how to not inline these blocks
+        // TODO: Refactor inline blocks
         void (^returnToUserProfile)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err) {
             [[TAGSuggestionStore sharedStore] addUniqueSuggestion:suggestion];
 
             [self.parentViewController.tabBarController setSelectedIndex:2];
         };
 
-        void(^finishedGeocodingBlock)(NSMutableDictionary *suggestionParams, NSError *err)=^(NSMutableDictionary *suggestionParams, NSError *err) {
+        void (^finishedGeocodingBlock)(NSMutableDictionary *suggestionParams, NSError *err)=^(NSMutableDictionary *suggestionParams, NSError *err) {
+            NSLog(@"FINISHED GEOCODING BLOCK");
             // Add the remaining required selection params for server persistence
             NSString *selectedCanvasType = [canvasTypeControl titleForSegmentAtIndex:canvasTypeControl.selectedSegmentIndex];
             [suggestionParams setObject:selectedCanvasType forKey:@"canvas_type"];
@@ -272,12 +275,15 @@
             [store createSuggestion:suggestionParams withCompletionBlock:returnToUserProfile];
         };
 
-        void(^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *err)=^(NSURL *s3ImageLocation, NSError *err) {
+        void (^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *err)=^(NSURL *s3ImageLocation, NSError *err) {
             // RESTART: dispatch delay used to trigger the block - follow through to the server side persistence
             NSLog(@"IMAGE UPLOADED BLOCK");
             if(!err){
                 self._S3ImageLocation = s3ImageLocation;
-                [self._mapController reverseGeocodeUserLocationWithCompletionBlock:finishedGeocodingBlock];
+
+                NSLog(@"BEFORE GEOCODE BLOCK");
+
+                [self._headerCell reverseGeocodeUserLocationWithCompletionBlock:finishedGeocodingBlock];
             } else {
                 [TAGErrorAlert render:err];
             }
@@ -294,12 +300,14 @@
       return [collectionView cellForItemAtIndexPath:indexPath];
     }
     else if ([kind isEqualToString:CSStickyHeaderParallaxHeader]) {
-        TAGSuggestionParallaxHeaderCell *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind                                                                            withReuseIdentifier:@"mapHeader" forIndexPath:indexPath];
+        self._headerCell = [collectionView dequeueReusableSupplementaryViewOfKind:kind
+                                                              withReuseIdentifier:@"mapHeader"
+                                                                     forIndexPath:indexPath];
 
-        TAGMapView *map = [[TAGMapView alloc]initWithFrame:cell.mapView.frame forDelegate:cell];
-        [cell.mapView addSubview:map];
+        TAGMapView *mapView = [[TAGMapView alloc] initWithFrame:self._headerCell.mapView.frame forDelegate:self._headerCell];
+        [self._headerCell setMapView:mapView];
 
-        return cell;
+        return self._headerCell;
 
     }
     return nil;
