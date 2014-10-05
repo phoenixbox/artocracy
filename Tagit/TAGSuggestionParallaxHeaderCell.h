@@ -12,16 +12,14 @@
 #import <MapKit/MapKit.h>
 // Location module
 #import <CoreLocation/CoreLocation.h>
-#import "TAGMapView.h"
 
 @interface TAGSuggestionParallaxHeaderCell : UICollectionViewCell <MKMapViewDelegate, CLLocationManagerDelegate>
-@property (strong, nonatomic) IBOutlet TAGMapView *mapView;
-@property (weak, nonatomic) MKMapView *map;
 
+@property (nonatomic, strong) MKMapView *_mapView;
 @property (nonatomic, strong) CLLocationManager *_myLocationManager;
 @property (nonatomic, retain) MKUserLocation *currentUserLocation;
 @property (nonatomic) CGSize searchViewSize;
 
 - (void)reverseGeocodeUserLocationWithCompletionBlock:(void (^)(NSMutableDictionary *suggestionParams, NSError *err))finishedGeocodingBlock;
-
+- (void)addMapToCell;
 @end

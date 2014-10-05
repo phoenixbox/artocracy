@@ -24,6 +24,28 @@
     return self;
 }
 
+- (void)addMapToCell {
+    self._mapView = [[MKMapView alloc]initWithFrame:CGRectMake(0.0,0.0,320.0f, 200.0f)];
+
+    [self._mapView setMapType:MKMapTypeStandard];
+    self._mapView.delegate = self;
+
+    [self._mapView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+
+    // Set the initial zoom level
+    CLLocationCoordinate2D noLocation;
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(noLocation, 500, 500);
+    MKCoordinateRegion adjustedRegion = [self._mapView regionThatFits:viewRegion];
+    [self._mapView setRegion:adjustedRegion animated:YES];
+
+    // Display the user
+    self._mapView.showsUserLocation = YES;
+    // Enable tracking mode which overrides default and forces user to be at the center of the map
+    self._mapView.userTrackingMode = MKUserTrackingModeFollow;
+
+    [self.contentView addSubview:self._mapView];
+}
+
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     self.currentUserLocation = userLocation;
 
@@ -36,7 +58,9 @@
 
     TAGMapAnnotation *annotation = [[TAGMapAnnotation alloc] initWithCoordinates:pin title:@"" subtitle:@""];
 
-    [self.mapView addAnnotation:annotation];
+    annotation.pinColor = MKPinAnnotationColorPurple;
+
+    [self._mapView addAnnotation:annotation];
 }
 
 - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error {
@@ -50,7 +74,7 @@
         return result;
     }
 
-    if ([mapView isEqual: self] == NO){
+    if ([mapView isEqual:self._mapView] == NO){
         return result;
     }
 
@@ -71,10 +95,13 @@
     }
 
     // Display Custom Image
-    //    UIImage *markerIcon = [UIImage imageNamed:@"map_icon.png"];
-    //    if (markerIcon != nil){
-    //        annotationView.image = markerIcon;
-    //    }
+    UIImage *markerIcon = [UIImage imageNamed:@"map_icon.png"];
+    if (markerIcon != nil){
+        annotationView.image = markerIcon;
+    }
+
+    // Ensure the color of the pin matches the color of the annotation
+    //    annotationView.pinColor = senderAnnotation.pinColor;
 
     result = annotationView;
 
