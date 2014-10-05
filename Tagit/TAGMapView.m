@@ -7,13 +7,13 @@
 //
 
 #import "TAGMapView.h"
+#import "TAGSuggestionParallaxHeaderCell.h"
 
 // Libs
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
 // Components
-#import "TAGMapAnnotation.h"
 #import "TAGErrorAlert.h"
 
 @interface TAGMapView ()
@@ -40,10 +40,7 @@
 }
 
 - (void)configureMap {
-    [self setMapType:MKMapTypeStandard];
-
-    // ERROR
-//    self._mapView.delegate = self;
+    [self setMapType:MKMapTypeHybrid];
 
     [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
 

@@ -6,7 +6,10 @@
 //  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
-#import "TAGSuggestionParallaxHeaderCell.h"
+// Map Module
+#import <MapKit/MapKit.h>
+// Location module
+#import <CoreLocation/CoreLocation.h>
 
 @interface TAGMapView : MKMapView
 
