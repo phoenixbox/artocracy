@@ -11,6 +11,8 @@
 #import "TAGMapAnnotation.h"
 #import "TAGErrorAlert.h"
 
+#import "TAGMapAnnotation.h"
+
 @implementation TAGSuggestionParallaxHeaderCell
 
 - (id)initWithFrame:(CGRect)frame
@@ -34,7 +36,7 @@
 
     TAGMapAnnotation *annotation = [[TAGMapAnnotation alloc] initWithCoordinates:pin title:@"" subtitle:@""];
 
-    [self.map addAnnotation:annotation];
+    [self.mapView addAnnotation:annotation];
 }
 
 - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error {
@@ -79,38 +81,40 @@
     return result;
 }
 
-//- (void)reverseGeocodeUserLocationWithCompletionBlock:(void (^)(NSMutableDictionary *suggestionParams, NSError *err))finishedGeocodingBlock {
-//    NSMutableDictionary *suggestionParams = [NSMutableDictionary new];
-//    CLGeocoder *geocoder = [CLGeocoder new];
-//
-//    [geocoder reverseGeocodeLocation:self._currentUserLocation.location completionHandler:^(NSArray *placemarks, NSError *error) {
-//        if (error == nil && placemarks.count > 0){
-//            CLPlacemark *placemark = placemarks[0];
-//            NSDictionary *address = @{ @"address" : placemark.name,
-//                                       @"city" : placemark.subAdministrativeArea,
-//                                       @"state" : placemark.administrativeArea,
-//                                       @"zip_code" : placemark.postalCode,
-//                                       @"country" :placemark.ISOcountryCode
-//                                       };
-//            [suggestionParams addEntriesFromDictionary:address];
-//
-//            NSString *latitude = [NSString stringWithFormat:@"%f", self._currentUserLocation.coordinate.latitude];
-//            NSString *longitude = [NSString stringWithFormat:@"%f", self._currentUserLocation.coordinate.longitude];
-//
-//            [suggestionParams setObject:latitude forKey:@"latitude"];
-//            [suggestionParams setObject:longitude forKey:@"longitude"];
-//
-//            finishedGeocodingBlock(suggestionParams, nil);
-//        }
-//        else if (error == nil && placemarks.count == 0){
-//            NSLog(@"No results were returned.");
-//        }
-//        else if (error != nil){
-//            NSLog(@"An error occurred = %@", error);
-//            finishedGeocodingBlock(nil, error);
-//        }
-//    }];
-//}
+- (void)reverseGeocodeUserLocationWithCompletionBlock:(void (^)(NSMutableDictionary *suggestionParams, NSError *err))finishedGeocodingBlock {
+    // Need to get in here :)
+    NSLog(@"REVERSE GEOCODING!");
+    NSMutableDictionary *suggestionParams = [NSMutableDictionary new];
+    CLGeocoder *geocoder = [CLGeocoder new];
+
+    [geocoder reverseGeocodeLocation:self.currentUserLocation.location completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error == nil && placemarks.count > 0){
+            CLPlacemark *placemark = placemarks[0];
+            NSDictionary *address = @{ @"address" : placemark.name,
+                                       @"city" : placemark.subAdministrativeArea,
+                                       @"state" : placemark.administrativeArea,
+                                       @"zip_code" : placemark.postalCode,
+                                       @"country" :placemark.ISOcountryCode
+                                       };
+            [suggestionParams addEntriesFromDictionary:address];
+
+            NSString *latitude = [NSString stringWithFormat:@"%f", self.currentUserLocation.coordinate.latitude];
+            NSString *longitude = [NSString stringWithFormat:@"%f", self.currentUserLocation.coordinate.longitude];
+
+            [suggestionParams setObject:latitude forKey:@"latitude"];
+            [suggestionParams setObject:longitude forKey:@"longitude"];
+
+            finishedGeocodingBlock(suggestionParams, nil);
+        }
+        else if (error == nil && placemarks.count == 0){
+            NSLog(@"No results were returned.");
+        }
+        else if (error != nil){
+            NSLog(@"An error occurred = %@", error);
+            finishedGeocodingBlock(nil, error);
+        }
+    }];
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.
