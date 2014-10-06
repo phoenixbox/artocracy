@@ -251,14 +251,11 @@
     if (canvasTypeControl.selectedSegmentIndex != -1) {
         TAGSuggestionStore *suggestionStore = [TAGSuggestionStore sharedStore];
 
-        // First: Reverse geocode
-        void (^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *err)=^(NSURL *s3ImageLocation, NSError *err) {
-            if(!err){
-                self._S3ImageLocation = s3ImageLocation;
-                [self._headerCell reverseGeocodeUserLocationWithCompletionBlock:finishedGeocodingBlock];
-            } else {
-                [TAGErrorAlert render:err];
-            }
+        // Third: Return to user's profile
+        void (^returnToUserProfile)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err) {
+            [[TAGSuggestionStore sharedStore] addUniqueSuggestion:suggestion];
+
+            [self.parentViewController.tabBarController setSelectedIndex:2];
         };
 
         // Second: Create suggestion
@@ -272,11 +269,14 @@
             [store createSuggestion:suggestionParams withCompletionBlock:returnToUserProfile];
         };
 
-        // Third: Return to user's profile
-        void (^returnToUserProfile)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err) {
-            [[TAGSuggestionStore sharedStore] addUniqueSuggestion:suggestion];
-
-            [self.parentViewController.tabBarController setSelectedIndex:2];
+        // First: Reverse geocode
+        void (^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *err)=^(NSURL *s3ImageLocation, NSError *err) {
+            if(!err){
+                self._S3ImageLocation = s3ImageLocation;
+                [self._headerCell reverseGeocodeUserLocationWithCompletionBlock:finishedGeocodingBlock];
+            } else {
+                [TAGErrorAlert render:err];
+            }
         };
 
         // Begin: Save the suggested image to S3
