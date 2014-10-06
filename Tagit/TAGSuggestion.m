@@ -10,4 +10,9 @@
 
 @implementation TAGSuggestion
 
++(JSONKeyMapper*)keyMapper
+{
+    return [JSONKeyMapper mapperFromUnderscoreCaseToCamelCase];
+}
+
 @end

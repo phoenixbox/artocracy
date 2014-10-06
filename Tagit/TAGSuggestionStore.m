@@ -85,6 +85,21 @@
     }];
 }
 
+- (void)fetchSuggestionsWithCompletion:(void (^)(TAGSuggestionChannel *suggestionChannel, NSError *err))block {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPISuggestionsIndex];
+
+    [manager GET:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        TAGSuggestionChannel *suggestionChannel = [[TAGSuggestionChannel alloc] initWithData:responseObject error:nil];
+
+        block(suggestionChannel, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
 #pragma AmazonServiceRequest Protocol Methods
 
 -(void)request:(AmazonServiceRequest *)request didReceiveResponse:(NSURLResponse *)response

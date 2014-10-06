@@ -16,11 +16,11 @@
 @property (nonatomic) NSNumber *id;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *city;
-@property (nonatomic, strong) NSString *image_url;
+@property (nonatomic, strong) NSString *imageUrl;
 @property (nonatomic, strong) NSString *state;
-@property (nonatomic, strong) NSString *zip_code;
+@property (nonatomic, strong) NSString *zipCode;
 @property (nonatomic, strong) NSString *country;
-@property (nonatomic, strong) NSString *canvas_type;
+@property (nonatomic, strong) NSString *canvasType;
 @property (nonatomic, strong) NSString *latitude;
 @property (nonatomic, strong) NSString *longitude;
 
