@@ -10,6 +10,6 @@
 
 @interface TAGCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) UIImageView *image;
 
 @end
