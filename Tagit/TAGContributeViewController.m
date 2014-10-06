@@ -10,13 +10,13 @@
 
 #import "TAGContributeViewController.h"
 
+// Components
 #import "TAGMapViewController.h"
 #import "TAGCollectionView.h"
 #import "TAGSuggestionCell.h"
 #import "TAGImagePickerController.h"
 #import "TAGSuggestionStore.h"
 #import "TAGErrorAlert.h"
-
 #import "TAGSuggestionParallaxHeaderCell.h"
 
 // Helpers
@@ -74,7 +74,7 @@
         layout.parallaxHeaderReferenceSize = CGSizeMake(320, 50);
         layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(320, 0); // Bigger shifts it up
     }
-    // KNOW: think the header identifier here is specific to CSStickyHeaderParallaxHeader
+
     UINib *parallaxHeader = [UINib nibWithNibName:@"TAGSuggestionHeader" bundle:nil];
     [self._collectionView registerNib:parallaxHeader
           forSupplementaryViewOfKind:CSStickyHeaderParallaxHeader
@@ -84,9 +84,9 @@
 - (void)viewDidAppear:(BOOL)animated {
 
     // SHOW PICKER STRAIGHT AWAY
-//    if (self._showImagePicker) {
-//        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
-//    }
+    if (self._showImagePicker) {
+        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+    }
 }
 
 
@@ -215,7 +215,7 @@
     return flowLayout;
 }
 
-/////////////////////// Sticky
+/////////////////////// Sticky Header
 
 #pragma mark UICollectionViewDataSource
 
@@ -233,14 +233,9 @@
                                                                    forIndexPath:indexPath];
     // Setup cells appropriately
     [self._primaryCell setBackgroundColor:[UIColor whiteColor]];
-
     [self._primaryCell.canvasType setTintColor:[UIColor blackColor]];
-
     [self._primaryCell.retakePhoto addTarget:self action:@selector(retakePhoto) forControlEvents:UIControlEventTouchUpInside];
-
-    // WORKS
     [self._primaryCell.suggestionImage setImage:self._lastTakenPhoto];
-
     [self._primaryCell.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
     [self._primaryCell.submitButton setTitleColor:kPureWhite forState:UIControlStateNormal];
     self._primaryCell.submitButton.backgroundColor = kTagitBlack;
@@ -256,15 +251,18 @@
     if (canvasTypeControl.selectedSegmentIndex != -1) {
         TAGSuggestionStore *suggestionStore = [TAGSuggestionStore sharedStore];
 
-        // TODO: Refactor inline blocks
-        void (^returnToUserProfile)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err) {
-            [[TAGSuggestionStore sharedStore] addUniqueSuggestion:suggestion];
-
-            [self.parentViewController.tabBarController setSelectedIndex:2];
+        // First: Reverse geocode
+        void (^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *err)=^(NSURL *s3ImageLocation, NSError *err) {
+            if(!err){
+                self._S3ImageLocation = s3ImageLocation;
+                [self._headerCell reverseGeocodeUserLocationWithCompletionBlock:finishedGeocodingBlock];
+            } else {
+                [TAGErrorAlert render:err];
+            }
         };
 
+        // Second: Create suggestion
         void (^finishedGeocodingBlock)(NSMutableDictionary *suggestionParams, NSError *err)=^(NSMutableDictionary *suggestionParams, NSError *err) {
-            NSLog(@"FINISHED GEOCODING BLOCK");
             // Add the remaining required selection params for server persistence
             NSString *selectedCanvasType = [canvasTypeControl titleForSegmentAtIndex:canvasTypeControl.selectedSegmentIndex];
             [suggestionParams setObject:selectedCanvasType forKey:@"canvas_type"];
@@ -274,20 +272,14 @@
             [store createSuggestion:suggestionParams withCompletionBlock:returnToUserProfile];
         };
 
-        void (^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *err)=^(NSURL *s3ImageLocation, NSError *err) {
-            // RESTART: dispatch delay used to trigger the block - follow through to the server side persistence
-            NSLog(@"IMAGE UPLOADED BLOCK");
-            if(!err){
-                self._S3ImageLocation = s3ImageLocation;
+        // Third: Return to user's profile
+        void (^returnToUserProfile)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err) {
+            [[TAGSuggestionStore sharedStore] addUniqueSuggestion:suggestion];
 
-                NSLog(@"BEFORE GEOCODE BLOCK");
-
-                [self._headerCell reverseGeocodeUserLocationWithCompletionBlock:finishedGeocodingBlock];
-            } else {
-                [TAGErrorAlert render:err];
-            }
+            [self.parentViewController.tabBarController setSelectedIndex:2];
         };
 
+        // Begin: Save the suggested image to S3
         [suggestionStore saveSuggestionImage:self._photoData withCompletionBlock:imageUploadedBlock];
     } else {
         NSLog(@"Implement Form Validations");
