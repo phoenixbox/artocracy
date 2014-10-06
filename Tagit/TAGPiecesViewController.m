@@ -105,7 +105,6 @@
     self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
 
     void(^completionBlock)(TAGPieceChannel *obj, NSError *err)=^(TAGPieceChannel *obj, NSError *err){
-        [self setHeaderLogo];
         if(!err){
             self._pieceChannel = obj;
             [self._collectionView reloadData];
@@ -170,7 +169,6 @@
         NSURL *url = [NSURL URLWithString:piece.imageUrl];
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *img = [UIImage imageWithData:data];
-//        [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"profile_photo.png" forView:cell.artistThumbnail]; // If it needs scaling
         [cell.pieceImage setImage:img];
     }
 
