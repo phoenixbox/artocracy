@@ -20,6 +20,7 @@
 #import "TAGProfileTableSuggestionCell.h"
 #import "TAGProfileTableFavoriteCell.h"
 #import "TAGCollectionViewCell.h"
+#import "TAGErrorAlert.h"
 
 // Constants
 #import "TAGComponentConstants.h"
@@ -27,6 +28,9 @@
 // Pods
 #import "URBMediaFocusViewController.h"
 
+// Data Layer
+#import "TAGSuggestionStore.h"
+#import "TAGSuggestionChannel.h"
 
 NSString *const kCollectionViewPresenter = @"CollectionView";
 NSString *const kTableViewPresenter = @"TableView";
@@ -48,6 +52,10 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 @property (nonatomic, strong) NSString *_currentTableViewCellIdentifier;
 @property (nonatomic, strong) URBMediaFocusViewController *_lightboxViewController;
 
+@property (nonatomic, strong) UIActivityIndicatorView *_activityIndicator;
+
+@property (nonatomic, strong) TAGSuggestionChannel *_suggestionChannel;
+
 @end
 
 @implementation TAGProfileCollectionViewController
@@ -58,9 +66,26 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     if (self) {
         // Custom initialization
         self._presenterType = kCollectionViewPresenter;
-        self._currentTableViewCellIdentifier =kProfileTableSuggestionCellIdentifier;
+        self._currentTableViewCellIdentifier = kProfileTableSuggestionCellIdentifier;
+        [self fetchCollectionData];
     }
     return self;
+}
+
+- (void)fetchCollectionData {
+    self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
+
+    void(^completionBlock)(TAGSuggestionChannel *obj, NSError *err)=^(TAGSuggestionChannel *obj, NSError *err){
+        if(!err){
+            self._suggestionChannel = obj;
+            [self._collectionView reloadData];
+        } else {
+            [TAGErrorAlert render:err];
+        }
+        [self._activityIndicator stopAnimating];
+    };
+
+    [[TAGSuggestionStore sharedStore] fetchSuggestionsWithCompletion:completionBlock];
 }
 
 - (void)viewDidLoad
@@ -285,8 +310,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 #pragma UICollectionView Protocol Methods
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-//    return [self._suggestions count]
-    return 18;
+    return [self._suggestionChannel.suggestions count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -295,13 +319,18 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     // TODO: Visual differentiatior to be replaced by varied data type retrieval
     UIImageView *backgroundImage = [UIImageView new];
     if([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
-        UIImage *image = [UIImage imageNamed:@"ape_do_good_printing_SF.png"];
-        cell.image = image;
-        [backgroundImage setImage:cell.image];
+
+        if (self._suggestionChannel.suggestions.count > 0) {
+            TAGSuggestion *suggestion = [self._suggestionChannel.suggestions objectAtIndex:[indexPath section]];
+
+            NSURL *url = [NSURL URLWithString:suggestion.imageUrl];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            UIImage *img = [UIImage imageWithData:data];
+
+            [backgroundImage setImage:img];
+        }
     } else {
-        UIImage *image = [UIImage imageNamed:@"open_arms_SF.png"];
-        cell.image = image;
-        [backgroundImage setImage:cell.image];
+        // Refactor to use the right channel per collection identifier
     }
 
     [cell setBackgroundView:backgroundImage];
