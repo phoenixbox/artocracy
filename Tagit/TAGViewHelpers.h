@@ -27,4 +27,6 @@
 
 + (UIActivityIndicatorView *)setActivityIndicatorForNavItem:(UINavigationItem *)item;
 
++ (UIImage *)imageForURL:(NSString *)imageURL;
+
 @end

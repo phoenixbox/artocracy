@@ -62,4 +62,10 @@
     return aiView;
 }
 
++ (UIImage *)imageForURL:(NSString *)imageURL {
+    NSURL *url = [NSURL URLWithString:imageURL];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    return [UIImage imageWithData:data];
+}
+
 @end
