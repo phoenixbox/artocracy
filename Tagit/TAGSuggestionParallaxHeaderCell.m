@@ -10,6 +10,7 @@
 
 #import "TAGMapAnnotation.h"
 #import "TAGErrorAlert.h"
+#import "TAGMapHelpers.h"
 
 #import "TAGMapAnnotation.h"
 
@@ -69,42 +70,7 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     MKAnnotationView *result = nil;
-
-    if([annotation isKindOfClass:[TAGMapAnnotation class]]==NO){
-        return result;
-    }
-
-    if ([mapView isEqual:self._mapView] == NO){
-        return result;
-    }
-
-    // Typecast the annotation that the MapView has fired this delegate message
-    TAGMapAnnotation *senderAnnotation = (TAGMapAnnotation *)annotation;
-
-    // Use the annotation class method to get the resusable identifier for the pin being created
-    NSString *reusablePinIdentifier = [TAGMapAnnotation reusableIdentifierforPinColor:senderAnnotation.pinColor];
-
-    // Use this identifier as the reusable annotation identifier on the map view
-    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reusablePinIdentifier];
-
-    if(annotationView == nil){
-        annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:senderAnnotation reuseIdentifier:reusablePinIdentifier];
-
-        // Ensure we can see the callout for the pin
-        [annotationView setCanShowCallout:YES];
-    }
-
-    // Display Custom Image
-    UIImage *markerIcon = [UIImage imageNamed:@"map_icon.png"];
-    if (markerIcon != nil){
-        annotationView.image = markerIcon;
-    }
-
-    // Ensure the color of the pin matches the color of the annotation
-    //    annotationView.pinColor = senderAnnotation.pinColor;
-
-    result = annotationView;
-
+    result = [TAGMapHelpers annotation:annotation forMap:mapView];
     return result;
 }
 
