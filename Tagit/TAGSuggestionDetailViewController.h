@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TAGSuggestion.h"
 
 @interface TAGSuggestionDetailViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+
+- (void)setViewWithSuggestion:(TAGSuggestion *)suggestion;
 
 @end

@@ -26,15 +26,15 @@
 
 @interface TAGSuggestionDetailViewController ()
 
+// Data Layer
+@property (nonatomic, strong)TAGSuggestion *_suggestion;
 // Header section
 @property (nonatomic, strong)UIView *_header;
 @property (nonatomic, strong)UIView *_userThumbnail;
 @property (nonatomic, strong)UILabel *_userName;
 @property (nonatomic, strong)UILabel *_upvoteCounter;
-
-
-@property (nonatomic, strong)UIView *_suggestionImage;
-
+// Main Content
+@property (nonatomic, strong)UIImageView *_suggestionImage;
 // Map view
 @property (nonatomic, strong)TAGMapViewController *_mapController;
 // Suggestion Detail Section
@@ -47,7 +47,6 @@
 @property (nonatomic, strong)UITableView *_proposalsTable;
 @property (nonatomic, strong)URBMediaFocusViewController *_lightboxViewController;
 @property (nonatomic, assign)float _cellDimension;
-
 // Container scroll view
 @property (nonatomic, strong)UIScrollView *_scrollView;
 
@@ -62,6 +61,10 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)setViewWithSuggestion:(TAGSuggestion *)suggestion {
+    self._suggestion = suggestion;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -184,9 +187,9 @@
                                    self.view.frame.size.width/2,
                                    self.view.frame.size.width/2);
 
-    self._suggestionImage = [[UIView alloc] initWithFrame:imageFrame];
-
-    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"ape_do_good_printing_SF.png" forView:self._suggestionImage];
+    self._suggestionImage = [[UIImageView alloc] initWithFrame:imageFrame];
+    UIImage *img = [TAGViewHelpers imageForURL:self._suggestion.imageUrl];
+    [self._suggestionImage setImage:img];
 
     [self._scrollView addSubview:self._suggestionImage];
 }
