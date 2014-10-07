@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+
+// Map Module
+#import <MapKit/MapKit.h>
+// Location module
+#import <CoreLocation/CoreLocation.h>
+
 #import "TAGSuggestion.h"
 
-@interface TAGSuggestionDetailViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface TAGSuggestionDetailViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate, CLLocationManagerDelegate>
 
 - (void)setViewWithSuggestion:(TAGSuggestion *)suggestion;
 

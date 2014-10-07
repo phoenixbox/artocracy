@@ -15,6 +15,7 @@
 #import "TAGMapViewController.h"
 #import "TAGSuggestionDetailsSection.h"
 #import "TAGLateralTableViewCell.h"
+#import "TAGMapAnnotation.h"
 
 // Constants
 #import "TAGStyleConstants.h"
@@ -36,7 +37,7 @@
 // Main Content
 @property (nonatomic, strong)UIImageView *_suggestionImage;
 // Map view
-@property (nonatomic, strong)TAGMapViewController *_mapController;
+@property (nonatomic, strong) MKMapView *_mapView;
 // Suggestion Detail Section
 @property (nonatomic, strong)TAGSuggestionDetailsSection *_suggestionDetailsSection;
 // Comment action
@@ -87,7 +88,7 @@
     [self renderScrollView];
     [self renderHeader];
     [self renderDetailImage]; // Common detail functions
-//    [self renderMap];
+    [self renderMap];
 
     [self renderSuggestionDetailsContainer];
     [self renderProposalsTable];
@@ -194,6 +195,73 @@
     [self._scrollView addSubview:self._suggestionImage];
 }
 
+- (void)renderMap {
+    self._mapView = [MKMapView new];
+    self._mapView.delegate = self;
+    [self._mapView setMapType:MKMapTypeStandard];
+    [self.view addSubview:self._mapView];
+
+    CLLocationCoordinate2D pin = CLLocationCoordinate2DMake([self._suggestion.latitude doubleValue], [self._suggestion.longitude doubleValue]);
+    TAGMapAnnotation *annotation = [[TAGMapAnnotation alloc] initWithCoordinates:pin title:@"" subtitle:@""];
+    annotation.pinColor = MKPinAnnotationColorPurple;
+    [self._mapView addAnnotation:annotation];
+
+    MKCoordinateSpan span = MKCoordinateSpanMake(0.01, 0.01);
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMake(pin, span);
+    [self._mapView setRegion:viewRegion animated:YES];
+
+    CGFloat xCoord = CGRectGetMaxX(self._suggestionImage.frame);
+    CGFloat yCoord = self._suggestionImage.frame.origin.y;
+
+    CGRect mapViewRect = CGRectMake(xCoord,
+                                    yCoord,
+                                    self._suggestionImage.frame.size.width,
+                                    self._suggestionImage.frame.size.height);
+
+    [self._mapView setFrame:mapViewRect];
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    MKAnnotationView *result = nil;
+
+    if([annotation isKindOfClass:[TAGMapAnnotation class]]==NO){
+        return result;
+    }
+
+    if ([mapView isEqual:self._mapView] == NO){
+        return result;
+    }
+
+    // Typecast the annotation that the MapView has fired this delegate message
+    TAGMapAnnotation *senderAnnotation = (TAGMapAnnotation *)annotation;
+
+    // Use the annotation class method to get the resusable identifier for the pin being created
+    NSString *reusablePinIdentifier = [TAGMapAnnotation reusableIdentifierforPinColor:senderAnnotation.pinColor];
+
+    // Use this identifier as the reusable annotation identifier on the map view
+    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reusablePinIdentifier];
+
+    if(annotationView == nil){
+        annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:senderAnnotation reuseIdentifier:reusablePinIdentifier];
+
+        // Ensure we can see the callout for the pin
+        [annotationView setCanShowCallout:YES];
+    }
+
+    // Display Custom Image
+    UIImage *markerIcon = [UIImage imageNamed:@"map_icon.png"];
+    if (markerIcon != nil){
+        annotationView.image = markerIcon;
+    }
+
+    // Ensure the color of the pin matches the color of the annotation
+    //    annotationView.pinColor = senderAnnotation.pinColor;
+
+    result = annotationView;
+
+    return result;
+}
+
 - (void)renderSuggestionDetailsContainer {
     void(^buttonTapped)(BOOL selected)=^(BOOL selected){
         if (selected) {
@@ -293,20 +361,6 @@
     UIImage *image = [UIImage imageNamed:imageName];
     view.backgroundColor = [UIColor colorWithPatternImage:image];
 }
-
-//- (void)renderMap {
-//    CGRect mapFrame = CGRectMake(160.0f,
-//                                 self._suggestionImage.frame.origin.y,
-//                                 self.view.frame.size.width/2,
-//                                  self.view.frame.size.width/2);
-//    self._mapController = [[TAGMapViewController alloc] initWithFrame:mapFrame];
-//
-//    // RESTART: Convert suggestion image capture to use the custom map initializer
-//    // https://github.com/jamztang/CSStickyHeaderFlowLayout implement sticky headers and parralax effects
-//    [self addChildViewController:self._mapController];
-//    [self._scrollView addSubview:self._mapController.view];
-//}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
