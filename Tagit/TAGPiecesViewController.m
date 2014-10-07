@@ -166,9 +166,7 @@
     if (self._pieceChannel.pieces.count > 0) {
         TAGPiece *piece = [self._pieceChannel.pieces objectAtIndex:[indexPath section]];
 
-        NSURL *url = [NSURL URLWithString:piece.imageUrl];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        UIImage *img = [UIImage imageWithData:data];
+        UIImage *img = [TAGViewHelpers imageForURL:piece.imageUrl];
         [cell.pieceImage setImage:img];
     }
 
