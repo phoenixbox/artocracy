@@ -256,17 +256,20 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     //  Init the detail view controller
     if ([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
         TAGSuggestionDetailViewController *suggestionDetailController = [[TAGSuggestionDetailViewController alloc]init];
+
+        // Retrieve the right model
+        TAGSuggestion *selectedSuggestion = [self._suggestionChannel.suggestions objectAtIndex:[indexPath row]];
+
+        // Set that model on the instantiated controller
+        [suggestionDetailController setViewWithSuggestion:selectedSuggestion];
+
+        // Push that controller on the navigation controlller
         [[self navigationController] pushViewController:suggestionDetailController animated:YES];
 
     } else {
         TAGPieceDetailViewController *pieceDetailViewController = [[TAGPieceDetailViewController alloc]init];
         [[self navigationController] pushViewController:pieceDetailViewController animated:YES];
     }
-//TODO Find the selection from the associated store per touch
-//    NSArray *allObjects = [[TAGCurretnStore sharedStore] allObjects];
-//    TAGObject *selection = [allObjects objectAtIndex:[indexPath row]];
-//    [tagDetailViewController setViewWithSelection:selection];
-
 }
 
 - (void)buildCollectionView {
@@ -321,11 +324,9 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     if([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
 
         if (self._suggestionChannel.suggestions.count > 0) {
-            TAGSuggestion *suggestion = [self._suggestionChannel.suggestions objectAtIndex:[indexPath section]];
+            TAGSuggestion *suggestion = [self._suggestionChannel.suggestions objectAtIndex:[indexPath row]];
 
-            NSURL *url = [NSURL URLWithString:suggestion.imageUrl];
-            NSData *data = [NSData dataWithContentsOfURL:url];
-            UIImage *img = [UIImage imageWithData:data];
+            UIImage *img = [TAGViewHelpers imageForURL:suggestion.imageUrl];
 
             [backgroundImage setImage:img];
         }
@@ -341,9 +342,16 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
     if([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
-        TAGSuggestionDetailViewController *suggestionDetailController = [[TAGSuggestionDetailViewController alloc] init];
-        [[self navigationController] pushViewController:suggestionDetailController animated:YES];
+        TAGSuggestionDetailViewController *suggestionDetailController = [[TAGSuggestionDetailViewController alloc]init];
 
+        // Retrieve the right model
+        TAGSuggestion *selectedSuggestion = [self._suggestionChannel.suggestions objectAtIndex:[indexPath row]];
+
+        // Set that model on the instantiated controller
+        [suggestionDetailController setViewWithSuggestion:selectedSuggestion];
+
+        // Push that controller on the navigation controlller
+        [[self navigationController] pushViewController:suggestionDetailController animated:YES];
     } else {
         TAGPieceDetailViewController *pieceDetailViewController = [[TAGPieceDetailViewController alloc] init];
         [[self navigationController] pushViewController:pieceDetailViewController animated:YES];
