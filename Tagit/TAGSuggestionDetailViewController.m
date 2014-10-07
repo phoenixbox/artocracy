@@ -238,7 +238,7 @@
     };
 
     CGRect suggestionFrame = CGRectMake(0.0f, CGRectGetMaxY(self._suggestionImage.frame), self.view.frame.size.width, 65.0f);
-    self._suggestionDetailsSection = [[TAGSuggestionDetailsSection alloc] initWithFrame:suggestionFrame withBlock:buttonTapped];
+    self._suggestionDetailsSection = [[TAGSuggestionDetailsSection alloc] initWithFrame:suggestionFrame forSuggestion:self._suggestion withBlock:buttonTapped];
     [self._suggestionDetailsSection setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:self._suggestionDetailsSection];
 }

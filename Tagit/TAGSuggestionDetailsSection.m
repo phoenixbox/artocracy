@@ -17,11 +17,12 @@
 
 @implementation TAGSuggestionDetailsSection
 
-- (id)initWithFrame:(CGRect)frame withBlock:(void (^)(BOOL selected))actionBlock {
+- (id)initWithFrame:(CGRect)frame forSuggestion:(TAGSuggestion *)suggestion withBlock:(void (^)(BOOL selected))actionBlock {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         self.labelWidth = 149.0f;
+        self.suggestion = suggestion;
         self.actionBlock = actionBlock;
 
         [self renderCanvasInfo];
@@ -47,7 +48,7 @@
                                                                 149.0f,
                                                                 20.0f)];
 
-    NSAttributedString *canvasType =[TAGViewHelpers attributeText:@"Commercial Wall" forFontSize:10.0f];
+    NSAttributedString *canvasType =[TAGViewHelpers attributeText:self.suggestion.canvasType forFontSize:10.0f];
     [self.canvasType setAttributedText:canvasType];
     [TAGViewHelpers sizeLabelToFit:self.canvasType numberOfLines:0];
 
@@ -107,8 +108,9 @@
     self.locationAddress = [UILabel new];
     self.locationCity = [UILabel new];
     self.locationState = [UILabel new];
+
     NSArray *labels = [[NSArray alloc] initWithObjects:self.locationAddress, self.locationCity, self.locationState, nil];
-    NSArray *text = [[NSArray alloc] initWithObjects:kLocationAddress,kLocationCity,kLocationState, nil];
+    NSArray *text = [[NSArray alloc] initWithObjects:self.suggestion.address,self.suggestion.city,self.suggestion.state, nil];
 
     NSUInteger labelCount = [labels count];
 

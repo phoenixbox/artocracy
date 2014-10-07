@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TAGSuggestion.h"
 
 @interface TAGSuggestionDetailsSection : UIView
 
-- (id)initWithFrame:(CGRect)frame withBlock:(void (^)(BOOL selected))actionBlock;
+- (id)initWithFrame:(CGRect)frame forSuggestion:(TAGSuggestion *)suggestion withBlock:(void (^)(BOOL selected))actionBlock;
 
+@property (nonatomic, strong)TAGSuggestion *suggestion;
 @property (nonatomic, strong)UILabel *canvasTypeTitle;
 @property (nonatomic, strong)UILabel *canvasType;
 @property (nonatomic, strong)UIButton *favoriteButton;
