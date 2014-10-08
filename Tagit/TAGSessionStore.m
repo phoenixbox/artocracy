@@ -12,25 +12,32 @@
 
 @implementation TAGSessionStore
 
++(JSONKeyMapper*)keyMapper {
+    return [JSONKeyMapper mapperFromUnderscoreCaseToCamelCase];
+}
+
 + (TAGSessionStore *)sharedStore {
     static TAGSessionStore *sessionStore = nil;
 
-    if (!sessionStore) {
-        sessionStore = [[TAGSessionStore alloc]init];
-    };
+    static dispatch_once_t oncePredicate;
+
+    dispatch_once(&oncePredicate, ^{
+        sessionStore = [[TAGSessionStore alloc] init];
+    });
     return sessionStore;
 }
 
 - (void)login:(NSDictionary *)parameters withCompletionBlock:(void (^)(TAGSessionStore *session, NSError *err))block {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
+
     NSString *requestURL = [self constructLoginRequest:parameters];
 
     [manager POST:requestURL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         TAGSessionStore *sessionStore = [TAGSessionStore sharedStore];
-        NSDictionary *responseDict = responseObject;
-        sessionStore.email = [responseDict objectForKey:@"email"];
-        sessionStore.authentication_token = [responseDict objectForKey:@"authentication_token"];
+        sessionStore.id = [responseObject objectForKey:@"id"];
+        sessionStore.email = [responseObject objectForKey:@"email"];
+        sessionStore.authenticationToken = [responseObject objectForKey:@"authentication_token"];
 
         block(sessionStore, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

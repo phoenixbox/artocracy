@@ -14,6 +14,7 @@
 @interface TAGSuggestion : JSONModel
 
 @property (nonatomic) NSNumber *id;
+@property (nonatomic) NSNumber *suggestorId;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *city;
 @property (nonatomic, strong) NSString *imageUrl;

@@ -15,7 +15,7 @@
     
     TAGSessionStore *session = [TAGSessionStore sharedStore];
     NSString *email = session.email;
-    NSString *token = session.authentication_token;
+    NSString *token = session.authenticationToken;
 
     requestURL = [requestURL stringByAppendingString:(@"?email=")];
     requestURL = [requestURL stringByAppendingString:email];

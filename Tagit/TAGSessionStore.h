@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
 
-@protocol SDRSessionStore @end
+@protocol TAGSessionStore @end
 
 @interface TAGSessionStore : JSONModel
 
+@property (nonatomic) NSNumber *id;
 @property (strong, nonatomic) NSString *email;
-@property (strong, nonatomic) NSString *authentication_token;
+@property (strong, nonatomic) NSString *authenticationToken;
 
 + (TAGSessionStore *)sharedStore;
 - (void)login:(NSDictionary *)loginParams withCompletionBlock:(void (^)(TAGSessionStore *session, NSError *err))block;
