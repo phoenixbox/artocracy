@@ -41,8 +41,7 @@
         self.allUsersSuggestions = [NSMutableArray new];
     }
 
-    NSInteger ind = [self.allUsersSuggestions indexOfObject:suggestion];
-    if (ind == NSNotFound) {
+    if ([self.allUsersSuggestions containsObject:suggestion]) {
         [self.allUsersSuggestions addObject:suggestion];
     }
 }
@@ -92,7 +91,8 @@
     NSString *requestURL = [TAGAuthStore authenticateRequest:kAPISuggestionsIndex];
 
     [manager GET:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        TAGSuggestionChannel *suggestionChannel = [[TAGSuggestionChannel alloc] initWithData:responseObject error:nil];
+        NSString *rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        TAGSuggestionChannel *suggestionChannel = [[TAGSuggestionChannel alloc] initWithString:rawJSON error:nil];
 
         block(suggestionChannel, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
