@@ -9,6 +9,7 @@
 #import "TAGProfileHeader.h"
 #import "TAGViewHelpers.h"
 #import "TAGStyleConstants.h"
+#import "TAGSessionStore.h"
 
 @implementation TAGProfileHeader
 
@@ -34,7 +35,15 @@
 
     self.profile.layer.cornerRadius = self.profile.frame.size.width/2;
     self.profile.layer.masksToBounds = YES;
-    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"profile_photo.png" forView:self.profile];
+    TAGSessionStore *session = [TAGSessionStore sharedStore];
+
+    // TODO: Update the interface for passing and image into a helper scaling function - take image or string name - or all remote image URLS?
+    UIImage *profileImage = [TAGViewHelpers imageForURL:session.profileImageUrl];
+    UIGraphicsBeginImageContextWithOptions(self.profile.frame.size, NO, profileImage.scale);
+    [profileImage drawInRect:self.profile.bounds];
+    UIImage *redrawn = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.profile setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
 
     [self addSubview:self.profile];
 }
@@ -45,8 +54,9 @@
                                                               27.5f,
                                                               120.0f,
                                                             20.0f)];
-    
-    NSAttributedString *text = [TAGViewHelpers attributeText:@"shanedjrogers" forFontSize:10.0f];
+
+    TAGSessionStore *session = [TAGSessionStore sharedStore];
+    NSAttributedString *text = [TAGViewHelpers attributeText:session.email forFontSize:10.0f];
     [self.username setAttributedText:text];
     [TAGViewHelpers sizeLabelToFit:self.username numberOfLines:0.0f];
 
