@@ -12,7 +12,21 @@
 
 +(JSONKeyMapper*)keyMapper
 {
-    return [JSONKeyMapper mapperFromUnderscoreCaseToCamelCase];
+    return [[JSONKeyMapper alloc] initWithDictionary:@{
+                                                       @"id": @"id",
+                                                       @"address": @"address",
+                                                       @"city": @"city",
+                                                       @"image_url": @"imageUrl",
+                                                       @"state": @"state",
+                                                       @"zip_code": @"zipCode",
+                                                       @"country": @"country",
+                                                       @"canvas_type": @"canvasType",
+                                                       @"latitude": @"latitude",
+                                                       @"longitude": @"longitude",
+                                                       @"suggestor.id": @"suggestorId",
+                                                       @"suggestor.email": @"suggestorEmail",
+                                                       @"suggestor.profile_image_url": @"suggestorImageURL"
+                                                       }];
 }
 
 @end
