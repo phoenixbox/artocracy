@@ -318,14 +318,11 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     if (sectionCount > 0) {
         return sectionCount;
     } else {
-        // Display a message when the table is empty
         UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-
-        messageLabel.text = @"No data is currently available. Please pull down to refresh.";
+        [TAGViewHelpers formatLabel:messageLabel withCopy:@"no suggestions currently available. please pull down to refresh."];
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
         [messageLabel sizeToFit];
 
         self._collectionView.backgroundView = messageLabel;
