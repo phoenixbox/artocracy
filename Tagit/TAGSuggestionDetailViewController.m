@@ -160,7 +160,7 @@
     self._userThumbnail.layer.cornerRadius = self._userThumbnail.frame.size.width/2;
     self._userThumbnail.layer.masksToBounds = YES;
 
-    [self setBackgroundImage:@"profile_photo.png" forView:self._userThumbnail];
+    [TAGViewHelpers scaleAndSetRemoteBackgroundImage:self._suggestion.suggestorImageURL forView:self._userThumbnail];
 
     [self._scrollView addSubview:self._userThumbnail];
 }
@@ -174,7 +174,7 @@
                                                                 100.0f,
                                                                 15.0f)];
 
-    NSAttributedString *text = [TAGViewHelpers attributeText:@"Shane Rogers" forFontSize:10.0f];
+    NSAttributedString *text = [TAGViewHelpers attributeText:self._suggestion.suggestorEmail forFontSize:10.0f];
     [self._userName setAttributedText:text];
     [TAGViewHelpers sizeLabelToFit:self._userName numberOfLines:0];
 

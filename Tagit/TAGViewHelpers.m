@@ -44,6 +44,15 @@
     [targetView setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
 }
 
++ (void)scaleAndSetRemoteBackgroundImage:(NSString *)remoteURL forView:(UIView *)targetView {
+    UIImage *image = [TAGViewHelpers imageForURL:remoteURL];
+    UIGraphicsBeginImageContextWithOptions(targetView.frame.size, NO, image.scale);
+    [image drawInRect:targetView.bounds];
+    UIImage *redrawn = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [targetView setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
+}
+
 + (void)formatButton:(UIButton *)button forIcon:(NSMutableAttributedString *)icon withCopy:(NSString *)buttonCopy {
     NSMutableAttributedString *iconCopy =[[NSMutableAttributedString alloc] initWithString:buttonCopy attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0]}];
     [iconCopy appendAttributedString:icon];

@@ -23,6 +23,8 @@
 
 + (void)scaleAndSetBackgroundImageNamed:(NSString *)imageName forView:(UIView *)targetView;
 
++ (void)scaleAndSetRemoteBackgroundImage:(NSString *)remoteURL forView:(UIView *)targetView;
+
 + (void)formatButton:(UIButton *)button forIcon:(NSMutableAttributedString *)icon withCopy:(NSString *)buttonCopy;
 
 + (UIActivityIndicatorView *)setActivityIndicatorForNavItem:(UINavigationItem *)item;

@@ -38,12 +38,7 @@
     TAGSessionStore *session = [TAGSessionStore sharedStore];
 
     // TODO: Update the interface for passing and image into a helper scaling function - take image or string name - or all remote image URLS?
-    UIImage *profileImage = [TAGViewHelpers imageForURL:session.profileImageUrl];
-    UIGraphicsBeginImageContextWithOptions(self.profile.frame.size, NO, profileImage.scale);
-    [profileImage drawInRect:self.profile.bounds];
-    UIImage *redrawn = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    [self.profile setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
+    [TAGViewHelpers scaleAndSetRemoteBackgroundImage:session.profileImageUrl forView:self.profile];
 
     [self addSubview:self.profile];
 }
