@@ -9,6 +9,7 @@
 #import "TAGSessionStore.h"
 #import "AFNetworking.h"
 #import "TAGRoutesConstants.h"
+#import "TAGStyleConstants.h"
 
 @implementation TAGSessionStore
 
@@ -38,6 +39,7 @@
         sessionStore.id = [responseObject objectForKey:@"id"];
         sessionStore.email = [responseObject objectForKey:@"email"];
         sessionStore.authenticationToken = [responseObject objectForKey:@"authentication_token"];
+        sessionStore.profileImageUrl = [responseObject objectForKey:@"profile_image_url"];
 
         block(sessionStore, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -21,5 +21,6 @@
 // **Profile Header
 #define kProfileXSpacing 10.0f
 #define kProfileYCoord 7.5f
+#define kProfileImage @"https://scontent-a-pao.xx.fbcdn.net/hphotos-xaf1/v/t1.0-9/1456512_10202479209041132_1776449871_n.jpg?oh=55d7de54c815ba7a6c6039c327e1f155&oe=54C1A2AA"
 
 #endif
