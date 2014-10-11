@@ -316,6 +316,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     NSUInteger sectionCount = [self._suggestionChannel.suggestions count];
 
     if (sectionCount > 0) {
+        self._collectionView.backgroundView = nil;
         return sectionCount;
     } else {
         UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
