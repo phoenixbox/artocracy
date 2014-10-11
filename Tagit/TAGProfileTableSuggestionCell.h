@@ -8,12 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+// Data Layer
+#import "TAGSuggestion.h"
+
 // Pods
 #import "URBMediaFocusViewController.h"
 
 @interface TAGProfileTableSuggestionCell : UITableViewCell
 
-@property (nonatomic, strong) UIView *image;
+@property (nonatomic, strong) TAGSuggestion *suggestion;
+
+@property (nonatomic, strong) UIView *suggestionImage;
 
 @property (nonatomic, strong) UILabel *suggesterLabel;
 @property (nonatomic, strong) UILabel *suggestername;
@@ -35,5 +40,7 @@
 @property (nonatomic, strong) UILabel *piecesLabel;
 
 @property (nonatomic, assign) float cellHeight;
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forModel:(TAGSuggestion *)suggestion;
 
 @end

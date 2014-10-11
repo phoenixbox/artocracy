@@ -21,15 +21,16 @@
 
 @implementation TAGProfileTableSuggestionCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forModel:(TAGSuggestion *)suggestion
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
         self.cellHeight = 100.0f;
+        self.suggestion = suggestion;
 
-        [self addImage];
         [self initializeProperties];
+        [self addImage];
         [self addLabels];
         [self addVisualSep];
         [self addPiecesCounter];
@@ -38,17 +39,8 @@
     return self;
 }
 
-- (void)addImage {
-    CGRect imageFrame = CGRectMake(0, 0, self.cellHeight, self.cellHeight);
-    self.image = [[UIView alloc] initWithFrame:imageFrame];
-
-    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"folsom_st_SF" forView:self.image];
-
-    [self addSubview:self.image];
-}
-
 - (void)initializeProperties {
-    self.image = [UIView new];
+    self.suggestionImage = [UIView new];
 
     self.suggesterLabel = [UILabel new];
     self.suggestername = [UILabel new];
@@ -69,6 +61,14 @@
     self.piecesLabel = [UILabel new];
 }
 
+- (void)addImage {
+    CGRect imageFrame = CGRectMake(0, 0, self.cellHeight, self.cellHeight);
+    [self.suggestionImage setFrame:imageFrame];
+
+    [TAGViewHelpers scaleAndSetRemoteBackgroundImage:self.suggestion.imageUrl forView:self.suggestionImage];
+
+    [self addSubview:self.suggestionImage];
+}
 
 - (void)addLabels {
     NSArray *labels = [[NSArray alloc] initWithObjects:self.suggesterLabel, self.suggestername, self.locationLabel, self.locationName, self.canvasTypeLabel, self.canvasTypeName, nil];
