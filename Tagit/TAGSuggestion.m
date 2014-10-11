@@ -24,6 +24,7 @@
                                                        @"latitude": @"latitude",
                                                        @"longitude": @"longitude",
                                                        @"proposal_count": @"proposalCount",
+                                                       @"upvote_count": @"upvoteCount",
                                                        @"suggestor.id": @"suggestorId",
                                                        @"suggestor.email": @"suggestorEmail",
                                                        @"suggestor.profile_image_url": @"suggestorImageURL"

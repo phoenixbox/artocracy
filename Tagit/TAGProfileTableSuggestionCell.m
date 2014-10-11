@@ -129,67 +129,74 @@
 }
 
 - (void)addPiecesCounter {
-    // TODO: xOrigin should be relative to an el not hardcoded
+    [self addPiecesCounterLabel];
+    [self addPiecesCounterIcon];
+}
+
+- (void)addPiecesCounterLabel {
     float counterSq = 25.0f;
     float yOrigin = (self.cellHeight/4) - (counterSq/2);
-
     CGRect counterRect = CGRectMake(249.0f + 2.0f + 9.5f,
                                     yOrigin,
                                     counterSq,
                                     counterSq);
-
     [self.piecesCounter setFrame:counterRect];
-    [self setLabel:self.piecesCounter withTitle:@"10" forFontSize:8.0f];
+    NSAttributedString *proposalCount = [TAGViewHelpers attributeText:[self.suggestion.proposalCount stringValue] forFontSize:10.0f];
+    [self.piecesCounter setAttributedText:proposalCount];
+    [self addSubview:self.piecesCounter];
+}
 
-
+- (void)addPiecesCounterIcon {
+    float counterSq = 25.0f;
+    float yOrigin = (self.cellHeight/4) - (counterSq/2);
     CGRect iconRect = CGRectMake(self.piecesCounter.frame.origin.x + counterSq,
                                  yOrigin,
                                  counterSq,
                                  counterSq);
     [self.piecesIcon setFrame:iconRect];
-
     [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"pieceIcon.png" forView:self.piecesIcon];
     [self addSubview:self.piecesIcon];
-
-
     [self.piecesLabel setFrame:CGRectMake(self.piecesCounter.frame.origin.x,
-                                             CGRectGetMaxY(self.piecesCounter.frame) - 10.0f,
-                                             counterSq*2,
-                                             counterSq)];
-    [self setLabel:self.piecesLabel withTitle:@"Ideas" forFontSize:8.0f];
+                                          CGRectGetMaxY(self.piecesCounter.frame) - 10.0f,
+                                          counterSq*2,
+                                          counterSq)];
+    [self setLabel:self.piecesLabel withTitle:@"Proposals" forFontSize:8.0f];
 }
 
 - (void)addUpvotesCounter {
-    // TODO: xOrigin should be relative to an el not hardcoded
+    [self addUpvotesCounterLabel];
+    [self addUpvotesCounterIcon];
+}
+
+- (void)addUpvotesCounterLabel {
     float counterSq = 25.0f;
     float yOrigin = (self.cellHeight/2) + (counterSq/4);
-
     CGRect counterRect = CGRectMake(249.0f + 2.0f + 9.5f,
                                     yOrigin,
                                     counterSq,
                                     counterSq);
 
     [self.upvotesCounter setFrame:counterRect];
+    NSAttributedString *upvotesCount = [TAGViewHelpers attributeText:[self.suggestion.proposalCount stringValue] forFontSize:10.0f];
+    [self.upvotesCounter setAttributedText:upvotesCount];
 
-    NSString *count = [NSString stringWithFormat:@"%tu", self.suggestion.proposalCount];
-    // TODO: API for attributeText shoudl accept all types and deal with them in the helper
-    NSAttributedString *proposalCount = [TAGViewHelpers attributeText:count forFontSize:12.0f];
-    [self.upvotesCounter setAttributedText:proposalCount];
+    [self addSubview:self.upvotesCounter];
+}
 
+- (void)addUpvotesCounterIcon {
+    float counterSq = 25.0f;
+    float yOrigin = (self.cellHeight/2) + (counterSq/4);
     CGRect iconRect = CGRectMake(self.upvotesCounter.frame.origin.x + counterSq,
                                  yOrigin,
                                  counterSq,
                                  counterSq);
     [self.upvotesIcon setFrame:iconRect];
-
     [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"upvote.png" forView:self.upvotesIcon];
     [self addSubview:self.upvotesIcon];
-
-
     [self.upvotesLabel setFrame:CGRectMake(self.upvotesCounter.frame.origin.x,
-                                          CGRectGetMaxY(self.upvotesCounter.frame) - 10.0f,
-                                          counterSq*2,
-                                          counterSq)];
+                                           CGRectGetMaxY(self.upvotesCounter.frame) - 10.0f,
+                                           counterSq*2,
+                                           counterSq)];
     [self setLabel:self.upvotesLabel withTitle:@"Upvotes" forFontSize:8.0f];
 }
 
