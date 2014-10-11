@@ -23,6 +23,7 @@
                                                        @"canvas_type": @"canvasType",
                                                        @"latitude": @"latitude",
                                                        @"longitude": @"longitude",
+                                                       @"proposal_count": @"proposalCount",
                                                        @"suggestor.id": @"suggestorId",
                                                        @"suggestor.email": @"suggestorEmail",
                                                        @"suggestor.profile_image_url": @"suggestorImageURL"

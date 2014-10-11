@@ -71,8 +71,19 @@
 }
 
 - (void)addLabels {
-    NSArray *labels = [[NSArray alloc] initWithObjects:self.suggesterLabel, self.suggestername, self.locationLabel, self.locationName, self.canvasTypeLabel, self.canvasTypeName, nil];
-    NSArray *text = [[NSArray alloc] initWithObjects:@"Suggested By", @"Shane Rogers", @"Location", @"873 Market St", @"Canvas Type", @"Public Wall", nil];
+    NSArray *labels = [[NSArray alloc] initWithObjects: self.suggesterLabel,
+                                                        self.suggestername,
+                                                        self.locationLabel,
+                                                        self.locationName,
+                                                        self.canvasTypeLabel,
+                                                        self.canvasTypeName, nil];
+
+    NSArray *text = [[NSArray alloc] initWithObjects:@"Suggested By",
+                                                     self.suggestion.suggestorEmail,
+                                                     @"Location",
+                                                     self.suggestion.address,
+                                                     @"Canvas Type",
+                                                     self.suggestion.canvasType, nil];
 
     NSUInteger labelCount = [labels count];
 
@@ -159,8 +170,11 @@
                                     counterSq);
 
     [self.upvotesCounter setFrame:counterRect];
-    [self setLabel:self.upvotesCounter withTitle:@"25" forFontSize:8.0f];
 
+    NSString *count = [NSString stringWithFormat:@"%tu", self.suggestion.proposalCount];
+    // TODO: API for attributeText shoudl accept all types and deal with them in the helper
+    NSAttributedString *proposalCount = [TAGViewHelpers attributeText:count forFontSize:12.0f];
+    [self.upvotesCounter setAttributedText:proposalCount];
 
     CGRect iconRect = CGRectMake(self.upvotesCounter.frame.origin.x + counterSq,
                                  yOrigin,
