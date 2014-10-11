@@ -141,8 +141,8 @@
                                     counterSq,
                                     counterSq);
     [self.piecesCounter setFrame:counterRect];
-    NSAttributedString *proposalCount = [TAGViewHelpers attributeText:[self.suggestion.proposalCount stringValue] forFontSize:10.0f];
-    [self.piecesCounter setAttributedText:proposalCount];
+    NSAttributedString *upvotesCount = [self counterString:[self.suggestion.proposalCount stringValue]];
+    [self.piecesCounter setAttributedText:upvotesCount];
     [self addSubview:self.piecesCounter];
 }
 
@@ -156,6 +156,7 @@
     [self.piecesIcon setFrame:iconRect];
     [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"pieceIcon.png" forView:self.piecesIcon];
     [self addSubview:self.piecesIcon];
+
     [self.piecesLabel setFrame:CGRectMake(self.piecesCounter.frame.origin.x,
                                           CGRectGetMaxY(self.piecesCounter.frame) - 10.0f,
                                           counterSq*2,
@@ -175,12 +176,18 @@
                                     yOrigin,
                                     counterSq,
                                     counterSq);
-
     [self.upvotesCounter setFrame:counterRect];
-    NSAttributedString *upvotesCount = [TAGViewHelpers attributeText:[self.suggestion.proposalCount stringValue] forFontSize:10.0f];
-    [self.upvotesCounter setAttributedText:upvotesCount];
 
+    NSAttributedString *upvotesCount = [self counterString:[self.suggestion.upvoteCount stringValue]];
+    [self.upvotesCounter setAttributedText:upvotesCount];
     [self addSubview:self.upvotesCounter];
+}
+
+- (NSAttributedString *)counterString:(NSString *)count {
+    if (!count) {
+        count = @"0";
+    }
+    return [TAGViewHelpers attributeText:count forFontSize:10.0f];
 }
 
 - (void)addUpvotesCounterIcon {
@@ -193,6 +200,7 @@
     [self.upvotesIcon setFrame:iconRect];
     [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"upvote.png" forView:self.upvotesIcon];
     [self addSubview:self.upvotesIcon];
+
     [self.upvotesLabel setFrame:CGRectMake(self.upvotesCounter.frame.origin.x,
                                            CGRectGetMaxY(self.upvotesCounter.frame) - 10.0f,
                                            counterSq*2,
