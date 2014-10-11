@@ -182,7 +182,7 @@
                                  counterSq);
     [self.upvotesIcon setFrame:iconRect];
 
-    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"pieceIcon.png" forView:self.upvotesIcon];
+    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"upvote.png" forView:self.upvotesIcon];
     [self addSubview:self.upvotesIcon];
 
 

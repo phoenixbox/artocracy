@@ -53,6 +53,10 @@
 		CB8BFB4A19D51E0B005F4272 /* TAGPieceSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8BFB4919D51E0A005F4272 /* TAGPieceSectionHeader.xib */; };
 		CB9BC69A19BCFD7500BE0EFC /* TAGPiecesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BC69919BCFD7500BE0EFC /* TAGPiecesViewController.m */; };
 		CB9BC69E19BD07D100BE0EFC /* TAGPieceCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BC69D19BD07D100BE0EFC /* TAGPieceCollectionCell.m */; };
+		CBA22D0B19E9B906008FA6EE /* art_navBarLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA22D0A19E9B906008FA6EE /* art_navBarLogo@2x.png */; };
+		CBA22D0E19E9B920008FA6EE /* upvoteSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA22D0C19E9B920008FA6EE /* upvoteSelected@2x.png */; };
+		CBA22D0F19E9B920008FA6EE /* upvoteUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA22D0D19E9B920008FA6EE /* upvoteUnselected@2x.png */; };
+		CBA22D1119E9B96F008FA6EE /* upvote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA22D1019E9B96F008FA6EE /* upvote@2x.png */; };
 		CBAA97D119E25C5F0023B3B7 /* TAGSuggestionChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAA97D019E25C5F0023B3B7 /* TAGSuggestionChannel.m */; };
 		CBAA97D419E3AC040023B3B7 /* TAGMapHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAA97D319E3AC040023B3B7 /* TAGMapHelpers.m */; };
 		CBC0569019C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC0568F19C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m */; };
@@ -199,6 +203,10 @@
 		CB9BC69919BCFD7500BE0EFC /* TAGPiecesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGPiecesViewController.m; sourceTree = "<group>"; };
 		CB9BC69C19BD07D100BE0EFC /* TAGPieceCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGPieceCollectionCell.h; sourceTree = "<group>"; };
 		CB9BC69D19BD07D100BE0EFC /* TAGPieceCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGPieceCollectionCell.m; sourceTree = "<group>"; };
+		CBA22D0A19E9B906008FA6EE /* art_navBarLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "art_navBarLogo@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/art_navBarLogo@2x.png"; sourceTree = "<group>"; };
+		CBA22D0C19E9B920008FA6EE /* upvoteSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "upvoteSelected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/upvoteSelected@2x.png"; sourceTree = "<group>"; };
+		CBA22D0D19E9B920008FA6EE /* upvoteUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "upvoteUnselected@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/upvoteUnselected@2x.png"; sourceTree = "<group>"; };
+		CBA22D1019E9B96F008FA6EE /* upvote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "upvote@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/upvote@2x.png"; sourceTree = "<group>"; };
 		CBAA97CF19E25C5F0023B3B7 /* TAGSuggestionChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionChannel.h; sourceTree = "<group>"; };
 		CBAA97D019E25C5F0023B3B7 /* TAGSuggestionChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionChannel.m; sourceTree = "<group>"; };
 		CBAA97D219E3AC040023B3B7 /* TAGMapHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGMapHelpers.h; sourceTree = "<group>"; };
@@ -534,6 +542,10 @@
 		CB2673CC198DEEA300CB02A1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CBA22D1019E9B96F008FA6EE /* upvote@2x.png */,
+				CBA22D0C19E9B920008FA6EE /* upvoteSelected@2x.png */,
+				CBA22D0D19E9B920008FA6EE /* upvoteUnselected@2x.png */,
+				CBA22D0A19E9B906008FA6EE /* art_navBarLogo@2x.png */,
 				CBF057BE19D88E30009292BA /* Fonts */,
 				CBD3D2E919B3BA8B00A2DE75 /* back_icon@2x.png */,
 				CBD3D2E119B2CE3500A2DE75 /* artSelected@2x.png */,
@@ -841,12 +853,14 @@
 				CB2673A1198DE3FA00CB02A1 /* InfoPlist.strings in Resources */,
 				CB0C3E1119C60C1000C58D9D /* TAGSuggestionCell.xib in Resources */,
 				CBF057D019D88E4C009292BA /* Walkway_UltraBold.ttf in Resources */,
+				CBA22D0E19E9B920008FA6EE /* upvoteSelected@2x.png in Resources */,
 				CBD3D2E319B2CE3500A2DE75 /* artSelected@2x.png in Resources */,
 				CBF057CE19D88E4C009292BA /* Walkway_Oblique.ttf in Resources */,
 				CB6DA4E219A32A4800BB71EE /* profileUnselected@2x.png in Resources */,
 				CBDA9A1D1996CCCA00E8AD31 /* cameraUnselected@2x.png in Resources */,
 				CB068153198ECA4100B13E49 /* navBarLogo@2x.png in Resources */,
 				CBDA9A4319985A6B00E8AD31 /* map_icon@2x.png in Resources */,
+				CBA22D1119E9B96F008FA6EE /* upvote@2x.png in Resources */,
 				CBF057CB19D88E4C009292BA /* Walkway_Oblique_Bold.ttf in Resources */,
 				CBD1950819A5C1C700C6B449 /* lightbulbUnselected@2x.png in Resources */,
 				CBD3D2E419B2CE3500A2DE75 /* artUnselected@2x.png in Resources */,
@@ -867,6 +881,7 @@
 				CBD194FC19A5C0C600C6B449 /* heartUnselected@2x.png in Resources */,
 				CBD3D2EA19B3BA8B00A2DE75 /* back_icon@2x.png in Resources */,
 				CB0C3E1319C60C2C00C58D9D /* TAGSuggestionHeader.xib in Resources */,
+				CBA22D0F19E9B920008FA6EE /* upvoteUnselected@2x.png in Resources */,
 				CBD194FD19A5C0C600C6B449 /* lightbulbSelected@2x.png in Resources */,
 				CBD194FB19A5C0C600C6B449 /* heartSelected@2x.png in Resources */,
 				CB615CF91995F4FB00624A8F /* profile_photo@2x.png in Resources */,
@@ -878,6 +893,7 @@
 				CBF057C019D88E40009292BA /* Walkway_Black.ttf in Resources */,
 				CBD1950619A5C15E00C6B449 /* listUnselected@2x.png in Resources */,
 				CB06814B198EC5F300B13E49 /* bulbUnselected@2x.png in Resources */,
+				CBA22D0B19E9B906008FA6EE /* art_navBarLogo@2x.png in Resources */,
 				CBDA9A1C1996CCCA00E8AD31 /* cameraSelected@2x.png in Resources */,
 				CB06814A198EC5F300B13E49 /* bulbSelected@2x.png in Resources */,
 				CBEA9E6619D742130009C6F9 /* TAGProfileTableViewCell.xib in Resources */,
