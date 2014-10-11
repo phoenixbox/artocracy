@@ -11,10 +11,8 @@
 @interface TAGLateralTableViewCell : UITableViewCell
 
 @property (nonatomic, assign) float cellDimension;
-@property (nonatomic, strong) UIImageView *image;
 @property (nonatomic, strong) UIImage *artImage;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forCellDimension:(float)dimension;
 
-- (void)addImage:(NSString *)imageName;
 @end

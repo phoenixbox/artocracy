@@ -21,19 +21,6 @@
     return self;
 }
 
-- (void)addImage:(NSString *)imageName {
-    self.image = [[UIView alloc]initWithFrame:CGRectMake(0,0,0,0)];
-
-    self.artImage = [UIImage imageNamed:imageName];
-
-    CGAffineTransform rotate = CGAffineTransformMakeRotation(M_PI_2);
-    [self.image setTransform:rotate];
-    [self.image setFrame:CGRectMake(0,0,self.cellDimension,self.cellDimension)];
-    [TAGViewHelpers scaleAndSetBackgroundImageNamed:imageName forView:self.image];
-
-    [self addSubview:self.image];
-}
-
 - (void)awakeFromNib
 {
     // Initialization code
