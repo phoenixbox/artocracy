@@ -324,15 +324,17 @@
     NSUInteger rowCount = [self._proposalChannel.proposals count];
 
     if (rowCount > 0) {
+        self._proposalsTable.backgroundView = nil;
         return rowCount;
     } else {
-        // TODO: Maybe rotate???
         UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
         [TAGViewHelpers formatLabel:messageLabel withCopy:@"no proposals have been made"];
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
         [messageLabel sizeToFit];
+
+        [TAGViewHelpers rotate90Clockwise:messageLabel];
 
         self._proposalsTable.backgroundView = messageLabel;
     }
@@ -348,11 +350,15 @@
             TAGProposal *proposal = [self._proposalChannel.proposals objectAtIndex:[indexPath row]];
 
             UIImage *img = [TAGViewHelpers imageForURL:proposal.imageUrl];
+            [cell setArtImage:img];
 
             [backgroundImage setImage:img];
         }
         [cell setBackgroundView:backgroundImage];
+        // Rotate the image in the cell
+        [TAGViewHelpers rotate90Clockwise:cell.backgroundView];
         [cell.backgroundView setContentMode:UIViewContentModeScaleAspectFit];
+
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     return cell;

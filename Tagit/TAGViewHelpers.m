@@ -77,4 +77,9 @@
     return [UIImage imageWithData:data];
 }
 
++ (void)rotate90Clockwise:(UIView *)object {
+    CGAffineTransform rotate = CGAffineTransformMakeRotation(M_PI_2);
+    [object setTransform:rotate];
+}
+
 @end

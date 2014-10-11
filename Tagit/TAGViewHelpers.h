@@ -31,4 +31,6 @@
 
 + (UIImage *)imageForURL:(NSString *)imageURL;
 
++ (void)rotate90Clockwise:(UIView *)object;
+
 @end
