@@ -217,22 +217,27 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return [self._suggestionChannel.suggestions count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    // Suggestions
     if ([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
         TAGProfileTableSuggestionCell *cell = (TAGProfileTableSuggestionCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableSuggestionCellIdentifier];
 
-        if([tableView isEqual:self._tableView]){
-            cell = [[TAGProfileTableSuggestionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableSuggestionCellIdentifier];
+        if([tableView isEqual:self._tableView]) {
+            if (self._suggestionChannel.suggestions.count > 0) {
+                TAGSuggestion *suggestion = [self._suggestionChannel.suggestions objectAtIndex:[indexPath row]];
+                cell = [[TAGProfileTableSuggestionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableFavoriteCellIdentifier forModel:suggestion];
+            }
 
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
 
         return cell;
     } else {
+    // Favorites
         TAGProfileTableFavoriteCell *cell = (TAGProfileTableFavoriteCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableFavoriteCellIdentifier];
 
         if([tableView isEqual:self._tableView]){
@@ -346,7 +351,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
             [backgroundImage setImage:img];
         }
     } else {
-        // Refactor to use the right channel per collection identifier
+        // TODO: Favorites channel
     }
 
     [cell setBackgroundView:backgroundImage];

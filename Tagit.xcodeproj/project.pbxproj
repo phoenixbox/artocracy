@@ -350,6 +350,8 @@
 		CB068140198EA9DB00B13E49 /* Pieces */ = {
 			isa = PBXGroup;
 			children = (
+				CBD3D2E619B2D67D00A2DE75 /* TAGPieceDetailViewController.h */,
+				CBD3D2E719B2D67D00A2DE75 /* TAGPieceDetailViewController.m */,
 				CB9BC69819BCFD7500BE0EFC /* TAGPiecesViewController.h */,
 				CB9BC69919BCFD7500BE0EFC /* TAGPiecesViewController.m */,
 				CB068141198EA9EF00B13E49 /* TAGPieceViewControllerDEP.h */,
@@ -649,10 +651,6 @@
 		CBD3D2E519B2D62900A2DE75 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				CBD3D2E619B2D67D00A2DE75 /* TAGPieceDetailViewController.h */,
-				CBD3D2E719B2D67D00A2DE75 /* TAGPieceDetailViewController.m */,
-				CBD3D2EB19B58BF700A2DE75 /* TAGSuggestionDetailViewController.h */,
-				CBD3D2EC19B58BF700A2DE75 /* TAGSuggestionDetailViewController.m */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -660,6 +658,8 @@
 		CBDA9A0F1996C30A00E8AD31 /* Suggestion */ = {
 			isa = PBXGroup;
 			children = (
+				CBD3D2EB19B58BF700A2DE75 /* TAGSuggestionDetailViewController.h */,
+				CBD3D2EC19B58BF700A2DE75 /* TAGSuggestionDetailViewController.m */,
 				CBDA9A101996C4D700E8AD31 /* TAGSuggestionViewController.h */,
 				CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewController.m */,
 				CBDA9A3419982CA200E8AD31 /* TAGMapViewController.h */,
