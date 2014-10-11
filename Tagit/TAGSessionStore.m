@@ -13,10 +13,6 @@
 
 @implementation TAGSessionStore
 
-+(JSONKeyMapper*)keyMapper {
-    return [JSONKeyMapper mapperFromUnderscoreCaseToCamelCase];
-}
-
 + (TAGSessionStore *)sharedStore {
     static TAGSessionStore *sessionStore = nil;
 
