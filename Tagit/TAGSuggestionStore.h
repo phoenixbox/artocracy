@@ -11,6 +11,7 @@
 // Data Layer
 #import "TAGSuggestion.h"
 #import "TAGSuggestionChannel.h"
+#import "TAGProposalChannel.h"
 
 // AmazonS3 video
 #import <AWSS3/AWSS3.h>
@@ -33,5 +34,7 @@
 - (void)createSuggestion:(NSMutableDictionary *)parameters withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))returnToUserProfile;
 
 - (void)fetchSuggestionsWithCompletion:(void (^)(TAGSuggestionChannel *suggestionChannel, NSError *err))block;
+
+- (void)fetchProposalsForSuggestion:(NSNumber *)suggestionId withCompletionBlock:(void (^)(TAGProposalChannel *feedChannel, NSError *err))block;
 
 @end
