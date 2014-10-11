@@ -308,7 +308,9 @@
                                                                    yCoord,
                                                                    100.0f,
                                                                    20.0f)];
-    NSAttributedString *proposalCount = [TAGViewHelpers attributeText:@"10" forFontSize:12.0f];
+
+    NSString *count = [NSString stringWithFormat:@"%tu", [self._proposalChannel.proposals count]];
+    NSAttributedString *proposalCount = [TAGViewHelpers attributeText:count forFontSize:12.0f];
     [self._proposalCount setAttributedText:proposalCount];
 
     [self.view addSubview:self._proposalTitle];
