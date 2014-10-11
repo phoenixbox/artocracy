@@ -23,10 +23,22 @@
 #define kAPITagsIndex @"http://192.168.1.114:3000/api/v1/tags"
 #define kAPISuggestionsCreate @"http://192.168.1.114:3000/api/v1/suggestions"
 #define kAPISuggestionsIndex @"http://192.168.1.114:3000/api/v1/suggestions"
+#define kAPIProposalSuggestionsIndex @"http://192.168.1.114:3000/api/v1/suggestions/"
+
+// Tethered
+//172.20.10.2
+//#define kAPIUserLogin @"http://172.20.10.15:3000/api/v1/users/login"
+//#define kAPITagsIndex @"http://172.20.10.15:3000/api/v1/tags"
+//#define kAPISuggestionsCreate @"http://172.20.10.15:3000/api/v1/suggestions"
+//#define kAPISuggestionsIndex @"http://172.20.10.15:3000/api/v1/suggestions"
+//#define kAPIProposalSuggestionsIndex @"http://172.20.10.15:3000/api/v1/suggestions/"
 
 // Localhost
 //#define kAPIUserLogin @"http://0.0.0.0:3000/api/v1/users/login"
 //#define kAPITagsIndex @"http://0.0.0.0:3000/api/v1/tags"
 //#define kAPISuggestionsCreate @"http://0.0.0.0:3000/api/v1/suggestions"
+//#define kAPISuggestionsIndex @"http://0.0.0.0:3000/api/v1/suggestions"
+//#define kAPIProposalSuggestionsIndex @"http://0.0.0.0:3000/api/v1/suggestions/"
+
 
 #endif
