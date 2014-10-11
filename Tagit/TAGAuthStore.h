@@ -12,4 +12,6 @@
 
 + (NSString *)authenticateRequest:(NSString *)requestURL;
 
++ (NSString *)authenticateRequest:(NSString *)requestURL withURLSegment:(NSString *)urlSegment;
+
 @end

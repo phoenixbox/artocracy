@@ -25,4 +25,21 @@
     return requestURL;
 }
 
++ (NSString *)authenticateRequest:(NSString *)requestURL withURLSegment:(NSString *)urlSegment {
+    if (urlSegment) {
+        requestURL = [requestURL stringByAppendingString:urlSegment];
+    }
+    TAGSessionStore *session = [TAGSessionStore sharedStore];
+    NSString *email = session.email;
+    NSString *token = session.authenticationToken;
+
+    requestURL = [requestURL stringByAppendingString:(@"?email=")];
+    requestURL = [requestURL stringByAppendingString:email];
+    requestURL = [requestURL stringByAppendingString:(@"&authentication_token=")];
+    requestURL = [requestURL stringByAppendingString:token];
+
+    return requestURL;
+
+}
+
 @end
