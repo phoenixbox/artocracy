@@ -23,7 +23,11 @@
 #define kAPITagsIndex @"http://192.168.1.114:3000/api/v1/tags"
 #define kAPISuggestionsCreate @"http://192.168.1.114:3000/api/v1/suggestions"
 #define kAPISuggestionsIndex @"http://192.168.1.114:3000/api/v1/suggestions"
-#define kAPIProposalSuggestionsIndex @"http://192.168.1.114:3000/api/v1/suggestions/"
+#define kAPIProposalSuggestionsIndex @"http://192.168.1.114:3000/api/v1/suggestions"
+
+#define kAPIUpvoted @"http://192.168.1.114:3000/api/v1/upvoted"
+#define kAPIUpvoteCreate @"http://192.168.1.114:3000/api/v1/upvotes"
+#define kAPIUpvoteDestroy @"http://192.168.1.114:3000/api/v1/upvotes"
 
 // Tethered
 //172.20.10.2
