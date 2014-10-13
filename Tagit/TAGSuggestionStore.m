@@ -104,7 +104,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
-    NSString *urlSegment = [[NSString alloc] initWithFormat:@"%@/proposal_suggestions", suggestionId];
+    NSString *urlSegment = [[NSString alloc] initWithFormat:@"/%@/proposal_suggestions", suggestionId];
     NSString *requestURL = [TAGAuthStore authenticateRequest:kAPIProposalSuggestionsIndex withURLSegment:urlSegment];
 
     [manager GET:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -116,7 +116,6 @@
         NSLog(@"Error: %@", error);
     }];
 }
-
 
 #pragma AmazonServiceRequest Protocol Methods
 
