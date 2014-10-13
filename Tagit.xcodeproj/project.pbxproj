@@ -24,6 +24,8 @@
 		CB068163198ED08400B13E49 /* TAGPieceChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB068162198ED08400B13E49 /* TAGPieceChannel.m */; };
 		CB0681691991FCF100B13E49 /* TAGTagTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0681681991FCF100B13E49 /* TAGTagTableViewCell.m */; };
 		CB06816E1995D75C00B13E49 /* ape_do_good_printing_SF@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB06816D1995D75C00B13E49 /* ape_do_good_printing_SF@2x.png */; };
+		CB0B536319EB49C600490218 /* TAGUpvoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0B536219EB49C600490218 /* TAGUpvoteStore.m */; };
+		CB0B536619EB4BC100490218 /* TAGUpvote.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0B536519EB4BC100490218 /* TAGUpvote.m */; };
 		CB0C3E0E19C6099900C58D9D /* TAGContributeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB0C3E0D19C6099800C58D9D /* TAGContributeViewController.m */; };
 		CB0C3E1119C60C1000C58D9D /* TAGSuggestionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB0C3E1019C60C1000C58D9D /* TAGSuggestionCell.xib */; };
 		CB0C3E1319C60C2C00C58D9D /* TAGSuggestionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB0C3E1219C60C2C00C58D9D /* TAGSuggestionHeader.xib */; };
@@ -160,6 +162,10 @@
 		CB0681671991FCF100B13E49 /* TAGTagTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGTagTableViewCell.h; sourceTree = "<group>"; };
 		CB0681681991FCF100B13E49 /* TAGTagTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGTagTableViewCell.m; sourceTree = "<group>"; };
 		CB06816D1995D75C00B13E49 /* ape_do_good_printing_SF@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ape_do_good_printing_SF@2x.png"; sourceTree = "<group>"; };
+		CB0B536119EB49C600490218 /* TAGUpvoteStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGUpvoteStore.h; sourceTree = "<group>"; };
+		CB0B536219EB49C600490218 /* TAGUpvoteStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGUpvoteStore.m; sourceTree = "<group>"; };
+		CB0B536419EB4BC100490218 /* TAGUpvote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGUpvote.h; sourceTree = "<group>"; };
+		CB0B536519EB4BC100490218 /* TAGUpvote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGUpvote.m; sourceTree = "<group>"; };
 		CB0C3E0C19C6099800C58D9D /* TAGContributeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGContributeViewController.h; sourceTree = "<group>"; };
 		CB0C3E0D19C6099800C58D9D /* TAGContributeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGContributeViewController.m; sourceTree = "<group>"; };
 		CB0C3E1019C60C1000C58D9D /* TAGSuggestionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGSuggestionCell.xib; sourceTree = "<group>"; };
@@ -351,6 +357,8 @@
 				CBDA9A4B199B202400E8AD31 /* TAGSuggestionStore.m */,
 				CBCA725219E8DC8F005695F4 /* TAGProposalStore.h */,
 				CBCA725319E8DC8F005695F4 /* TAGProposalStore.m */,
+				CB0B536119EB49C600490218 /* TAGUpvoteStore.h */,
+				CB0B536219EB49C600490218 /* TAGUpvoteStore.m */,
 			);
 			name = Stores;
 			sourceTree = "<group>";
@@ -377,6 +385,8 @@
 				CBDA9A4F199B203D00E8AD31 /* TAGSuggestion.m */,
 				CBCA724F19E8DB2C005695F4 /* TAGProposal.h */,
 				CBCA725019E8DB2C005695F4 /* TAGProposal.m */,
+				CB0B536419EB4BC100490218 /* TAGUpvote.h */,
+				CB0B536519EB4BC100490218 /* TAGUpvote.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -982,6 +992,7 @@
 				CB33FD7D19C2AA0F0017F4EF /* TAGPieceCell.m in Sources */,
 				CB068160198ED06300B13E49 /* TAGPiece.m in Sources */,
 				CB06815C198ECED200B13E49 /* TAGPieceStore.m in Sources */,
+				CB0B536319EB49C600490218 /* TAGUpvoteStore.m in Sources */,
 				CB068143198EA9EF00B13E49 /* TAGPieceViewControllerDEP.m in Sources */,
 				CBCA725419E8DC8F005695F4 /* TAGProposalStore.m in Sources */,
 				CBEA9E6419D741EA0009C6F9 /* TAGProfileTableViewCell.m in Sources */,
@@ -989,6 +1000,7 @@
 				CB6DA4EB19A47AAD00BB71EE /* TAGCollectionControls.m in Sources */,
 				CBCA724E19E8DAEA005695F4 /* TAGProposalChannel.m in Sources */,
 				CBFA22EF19BBAC44001B4286 /* TAGSuggestionDetailsSection.m in Sources */,
+				CB0B536619EB4BC100490218 /* TAGUpvote.m in Sources */,
 				CBD4DCEC19A482620024209D /* TAGCollectionView.m in Sources */,
 				CB6DA4E819A478CC00BB71EE /* TAGProfileHeader.m in Sources */,
 				CBDA9A50199B203D00E8AD31 /* TAGSuggestion.m in Sources */,
