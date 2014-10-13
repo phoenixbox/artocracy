@@ -10,16 +10,6 @@
 
 @implementation TAGProposal
 
-//+(JSONKeyMapper*)keyMapper
-//{
-//    return [[JSONKeyMapper alloc] initWithDictionary:@{
-//                                                       @"id": @"id",
-//                                                       @"proposer_id": @"proposerId",
-//                                                       @"vote_count": @"voteCount",
-//                                                       @"image_url": @"imageUrl"
-//                                                       }];
-//}
-
 + (JSONKeyMapper*)keyMapper {
     return [JSONKeyMapper mapperFromUnderscoreCaseToCamelCase];
 }
