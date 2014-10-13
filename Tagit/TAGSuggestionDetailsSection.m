@@ -12,24 +12,41 @@
 #import "TAGStyleConstants.h"
 #import "TAGCopyConstants.h"
 
+// Components
+#import "TAGErrorAlert.h"
+
 // Helpers
 #import "TAGViewHelpers.h"
 
+// Data Layer
+#import "TAGSuggestionStore.h"
+#import "TAGSessionStore.h"
+#import "TAGUpvoteStore.h"
+#import "TAGUpvote.h"
+
 @implementation TAGSuggestionDetailsSection
 
-- (id)initWithFrame:(CGRect)frame forSuggestion:(TAGSuggestion *)suggestion withBlock:(void (^)(BOOL selected))actionBlock {
+- (id)initWithFrame:(CGRect)frame forSuggestion:(TAGSuggestion *)suggestion {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         self.labelWidth = 149.0f;
         self.suggestion = suggestion;
-        self.actionBlock = actionBlock;
 
         [self renderCanvasInfo];
-        [self renderFavoriteButton];
+
+        if ([self shouldRenderUpvoteButton]) {
+            [self renderUpvoteButton];
+        }
+
         [self renderLocationInfo];
     }
     return self;
+}
+
+- (BOOL)shouldRenderUpvoteButton {
+    TAGSessionStore *session = [TAGSessionStore sharedStore];
+    return [self.suggestion.suggestorId isEqualToNumber:session.id];
 }
 
 - (void)renderCanvasInfo {
@@ -56,39 +73,79 @@
     [self addSubview:self.canvasType];
 }
 
-- (void)renderFavoriteButton {
-    float yCoord = self.canvasTypeTitle.frame.origin.y + (((CGRectGetMaxY(self.canvasType.frame) - self.canvasTypeTitle.frame.origin.y)/2));
-    self.favoriteButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f,
-                                                                      0.0f,
-                                                                      40.0f,
-                                                                      40.0f)];
-    CGPoint buttonCenter = CGPointMake(self.frame.size.width/2, yCoord);
-    [self.favoriteButton setCenter:buttonCenter];
-    [self.favoriteButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+- (void)renderUpvoteButton {
+    [self buildUpvoteButton];
 
-
-
-    self.favoriteButton.layer.cornerRadius = self.favoriteButton.frame.size.width/2;
-    self.favoriteButton.layer.masksToBounds = YES;
-
-    [self.favoriteButton setBackgroundImage:[UIImage imageNamed:@"heartUnselected.png"] forState:UIControlStateNormal];
-    [self.favoriteButton setBackgroundImage:[UIImage imageNamed:@"heartSelected.png"] forState:UIControlStateSelected];
-
-    [self addSubview:self.favoriteButton];
+    [self getUpvoteState];
 }
 
-- (void)buttonTapped:(UIButton *)paramSender {
-    if(!paramSender.selected) {
-        [paramSender setSelected:YES];
-        self.actionBlock(true);
+- (void)buildUpvoteButton {
+    float yCoord = self.canvasTypeTitle.frame.origin.y + (((CGRectGetMaxY(self.canvasType.frame) - self.canvasTypeTitle.frame.origin.y)/2));
+    self.actionButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f,
+                                                                   0.0f,
+                                                                   40.0f,
+                                                                   40.0f)];
+    CGPoint buttonCenter = CGPointMake(self.frame.size.width/2, yCoord);
+    [self.actionButton setCenter:buttonCenter];
+    [self.actionButton addTarget:self action:@selector(upvoteButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+
+    self.actionButton.layer.cornerRadius = self.actionButton.frame.size.width/2;
+    self.actionButton.layer.masksToBounds = YES;
+
+    [self.actionButton setBackgroundImage:[UIImage imageNamed:@"upvoteUnselected.png"] forState:UIControlStateNormal];
+    [self.actionButton setBackgroundImage:[UIImage imageNamed:@"upvoteSelected.png"] forState:UIControlStateSelected];
+}
+
+- (void)getUpvoteState {
+    void(^completionBlock)(TAGUpvote *upvote, NSError *err)=^(TAGUpvote *upvote, NSError *err) {
+        if(!err){
+            self.upvote = upvote;
+            self.actionButton.selected = YES;
+        } else {
+            self.actionButton.selected = NO;
+        }
+        [self addSubview:self.actionButton];
+    };
+
+    [[TAGUpvoteStore sharedStore] getUpvoteForSuggestion:self.suggestion.id withCompletionBlock:completionBlock];
+}
+
+- (void)upvoteButtonTapped:(UIButton *)button {
+    if (!button.selected){
+        [self upvoteSuggestion:button];
     } else {
-        [paramSender setSelected:NO];
-        self.actionBlock(false);
+        [self removeSuggestionUpvote:button];
     }
 }
 
+- (void)upvoteSuggestion:(UIButton *)button {
+    void(^completionBlock)(TAGUpvote *upvote, NSError *err)=^(TAGUpvote *upvote, NSError *err) {
+        if(!err){
+            self.upvote = upvote;
+            self.actionButton.selected = YES;
+        } else {
+            [TAGErrorAlert render:err];
+        }
+    };
+
+    [[TAGUpvoteStore sharedStore] createUpvoteForSuggestion:self.suggestion.id withCompletionBlock:completionBlock];
+}
+
+- (void)removeSuggestionUpvote:(UIButton *)button {
+    void(^completionBlock)(BOOL upvoted, NSError *err)=^(BOOL upvoted, NSError *err){
+        if(!err){
+            self.upvote = nil;
+            self.actionButton.selected = NO;
+        } else {
+            [TAGErrorAlert render:err];
+        }
+    };
+
+    [[TAGUpvoteStore sharedStore] destroyUpvote:self.upvote.id withCompletionBlock:completionBlock];
+}
+
 - (void)renderLocationInfo {
-    float xCoord = CGRectGetMaxX(self.favoriteButton.frame) + kSmallPadding;
+    float xCoord = CGRectGetMaxX(self.actionButton.frame) + kSmallPadding;
 
     self.canvasTypeTitle = [[UILabel alloc]initWithFrame:CGRectMake(xCoord,
                                                                     kSmallPadding,
@@ -114,7 +171,7 @@
 
     NSUInteger labelCount = [labels count];
 
-    float xOrigin = CGRectGetMaxX(self.favoriteButton.frame) + 5.0f;
+    float xOrigin = CGRectGetMaxX(self.actionButton.frame) + 5.0f;
 
     for (int i=0; i<labelCount; i++) {
         float yOrigin;
