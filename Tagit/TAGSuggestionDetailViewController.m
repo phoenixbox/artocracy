@@ -250,6 +250,7 @@
     void(^completionBlock)(TAGProposalChannel *obj, NSError *err)=^(TAGProposalChannel *obj, NSError *err){
         if(!err){
             self._proposalChannel = obj;
+            [self updateProposalsCountLabel];
             [self._proposalsTable reloadData];
         } else {
             [TAGErrorAlert render:err];
@@ -301,12 +302,16 @@
                                                                    100.0f,
                                                                    20.0f)];
 
-    NSString *count = [NSString stringWithFormat:@"%tu", [self._proposalChannel.proposals count]];
-    NSAttributedString *proposalCount = [TAGViewHelpers attributeText:count forFontSize:12.0f];
-    [self._proposalCount setAttributedText:proposalCount];
+    [self updateProposalsCountLabel];
 
     [self.view addSubview:self._proposalTitle];
     [self.view addSubview:self._proposalCount];
+}
+
+- (void)updateProposalsCountLabel {
+    NSString *count = [NSString stringWithFormat:@"%tu", [self._proposalChannel.proposals count]];
+    NSAttributedString *proposalCount = [TAGViewHelpers attributeText:count forFontSize:12.0f];
+    [self._proposalCount setAttributedText:proposalCount];
 }
 
 #pragma UITableViewDelgate
