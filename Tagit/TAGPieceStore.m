@@ -8,7 +8,6 @@
 
 #import "TAGPieceStore.h"
 #import "TAGAuthStore.h"
-#import "TAGPieceChannel.h"
 
 #import "TAGRoutesConstants.h"
 #import "AFNetworking.h"
@@ -35,9 +34,25 @@
 
         block(pieceChannel, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        block(nil, error);
     }];
 }
 
+- (void)fetchFavoritesForUser:(NSNumber *)userId WithCompletion:(void (^)(TAGFavoriteChannel *feedChannel, NSError *err))block {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPITagsFavorites];
+    NSDictionary *favoritesParams = @{@"user_id": userId};
+
+    [manager GET:requestURL parameters:favoritesParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        TAGFavoriteChannel *favoriteChannel = [[TAGFavoriteChannel alloc] initWithString:rawJSON error:nil];
+
+        block(favoriteChannel, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        block(nil, error);
+    }];
+}
 
 @end
