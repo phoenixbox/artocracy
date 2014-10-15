@@ -46,7 +46,7 @@
 
 - (BOOL)shouldRenderUpvoteButton {
     TAGSessionStore *session = [TAGSessionStore sharedStore];
-    return [self.suggestion.suggestorId isEqualToNumber:session.id];
+    return ![self.suggestion.suggestorId isEqualToNumber:session.id];
 }
 
 - (void)renderCanvasInfo {
