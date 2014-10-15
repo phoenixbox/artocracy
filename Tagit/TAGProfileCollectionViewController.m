@@ -29,8 +29,13 @@
 #import "URBMediaFocusViewController.h"
 
 // Data Layer
+#import "TAGSessionStore.h"
 #import "TAGSuggestionStore.h"
 #import "TAGSuggestionChannel.h"
+#import "TAGPieceStore.h"
+#import "TAGFavoriteChannel.h"
+#import "TAGPieceChannel.h"
+#import "TAGPiece.h"
 
 NSString *const kCollectionViewPresenter = @"CollectionView";
 NSString *const kTableViewPresenter = @"TableView";
@@ -55,6 +60,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 @property (nonatomic, strong) UIActivityIndicatorView *_activityIndicator;
 
 @property (nonatomic, strong) TAGSuggestionChannel *_suggestionChannel;
+@property (nonatomic, strong) TAGFavoriteChannel *_favoriteChannel;
 
 @end
 
@@ -67,12 +73,12 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
         // Custom initialization
         self._presenterType = kCollectionViewPresenter;
         self._currentTableViewCellIdentifier = kProfileTableSuggestionCellIdentifier;
-        [self fetchCollectionData];
+        [self fetchSuggestionsData];
     }
     return self;
 }
 
-- (void)fetchCollectionData {
+- (void)fetchSuggestionsData {
     self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
 
     void(^completionBlock)(TAGSuggestionChannel *obj, NSError *err)=^(TAGSuggestionChannel *obj, NSError *err){
@@ -87,6 +93,24 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 
     [[TAGSuggestionStore sharedStore] fetchSuggestionsWithCompletion:completionBlock];
 }
+
+- (void)fetchFavoritesData {
+    self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
+
+    void(^completionBlock)(TAGFavoriteChannel *obj, NSError *err)=^(TAGFavoriteChannel *obj, NSError *err){
+        if(!err){
+            self._favoriteChannel = obj;
+            [self._collectionView reloadData];
+        } else {
+            [TAGErrorAlert render:err];
+        }
+        [self._activityIndicator stopAnimating];
+    };
+
+    TAGSessionStore *sessionStore = [TAGSessionStore sharedStore];
+    [[TAGPieceStore sharedStore] fetchFavoritesForUser:sessionStore.id WithCompletion:completionBlock];
+}
+
 
 - (void)viewDidLoad
 {
@@ -112,17 +136,21 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
                [presenterView chooseCollectionPresenter:kListToggle];
            },
            kSuggestionsToggle : ^{
-               if ([self tableViewExists]) {
+               if ([self tableViewExists]) { // Table View
                    if ([self shouldToggleToCell:kProfileTableSuggestionCellIdentifier]) {
                        [self toggleTableViewCellsTo:kProfileTableSuggestionCellIdentifier];
                    }
-               } else {
+               } else {                      // Collection View
                    self._currentTableViewCellIdentifier = kProfileTableSuggestionCellIdentifier;
                    [self buildCollectionView];
                    NSLog(@"FILTER COLLECTION TO SUGGESTIONS!");
                }
            },
            kFavoritesToggle : ^{
+               if (self._favoriteChannel == nil) {
+                   [self fetchFavoritesData];
+               }
+
                if ([self tableViewExists]) {
                    if ([self shouldToggleToCell:kProfileTableFavoriteCellIdentifier]) {
                        [self toggleTableViewCellsTo:kProfileTableFavoriteCellIdentifier];
@@ -130,7 +158,6 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
                } else {
                    self._currentTableViewCellIdentifier = kProfileTableFavoriteCellIdentifier;
                    [self buildCollectionView];
-
                    NSLog(@"FILTER COLLECTION TO FAVORITES!");
                }
            },
@@ -223,7 +250,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     // Suggestions
-    if ([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
+    if ([self suggestionsActive]) {
         TAGProfileTableSuggestionCell *cell = (TAGProfileTableSuggestionCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableSuggestionCellIdentifier];
 
         if([tableView isEqual:self._tableView]) {
@@ -241,8 +268,11 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
         TAGProfileTableFavoriteCell *cell = (TAGProfileTableFavoriteCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableFavoriteCellIdentifier];
 
         if([tableView isEqual:self._tableView]){
-            // Cell should accept the appropriate model which it will use to pull off the attrs
-            cell = [[TAGProfileTableFavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableFavoriteCellIdentifier forModel:@{}];
+            if (self._favoriteChannel.favorites.count > 0) {
+                TAGFavorite *favorite = [self._favoriteChannel.favorites objectAtIndex:[indexPath row]];
+
+                cell = [[TAGProfileTableFavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableFavoriteCellIdentifier forFavorite:favorite];
+            }
 
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
@@ -259,7 +289,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //  Init the detail view controller
-    if ([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
+    if ([self suggestionsActive]) {
         TAGSuggestionDetailViewController *suggestionDetailController = [[TAGSuggestionDetailViewController alloc]init];
 
         // Retrieve the right model
@@ -275,6 +305,14 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
         TAGPieceDetailViewController *pieceDetailViewController = [[TAGPieceDetailViewController alloc]init];
         [[self navigationController] pushViewController:pieceDetailViewController animated:YES];
     }
+}
+
+- (BOOL)suggestionsActive {
+    return [self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier];
+}
+
+- (BOOL)favoritesActive {
+    return [self._currentTableViewCellIdentifier isEqual:kProfileTableFavoriteCellIdentifier];
 }
 
 - (void)buildCollectionView {
@@ -339,10 +377,8 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     TAGCollectionViewCell *cell = (TAGCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kCollectionCellIdentifier forIndexPath:indexPath];
 
-    // TODO: Visual differentiatior to be replaced by varied data type retrieval
     UIImageView *backgroundImage = [UIImageView new];
-    if([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
-
+    if([self suggestionsActive]) {
         if (self._suggestionChannel.suggestions.count > 0) {
             TAGSuggestion *suggestion = [self._suggestionChannel.suggestions objectAtIndex:[indexPath row]];
 
@@ -351,7 +387,13 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
             [backgroundImage setImage:img];
         }
     } else {
-        // TODO: Favorites channel
+        if (self._favoriteChannel.favorites.count > 0) {
+            TAGFavorite *favorite = [self._favoriteChannel.favorites objectAtIndex:[indexPath row]];
+
+            UIImage *img = [TAGViewHelpers imageForURL:favorite.imageUrl];
+
+            [backgroundImage setImage:img];
+        }
     }
 
     [cell setBackgroundView:backgroundImage];
@@ -361,7 +403,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    if([self._currentTableViewCellIdentifier isEqual:kProfileTableSuggestionCellIdentifier]) {
+    if([self suggestionsActive]) {
         TAGSuggestionDetailViewController *suggestionDetailController = [[TAGSuggestionDetailViewController alloc]init];
 
         // Retrieve the right model

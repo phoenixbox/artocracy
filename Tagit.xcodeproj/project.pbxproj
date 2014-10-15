@@ -44,6 +44,8 @@
 		CB2673BC198DE3FA00CB02A1 /* TagitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2673BB198DE3FA00CB02A1 /* TagitTests.m */; };
 		CB2673CB198DEA3500CB02A1 /* TAGLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2673CA198DEA3500CB02A1 /* TAGLoginViewController.m */; };
 		CB33FD7D19C2AA0F0017F4EF /* TAGPieceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB33FD7C19C2AA0F0017F4EF /* TAGPieceCell.m */; };
+		CB4237D019EC349300FB9442 /* TAGFavoriteChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4237CF19EC349300FB9442 /* TAGFavoriteChannel.m */; };
+		CB4237D319EC34D400FB9442 /* TAGFavorite.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4237D219EC34D400FB9442 /* TAGFavorite.m */; };
 		CB615CF91995F4FB00624A8F /* profile_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB615CF81995F4FB00624A8F /* profile_photo@2x.png */; };
 		CB6DA4DE19A3270900BB71EE /* TAGProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6DA4DD19A3270900BB71EE /* TAGProfileViewController.m */; };
 		CB6DA4E119A32A4800BB71EE /* profileSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB6DA4DF19A32A4800BB71EE /* profileSelected@2x.png */; };
@@ -193,6 +195,10 @@
 		CB2673D0198DF06900CB02A1 /* TAGStyleConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAGStyleConstants.h; sourceTree = "<group>"; };
 		CB33FD7B19C2AA0F0017F4EF /* TAGPieceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGPieceCell.h; sourceTree = "<group>"; };
 		CB33FD7C19C2AA0F0017F4EF /* TAGPieceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGPieceCell.m; sourceTree = "<group>"; };
+		CB4237CE19EC349300FB9442 /* TAGFavoriteChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGFavoriteChannel.h; sourceTree = "<group>"; };
+		CB4237CF19EC349300FB9442 /* TAGFavoriteChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGFavoriteChannel.m; sourceTree = "<group>"; };
+		CB4237D119EC34D400FB9442 /* TAGFavorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGFavorite.h; sourceTree = "<group>"; };
+		CB4237D219EC34D400FB9442 /* TAGFavorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGFavorite.m; sourceTree = "<group>"; };
 		CB615CF81995F4FB00624A8F /* profile_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_photo@2x.png"; sourceTree = "<group>"; };
 		CB6DA4DC19A3270900BB71EE /* TAGProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGProfileViewController.h; sourceTree = "<group>"; };
 		CB6DA4DD19A3270900BB71EE /* TAGProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGProfileViewController.m; sourceTree = "<group>"; };
@@ -387,6 +393,8 @@
 				CBCA725019E8DB2C005695F4 /* TAGProposal.m */,
 				CB0B536419EB4BC100490218 /* TAGUpvote.h */,
 				CB0B536519EB4BC100490218 /* TAGUpvote.m */,
+				CB4237D119EC34D400FB9442 /* TAGFavorite.h */,
+				CB4237D219EC34D400FB9442 /* TAGFavorite.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -643,6 +651,8 @@
 				CBAA97D019E25C5F0023B3B7 /* TAGSuggestionChannel.m */,
 				CBCA724C19E8DAEA005695F4 /* TAGProposalChannel.h */,
 				CBCA724D19E8DAEA005695F4 /* TAGProposalChannel.m */,
+				CB4237CE19EC349300FB9442 /* TAGFavoriteChannel.h */,
+				CB4237CF19EC349300FB9442 /* TAGFavoriteChannel.m */,
 			);
 			name = Channels;
 			sourceTree = "<group>";
@@ -972,6 +982,7 @@
 				CBDA9A3F1998437B00E8AD31 /* TAGMapAnnotation.m in Sources */,
 				CBDA9A4C199B202400E8AD31 /* TAGSuggestionStore.m in Sources */,
 				CB6DA4DE19A3270900BB71EE /* TAGProfileViewController.m in Sources */,
+				CB4237D019EC349300FB9442 /* TAGFavoriteChannel.m in Sources */,
 				CBD3D2D419AEF34F00A2DE75 /* TAGProfileTableFavoriteCell.m in Sources */,
 				CB06813E198E9EB000B13E49 /* TAGAuthStore.m in Sources */,
 				CBAA97D419E3AC040023B3B7 /* TAGMapHelpers.m in Sources */,
@@ -982,6 +993,7 @@
 				CBAA97D119E25C5F0023B3B7 /* TAGSuggestionChannel.m in Sources */,
 				CB9BC69A19BCFD7500BE0EFC /* TAGPiecesViewController.m in Sources */,
 				CB0C3E1619C60CA900C58D9D /* TAGSuggestionCell.m in Sources */,
+				CB4237D319EC34D400FB9442 /* TAGFavorite.m in Sources */,
 				CB068138198E9ABE00B13E49 /* TAGSessionStore.m in Sources */,
 				CB2673A7198DE3FA00CB02A1 /* TAGAppDelegate.m in Sources */,
 				CBC0569019C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m in Sources */,
