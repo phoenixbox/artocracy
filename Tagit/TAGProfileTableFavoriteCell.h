@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+// Data Layer
+#import "TAGFavorite.h"
+
 @interface TAGProfileTableFavoriteCell : UITableViewCell
 
-@property (nonatomic, strong) UIView *image;
+@property (nonatomic, strong) UIView *favoriteImage;
 
 @property (nonatomic, strong) UILabel *artistLabel;
 @property (nonatomic, strong) UILabel *artistName;
@@ -28,7 +31,9 @@
 @property (nonatomic, strong) UILabel *favoritesLabel;
 
 @property (nonatomic, assign) float cellHeight;
+@property (nonatomic, strong) TAGFavorite *favorite;
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forModel:(NSDictionary *)model;
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forFavorite:(TAGFavorite *)favorite;
 
 @end

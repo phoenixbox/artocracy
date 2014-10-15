@@ -16,14 +16,15 @@
 
 @implementation TAGProfileTableFavoriteCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forModel:(NSDictionary *)model
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forFavorite:(TAGFavorite *)favorite {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
         self.cellHeight = 100.0f;
-        [self addImage];
+        self.favorite = favorite;
+
         [self initializeProperties];
+        [self addImage];
         [self addLabels];
         [self addVisualSep];
         [self addFavoritesCounter];
@@ -31,16 +32,8 @@
     return self;
 }
 
-- (void)addImage {
-    CGRect imageFrame = CGRectMake(0, 0, self.cellHeight, self.cellHeight);
-    self.image = [[UIView alloc] initWithFrame:imageFrame];
-
-    [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"open_arms_SF" forView:self.image];
-
-    [self addSubview:self.image];
-}
-
 - (void)initializeProperties {
+    self.favoriteImage = [UIView new];
     self.artistLabel = [UILabel new];
     self.artistName = [UILabel new];
     self.locationLabel = [UILabel new];
@@ -53,12 +46,27 @@
     self.favoritesLabel = [UILabel new];
 }
 
+- (void)addImage {
+    CGRect imageFrame = CGRectMake(0, 0, self.cellHeight, self.cellHeight);
+    [self.favoriteImage setFrame:imageFrame];
+
+    [TAGViewHelpers scaleAndSetRemoteBackgroundImage:self.favorite.imageUrl forView:self.favoriteImage];
+
+    [self addSubview:self.favoriteImage];
+}
+
 - (void)addLabels {
-    NSArray *labels = [[NSArray alloc] initWithObjects:self.artistLabel, self.artistName, self.locationLabel, self.locationName, self.canvasTypeLabel, self.canvasTypeName, nil];
-    NSArray *text = [[NSArray alloc] initWithObjects:@"Artist", @"Lonnie Spoon", @"Location", @"123 Street", @"Canvas Type", @"Commercial Wall", nil];
+    NSArray *labels = [[NSArray alloc] initWithObjects:self.artistLabel,
+                                                       self.artistName,
+                                                       self.locationLabel,
+                                                       self.locationName, nil];
 
-//    NSDictionary *model = [[NSDictionary alloc] initWithObjectsAndKeys:@"Artist",self.artistLabel, @"Artist", self.artistName, @"Artist", self.locationLabel, @"Artist", self.locationName, @"Artist", self.canvasTypeLabel, @"Artist", self.canvasTypeName,nil];
-
+    NSString *address = [NSString stringWithFormat:@"%@ %@ %@", self.favorite.city, self.favorite.state, self.favorite.zipCode];
+    NSArray *text = [[NSArray alloc] initWithObjects:@"Artist",
+                                                     self.favorite.artistName,
+                                                     @"Location",
+                                                     address, nil];
+    // TODO: Favorite should have more location data
     NSUInteger labelCount = [labels count];
 
     float labelHeight = 10.0f;
@@ -113,8 +121,10 @@
                                  counterSq);
 
     [self.counter setFrame:counterRect];
-    [self setLabel:self.counter withTitle:@"7" forFontSize:10.0f];
 
+    NSAttributedString *favoriteCount = [TAGViewHelpers counterString:[self.favorite.favoriteCount stringValue]];
+    [self.counter setAttributedText:favoriteCount];
+    [self addSubview:self.counter];
 
     CGRect iconRect = CGRectMake(self.counter.frame.origin.x + counterSq,
                                yOrigin,
