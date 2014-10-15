@@ -82,4 +82,12 @@
     [object setTransform:rotate];
 }
 
++ (NSAttributedString *)counterString:(NSString *)count {
+    if (!count) {
+        count = @"0";
+    }
+    return [TAGViewHelpers attributeText:count forFontSize:10.0f];
+
+}
+
 @end

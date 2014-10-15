@@ -33,4 +33,6 @@
 
 + (void)rotate90Clockwise:(UIView *)object;
 
++ (NSAttributedString *)counterString:(NSString *)count;
+
 @end
