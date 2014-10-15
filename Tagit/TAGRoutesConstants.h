@@ -21,8 +21,11 @@
 // Golden Gate
 #define kAPIUserLogin @"http://192.168.1.114:3000/api/v1/users/login"
 #define kAPITagsIndex @"http://192.168.1.114:3000/api/v1/tags"
+#define kAPITagsFavorites @"http://192.168.1.114:3000/api/v1/tags/favorites"
+
 #define kAPISuggestionsCreate @"http://192.168.1.114:3000/api/v1/suggestions"
 #define kAPISuggestionsIndex @"http://192.168.1.114:3000/api/v1/suggestions"
+
 #define kAPIProposalSuggestionsIndex @"http://192.168.1.114:3000/api/v1/suggestions"
 
 #define kAPIUpvoted @"http://192.168.1.114:3000/api/v1/upvoted"
