@@ -26,7 +26,7 @@
 @property (nonatomic, strong) NSString *canvasType;
 @property (nonatomic, strong) NSString *latitude;
 @property (nonatomic, strong) NSString *longitude;
-@property (nonatomic, strong) NSString *suggestorEmail;
+@property (nonatomic, strong) NSString *suggestorEmail; // Migrate to username
 @property (nonatomic, strong) NSString *suggestorImageURL;
 
 @end
