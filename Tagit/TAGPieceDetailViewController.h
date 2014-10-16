@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+// Data Layer
+#import "TAGFavorite.h"
+
 @interface TAGPieceDetailViewController : UIViewController <UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource>
+
+- (void)setViewWithFavorite:(TAGFavorite *)favorite;
 
 @end

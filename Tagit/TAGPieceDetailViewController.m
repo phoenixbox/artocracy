@@ -18,9 +18,14 @@
 
 // Components
 #import "TAGLateralTableViewCell.h"
+#import "TAGErrorAlert.h"
 
 // Pods
 #import "URBMediaFocusViewController.h"
+
+// Data Layer
+#import "TAGPieceChannel.h"
+#import "TAGPieceStore.h"
 
 @interface TAGPieceDetailViewController ()
 
@@ -43,6 +48,9 @@
 @property (nonatomic, strong)UIScrollView *_scrollView;
 
 @property (nonatomic, assign) float _cellDimension;
+@property (nonatomic, strong)TAGFavorite *_favorite;
+@property (nonatomic, strong) UIActivityIndicatorView *_activityIndicator;
+@property (nonatomic, strong)TAGPieceChannel *_pieceChannel;
 
 @end
 
@@ -55,6 +63,10 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)setViewWithFavorite:(TAGFavorite *)favorite {
+    self._favorite = favorite;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -78,8 +90,8 @@
     [self renderHeader];
     [self renderDetailImage]; // Common detail functions
     [self renderFavoriteCounter];
-    [self renderArtistAssocWork];
     [self renderActionButtons];
+    [self renderArtistAssocWork];
     [self setScrollViewContentSize];
 }
 
@@ -221,9 +233,62 @@
     [self._scrollView addSubview:self._pieceImage];
 }
 
+- (void)renderActionButtons {
+    [self renderLikeButton];
+    [self renderCommentButton];
+}
+
+- (void)renderLikeButton{
+    float xCoord = self.view.frame.origin.x + kSmallPadding;
+    float yCoord = CGRectGetMaxY(self._pieceImage.frame) + kSmallPadding;
+
+    self._likeButton = [[UIButton alloc] initWithFrame:CGRectMake(xCoord,
+                                                                  yCoord,
+                                                                  50.0f,
+                                                                  20.0f)];
+
+    FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
+    NSMutableAttributedString *heartIcon = [TAGViewHelpers createIcon:heart withColor:[UIColor blackColor]];
+
+    [TAGViewHelpers formatButton:self._likeButton forIcon:heartIcon withCopy:@"Like  "];
+    [self._scrollView addSubview:self._likeButton];
+}
+
+- (void)renderCommentButton{
+    float xCoord = CGRectGetMaxX(self._likeButton.frame) + kSmallPadding;
+    float yCoord = self._likeButton.frame.origin.y;
+
+    self._likeButton = [[UIButton alloc] initWithFrame:CGRectMake(xCoord,
+                                                                  yCoord,
+                                                                  70.0f,
+                                                                  20.0f)];
+    FAKFontAwesome *comment = [FAKFontAwesome commentIconWithSize:10];
+    NSMutableAttributedString *commentIcon = [TAGViewHelpers createIcon:comment withColor:[UIColor blackColor]];
+    [TAGViewHelpers formatButton:self._likeButton forIcon:commentIcon withCopy:@"Comment  "];
+    [self._scrollView  addSubview:self._likeButton];
+}
+
 - (void)renderArtistAssocWork {
     [self renderAssociatedTitle];
     [self renderAssociatedWorkTable];
+    [self fetchArtistsAssociatedWork];
+}
+
+- (void)fetchArtistsAssociatedWork {
+    self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
+
+    void(^completionBlock)(TAGPieceChannel *obj, NSError *err)=^(TAGPieceChannel *obj, NSError *err){
+        if(!err){
+            self._pieceChannel = obj;
+            [self._associatedWorkTable reloadData];
+        } else {
+            [TAGErrorAlert render:err];
+        }
+        [self._activityIndicator stopAnimating];
+    };
+
+    // TODO: Function signatures are inconsistent
+    [[TAGPieceStore sharedStore] fetchAssociatedWorkForArtist:self._favorite.artistId WithCompletion:completionBlock];
 }
 
 - (void)renderAssociatedTitle {
@@ -236,7 +301,7 @@
     self._associatedTitle = [UILabel new];
 
     float xCoord = self.view.frame.origin.x + kSmallPadding;
-    float yCoord = CGRectGetMaxY(self._pieceImage.frame) + kSmallPadding;
+    float yCoord = CGRectGetMaxY(self._likeButton.frame) + kSmallPadding;
 
     [self._associatedTitle setFrame:CGRectMake(xCoord,
                                                yCoord,
@@ -281,15 +346,36 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    NSUInteger rowCount = [self._pieceChannel.pieces count];
+
+    if (rowCount > 0) {
+        self._associatedWorkTable.backgroundView = nil;
+        return rowCount;
+    } else {
+        self._associatedWorkTable.backgroundView = [TAGViewHelpers emptyTableMessage:@"this artist has no associated work" forView:self.view];
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TAGLateralTableViewCell *cell = (TAGLateralTableViewCell *)[tableView dequeueReusableCellWithIdentifier:kTAGLateralTableViewCellIdentifier];
+    TAGLateralTableViewCell *cell = [[TAGLateralTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTAGLateralTableViewCellIdentifier forCellDimension:self._cellDimension];
 
     if([tableView isEqual:self._associatedWorkTable]){
-        cell = [[TAGLateralTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTAGLateralTableViewCellIdentifier forCellDimension:self._cellDimension];
-        [cell addImage:@"open_arms_SF.png"];
+        UIImageView *backgroundImage = [UIImageView new];
+        if ([self._pieceChannel.pieces count] > 0) {
+            TAGPiece *piece = [self._pieceChannel.pieces objectAtIndex:[indexPath row]];
+
+            UIImage *img = [TAGViewHelpers imageForURL:piece.imageUrl];
+            [cell setArtImage:img];
+
+            [backgroundImage setImage:img];
+        }
+        [cell setBackgroundView:backgroundImage];
+
+        // Rotate the image in the cell
+        [TAGViewHelpers rotate90Clockwise:cell.backgroundView];
+        [cell.backgroundView setContentMode:UIViewContentModeScaleAspectFit];
+
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     return cell;
@@ -305,42 +391,6 @@
     self._lightboxViewController.shouldShowPhotoActions = YES;
     TAGLateralTableViewCell *targetCell = (TAGLateralTableViewCell *)[self._associatedWorkTable cellForRowAtIndexPath:indexPath];
     [self._lightboxViewController showImage:targetCell.artImage fromView:targetCell];
-}
-
-
-- (void)renderActionButtons {
-    [self renderLikeButton];
-    [self renderCommentButton];
-}
-
-- (void)renderLikeButton{
-    float xCoord = self.view.frame.origin.x + kSmallPadding;
-    float yCoord = CGRectGetMaxY(self._associatedWorkTable.frame) + kSmallPadding;
-
-    self._likeButton = [[UIButton alloc] initWithFrame:CGRectMake(xCoord,
-                                                                  yCoord,
-                                                                  50.0f,
-                                                                  20.0f)];
-
-    FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
-    NSMutableAttributedString *heartIcon = [TAGViewHelpers createIcon:heart withColor:[UIColor blackColor]];
-
-    [TAGViewHelpers formatButton:self._likeButton forIcon:heartIcon withCopy:@"Like  "];
-    [self._scrollView addSubview:self._likeButton];
-}
-
-- (void)renderCommentButton{
-    float xCoord = CGRectGetMaxX(self._likeButton.frame) + kSmallPadding;
-    float yCoord = self._likeButton.frame.origin.y;
-
-    self._likeButton = [[UIButton alloc] initWithFrame:CGRectMake(xCoord,
-                                                                  yCoord,
-                                                                  70.0f,
-                                                                  20.0f)];
-    FAKFontAwesome *comment = [FAKFontAwesome commentIconWithSize:10];
-    NSMutableAttributedString *commentIcon = [TAGViewHelpers createIcon:comment withColor:[UIColor blackColor]];
-    [TAGViewHelpers formatButton:self._likeButton forIcon:commentIcon withCopy:@"Comment  "];
-    [self._scrollView  addSubview:self._likeButton];
 }
 
 // TODO: Common detail function
