@@ -38,7 +38,7 @@
     }];
 }
 
-- (void)fetchFavoritesForUser:(NSNumber *)userId WithCompletion:(void (^)(TAGFavoriteChannel *feedChannel, NSError *err))block {
+- (void)fetchFavoritesForUser:(NSNumber *)userId WithCompletion:(void (^)(TAGFavoriteChannel *favoriteChannel, NSError *err))block {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
@@ -54,5 +54,23 @@
         block(nil, error);
     }];
 }
+
+- (void)fetchAssociatedWorkForArtist:(NSNumber *)artistId WithCompletion:(void (^)(TAGPieceChannel *pieceChannel, NSError *err))block {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPITagsArtistWork];
+    NSDictionary *assocWorkParams = @{@"artist_id": artistId};
+
+    [manager GET:requestURL parameters:assocWorkParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        TAGPieceChannel *assocWorkChannel = [[TAGPieceChannel alloc] initWithString:rawJSON error:nil];
+
+        block(assocWorkChannel, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        block(nil, error);
+    }];
+}
+
 
 @end
