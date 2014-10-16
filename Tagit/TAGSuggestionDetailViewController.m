@@ -259,7 +259,6 @@
     };
 
     [[TAGSuggestionStore sharedStore] fetchProposalsForSuggestion:self._suggestion.id withCompletionBlock:completionBlock];
-
 }
 
 - (void)renderProposalsTable {
@@ -309,9 +308,7 @@
 }
 
 - (void)updateProposalsCountLabel {
-    NSString *count = [NSString stringWithFormat:@"%tu", [self._proposalChannel.proposals count]];
-    NSAttributedString *proposalCount = [TAGViewHelpers attributeText:count forFontSize:12.0f];
-    [self._proposalCount setAttributedText:proposalCount];
+    [TAGViewHelpers updateCount:[self._proposalChannel.proposals count] forLabel:self._proposalCount];
 }
 
 #pragma UITableViewDelgate
@@ -326,16 +323,7 @@
         self._proposalsTable.backgroundView = nil;
         return rowCount;
     } else {
-        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-        [TAGViewHelpers formatLabel:messageLabel withCopy:@"no proposals have been made"];
-        messageLabel.textColor = [UIColor blackColor];
-        messageLabel.numberOfLines = 0;
-        messageLabel.textAlignment = NSTextAlignmentCenter;
-        [messageLabel sizeToFit];
-
-        [TAGViewHelpers rotate90Clockwise:messageLabel];
-
-        self._proposalsTable.backgroundView = messageLabel;
+        self._proposalsTable.backgroundView = [TAGViewHelpers emptyTableMessage:@"no proposals have been made" forView:self.view];
     }
     return 0;
 }

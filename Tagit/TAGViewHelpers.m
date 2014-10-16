@@ -32,6 +32,7 @@
     NSAttributedString *heartFont = [icon attributedString];
     NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
     [heartIcon addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0,heartIcon.length)];
+
     return heartIcon;
 }
 
@@ -68,12 +69,14 @@
     UIActivityIndicatorView *aiView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [item setTitleView:aiView];
     [aiView startAnimating];
+
     return aiView;
 }
 
 + (UIImage *)imageForURL:(NSString *)imageURL {
     NSURL *url = [NSURL URLWithString:imageURL];
     NSData *data = [NSData dataWithContentsOfURL:url];
+
     return [UIImage imageWithData:data];
 }
 
@@ -86,8 +89,27 @@
     if (!count) {
         count = @"0";
     }
-    return [TAGViewHelpers attributeText:count forFontSize:10.0f];
 
+    return [TAGViewHelpers attributeText:count forFontSize:10.0f];
+}
+
++ (void)updateCount:(NSUInteger)number forLabel:(UILabel *)label {
+    NSString *count = [NSString stringWithFormat:@"%tu", number];
+    NSAttributedString *proposalCount = [TAGViewHelpers attributeText:count forFontSize:12.0f];
+    [label setAttributedText:proposalCount];
+}
+
++ (UILabel *)emptyTableMessage:(NSString *)message forView:(UIView *)view {
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height)];
+    [TAGViewHelpers formatLabel:messageLabel withCopy:message];
+    messageLabel.textColor = [UIColor blackColor];
+    messageLabel.numberOfLines = 0;
+    messageLabel.textAlignment = NSTextAlignmentCenter;
+    [messageLabel sizeToFit];
+
+    [TAGViewHelpers rotate90Clockwise:messageLabel];
+
+    return messageLabel;
 }
 
 @end

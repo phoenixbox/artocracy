@@ -35,4 +35,8 @@
 
 + (NSAttributedString *)counterString:(NSString *)count;
 
++ (void)updateCount:(NSUInteger)number forLabel:(UILabel *)label;
+
++ (UILabel *)emptyTableMessage:(NSString *)message forView:(UIView *)view;
+
 @end
