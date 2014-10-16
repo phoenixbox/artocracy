@@ -214,7 +214,7 @@
     NSAttributedString *favoriteCount = [TAGViewHelpers counterString:[self._favorite.favoriteCount stringValue]];
     [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,heartIcon.length)];
     [heartIcon appendAttributedString:favoriteCount];
-
+    [heartIcon insertAttributedString:[[NSAttributedString alloc] initWithString:@" "] atIndex:1];
     [self._favoriteCounter setAttributedText:heartIcon];
     [TAGViewHelpers sizeLabelToFit:self._favoriteCounter numberOfLines:1];
 
