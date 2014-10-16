@@ -211,7 +211,7 @@
     NSAttributedString *heartFont = [heart attributedString];
     NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
 
-    NSMutableAttributedString *favoriteCount =[[NSMutableAttributedString alloc] initWithString:@" 1023" attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0]}];
+    NSAttributedString *favoriteCount = [TAGViewHelpers counterString:[self._favorite.favoriteCount stringValue]];
     [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,heartIcon.length)];
     [heartIcon appendAttributedString:favoriteCount];
 
@@ -287,7 +287,6 @@
         [self._activityIndicator stopAnimating];
     };
 
-    // TODO: Function signatures are inconsistent
     [[TAGPieceStore sharedStore] fetchAssociatedWorkForArtist:self._favorite.artistId WithCompletion:completionBlock];
 }
 
