@@ -294,7 +294,6 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 
         // Retrieve the right model
         TAGSuggestion *selectedSuggestion = [self._suggestionChannel.suggestions objectAtIndex:[indexPath row]];
-
         // Set that model on the instantiated controller
         [suggestionDetailController setViewWithSuggestion:selectedSuggestion];
 
@@ -303,6 +302,12 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 
     } else {
         TAGPieceDetailViewController *pieceDetailViewController = [[TAGPieceDetailViewController alloc]init];
+
+        // Retrieve the right model
+        TAGFavorite *selectedFavorite = [self._favoriteChannel.favorites objectAtIndex:[indexPath row]];
+        // Set that model on the instantiated controller
+        [pieceDetailViewController setViewWithFavorite:selectedFavorite];
+
         [[self navigationController] pushViewController:pieceDetailViewController animated:YES];
     }
 }
@@ -328,7 +333,6 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     [self._collectionView setDataSource:self];
 
     [self._scrollView addSubview:self._collectionView];
-    NSLog(@"VIEW COUNT %ld", [[self.view subviews]count]);
 }
 
 - (void)removeCollectionAndTable {
@@ -404,7 +408,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
     if([self suggestionsActive]) {
-        TAGSuggestionDetailViewController *suggestionDetailController = [[TAGSuggestionDetailViewController alloc]init];
+        TAGSuggestionDetailViewController *suggestionDetailController = [[TAGSuggestionDetailViewController alloc] init];
 
         // Retrieve the right model
         TAGSuggestion *selectedSuggestion = [self._suggestionChannel.suggestions objectAtIndex:[indexPath row]];
@@ -416,6 +420,13 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
         [[self navigationController] pushViewController:suggestionDetailController animated:YES];
     } else {
         TAGPieceDetailViewController *pieceDetailViewController = [[TAGPieceDetailViewController alloc] init];
+
+        // Retrieve the right model
+        TAGFavorite *selectedFavorite = [self._favoriteChannel.favorites objectAtIndex:[indexPath row]];
+
+        // Set that model on the instantiated controller
+        [pieceDetailViewController setViewWithFavorite:selectedFavorite];
+
         [[self navigationController] pushViewController:pieceDetailViewController animated:YES];
     }
 }
