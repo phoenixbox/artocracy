@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+// Data Layer
+#import "TAGPiece.h"
+
 @interface TAGPieceCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *artistThumbnail;
@@ -19,6 +22,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *heartIcon;
 @property (weak, nonatomic) IBOutlet UILabel *favoriteCount;
+
+@property (strong, nonatomic) TAGPiece *piece;
 
 - (void)styleCounter;
 

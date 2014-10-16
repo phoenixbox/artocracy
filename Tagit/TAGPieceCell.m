@@ -13,6 +13,7 @@
 
 @implementation TAGPieceCell
 
+// RESTART: Associate model with the cell so can perform associated CRUD actions
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -31,6 +32,13 @@
 
     // EXPECT: Just have the heart
     [self.heartIcon setAttributedText:heartIcon];
+}
+
+- (IBAction)likePiece:(UIButton *)sender {
+    NSLog(@"Like Button");
+}
+- (IBAction)commentOnPiece:(UIButton *)sender {
+    NSLog(@"Comment on Piece");
 }
 
 // Public method after cell renderin which takes the counter
