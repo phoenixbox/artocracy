@@ -25,7 +25,7 @@
 
 + (void)scaleAndSetRemoteBackgroundImage:(NSString *)remoteURL forView:(UIView *)targetView;
 
-+ (void)formatButton:(UIButton *)button forIcon:(NSMutableAttributedString *)icon withCopy:(NSString *)buttonCopy;
++ (void)formatButton:(UIButton *)button forIcon:(NSMutableAttributedString *)icon withCopy:(NSString *)buttonCopy withColor:(UIColor *)color;
 
 + (UIActivityIndicatorView *)setActivityIndicatorForNavItem:(UINavigationItem *)item;
 
@@ -38,5 +38,7 @@
 + (void)updateCount:(NSUInteger)number forLabel:(UILabel *)label;
 
 + (UILabel *)emptyTableMessage:(NSString *)message forView:(UIView *)view;
+
++ (void)setButtonState:(BOOL)state forButton:(UIButton *)button withBackgroundColor:(UIColor *)color andCopy:(NSString *)copy;
 
 @end

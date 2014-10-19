@@ -54,13 +54,15 @@
     [targetView setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
 }
 
-+ (void)formatButton:(UIButton *)button forIcon:(NSMutableAttributedString *)icon withCopy:(NSString *)buttonCopy {
++ (void)formatButton:(UIButton *)button forIcon:(NSMutableAttributedString *)icon withCopy:(NSString *)buttonCopy withColor:(UIColor *)color {
     NSMutableAttributedString *iconCopy =[[NSMutableAttributedString alloc] initWithString:buttonCopy attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0]}];
-    [iconCopy appendAttributedString:icon];
+    if (icon) {
+        [iconCopy appendAttributedString:icon];
+    }
     [iconCopy addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0,iconCopy.length)];
     [button setAttributedTitle:iconCopy forState:UIControlStateNormal];
     [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [button setBackgroundColor:kTagitBlack];
+    [button setBackgroundColor:color];
     button.layer.cornerRadius = 2.0f;
     button.layer.masksToBounds = YES;
 }
@@ -110,6 +112,11 @@
     [TAGViewHelpers rotate90Clockwise:messageLabel];
 
     return messageLabel;
+}
+
++ (void)setButtonState:(BOOL)state forButton:(UIButton *)button withBackgroundColor:(UIColor *)color andCopy:(NSString *)copy {
+    button.selected = state;
+    [TAGViewHelpers formatButton:button forIcon:nil withCopy:copy withColor:color];
 }
 
 @end
