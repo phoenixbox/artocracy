@@ -16,12 +16,12 @@
 
 @implementation TAGProfileTableFavoriteCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forFavorite:(TAGFavorite *)favorite {
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forModel:(TAGPiece *)model {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
         self.cellHeight = 100.0f;
-        self.favorite = favorite;
+        self.favorite = model;
 
         [self initializeProperties];
         [self addImage];
