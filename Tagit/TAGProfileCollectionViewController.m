@@ -33,7 +33,6 @@
 #import "TAGSuggestionStore.h"
 #import "TAGSuggestionChannel.h"
 #import "TAGPieceStore.h"
-#import "TAGFavoriteChannel.h"
 #import "TAGPieceChannel.h"
 #import "TAGPiece.h"
 
@@ -60,7 +59,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 @property (nonatomic, strong) UIActivityIndicatorView *_activityIndicator;
 
 @property (nonatomic, strong) TAGSuggestionChannel *_suggestionChannel;
-@property (nonatomic, strong) TAGFavoriteChannel *_favoriteChannel;
+@property (nonatomic, strong) TAGPieceChannel *_favoriteChannel;
 
 @end
 
@@ -84,6 +83,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     void(^completionBlock)(TAGSuggestionChannel *obj, NSError *err)=^(TAGSuggestionChannel *obj, NSError *err){
         if(!err){
             self._suggestionChannel = obj;
+            [self removeEmptyCollectionMessage];
             [self._collectionView reloadData];
         } else {
             [TAGErrorAlert render:err];
@@ -97,9 +97,10 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 - (void)fetchFavoritesData {
     self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
 
-    void(^completionBlock)(TAGFavoriteChannel *obj, NSError *err)=^(TAGFavoriteChannel *obj, NSError *err){
+    void(^completionBlock)(TAGPieceChannel *obj, NSError *err)=^(TAGPieceChannel *obj, NSError *err){
         if(!err){
             self._favoriteChannel = obj;
+            [self removeEmptyCollectionMessage];
             [self._collectionView reloadData];
         } else {
             [TAGErrorAlert render:err];
@@ -238,13 +239,24 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     NSLog(@"VIEW COUNT %ld", [[self.view subviews]count]);
 }
 
+- (void)removeEmptyCollectionMessage {
+    self._collectionView.backgroundView = nil;
+}
+
 #pragma UITableViewDelgate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self._suggestionChannel.suggestions count];
+    NSInteger count;
+    if([self suggestionsActive]) {
+        count = [self._suggestionChannel.suggestions count];
+    } else if ([self favoritesActive]) {
+        count = [self._favoriteChannel.pieces count];
+    }
+
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -255,6 +267,8 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 
         if([tableView isEqual:self._tableView]) {
             if (self._suggestionChannel.suggestions.count > 0) {
+                [self removeEmptyCollectionMessage];
+
                 TAGSuggestion *suggestion = [self._suggestionChannel.suggestions objectAtIndex:[indexPath row]];
                 cell = [[TAGProfileTableSuggestionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableFavoriteCellIdentifier forModel:suggestion];
             }
@@ -268,10 +282,12 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
         TAGProfileTableFavoriteCell *cell = (TAGProfileTableFavoriteCell *)[tableView dequeueReusableCellWithIdentifier:kProfileTableFavoriteCellIdentifier];
 
         if([tableView isEqual:self._tableView]){
-            if (self._favoriteChannel.favorites.count > 0) {
-                TAGFavorite *favorite = [self._favoriteChannel.favorites objectAtIndex:[indexPath row]];
+            if (self._favoriteChannel.pieces.count > 0) {
+                [self removeEmptyCollectionMessage];
 
-                cell = [[TAGProfileTableFavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableFavoriteCellIdentifier forFavorite:favorite];
+                TAGPiece *favorite = [self._favoriteChannel.pieces objectAtIndex:[indexPath row]];
+
+                cell = [[TAGProfileTableFavoriteCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kProfileTableFavoriteCellIdentifier forModel:favorite];
             }
 
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -304,9 +320,9 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
         TAGPieceDetailViewController *pieceDetailViewController = [[TAGPieceDetailViewController alloc]init];
 
         // Retrieve the right model
-        TAGFavorite *selectedFavorite = [self._favoriteChannel.favorites objectAtIndex:[indexPath row]];
+        TAGPiece *selectedFavorite = [self._favoriteChannel.pieces objectAtIndex:[indexPath row]];
         // Set that model on the instantiated controller
-        [pieceDetailViewController setViewWithFavorite:selectedFavorite];
+        [pieceDetailViewController setViewWithModel:selectedFavorite];
 
         [[self navigationController] pushViewController:pieceDetailViewController animated:YES];
     }
@@ -360,14 +376,25 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 #pragma UICollectionView Protocol Methods
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSUInteger sectionCount = [self._suggestionChannel.suggestions count];
+    // This needs to be flexible per channel - suggestions/favorites/
+    NSUInteger sectionCount;
+    NSString *collection;
+    if([self suggestionsActive]) {
+        sectionCount = [self._suggestionChannel.suggestions count];
+        collection = @"suggestions";
+    } else if ([self favoritesActive]) {
+        sectionCount = [self._favoriteChannel.pieces count];
+        collection = @"favorites";
+    }
+
+    NSString *emptyCollectionCopy = [NSString stringWithFormat:@"no %@ currently available. please pull down to refresh.", collection];
 
     if (sectionCount > 0) {
         self._collectionView.backgroundView = nil;
         return sectionCount;
     } else {
         UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-        [TAGViewHelpers formatLabel:messageLabel withCopy:@"no suggestions currently available. please pull down to refresh."];
+        [TAGViewHelpers formatLabel:messageLabel withCopy:emptyCollectionCopy];
         messageLabel.textColor = [UIColor blackColor];
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = NSTextAlignmentCenter;
@@ -384,6 +411,8 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     UIImageView *backgroundImage = [UIImageView new];
     if([self suggestionsActive]) {
         if (self._suggestionChannel.suggestions.count > 0) {
+            [self removeEmptyCollectionMessage];
+
             TAGSuggestion *suggestion = [self._suggestionChannel.suggestions objectAtIndex:[indexPath row]];
 
             UIImage *img = [TAGViewHelpers imageForURL:suggestion.imageUrl];
@@ -391,8 +420,10 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
             [backgroundImage setImage:img];
         }
     } else {
-        if (self._favoriteChannel.favorites.count > 0) {
-            TAGFavorite *favorite = [self._favoriteChannel.favorites objectAtIndex:[indexPath row]];
+        if (self._favoriteChannel.pieces.count > 0) {
+            [self removeEmptyCollectionMessage];
+
+            TAGPiece *favorite = [self._favoriteChannel.pieces objectAtIndex:[indexPath row]];
 
             UIImage *img = [TAGViewHelpers imageForURL:favorite.imageUrl];
 
@@ -422,10 +453,10 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
         TAGPieceDetailViewController *pieceDetailViewController = [[TAGPieceDetailViewController alloc] init];
 
         // Retrieve the right model
-        TAGFavorite *selectedFavorite = [self._favoriteChannel.favorites objectAtIndex:[indexPath row]];
+        TAGPiece *selectedFavorite = [self._favoriteChannel.pieces objectAtIndex:[indexPath row]];
 
         // Set that model on the instantiated controller
-        [pieceDetailViewController setViewWithFavorite:selectedFavorite];
+        [pieceDetailViewController setViewWithModel:selectedFavorite];
 
         [[self navigationController] pushViewController:pieceDetailViewController animated:YES];
     }
