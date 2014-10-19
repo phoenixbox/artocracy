@@ -11,17 +11,42 @@
 // Libs
 #import "FontAwesomeKit/FAKFontAwesome.h"
 
+// Components
+#import "TAGErrorAlert.h"
+
+// Data Layer
+#import "TAGFavoriteStore.h"
+#import "TAGSessionStore.h"
+#import "TAGPiece.h"
+
+// Constants
+#import "TAGViewHelpers.h"
+
 @implementation TAGPieceCell
 
 // RESTART: Associate model with the cell so can perform associated CRUD actions
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        // Does this even get called when using initWithNibName
     }
     return self;
 }
+
+- (void)getLikeState {
+    void(^completionBlock)(TAGFavorite *favorite, NSError *err)=^(TAGFavorite *favorite, NSError *err) {
+        if(!err){
+            self.favorite = favorite;
+            [TAGViewHelpers setButtonState:YES forButton:self.likeButton withBackgroundColor:[UIColor greenColor] andCopy:@"Liked"];
+        } else {
+            [TAGViewHelpers setButtonState:NO forButton:self.likeButton withBackgroundColor:[UIColor blackColor] andCopy:@"Like"];
+        }
+        [self addSubview:self.likeButton];
+    };
+
+    [[TAGFavoriteStore sharedStore] getFavoriteForPiece:self.piece.id withCompletionBlock:completionBlock];
+}
+
 
 - (void)styleCounter {
     FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:15];
@@ -30,37 +55,45 @@
 
     [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,heartIcon.length)];
 
-    // EXPECT: Just have the heart
     [self.heartIcon setAttributedText:heartIcon];
 }
 
-- (IBAction)likePiece:(UIButton *)sender {
-    NSLog(@"Like Button");
+- (IBAction)likePiece:(UIButton *)button {
+    if (!button.selected){
+        [self favoritePiece:button];
+    } else {
+        [self unFavoritePiece:button];
+    }
 }
+
+- (void)favoritePiece:(UIButton *)button {
+    void (^completionBlock)(TAGFavorite *upvote, NSError *err)=^(TAGFavorite *favorite, NSError *err) {
+        if(!err){
+            self.favorite = favorite;
+            [TAGViewHelpers setButtonState:YES forButton:self.likeButton withBackgroundColor:[UIColor greenColor] andCopy:@"Liked"];
+        } else {
+            [TAGErrorAlert render:err];
+        }
+    };
+
+    [[TAGFavoriteStore sharedStore] createFavoriteForPiece:self.piece.id withCompletionBlock:completionBlock];
+}
+
+- (void)unFavoritePiece:(UIButton *)button {
+    void(^completionBlock)(BOOL favorited, NSError *err)=^(BOOL favorited, NSError *err) {
+        if(!err){
+            [TAGViewHelpers setButtonState:NO forButton:self.likeButton withBackgroundColor:[UIColor blackColor] andCopy:@"Like"];
+        } else {
+            [TAGErrorAlert render:err];
+        }
+    };
+
+    [[TAGFavoriteStore sharedStore] destroyFavorite:self.favorite.id withCompletionBlock:completionBlock];
+}
+
 - (IBAction)commentOnPiece:(UIButton *)sender {
     NSLog(@"Comment on Piece");
 }
-
-// Public method after cell renderin which takes the counter
-//- (void)addCounter:(NSString *)counter {
-//    NSMutableAttributedString *favoriteCount =[[NSMutableAttributedString alloc] initWithString:@" 1023" attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0]}];
-//    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,heartIcon.length)];
-//    [heartIcon appendAttributedString:favoriteCount];
-//
-//    [self.favoriteCounter setAttributedText:heartIcon];
-//    [TAGViewHelpers sizeLabelToFit:self.favoriteCounter numberOfLines:1];
-//
-//    [self.contentView addSubview:self.favoriteCounter];
-//
-//}
-
-// UIView *artistThumbnail;
-// UILabel *artistLabel;
-// UILabel *pieceLabel;
-// UIImageView *pieceImage;
-// UIButton *likeButton;
-// UIButton *commentButton;
-// UILabel *favoriteCounter;
 
 /*
 // Only override drawRect: if you perform custom drawing.

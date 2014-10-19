@@ -10,6 +10,7 @@
 
 // Data Layer
 #import "TAGPiece.h"
+#import "TAGFavorite.h"
 
 @interface TAGPieceCell : UICollectionViewCell
 
@@ -24,7 +25,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *favoriteCount;
 
 @property (strong, nonatomic) TAGPiece *piece;
+@property (strong, nonatomic) TAGFavorite *favorite;
 
 - (void)styleCounter;
+
+- (void)getLikeState;
 
 @end
