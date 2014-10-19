@@ -165,6 +165,9 @@
 
     if (self._pieceChannel.pieces.count > 0) {
         TAGPiece *piece = [self._pieceChannel.pieces objectAtIndex:[indexPath section]];
+        cell.piece = piece;
+        [cell getLikeState];
+        // Timing issue of when to get the favorite state!
 
         UIImage *img = [TAGViewHelpers imageForURL:piece.imageUrl];
         [cell.pieceImage setImage:img];
@@ -175,8 +178,8 @@
     FAKFontAwesome *comment = [FAKFontAwesome commentIconWithSize:10];
     NSMutableAttributedString *commentIcon = [TAGViewHelpers createIcon:comment withColor:[UIColor blackColor]];
 
-    [TAGViewHelpers formatButton:cell.likeButton forIcon:heartIcon withCopy:@"Like  "];
-    [TAGViewHelpers formatButton:cell.commentButton forIcon:commentIcon withCopy:@"Comment  "];
+    [TAGViewHelpers formatButton:cell.likeButton forIcon:heartIcon withCopy:@"Like  " withColor:[UIColor blackColor]];
+    [TAGViewHelpers formatButton:cell.commentButton forIcon:commentIcon withCopy:@"Comment  " withColor:[UIColor blackColor]];
 
     return cell;
 }
