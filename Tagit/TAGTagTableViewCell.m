@@ -133,8 +133,10 @@
                                                          20.0f)];
 
     FAKFontAwesome *heartIcon = [FAKFontAwesome heartIconWithSize:10];
+    NSMutableAttributedString *icon = [TAGViewHelpers createIcon:heartIcon withColor:[UIColor blackColor]];
+    [TAGViewHelpers formatButton:self.likeButton forIcon:icon withCopy:@"Like  " withColor:[UIColor blackColor]];
 
-    [self formatButton:self.likeButton forIcon:heartIcon withCopy:@"Like  "];
+    [self.contentView addSubview:self.likeButton];
 }
 
 - (void)renderCommentButton{
@@ -145,27 +147,15 @@
                                                                  20.0f)];
 
     FAKFontAwesome *commentIcon = [FAKFontAwesome commentIconWithSize:10];
+    NSMutableAttributedString *icon = [TAGViewHelpers createIcon:commentIcon withColor:[UIColor blackColor]];
+    [TAGViewHelpers formatButton:self.commentButton forIcon:icon withCopy:@"Comment  " withColor:[UIColor blackColor]];
 
-    [self formatButton:self.commentButton forIcon:commentIcon withCopy:@"Comment  "];
+    [self.contentView addSubview:self.commentButton];
 }
 
 - (void)setBackgroundImage:(NSString *)imageName forView:(UIView *)view {
     UIImage *image = [UIImage imageNamed:imageName];
     view.backgroundColor = [UIColor colorWithPatternImage:image];
-}
-
-- (void)formatButton:(UIButton *)button forIcon:(FAKFontAwesome *)icon withCopy:(NSString *)buttonCopy {
-    NSAttributedString *iconFont = [icon attributedString];
-    NSMutableAttributedString *iconCopy =[[NSMutableAttributedString alloc] initWithString:buttonCopy attributes:@{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Bold" size:10.0]}];
-    [iconCopy appendAttributedString:iconFont];
-    [iconCopy addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0,iconCopy.length)];
-    [button setAttributedTitle:iconCopy forState:UIControlStateNormal];
-    [button.titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [button setBackgroundColor:kTagitBlack];
-    button.layer.cornerRadius = 2.0f;
-    button.layer.masksToBounds = YES;
-
-    [self.contentView addSubview:button];
 }
 
 - (void)awakeFromNib
