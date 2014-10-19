@@ -35,7 +35,7 @@
 @property (nonatomic, strong)UILabel *_artistName;
 @property (nonatomic, strong)UILabel *_location;
 
-@property (nonatomic, strong)UILabel *_favoriteCounter;
+@property (nonatomic, strong)UILabel *_pieceCounter;
 
 @property (nonatomic, strong)UILabel *_associatedTitle;
 @property (nonatomic, strong)UITableView *_associatedWorkTable;
@@ -48,7 +48,7 @@
 @property (nonatomic, strong)UIScrollView *_scrollView;
 
 @property (nonatomic, assign) float _cellDimension;
-@property (nonatomic, strong)TAGFavorite *_favorite;
+@property (nonatomic, strong)TAGPiece *_piece;
 @property (nonatomic, strong) UIActivityIndicatorView *_activityIndicator;
 @property (nonatomic, strong)TAGPieceChannel *_pieceChannel;
 
@@ -65,8 +65,8 @@
     return self;
 }
 
-- (void)setViewWithFavorite:(TAGFavorite *)favorite {
-    self._favorite = favorite;
+- (void)setViewWithModel:(TAGPiece *)model {
+    self._piece = model;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -161,7 +161,7 @@
     self._artistThumbnail.layer.cornerRadius = self._artistThumbnail.frame.size.width/2;
     self._artistThumbnail.layer.masksToBounds = YES;
 
-    [self setBackgroundImage:@"profile_photo.png" forView:self._artistThumbnail];
+    [TAGViewHelpers scaleAndSetRemoteBackgroundImage:self._piece.artistImageURL forView:self._artistThumbnail];
 
     [self._scrollView addSubview:self._artistThumbnail];
 }
@@ -175,7 +175,7 @@
                                                              100.0f,
                                                              15.0f)];
 
-    NSAttributedString *text = [TAGViewHelpers attributeText:@"Ape Do Good Printing" forFontSize:10.0f];
+    NSAttributedString *text = [TAGViewHelpers attributeText:self._piece.title forFontSize:10.0f];
     [self._pieceTitle setAttributedText:text];
     [TAGViewHelpers sizeLabelToFit:self._pieceTitle numberOfLines:0];
 
@@ -192,7 +192,7 @@
                                                                100.0f,
                                                                15.0f)];
 
-    NSAttributedString *text = [TAGViewHelpers attributeText:@"Lonnie Spoon" forFontSize:10.0f];
+    NSAttributedString *text = [TAGViewHelpers attributeText:self._piece.artistName forFontSize:10.0f];
     [self._artistName setAttributedText:text];
     [TAGViewHelpers sizeLabelToFit:self._artistName numberOfLines:0];
 
@@ -203,7 +203,7 @@
     CGFloat xCoord = 280.0f;
     CGFloat yCoord = self._artistName.frame.origin.y;
 
-    self._favoriteCounter = [[UILabel alloc] initWithFrame:CGRectMake(xCoord,
+    self._pieceCounter = [[UILabel alloc] initWithFrame:CGRectMake(xCoord,
                                                                       yCoord,
                                                                       100.0f,
                                                                       10.0f)];
@@ -211,14 +211,14 @@
     NSAttributedString *heartFont = [heart attributedString];
     NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
 
-    NSAttributedString *favoriteCount = [TAGViewHelpers counterString:[self._favorite.favoriteCount stringValue]];
+    NSAttributedString *favoriteCount = [TAGViewHelpers counterString:[self._piece.favoriteCount stringValue]];
     [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,heartIcon.length)];
     [heartIcon appendAttributedString:favoriteCount];
     [heartIcon insertAttributedString:[[NSAttributedString alloc] initWithString:@" "] atIndex:1];
-    [self._favoriteCounter setAttributedText:heartIcon];
-    [TAGViewHelpers sizeLabelToFit:self._favoriteCounter numberOfLines:1];
+    [self._pieceCounter setAttributedText:heartIcon];
+    [TAGViewHelpers sizeLabelToFit:self._pieceCounter numberOfLines:1];
 
-    [self._scrollView addSubview:self._favoriteCounter];
+    [self._scrollView addSubview:self._pieceCounter];
 }
 
 - (void)renderDetailImage {
@@ -228,7 +228,7 @@
 
     self._pieceImage = [[UIView alloc] initWithFrame:imageFrame];
 
-    [self setBackgroundImage:@"ape_do_good_printing_SF.png" forView:self._pieceImage];
+    [TAGViewHelpers scaleAndSetRemoteBackgroundImage:self._piece.imageUrl forView:self._pieceImage];
 
     [self._scrollView addSubview:self._pieceImage];
 }
@@ -250,7 +250,7 @@
     FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
     NSMutableAttributedString *heartIcon = [TAGViewHelpers createIcon:heart withColor:[UIColor blackColor]];
 
-    [TAGViewHelpers formatButton:self._likeButton forIcon:heartIcon withCopy:@"Like  "];
+    [TAGViewHelpers formatButton:self._likeButton forIcon:heartIcon withCopy:@"Like  " withColor:[UIColor blackColor]];
     [self._scrollView addSubview:self._likeButton];
 }
 
@@ -264,7 +264,7 @@
                                                                   20.0f)];
     FAKFontAwesome *comment = [FAKFontAwesome commentIconWithSize:10];
     NSMutableAttributedString *commentIcon = [TAGViewHelpers createIcon:comment withColor:[UIColor blackColor]];
-    [TAGViewHelpers formatButton:self._likeButton forIcon:commentIcon withCopy:@"Comment  "];
+    [TAGViewHelpers formatButton:self._likeButton forIcon:commentIcon withCopy:@"Comment  " withColor:[UIColor blackColor]];
     [self._scrollView  addSubview:self._likeButton];
 }
 
@@ -287,7 +287,7 @@
         [self._activityIndicator stopAnimating];
     };
 
-    [[TAGPieceStore sharedStore] fetchAssociatedWorkForArtist:self._favorite.artistId WithCompletion:completionBlock];
+    [[TAGPieceStore sharedStore] fetchAssociatedWorkForArtist:self._piece.artistId WithCompletion:completionBlock];
 }
 
 - (void)renderAssociatedTitle {
