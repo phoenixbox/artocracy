@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "TAGPieceChannel.h"
-#import "TAGFavoriteChannel.h"
 
 @interface TAGPieceStore : JSONModel {
     NSMutableArray *tags;
@@ -18,7 +17,7 @@
 
 - (void)fetchPiecesWithCompletion:(void (^)(TAGPieceChannel *feedChannel, NSError *err))block;
 
-- (void)fetchFavoritesForUser:(NSNumber *)userId WithCompletion:(void (^)(TAGFavoriteChannel *favoriteChannel, NSError *err))block;
+- (void)fetchFavoritesForUser:(NSNumber *)userId WithCompletion:(void (^)(TAGPieceChannel *favoriteChannel, NSError *err))block;
 
 - (void)fetchAssociatedWorkForArtist:(NSNumber *)artistId WithCompletion:(void (^)(TAGPieceChannel *pieceChannel, NSError *err))block;
 
