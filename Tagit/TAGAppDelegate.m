@@ -21,10 +21,19 @@
 
 #import "TAGStyleConstants.h"
 
+#if INTEGRATION_TESTING
+#import <Subliminal/Subliminal.h>
+#endif
+
 @implementation TAGAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+#if INTEGRATION_TESTING
+    [[SLTestController sharedTestController] runTests:[SLTest allTests] withCompletionBlock:nil];
+#endif
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 
