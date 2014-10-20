@@ -190,15 +190,22 @@
         TAGPieceCell *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                                 withReuseIdentifier:@"sectionHeader"
                                                                        forIndexPath:indexPath];
+
+        TAGPiece *piece = [self._pieceChannel.pieces objectAtIndex:[indexPath section]];
+        cell.piece = piece;
         [cell setBackgroundColor:[UIColor whiteColor]];
 
-        [TAGViewHelpers scaleAndSetBackgroundImageNamed:@"profile_photo.png" forView:cell.artistThumbnail];
-        cell.artistThumbnail.layer.cornerRadius = cell.artistThumbnail.frame.size.width/2;
-        cell.artistThumbnail.layer.masksToBounds = YES;
-        [TAGViewHelpers formatLabel:cell.artistLabel withCopy:@"Lonnie Spoon"];
+        [TAGViewHelpers scaleAndSetRemoteBackgroundImage:cell.piece.artistImageURL forView:cell.artistThumbnail];
+        [TAGViewHelpers roundImageLayer:cell.artistThumbnail.layer withFrame:cell.artistThumbnail.frame];
+
+
+        [TAGViewHelpers formatLabel:cell.artistLabel withCopy:cell.piece.artistName];
         [TAGViewHelpers sizeLabelToFit:cell.artistLabel numberOfLines:0.0f];
-        [TAGViewHelpers formatLabel:cell.pieceLabel withCopy:@"Ape Do Good Printing"];
-        [TAGViewHelpers formatLabel:cell.favoriteCount withCopy:@"100"];
+
+        [TAGViewHelpers formatLabel:cell.pieceLabel withCopy:cell.piece.title];
+
+        // TODO: Needs FAK heartIcon too
+        [TAGViewHelpers formatLabel:cell.favoriteCount withCopy:[cell.piece.favoriteCount stringValue]];
         [cell.favoriteCount setTextAlignment:NSTextAlignmentRight];
         [TAGViewHelpers sizeLabelToFit:cell.favoriteCount numberOfLines:0.0f];
 

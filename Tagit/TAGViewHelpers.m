@@ -119,4 +119,9 @@
     [TAGViewHelpers formatButton:button forIcon:nil withCopy:copy withColor:color];
 }
 
++ (void)roundImageLayer:(CALayer *)layer withFrame:(CGRect)frame {
+    layer.cornerRadius = frame.size.width/2;
+    layer.masksToBounds = YES;
+}
+
 @end

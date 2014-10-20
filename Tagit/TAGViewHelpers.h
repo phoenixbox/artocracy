@@ -41,4 +41,6 @@
 
 + (void)setButtonState:(BOOL)state forButton:(UIButton *)button withBackgroundColor:(UIColor *)color andCopy:(NSString *)copy;
 
++ (void)roundImageLayer:(CALayer *)layer withFrame:(CGRect)frame;
+
 @end
