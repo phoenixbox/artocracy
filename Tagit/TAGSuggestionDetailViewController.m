@@ -166,9 +166,8 @@
                                                                     yCoord,
                                                                     27.5f,
                                                                     27.5f)];
-    self._userThumbnail.layer.cornerRadius = self._userThumbnail.frame.size.width/2;
-    self._userThumbnail.layer.masksToBounds = YES;
 
+    [TAGViewHelpers roundImageLayer:self._userThumbnail.layer withFrame:self._userThumbnail.frame];
     [TAGViewHelpers scaleAndSetRemoteBackgroundImage:self._suggestion.suggestorImageURL forView:self._userThumbnail];
 
     [self._scrollView addSubview:self._userThumbnail];

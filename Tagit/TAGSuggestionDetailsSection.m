@@ -89,8 +89,7 @@
     [self.actionButton setCenter:buttonCenter];
     [self.actionButton addTarget:self action:@selector(upvoteButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 
-    self.actionButton.layer.cornerRadius = self.actionButton.frame.size.width/2;
-    self.actionButton.layer.masksToBounds = YES;
+    [TAGViewHelpers roundImageLayer:self.actionButton.layer withFrame:self.actionButton.frame];
 
     [self.actionButton setBackgroundImage:[UIImage imageNamed:@"upvoteUnselected.png"] forState:UIControlStateNormal];
     [self.actionButton setBackgroundImage:[UIImage imageNamed:@"upvoteSelected.png"] forState:UIControlStateSelected];

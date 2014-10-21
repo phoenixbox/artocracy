@@ -158,9 +158,7 @@
                                                                    yCoord,
                                                                    27.5f,
                                                                    27.5f)];
-    self._artistThumbnail.layer.cornerRadius = self._artistThumbnail.frame.size.width/2;
-    self._artistThumbnail.layer.masksToBounds = YES;
-
+    [TAGViewHelpers roundImageLayer:self._artistThumbnail.layer withFrame:self._artistThumbnail.frame];
     [TAGViewHelpers scaleAndSetRemoteBackgroundImage:self._piece.artistImageURL forView:self._artistThumbnail];
 
     [self._scrollView addSubview:self._artistThumbnail];

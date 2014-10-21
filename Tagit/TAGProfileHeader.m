@@ -33,11 +33,8 @@
                                                              60.0f,
                                                               60.0f)];
 
-    self.profile.layer.cornerRadius = self.profile.frame.size.width/2;
-    self.profile.layer.masksToBounds = YES;
     TAGSessionStore *session = [TAGSessionStore sharedStore];
-
-    // TODO: Update the interface for passing and image into a helper scaling function - take image or string name - or all remote image URLS?
+    [TAGViewHelpers roundImageLayer:self.profile.layer withFrame:self.profile.frame];
     [TAGViewHelpers scaleAndSetRemoteBackgroundImage:session.profileImageUrl forView:self.profile];
 
     [self addSubview:self.profile];

@@ -44,8 +44,8 @@
                                                                    yCoord,
                                                                    27.5f,
                                                                    27.5f)];
-    self.artistThumbnail.layer.cornerRadius = self.artistThumbnail.frame.size.width/2;
-    self.artistThumbnail.layer.masksToBounds = YES;
+
+    [TAGViewHelpers roundImageLayer:self.artistThumbnail.layer withFrame:self.artistThumbnail.frame];
 
     [self setBackgroundImage:@"profile_photo.png" forView:self.artistThumbnail];
 
