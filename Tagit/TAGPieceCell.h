@@ -12,6 +12,10 @@
 #import "TAGPiece.h"
 #import "TAGFavorite.h"
 
+extern NSString *const kSetHeaderInfoNotification;
+extern NSString *const kSetHeaderInfoKeyCount;
+extern NSString *const kSetHeaderInfoKeyCell;
+
 @interface TAGPieceCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *artistThumbnail;
@@ -22,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *heartIcon;
-@property (weak, nonatomic) IBOutlet UILabel *favoriteCount;
+@property (strong, nonatomic) IBOutlet UILabel *favoriteCount;
 
 @property (strong, nonatomic) TAGPiece *piece;
 @property (strong, nonatomic) TAGFavorite *favorite;

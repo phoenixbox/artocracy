@@ -22,16 +22,11 @@
 // Constants
 #import "TAGViewHelpers.h"
 
-@implementation TAGPieceCell
+NSString *const kSetHeaderInfoNotification = @"SetHeaderInfoNotification";
+NSString *const kSetHeaderInfoKeyCount = @"count";
+NSString *const kSetHeaderInfoKeyCell = @"cell";
 
-// RESTART: Associate model with the cell so can perform associated CRUD actions
-- (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Does this even get called when using initWithNibName
-    }
-    return self;
-}
+@implementation TAGPieceCell
 
 - (void)getLikeState {
     void(^completionBlock)(TAGFavorite *favorite, NSError *err)=^(TAGFavorite *favorite, NSError *err) {
@@ -74,9 +69,19 @@
         } else {
             [TAGErrorAlert render:err];
         }
+
+        [self sendHeaderUpdateNotification];
     };
 
     [[TAGFavoriteStore sharedStore] createFavoriteForPiece:self.piece.id withCompletionBlock:completionBlock];
+}
+
+- (void)sendHeaderUpdateNotification {
+    NSNotification *notification = [NSNotification notificationWithName:kSetHeaderInfoNotification
+                                                                 object:self
+                                                               userInfo:@{ kSetHeaderInfoKeyCount: self.favorite.count }];
+
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 - (void)unFavoritePiece:(UIButton *)button {
@@ -86,6 +91,7 @@
         } else {
             [TAGErrorAlert render:err];
         }
+        [self sendHeaderUpdateNotification];
     };
 
     [[TAGFavoriteStore sharedStore] destroyFavorite:self.favorite.id withCompletionBlock:completionBlock];

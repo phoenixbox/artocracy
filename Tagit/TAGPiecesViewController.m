@@ -56,6 +56,26 @@
     return self;
 }
 
+- (void)setListenerOnCell:(TAGPieceCell *)cell {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+
+    [center addObserver:self
+               selector:@selector(updateCellHeader:)
+                   name:kSetHeaderInfoNotification
+                 object:cell];
+}
+
+- (void)updateCellHeader:(NSNotification *)notification {
+    TAGPieceCell *cell = notification.object;
+
+    NSNumber *newCount = @([notification.userInfo[kSetHeaderInfoKeyCount] intValue]);
+    cell.piece.favoriteCount = newCount;
+
+    // Reload that one section
+    NSInteger sectionIndex = [[self._collectionView indexPathForCell:cell] section];
+    [self._collectionView reloadSections:[[NSIndexSet alloc] initWithIndex:sectionIndex]];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -131,7 +151,6 @@
     [self._collectionView setDataSource:self];
 
     [self.view addSubview:self._collectionView];
-    NSLog(@"VIEW COUNT %ld", [[self.view subviews]count]);
 }
 
 - (UICollectionViewFlowLayout *)buildCollectionViewCellLayout {
@@ -167,7 +186,9 @@
         TAGPiece *piece = [self._pieceChannel.pieces objectAtIndex:[indexPath section]];
         cell.piece = piece;
         [cell getLikeState];
-        // Timing issue of when to get the favorite state!
+
+        // Listen for header update
+        [self setListenerOnCell:cell];
 
         UIImage *img = [TAGViewHelpers imageForURL:piece.imageUrl];
         [cell.pieceImage setImage:img];
@@ -186,7 +207,6 @@
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-
         TAGPieceCell *cell = [collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                                 withReuseIdentifier:@"sectionHeader"
                                                                        forIndexPath:indexPath];
@@ -206,6 +226,7 @@
 
         // TODO: Needs FAK heartIcon too
         [TAGViewHelpers formatLabel:cell.favoriteCount withCopy:[cell.piece.favoriteCount stringValue]];
+
         [cell.favoriteCount setTextAlignment:NSTextAlignmentRight];
         [TAGViewHelpers sizeLabelToFit:cell.favoriteCount numberOfLines:0.0f];
 
