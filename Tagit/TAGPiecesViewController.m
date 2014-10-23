@@ -73,7 +73,10 @@
 
     // Reload that one section
     NSInteger sectionIndex = [[self._collectionView indexPathForCell:cell] section];
+    BOOL animationsEnabled = [UIView areAnimationsEnabled];
+    [UIView setAnimationsEnabled:NO];
     [self._collectionView reloadSections:[[NSIndexSet alloc] initWithIndex:sectionIndex]];
+    [UIView setAnimationsEnabled:animationsEnabled];
 }
 
 - (void)viewDidLoad
