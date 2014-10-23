@@ -33,7 +33,7 @@
 
 + (void)rotate90Clockwise:(UIView *)object;
 
-+ (NSAttributedString *)counterString:(NSString *)count;
++ (NSAttributedString *)counterString:(NSString *)count withFontSize:(CGFloat)size;
 
 + (void)updateCount:(NSUInteger)number forLabel:(UILabel *)label;
 

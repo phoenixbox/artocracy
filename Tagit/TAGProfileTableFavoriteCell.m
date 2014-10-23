@@ -122,7 +122,7 @@
 
     [self.counter setFrame:counterRect];
 
-    NSAttributedString *favoriteCount = [TAGViewHelpers counterString:[self.favorite.favoriteCount stringValue]];
+    NSAttributedString *favoriteCount = [TAGViewHelpers counterString:[self.favorite.favoriteCount stringValue] withFontSize:10.0f];
     [self.counter setAttributedText:favoriteCount];
     [self addSubview:self.counter];
 

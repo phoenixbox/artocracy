@@ -142,7 +142,7 @@
                                     counterSq);
     [self.piecesCounter setFrame:counterRect];
 
-    NSAttributedString *upvotesCount = [TAGViewHelpers counterString:[self.suggestion.proposalCount stringValue]];
+    NSAttributedString *upvotesCount = [TAGViewHelpers counterString:[self.suggestion.proposalCount stringValue] withFontSize:10.0f];
     [self.piecesCounter setAttributedText:upvotesCount];
     [self addSubview:self.piecesCounter];
 }
@@ -179,7 +179,7 @@
                                     counterSq);
     [self.upvotesCounter setFrame:counterRect];
 
-    NSAttributedString *upvotesCount = [TAGViewHelpers counterString:[self.suggestion.upvoteCount stringValue]];
+    NSAttributedString *upvotesCount = [TAGViewHelpers counterString:[self.suggestion.upvoteCount stringValue] withFontSize:10.f];
     [self.upvotesCounter setAttributedText:upvotesCount];
     [self addSubview:self.upvotesCounter];
 }

@@ -87,12 +87,12 @@
     [object setTransform:rotate];
 }
 
-+ (NSAttributedString *)counterString:(NSString *)count {
++ (NSAttributedString *)counterString:(NSString *)count withFontSize:(CGFloat)size {
     if (!count) {
         count = @"0";
     }
 
-    return [TAGViewHelpers attributeText:count forFontSize:10.0f];
+    return [TAGViewHelpers attributeText:count forFontSize:size];
 }
 
 + (void)updateCount:(NSUInteger)number forLabel:(UILabel *)label {
