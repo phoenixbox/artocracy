@@ -19,6 +19,7 @@
 #import "TAGCollectionView.h"
 #import "TAGPieceCell.h"
 #import "TAGErrorAlert.h"
+#import "TAGArtocracySpinner.h"
 
 // Constants
 #import "TAGComponentConstants.h"
@@ -125,7 +126,13 @@
 }
 
 - (void)fetchPieces {
-    self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
+    self._activityIndicator = [[TAGArtocracySpinner alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self._activityIndicator setFrame:CGRectMake(0.0f, 0.0f, 40.0f, 40.0f)];
+
+    [self._activityIndicator setCenter:self.view.center];
+    [self.view addSubview:self._activityIndicator];
+    [self._activityIndicator startAnimating];
+//    self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
 
     void(^completionBlock)(TAGPieceChannel *obj, NSError *err)=^(TAGPieceChannel *obj, NSError *err){
         if(!err){
