@@ -19,7 +19,7 @@
 #import "TAGCollectionView.h"
 #import "TAGPieceCell.h"
 #import "TAGErrorAlert.h"
-#import "TAGArtocracySpinner.h"
+#import "TAGSpinner.h"
 
 // Constants
 #import "TAGComponentConstants.h"
@@ -37,7 +37,7 @@
 @property (nonatomic, strong) UIActivityIndicatorView *_activityIndicator;
 @property (nonatomic, strong) TAGPieceChannel *_pieceChannel;
 
-@property (nonatomic, strong) UIImageView *_artSpinner;
+@property (nonatomic, strong) TAGSpinner *_spinner;
 
 // ScrollView component hiding
 @property (nonatomic, assign) float _prevNavBarScrollViewYOffset;
@@ -54,6 +54,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+
+        self._spinner = [TAGSpinner new];
         [self fetchPieces];
     }
     return self;
@@ -128,40 +130,10 @@
 }
 
 - (void)fetchPieces {
-    UIImage *statusImage = [UIImage imageNamed:@"a_00.png"];
-    self._artSpinner = [[UIImageView alloc] initWithImage:statusImage];
+    [self._spinner setSpinnerImagesWithView:self.view];
 
-
-    //Add more images which will be used for the animation
-    self._artSpinner.animationImages = [NSArray arrayWithObjects:
-                                        [UIImage imageNamed:@"a_90.png"],
-                                        [UIImage imageNamed:@"a_80.png"],
-                                        [UIImage imageNamed:@"a_70.png"],
-                                        [UIImage imageNamed:@"a_60.png"],
-                                        [UIImage imageNamed:@"a_50.png"],
-                                        [UIImage imageNamed:@"a_40.png"],
-                                        [UIImage imageNamed:@"a_30.png"],
-                                        [UIImage imageNamed:@"a_20.png"],
-                                        [UIImage imageNamed:@"a_20.png"],
-                                        [UIImage imageNamed:@"a_10.png"],
-                                        [UIImage imageNamed:@"a_00.png"],
-                                        [UIImage imageNamed:@"a_10.png"],
-                                        [UIImage imageNamed:@"a_20.png"],
-                                        [UIImage imageNamed:@"a_30.png"],
-                                        [UIImage imageNamed:@"a_40.png"],
-                                        [UIImage imageNamed:@"a_50.png"],
-                                        [UIImage imageNamed:@"a_60.png"],
-                                        [UIImage imageNamed:@"a_70.png"],
-                                        [UIImage imageNamed:@"a_80.png"],
-                                        nil];
-
-    self._artSpinner.animationDuration = 0.5;
-    [self._artSpinner setFrame:CGRectMake(0.0f, 0.0f, 40.0f, 40.0f)];
-    [self._artSpinner setCenter:self.view.center];
-
-    [self._artSpinner startAnimating];
-
-    [self.view addSubview:self._artSpinner];
+    [self._spinner startAnimating];
+    [self.view addSubview:self._spinner];
 
     void(^completionBlock)(TAGPieceChannel *obj, NSError *err)=^(TAGPieceChannel *obj, NSError *err){
         if(!err){
@@ -170,8 +142,8 @@
         } else {
             [TAGErrorAlert render:err];
         }
-        [self._artSpinner stopAnimating];
-        [self._artSpinner removeFromSuperview];
+        [self._spinner stopAnimating];
+        [self._spinner removeFromSuperview];
     };
     [[TAGPieceStore sharedStore] fetchPiecesWithCompletion:completionBlock];
 }

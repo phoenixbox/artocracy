@@ -47,7 +47,6 @@
 		CB33FD7D19C2AA0F0017F4EF /* TAGPieceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB33FD7C19C2AA0F0017F4EF /* TAGPieceCell.m */; };
 		CB4237D319EC34D400FB9442 /* TAGFavorite.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4237D219EC34D400FB9442 /* TAGFavorite.m */; };
 		CB4237D919F0E43900FB9442 /* TAGFavoriteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4237D819F0E43900FB9442 /* TAGFavoriteStore.m */; };
-		CB4515C019F8C75F004F713C /* TAGArtocracySpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4515BF19F8C75F004F713C /* TAGArtocracySpinner.m */; };
 		CB4515CC19F8CAAF004F713C /* a_00@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB4515C119F8CAAF004F713C /* a_00@2x.png */; };
 		CB4515CD19F8CAAF004F713C /* a_10@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB4515C219F8CAAF004F713C /* a_10@2x.png */; };
 		CB4515CE19F8CAAF004F713C /* a_20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB4515C319F8CAAF004F713C /* a_20@2x.png */; };
@@ -59,6 +58,7 @@
 		CB4515D419F8CAAF004F713C /* a_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB4515C919F8CAAF004F713C /* a_80@2x.png */; };
 		CB4515D519F8CAAF004F713C /* a_90@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB4515CA19F8CAAF004F713C /* a_90@2x.png */; };
 		CB4515D619F8CAAF004F713C /* a_100@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB4515CB19F8CAAF004F713C /* a_100@2x.png */; };
+		CB4515D919FA03F5004F713C /* TAGSpinner.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4515D819FA03F5004F713C /* TAGSpinner.m */; };
 		CB615CF91995F4FB00624A8F /* profile_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB615CF81995F4FB00624A8F /* profile_photo@2x.png */; };
 		CB6DA4DE19A3270900BB71EE /* TAGProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6DA4DD19A3270900BB71EE /* TAGProfileViewController.m */; };
 		CB6DA4E119A32A4800BB71EE /* profileSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB6DA4DF19A32A4800BB71EE /* profileSelected@2x.png */; };
@@ -214,8 +214,6 @@
 		CB4237D219EC34D400FB9442 /* TAGFavorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGFavorite.m; sourceTree = "<group>"; };
 		CB4237D719F0E43900FB9442 /* TAGFavoriteStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGFavoriteStore.h; sourceTree = "<group>"; };
 		CB4237D819F0E43900FB9442 /* TAGFavoriteStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGFavoriteStore.m; sourceTree = "<group>"; };
-		CB4515BE19F8C75F004F713C /* TAGArtocracySpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGArtocracySpinner.h; sourceTree = "<group>"; };
-		CB4515BF19F8C75F004F713C /* TAGArtocracySpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGArtocracySpinner.m; sourceTree = "<group>"; };
 		CB4515C119F8CAAF004F713C /* a_00@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a_00@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/rotate/a_00@2x.png"; sourceTree = "<group>"; };
 		CB4515C219F8CAAF004F713C /* a_10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a_10@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/rotate/a_10@2x.png"; sourceTree = "<group>"; };
 		CB4515C319F8CAAF004F713C /* a_20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a_20@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/rotate/a_20@2x.png"; sourceTree = "<group>"; };
@@ -227,6 +225,8 @@
 		CB4515C919F8CAAF004F713C /* a_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a_80@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/rotate/a_80@2x.png"; sourceTree = "<group>"; };
 		CB4515CA19F8CAAF004F713C /* a_90@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a_90@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/rotate/a_90@2x.png"; sourceTree = "<group>"; };
 		CB4515CB19F8CAAF004F713C /* a_100@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a_100@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/rotate/a_100@2x.png"; sourceTree = "<group>"; };
+		CB4515D719FA03F5004F713C /* TAGSpinner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSpinner.h; sourceTree = "<group>"; };
+		CB4515D819FA03F5004F713C /* TAGSpinner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSpinner.m; sourceTree = "<group>"; };
 		CB615CF81995F4FB00624A8F /* profile_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_photo@2x.png"; sourceTree = "<group>"; };
 		CB6DA4DC19A3270900BB71EE /* TAGProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGProfileViewController.h; sourceTree = "<group>"; };
 		CB6DA4DD19A3270900BB71EE /* TAGProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGProfileViewController.m; sourceTree = "<group>"; };
@@ -449,6 +449,8 @@
 				CB068158198ECCEB00B13E49 /* TAGErrorAlert.m */,
 				CBDA9A3D1998437B00E8AD31 /* TAGMapAnnotation.h */,
 				CBDA9A3E1998437B00E8AD31 /* TAGMapAnnotation.m */,
+				CB4515D719FA03F5004F713C /* TAGSpinner.h */,
+				CB4515D819FA03F5004F713C /* TAGSpinner.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -572,7 +574,6 @@
 		CB2673C7198DE9FC00CB02A1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				CB4515BD19F8C73C004F713C /* Activity */,
 				CBFA22EC19BBABE9001B4286 /* Detail */,
 				CB6DA4E519A478BA00BB71EE /* Profile */,
 				CBDA9A161996C99500E8AD31 /* Suggestion */,
@@ -661,15 +662,6 @@
 				CB8BFB4919D51E0A005F4272 /* TAGPieceSectionHeader.xib */,
 			);
 			name = Cell;
-			sourceTree = "<group>";
-		};
-		CB4515BD19F8C73C004F713C /* Activity */ = {
-			isa = PBXGroup;
-			children = (
-				CB4515BE19F8C75F004F713C /* TAGArtocracySpinner.h */,
-				CB4515BF19F8C75F004F713C /* TAGArtocracySpinner.m */,
-			);
-			name = Activity;
 			sourceTree = "<group>";
 		};
 		CB6DA4DB19A326D700BB71EE /* Profile */ = {
@@ -1109,6 +1101,7 @@
 				CBFA22EF19BBAC44001B4286 /* TAGSuggestionDetailsSection.m in Sources */,
 				CB0B536619EB4BC100490218 /* TAGUpvote.m in Sources */,
 				CBD4DCEC19A482620024209D /* TAGCollectionView.m in Sources */,
+				CB4515D919FA03F5004F713C /* TAGSpinner.m in Sources */,
 				CB6DA4E819A478CC00BB71EE /* TAGProfileHeader.m in Sources */,
 				CBDA9A50199B203D00E8AD31 /* TAGSuggestion.m in Sources */,
 				CBD4DCE919A47D370024209D /* TAGProfileCollectionViewController.m in Sources */,
@@ -1116,7 +1109,6 @@
 				CB068163198ED08400B13E49 /* TAGPieceChannel.m in Sources */,
 				CB009B5E19A9A24200FC06A0 /* TAGViewHelpers.m in Sources */,
 				CBDA9A301997158500E8AD31 /* TAGImagePickerController.m in Sources */,
-				CB4515C019F8C75F004F713C /* TAGArtocracySpinner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
