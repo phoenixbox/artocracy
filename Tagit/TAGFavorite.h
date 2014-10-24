@@ -15,5 +15,6 @@
 @property (nonatomic) NSNumber *id;
 @property (nonatomic) NSNumber *tagId;
 @property (nonatomic) NSNumber *userId;
+@property (nonatomic) NSNumber *count;
 
 @end
