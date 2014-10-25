@@ -9,7 +9,6 @@
 #import "TAGAppDelegate.h"
 #import "TAGLoginViewController.h"
 #import "TAGPieceViewControllerDEP.h"
-#import "TAGSuggestionViewController.h"
 #import "TAGProfileViewController.h"
 #import "TAGContributeViewController.h"
 

@@ -108,11 +108,6 @@
 {
     self.navigationController.navigationBar.translucent = NO;
 
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
-    [[UINavigationBar appearance] setBarTintColor:kPureWhite];
-
-    [[UIToolbar appearance] setBarStyle:UIBarStyleBlackOpaque];
-    [[UIToolbar appearance] setBarTintColor:kTagitBlack];
     [self setHeaderLogo];
     [self addNavigationItems];
 }
@@ -136,12 +131,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)addNavigationItems{
-    UIImage *filterImage = [UIImage imageNamed:@"filterIcon.png"];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:filterImage landscapeImagePhone:filterImage style:UIBarButtonItemStylePlain target:self action:@selector(toggleFilter)];
-    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
-}
-
 - (void)setHeaderLogo {
     [[self navigationItem] setTitleView:nil];
     UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 165.0f, 32.5f)];
@@ -151,7 +140,10 @@
     self.navigationItem.titleView = logoView;
 }
 
-- (void)toggleFilter {
+- (void)addNavigationItems{
+    UIImage *filterImage = [UIImage imageNamed:@"filterIcon.png"];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:filterImage landscapeImagePhone:filterImage style:UIBarButtonItemStylePlain target:self action:@selector(toggleFilter)];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
 }
 
 - (void)renderHeader {
@@ -244,7 +236,6 @@
 }
 
 - (void)fetchProposalsForSuggestion {
-    self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
 
     void(^completionBlock)(TAGProposalChannel *obj, NSError *err)=^(TAGProposalChannel *obj, NSError *err){
         if(!err){
@@ -254,7 +245,6 @@
         } else {
             [TAGErrorAlert render:err];
         }
-        [self._activityIndicator stopAnimating];
     };
 
     [[TAGSuggestionStore sharedStore] fetchProposalsForSuggestion:self._suggestion.id withCompletionBlock:completionBlock];

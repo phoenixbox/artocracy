@@ -8,7 +8,7 @@
 
 // CONTEXT: Old suggeastion view controller
 
-#import "TAGSuggestionViewController.h"
+#import "TAGSuggestionViewControllerDEP.h"
 #import "TAGCameraOverlay.h"
 #import "TAGImagePickerController.h"
 #import "TAGMapViewController.h"
@@ -20,7 +20,7 @@
 // Constants
 #import "TAGStyleConstants.h"
 
-@interface TAGSuggestionViewController ()
+@interface TAGSuggestionViewControllerDEP ()
 
 @property (nonatomic) TAGImagePickerController *_imagePickerController;
 @property (nonatomic, strong) UIView *_overlayView;
@@ -42,7 +42,7 @@
 
 @end
 
-@implementation TAGSuggestionViewController
+@implementation TAGSuggestionViewControllerDEP
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -90,6 +90,16 @@
     [self addNavigationItems];
 }
 
+- (void)setHeaderLogo {
+    [[self navigationItem] setTitleView:nil];
+    UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 165.0f, 32.5f)];
+    logoView.contentMode = UIViewContentModeScaleAspectFill;
+    UIImage *logoImage = [UIImage imageNamed:@"art_navBarLogo.png"];
+    [logoView setImage:logoImage];
+    self.navigationItem.titleView = logoView;
+}
+
+
 - (void)addNavigationItems{
     UIImage *cancel = [UIImage imageNamed:@"cancel.png"];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:cancel landscapeImagePhone:cancel style:UIBarButtonItemStylePlain target:self action:@selector(cancelSuggestion)];
@@ -98,15 +108,6 @@
     UIImage *retake = [UIImage imageNamed:@"camera_nav.png"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:retake landscapeImagePhone:retake style:UIBarButtonItemStylePlain target:self action:@selector(retakePhoto)];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor blackColor]];
-}
-
-- (void)setHeaderLogo {
-    [[self navigationItem] setTitleView:nil];
-    UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 165.0f, 32.5f)];
-    logoView.contentMode = UIViewContentModeScaleAspectFill;
-    UIImage *logoImage = [UIImage imageNamed:@"art_navBarLogo.png"];
-    [logoView setImage:logoImage];
-    self.navigationItem.titleView = logoView;
 }
 
 - (void)renderScrollView {

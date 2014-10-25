@@ -13,6 +13,6 @@
 #import <CoreLocation/CoreLocation.h>
 
 
-@interface TAGSuggestionViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate>
+@interface TAGSuggestionViewControllerDEP : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate>
 
 @end

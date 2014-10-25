@@ -102,7 +102,7 @@
 		CBD3D2ED19B58BF700A2DE75 /* TAGSuggestionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD3D2EC19B58BF700A2DE75 /* TAGSuggestionDetailViewController.m */; };
 		CBD4DCE919A47D370024209D /* TAGProfileCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD4DCE819A47D370024209D /* TAGProfileCollectionViewController.m */; };
 		CBD4DCEC19A482620024209D /* TAGCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD4DCEB19A482620024209D /* TAGCollectionView.m */; };
-		CBDA9A121996C4D800E8AD31 /* TAGSuggestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewController.m */; };
+		CBDA9A121996C4D800E8AD31 /* TAGSuggestionViewControllerDEP.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewControllerDEP.m */; };
 		CBDA9A191996C9C300E8AD31 /* TAGCameraOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A181996C9C300E8AD31 /* TAGCameraOverlay.m */; };
 		CBDA9A1C1996CCCA00E8AD31 /* cameraSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A1A1996CCCA00E8AD31 /* cameraSelected@2x.png */; };
 		CBDA9A1D1996CCCA00E8AD31 /* cameraUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A1B1996CCCA00E8AD31 /* cameraUnselected@2x.png */; };
@@ -290,8 +290,8 @@
 		CBD4DCE819A47D370024209D /* TAGProfileCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGProfileCollectionViewController.m; sourceTree = "<group>"; };
 		CBD4DCEA19A482620024209D /* TAGCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCollectionView.h; sourceTree = "<group>"; };
 		CBD4DCEB19A482620024209D /* TAGCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCollectionView.m; sourceTree = "<group>"; };
-		CBDA9A101996C4D700E8AD31 /* TAGSuggestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionViewController.h; sourceTree = "<group>"; };
-		CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionViewController.m; sourceTree = "<group>"; };
+		CBDA9A101996C4D700E8AD31 /* TAGSuggestionViewControllerDEP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionViewControllerDEP.h; sourceTree = "<group>"; };
+		CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewControllerDEP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionViewControllerDEP.m; sourceTree = "<group>"; };
 		CBDA9A171996C9C300E8AD31 /* TAGCameraOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCameraOverlay.h; sourceTree = "<group>"; };
 		CBDA9A181996C9C300E8AD31 /* TAGCameraOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCameraOverlay.m; sourceTree = "<group>"; };
 		CBDA9A1A1996CCCA00E8AD31 /* cameraSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cameraSelected@2x.png"; sourceTree = "<group>"; };
@@ -741,8 +741,8 @@
 			children = (
 				CBD3D2EB19B58BF700A2DE75 /* TAGSuggestionDetailViewController.h */,
 				CBD3D2EC19B58BF700A2DE75 /* TAGSuggestionDetailViewController.m */,
-				CBDA9A101996C4D700E8AD31 /* TAGSuggestionViewController.h */,
-				CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewController.m */,
+				CBDA9A101996C4D700E8AD31 /* TAGSuggestionViewControllerDEP.h */,
+				CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewControllerDEP.m */,
 				CBDA9A3419982CA200E8AD31 /* TAGMapViewController.h */,
 				CBDA9A3519982CA200E8AD31 /* TAGMapViewController.m */,
 				CB0C3E0C19C6099800C58D9D /* TAGContributeViewController.h */,
@@ -1079,7 +1079,7 @@
 				CBAA97D419E3AC040023B3B7 /* TAGMapHelpers.m in Sources */,
 				CBCA725119E8DB2C005695F4 /* TAGProposal.m in Sources */,
 				CB9BC69E19BD07D100BE0EFC /* TAGPieceCollectionCell.m in Sources */,
-				CBDA9A121996C4D800E8AD31 /* TAGSuggestionViewController.m in Sources */,
+				CBDA9A121996C4D800E8AD31 /* TAGSuggestionViewControllerDEP.m in Sources */,
 				CB2673A3198DE3FA00CB02A1 /* main.m in Sources */,
 				CBAA97D119E25C5F0023B3B7 /* TAGSuggestionChannel.m in Sources */,
 				CB9BC69A19BCFD7500BE0EFC /* TAGPiecesViewController.m in Sources */,
