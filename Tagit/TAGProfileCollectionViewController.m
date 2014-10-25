@@ -269,7 +269,7 @@ NSString *const kFavoritesTabType = @"favoritesTab";
 }
 
 - (void)removeEmptyCollectionMessage {
-    self._collectionView.backgroundView = nil;
+    [self._collectionView.backgroundView removeFromSuperview];
 }
 
 #pragma UITableViewDelgate
