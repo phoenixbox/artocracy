@@ -7,9 +7,20 @@
 //
 
 #import "TAGProfileHeader.h"
+
+// Helpers
 #import "TAGViewHelpers.h"
+
+// Constants
 #import "TAGStyleConstants.h"
+
+// Components
+#import "TAGErrorAlert.h"
+
+// Data Layer
+#import "TAGUserStore.h"
 #import "TAGSessionStore.h"
+#import "TAGUserStore.h"
 
 @implementation TAGProfileHeader
 
@@ -23,8 +34,26 @@
         [self addName];
         [self addSuggestionsSummaryViewController];
         [self addFavoritesSummaryViewController];
+        [self fetchUserContributions];
     }
     return self;
+}
+
+- (void)fetchUserContributions {
+    void(^completionBlock)(NSDictionary *contributionCounts, NSError *err)=^(NSDictionary *contributionCounts, NSError *err){
+
+        if(!err){
+            NSAttributedString *suggestionCount = [TAGViewHelpers attributeText:[[contributionCounts objectForKey:@"suggestions"] stringValue] forFontSize:10.0f];
+            [self.suggestionsSummary.counter setAttributedText:suggestionCount];
+
+            NSAttributedString *favoriteCount = [TAGViewHelpers attributeText:[[contributionCounts objectForKey:@"favorites"] stringValue] forFontSize:10.0f];
+            [self.favoritesSummary.counter setAttributedText:favoriteCount];
+        } else {
+            [TAGErrorAlert render:err];
+        }
+    };
+
+    [[TAGUserStore sharedStore] getContributionCountsWithCompletion:completionBlock];
 }
 
 - (void)addProfile {
