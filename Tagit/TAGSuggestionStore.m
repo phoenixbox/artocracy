@@ -7,7 +7,6 @@
 //
 
 #import "TAGSuggestionStore.h"
-#import "TAGAuthStore.h"
 #import "TAGErrorAlert.h"
 
 // Constants
@@ -17,6 +16,10 @@
 // Modules
 #import "AFNetworking.h"
 #import <AWSRuntime/AWSRuntime.h>
+
+// Data Layer
+#import "TAGAuthStore.h"
+#import "TAGSessionStore.h"
 
 #define ACCESS_KEY_ID          @"AKIAIESK6XLNAJWROT4Q"
 #define SECRET_KEY             @"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"
@@ -72,7 +75,10 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
     NSString *requestURL = [TAGAuthStore authenticateRequest:kAPISuggestionsCreate];
-    NSDictionary *suggestionParams = @{@"suggestion": parameters};
+
+    TAGSessionStore *session = [TAGSessionStore sharedStore];
+
+    NSDictionary *suggestionParams = @{@"suggestion": parameters, @"user_id": [session.id stringValue]};
 
     [manager POST:requestURL parameters:suggestionParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString* rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
