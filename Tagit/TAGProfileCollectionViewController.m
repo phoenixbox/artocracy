@@ -44,6 +44,9 @@ NSString *const kListToggle = @"toggleList";
 NSString *const kSuggestionsToggle = @"toggleSuggestions";
 NSString *const kFavoritesToggle = @"toggleFavorites";
 
+NSString *const kSuggestionsTabType = @"suggestionsTab";
+NSString *const kFavoritesTabType = @"favoritesTab";
+
 @interface TAGProfileCollectionViewController ()
 
 @property (nonatomic, strong) TAGCollectionControls *_collectionControls;
@@ -61,6 +64,8 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
 @property (nonatomic, strong) TAGSuggestionChannel *_suggestionChannel;
 @property (nonatomic, strong) TAGPieceChannel *_favoriteChannel;
 
+@property (nonatomic, strong) NSString *_activeTabType;
+
 @end
 
 @implementation TAGProfileCollectionViewController
@@ -70,14 +75,16 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self._activeTabType = kSuggestionsTabType;
         self._presenterType = kCollectionViewPresenter;
         self._currentTableViewCellIdentifier = kProfileTableSuggestionCellIdentifier;
-        [self fetchSuggestionsData];
     }
     return self;
 }
 
 - (void)fetchSuggestionsData {
+    NSLog(@"CURRENTLY: fetchSuggestionsData");
+
     self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
 
     void(^completionBlock)(TAGSuggestionChannel *obj, NSError *err)=^(TAGSuggestionChannel *obj, NSError *err){
@@ -112,16 +119,36 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
     [[TAGPieceStore sharedStore] fetchFavoritesForUser:sessionStore.id WithCompletion:completionBlock];
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
+    [self fetchDataForActiveTab];
+
     [self renderCollectionControls];
     [self renderScrollView];
     [self chooseCollectionPresenter:nil];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [self fetchDataForActiveTab];
+}
+
+- (void)fetchDataForActiveTab {
+    void (^selectedCase)() = @{
+       kSuggestionsTabType: ^{
+        [self fetchSuggestionsData];
+       },
+       kFavoritesTabType: ^{
+        [self fetchFavoritesData];
+       }
+    }[self._activeTabType];
+
+    if (selectedCase != nil) {
+        selectedCase();
+    }
 }
 
 - (void)renderCollectionControls {
@@ -137,6 +164,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
                [presenterView chooseCollectionPresenter:kListToggle];
            },
            kSuggestionsToggle : ^{
+               self._activeTabType = kSuggestionsTabType;
                if ([self tableViewExists]) { // Table View
                    if ([self shouldToggleToCell:kProfileTableSuggestionCellIdentifier]) {
                        [self toggleTableViewCellsTo:kProfileTableSuggestionCellIdentifier];
@@ -148,6 +176,7 @@ NSString *const kFavoritesToggle = @"toggleFavorites";
                }
            },
            kFavoritesToggle : ^{
+              self._activeTabType = kFavoritesTabType;
                if (self._favoriteChannel == nil) {
                    [self fetchFavoritesData];
                }
