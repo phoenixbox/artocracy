@@ -12,4 +12,6 @@
 
 - (void)setSpinnerImagesWithView:(UIView *)view;
 
+- (void)setProgressForButton:(UIButton *)button;
+
 @end

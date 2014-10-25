@@ -43,6 +43,29 @@
     [self setCenter:view.center];
 }
 
+
+- (void)setProgressForButton:(UIButton *)button {
+    UIImage *img = [UIImage imageNamed:@"spinner_00.png"];
+    [self setImage:img];
+
+
+    //Add more images which will be used for the animation
+    self.animationImages = [NSArray arrayWithObjects:
+                            [UIImage imageNamed:@"spinner_01.png"],
+                            [UIImage imageNamed:@"spinner_02.png"],
+                            [UIImage imageNamed:@"spinner_03.png"],
+                            [UIImage imageNamed:@"spinner_04.png"],
+                            [UIImage imageNamed:@"spinner_05.png"],
+                            [UIImage imageNamed:@"spinner_06.png"],
+                            [UIImage imageNamed:@"spinner_07.png"],
+                            [UIImage imageNamed:@"spinner_08.png"],
+                            [UIImage imageNamed:@"spinner_09.png"], nil];
+
+    self.animationDuration = 0.5;
+    [self setFrame:CGRectMake(0.0f, 0.0f, 40.0f, 40.0f)];
+    [self setCenter:button.center];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

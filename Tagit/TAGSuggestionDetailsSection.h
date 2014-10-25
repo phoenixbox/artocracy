@@ -8,23 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
+// Components
+#import "TAGSpinner.h"
+
 // Data Layer
 #import "TAGSuggestion.h"
 #import "TAGUpvote.h"
 
 @interface TAGSuggestionDetailsSection : UIView
 
-- (id)initWithFrame:(CGRect)frame forSuggestion:(TAGSuggestion *)suggestion;
+- (void)attributeWithModel:(TAGSuggestion *)model;
 
 @property (nonatomic, strong)TAGSuggestion *suggestion;
 @property (nonatomic, strong)TAGUpvote *upvote;
-@property (nonatomic, strong)UILabel *canvasTypeTitle;
-@property (nonatomic, strong)UILabel *canvasType;
-@property (nonatomic, strong)UIButton *actionButton;
-@property (nonatomic, strong)UILabel *locationTitle;
-@property (nonatomic, strong)UILabel *locationAddress;
-@property (nonatomic, strong)UILabel *locationCity;
-@property (nonatomic, strong)UILabel *locationState;
-@property (nonatomic, assign) float labelWidth;
+@property (nonatomic, strong)TAGSpinner *spinner;
+
+@property (strong, nonatomic) IBOutlet UILabel *address;
+@property (strong, nonatomic) IBOutlet UILabel *canvasType;
+@property (strong, nonatomic) IBOutlet UIButton *actionButton;
+- (IBAction)upvoteToggled:(UIButton *)sender;
+
 
 @end
