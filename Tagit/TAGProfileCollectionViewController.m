@@ -21,6 +21,7 @@
 #import "TAGProfileTableFavoriteCell.h"
 #import "TAGCollectionViewCell.h"
 #import "TAGErrorAlert.h"
+#import "TAGSpinner.h"
 
 // Constants
 #import "TAGComponentConstants.h"
@@ -59,12 +60,14 @@ NSString *const kFavoritesTabType = @"favoritesTab";
 @property (nonatomic, strong) NSString *_currentTableViewCellIdentifier;
 @property (nonatomic, strong) URBMediaFocusViewController *_lightboxViewController;
 
-@property (nonatomic, strong) UIActivityIndicatorView *_activityIndicator;
-
 @property (nonatomic, strong) TAGSuggestionChannel *_suggestionChannel;
 @property (nonatomic, strong) TAGPieceChannel *_favoriteChannel;
 
 @property (nonatomic, strong) NSString *_activeTabType;
+
+@property (nonatomic, strong) TAGSpinner *_spinner;
+
+@property (nonatomic, assign) BOOL _loading;
 
 @end
 
@@ -75,6 +78,7 @@ NSString *const kFavoritesTabType = @"favoritesTab";
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self._spinner = [TAGSpinner new];
         self._activeTabType = kSuggestionsTabType;
         self._presenterType = kCollectionViewPresenter;
         self._currentTableViewCellIdentifier = kProfileTableSuggestionCellIdentifier;
@@ -83,9 +87,6 @@ NSString *const kFavoritesTabType = @"favoritesTab";
 }
 
 - (void)fetchSuggestionsData {
-    NSLog(@"CURRENTLY: fetchSuggestionsData");
-
-    self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
 
     void(^completionBlock)(TAGSuggestionChannel *obj, NSError *err)=^(TAGSuggestionChannel *obj, NSError *err){
         if(!err){
@@ -95,14 +96,14 @@ NSString *const kFavoritesTabType = @"favoritesTab";
         } else {
             [TAGErrorAlert render:err];
         }
-        [self._activityIndicator stopAnimating];
+
+        [self removeLoadingAnimation];
     };
 
     [[TAGSuggestionStore sharedStore] fetchSuggestionsWithCompletion:completionBlock];
 }
 
 - (void)fetchFavoritesData {
-    self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
 
     void(^completionBlock)(TAGPieceChannel *obj, NSError *err)=^(TAGPieceChannel *obj, NSError *err){
         if(!err){
@@ -112,11 +113,18 @@ NSString *const kFavoritesTabType = @"favoritesTab";
         } else {
             [TAGErrorAlert render:err];
         }
-        [self._activityIndicator stopAnimating];
+
+        [self removeLoadingAnimation];
     };
 
     TAGSessionStore *sessionStore = [TAGSessionStore sharedStore];
     [[TAGPieceStore sharedStore] fetchFavoritesForUser:sessionStore.id WithCompletion:completionBlock];
+}
+
+- (void)removeLoadingAnimation {
+    self._loading = NO;
+    [self._spinner stopAnimating];
+    [self._spinner removeFromSuperview];
 }
 
 - (void)viewDidLoad
@@ -147,6 +155,7 @@ NSString *const kFavoritesTabType = @"favoritesTab";
     }[self._activeTabType];
 
     if (selectedCase != nil) {
+        self._loading = YES;
         selectedCase();
     }
 }
@@ -177,7 +186,10 @@ NSString *const kFavoritesTabType = @"favoritesTab";
            },
            kFavoritesToggle : ^{
               self._activeTabType = kFavoritesTabType;
-               if (self._favoriteChannel == nil) {
+               if (!self._favoriteChannel.pieces.count > 0) {
+                   // REFACTOR THIS - common function which checks the dataStore for the current active tab
+                   self._loading = YES;
+                   [self setActivityIndicatorForView];
                    [self fetchFavoritesData];
                }
 
@@ -402,39 +414,67 @@ NSString *const kFavoritesTabType = @"favoritesTab";
     return flowLayout;
 }
 
+- (BOOL)suggestionsTabIsActive {
+    return self._activeTabType == kSuggestionsTabType;
+}
+
+- (BOOL)favoritesTabIsActive {
+    return self._activeTabType == kFavoritesTabType;
+}
+
+- (void)renderEmptyMessage:(NSString *)message forView:(UIView *)view {
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    [TAGViewHelpers formatLabel:messageLabel withCopy:message];
+    messageLabel.textColor = [UIColor blackColor];
+    messageLabel.numberOfLines = 0;
+    messageLabel.textAlignment = NSTextAlignmentCenter;
+    [messageLabel sizeToFit];
+
+    view = messageLabel;
+}
+
+- (void)setActivityIndicatorForView {
+    if(self._loading){
+        [self._spinner setSpinnerImagesWithView:self._collectionView];
+
+        [self._spinner startAnimating];
+        [self.view addSubview:self._spinner];
+    } else {
+        NSString *collection;
+        if([self suggestionsTabIsActive]) {
+            collection = @"suggestions";
+        } else if ([self favoritesActive]) {
+            collection = @"favorites";
+        }
+
+        // The view doesnt need to be injected everywhere - it should have an accessor
+        NSString *message = [NSString stringWithFormat:@"you currently have no %@ available. do X to get started", collection];
+        [self renderEmptyMessage:message forView:self._collectionView.backgroundView];
+    }
+}
+
 #pragma UICollectionView Protocol Methods
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     // This needs to be flexible per channel - suggestions/favorites/
     NSUInteger sectionCount;
-    NSString *collection;
-    if([self suggestionsActive]) {
+    if([self suggestionsTabIsActive]) {
         sectionCount = [self._suggestionChannel.suggestions count];
-        collection = @"suggestions";
     } else if ([self favoritesActive]) {
         sectionCount = [self._favoriteChannel.pieces count];
-        collection = @"favorites";
     }
-
-    NSString *emptyCollectionCopy = [NSString stringWithFormat:@"no %@ currently available. please pull down to refresh.", collection];
 
     if (sectionCount > 0) {
         self._collectionView.backgroundView = nil;
         return sectionCount;
     } else {
-        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-        [TAGViewHelpers formatLabel:messageLabel withCopy:emptyCollectionCopy];
-        messageLabel.textColor = [UIColor blackColor];
-        messageLabel.numberOfLines = 0;
-        messageLabel.textAlignment = NSTextAlignmentCenter;
-        [messageLabel sizeToFit];
-
-        self._collectionView.backgroundView = messageLabel;
+        [self setActivityIndicatorForView];
     }
     return 0;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"cellForItemAtIndexPath");
     TAGCollectionViewCell *cell = (TAGCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:kCollectionCellIdentifier forIndexPath:indexPath];
 
     UIImageView *backgroundImage = [UIImageView new];
