@@ -77,7 +77,7 @@
     self.counter = [[UILabel alloc] initWithFrame:CounterRect];
     [self.counter setBackgroundColor:[UIColor whiteColor]];
 
-    NSAttributedString *text = [TAGViewHelpers attributeText:@"7" forFontSize:10.0f];
+    NSAttributedString *text = [TAGViewHelpers attributeText:@"0" forFontSize:10.0f];
     [self.counter setAttributedText:text];
     [self.counter setTextAlignment:NSTextAlignmentCenter];
 
@@ -97,7 +97,6 @@
     NSAttributedString *text = [TAGViewHelpers attributeText:self._labelName forFontSize:8.0f];
     [self.label setAttributedText:text];
     [self.label setTextAlignment:NSTextAlignmentCenter];
-//    [TAGViewHelpers sizeLabelToFit:self.label numberOfLines:0];
 
     [self.view addSubview:self.label];
 }
