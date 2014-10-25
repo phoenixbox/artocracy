@@ -99,11 +99,6 @@
 {
     self.navigationController.navigationBar.translucent = NO;
 
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
-    [[UINavigationBar appearance] setBarTintColor:kPureWhite];
-
-    [[UIToolbar appearance] setBarStyle:UIBarStyleBlackOpaque];
-    [[UIToolbar appearance] setBarTintColor:kTagitBlack];
     [self setHeaderLogo];
     [self addNavigationItems];
 }
@@ -147,7 +142,7 @@
 
 - (void)renderHeader {
     [self buildArtistThumbnail];
-    [self buildTagTitle];
+    [self buildPieceTitle];
     [self buildArtistName];
 }
 
@@ -164,7 +159,7 @@
     [self._scrollView addSubview:self._artistThumbnail];
 }
 
-- (void)buildTagTitle {
+- (void)buildPieceTitle {
     CGFloat xCoord = self.view.frame.origin.x + kSmallPadding + self._artistThumbnail.frame.size.width + kSmallPadding;
     CGFloat yCoord = self.view.frame.origin.y + kSmallPadding;
 
@@ -199,20 +194,20 @@
 
 - (void)renderFavoriteCounter {
     CGFloat xCoord = 280.0f;
-    CGFloat yCoord = self._artistName.frame.origin.y;
+    CGFloat yCoord = self._pieceTitle.frame.origin.y;
 
     self._pieceCounter = [[UILabel alloc] initWithFrame:CGRectMake(xCoord,
                                                                       yCoord,
                                                                       100.0f,
                                                                       10.0f)];
 
-    CGFloat fontSize = 15.0f;
+    CGFloat fontSize = 13.0f;
     FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:fontSize];
     NSAttributedString *heartFont = [heart attributedString];
     NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
 
     NSAttributedString *favoriteCount = [TAGViewHelpers counterString:[self._piece.favoriteCount stringValue] withFontSize:fontSize];
-    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0,heartIcon.length)];
+    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,heartIcon.length)];
     [heartIcon appendAttributedString:favoriteCount];
     [heartIcon insertAttributedString:[[NSAttributedString alloc] initWithString:@" "] atIndex:1];
     [self._pieceCounter setAttributedText:heartIcon];
@@ -275,7 +270,6 @@
 }
 
 - (void)fetchArtistsAssociatedWork {
-    self._activityIndicator = [TAGViewHelpers setActivityIndicatorForNavItem:[self navigationItem]];
 
     void(^completionBlock)(TAGPieceChannel *obj, NSError *err)=^(TAGPieceChannel *obj, NSError *err){
         if(!err){
@@ -284,7 +278,6 @@
         } else {
             [TAGErrorAlert render:err];
         }
-        [self._activityIndicator stopAnimating];
     };
 
     [[TAGPieceStore sharedStore] fetchAssociatedWorkForArtist:self._piece.artistId WithCompletion:completionBlock];
