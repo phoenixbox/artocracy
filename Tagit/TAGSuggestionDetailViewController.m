@@ -142,8 +142,12 @@
 
 - (void)addNavigationItems{
     UIImage *filterImage = [UIImage imageNamed:@"filterIcon.png"];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:filterImage landscapeImagePhone:filterImage style:UIBarButtonItemStylePlain target:self action:@selector(toggleFilter)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:filterImage landscapeImagePhone:filterImage style:UIBarButtonItemStylePlain target:self action:@selector(toggleFilter:)];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+}
+
+- (void)toggleFilter:(UIButton *)button {
+    NSLog(@"Toggle Filter!");
 }
 
 - (void)renderHeader {
@@ -229,9 +233,18 @@
 }
 
 - (void)renderSuggestionDetailsContainer {
-    CGRect suggestionFrame = CGRectMake(0.0f, CGRectGetMaxY(self._suggestionImage.frame), self.view.frame.size.width, 65.0f);
-    self._suggestionDetailsSection = [[TAGSuggestionDetailsSection alloc] initWithFrame:suggestionFrame forSuggestion:self._suggestion];
-    [self._suggestionDetailsSection setBackgroundColor:[UIColor clearColor]];
+    // Instantiate the nib content without any reference to it.
+    NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"TAGSuggestionDetailsSection" owner:nil options:nil];
+
+    // Find the view among nib contents (not too hard assuming there is only one view in it).
+    self._suggestionDetailsSection = [nibContents lastObject];
+    [self._suggestionDetailsSection attributeWithModel:self._suggestion];
+
+    [self._suggestionDetailsSection setFrame:CGRectMake(0.0f,
+                                                        CGRectGetMaxY(self._suggestionImage.frame),
+                                                        self._suggestionDetailsSection.frame.size.width,
+                                                        self._suggestionDetailsSection.frame.size.height)];
+
     [self.view addSubview:self._suggestionDetailsSection];
 }
 
