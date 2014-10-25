@@ -58,7 +58,8 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
     NSString *requestURL = [TAGAuthStore authenticateRequest:kAPIUpvoteCreate];
-    NSDictionary *upvoteParams = @{@"suggestion_id": [suggestionId stringValue]};
+    TAGSessionStore *session = [TAGSessionStore sharedStore];
+    NSDictionary *upvoteParams = @{@"suggestion_id": [suggestionId stringValue], @"user_id": [session.id stringValue] };
 
     [manager POST:requestURL parameters:upvoteParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString* rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
