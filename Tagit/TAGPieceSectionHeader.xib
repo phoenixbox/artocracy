@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <objects>
@@ -30,7 +31,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJV-1G-PuS">
-                        <rect key="frame" x="275" y="14" width="37" height="21"/>
+                        <rect key="frame" x="292" y="14" width="20" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -45,7 +46,7 @@
                 <outlet property="favoriteCount" destination="hJV-1G-PuS" id="3QV-5K-HrP"/>
                 <outlet property="pieceLabel" destination="f3v-YN-f5v" id="WGI-F9-EKF"/>
             </connections>
-            <point key="canvasLocation" x="213" y="230"/>
+            <point key="canvasLocation" x="208" y="230"/>
         </collectionViewCell>
     </objects>
 </document>
