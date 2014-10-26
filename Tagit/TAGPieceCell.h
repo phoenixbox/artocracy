@@ -13,7 +13,7 @@
 #import "TAGFavorite.h"
 
 extern NSString *const kSetHeaderInfoNotification;
-extern NSString *const kSetHeaderInfoKeyCount;
+extern NSString *const kSetHeaderInfoPiece;
 extern NSString *const kSetHeaderInfoKeyCell;
 
 @interface TAGPieceCell : UICollectionViewCell

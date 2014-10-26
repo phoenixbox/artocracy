@@ -23,8 +23,7 @@
 #import "TAGViewHelpers.h"
 
 NSString *const kSetHeaderInfoNotification = @"SetHeaderInfoNotification";
-NSString *const kSetHeaderInfoKeyCount = @"count";
-NSString *const kSetHeaderInfoKeyCell = @"cell";
+NSString *const kSetHeaderInfoPiece = @"piece";
 
 @implementation TAGPieceCell
 
@@ -62,9 +61,12 @@ NSString *const kSetHeaderInfoKeyCell = @"cell";
 }
 
 - (void)favoritePiece:(UIButton *)button {
-    void (^completionBlock)(TAGFavorite *upvote, NSError *err)=^(TAGFavorite *favorite, NSError *err) {
+    void (^completionBlock)(TAGFavorite *favorite, NSError *err)=^(TAGFavorite *favorite, NSError *err) {
         if(!err){
             self.favorite = favorite;
+            // Mutate into two places causing error?
+            self.piece.favoriteCount = favorite.count;
+
             [TAGViewHelpers setButtonState:YES forButton:self.likeButton withBackgroundColor:[UIColor greenColor] andCopy:@"Liked"];
         } else {
             [TAGErrorAlert render:err];
@@ -77,16 +79,19 @@ NSString *const kSetHeaderInfoKeyCell = @"cell";
 }
 
 - (void)sendHeaderUpdateNotification {
+    NSLog(@"send header notification %@", self.piece.favoriteCount);
     NSNotification *notification = [NSNotification notificationWithName:kSetHeaderInfoNotification
                                                                  object:self
-                                                               userInfo:@{ kSetHeaderInfoKeyCount: self.favorite.count }];
+                                                               userInfo:@{ kSetHeaderInfoPiece: self.piece }];
 
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 - (void)unFavoritePiece:(UIButton *)button {
-    void(^completionBlock)(BOOL favorited, NSError *err)=^(BOOL favorited, NSError *err) {
+    void(^completionBlock)(TAGPiece *piece, NSError *err)=^(TAGPiece *piece, NSError *err) {
         if(!err){
+            self.piece = piece;
+            self.favorite = nil;
             [TAGViewHelpers setButtonState:NO forButton:self.likeButton withBackgroundColor:[UIColor blackColor] andCopy:@"Like"];
         } else {
             [TAGErrorAlert render:err];
