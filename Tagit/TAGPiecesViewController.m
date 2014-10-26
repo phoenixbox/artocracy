@@ -72,15 +72,25 @@
 
 - (void)updateCellHeader:(NSNotification *)notification {
     TAGPieceCell *cell = notification.object;
+    NSLog(@"CELL TITLE %@", cell.piece.title);
+    NSLog(@"CELL FAV COUNT %@", cell.piece.favoriteCount);
 
-    NSNumber *newCount = @([notification.userInfo[kSetHeaderInfoKeyCount] intValue]);
-    cell.piece.favoriteCount = newCount;
+    TAGPiece *piece = notification.userInfo[kSetHeaderInfoPiece];
+    cell.piece = piece;
 
+    NSLog(@"UPDATED? CELL FAV COUNT %@", cell.piece.favoriteCount);
+
+    TAGPieceCell *foundCell = (TAGPieceCell *)[self._collectionView cellForItemAtIndexPath:[self._collectionView indexPathForCell:cell]];
+    NSLog(@"FOUND CELL TITLE %@", foundCell.piece.title);
     // Reload that one section
-    NSInteger sectionIndex = [[self._collectionView indexPathForCell:cell] section];
+//    NSInteger sectionIndex = [[self._collectionView indexPathForCell:cell] section];
+    NSIndexPath *item = [self._collectionView indexPathForCell:cell];
+
     BOOL animationsEnabled = [UIView areAnimationsEnabled];
     [UIView setAnimationsEnabled:NO];
-    [self._collectionView reloadSections:[[NSIndexSet alloc] initWithIndex:sectionIndex]];
+    [self._collectionView reloadData];
+//    [self._collectionView reloadItemsAtIndexPaths:@[item]];
+//    [self._collectionView reloadSections:[[NSIndexSet alloc] initWithIndex:sectionIndex]];
     [UIView setAnimationsEnabled:animationsEnabled];
 }
 
@@ -237,6 +247,8 @@
         [TAGViewHelpers formatLabel:cell.pieceLabel withCopy:cell.piece.title];
 
         // TODO: Needs FAK heartIcon too
+        NSLog(@"SET THE HEADER VALUE TO %@", [cell.piece.favoriteCount stringValue]);
+        NSLog(@"PIECE NAME %@", cell.piece.title);
         [TAGViewHelpers formatLabel:cell.favoriteCount withCopy:[cell.piece.favoriteCount stringValue]];
 
         [cell.favoriteCount setTextAlignment:NSTextAlignmentRight];
