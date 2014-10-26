@@ -201,17 +201,8 @@
                                                                       100.0f,
                                                                       10.0f)];
 
-    CGFloat fontSize = 13.0f;
-    FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:fontSize];
-    NSAttributedString *heartFont = [heart attributedString];
-    NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
-
-    NSAttributedString *favoriteCount = [TAGViewHelpers counterString:[self._piece.favoriteCount stringValue] withFontSize:fontSize];
-    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,heartIcon.length)];
-    [heartIcon appendAttributedString:favoriteCount];
-    [heartIcon insertAttributedString:[[NSAttributedString alloc] initWithString:@" "] atIndex:1];
-    [self._pieceCounter setAttributedText:heartIcon];
-    [TAGViewHelpers sizeLabelToFit:self._pieceCounter numberOfLines:1];
+    NSMutableAttributedString *favoriteCounter = [TAGViewHelpers heartCounterStringWithCopy:[self._piece.favoriteCount stringValue] andFontSize:13.0f];
+    [self._pieceCounter setAttributedText:favoriteCounter];
 
     [self._scrollView addSubview:self._pieceCounter];
 }

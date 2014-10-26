@@ -233,22 +233,11 @@
         [TAGViewHelpers scaleAndSetRemoteBackgroundImage:cell.piece.artistImageURL forView:cell.artistThumbnail];
         [TAGViewHelpers roundImageLayer:cell.artistThumbnail.layer withFrame:cell.artistThumbnail.frame];
 
-
         [TAGViewHelpers formatLabel:cell.artistLabel withCopy:cell.piece.artistName];
-        [TAGViewHelpers sizeLabelToFit:cell.artistLabel numberOfLines:0.0f];
-
         [TAGViewHelpers formatLabel:cell.pieceLabel withCopy:cell.piece.title];
 
-        // TODO: Needs FAK heartIcon too
-        NSLog(@"RENDER HEADER PIECE %p", cell.piece);
-        NSLog(@"RENDER HEADER COUNT %@", [cell.piece.favoriteCount stringValue]);
-        NSLog(@"RENDER HEADER PIECE NAME %@", cell.piece.title);
-        [TAGViewHelpers formatLabel:cell.favoriteCount withCopy:[cell.piece.favoriteCount stringValue]];
-
-        [cell.favoriteCount setTextAlignment:NSTextAlignmentRight];
-        [TAGViewHelpers sizeLabelToFit:cell.favoriteCount numberOfLines:0.0f];
-
-        [cell styleCounter];
+        NSMutableAttributedString *favoriteCounter = [TAGViewHelpers heartCounterStringWithCopy:[cell.piece.favoriteCount stringValue] andFontSize:13.0f];
+        [cell.favoriteCount setAttributedText:favoriteCounter];
 
         return cell;
     } else if ([kind isEqualToString:CSStickyHeaderParallaxHeader]) {

@@ -43,4 +43,6 @@
 
 + (void)roundImageLayer:(CALayer *)layer withFrame:(CGRect)frame;
 
++ (NSMutableAttributedString *)heartCounterStringWithCopy:(NSString *)copy andFontSize:(CGFloat)fontSize;
+
 @end

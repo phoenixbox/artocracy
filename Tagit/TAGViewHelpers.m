@@ -13,13 +13,15 @@
 
 @implementation TAGViewHelpers
 
+// Note: if there are UI abnormalities - possible conflicts with original handrolling
+// Size label to fit and setNumberOfLines should be take care of in the IB
+
 + (NSAttributedString *)attributeText:(NSString *)text forFontSize:(CGFloat)size {
     return [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName: [UIFont fontWithName:@"WalkwaySemiBold" size:size]}];
 }
 
 + (void)formatLabel:(UILabel *)label withCopy:(NSString *)copy {
     [label setAttributedText:[self attributeText:copy forFontSize:10.0f]];
-    [self sizeLabelToFit:label numberOfLines:1.0f];
 }
 
 + (void)sizeLabelToFit:(UILabel *)label numberOfLines:(CGFloat)lineNumber {
@@ -122,6 +124,19 @@
 + (void)roundImageLayer:(CALayer *)layer withFrame:(CGRect)frame {
     layer.cornerRadius = frame.size.width/2;
     layer.masksToBounds = YES;
+}
+
++ (NSMutableAttributedString *)heartCounterStringWithCopy:(NSString *)copy andFontSize:(CGFloat)fontSize {
+    FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:fontSize];
+    NSAttributedString *heartFont = [heart attributedString];
+    NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
+
+    NSAttributedString *favoriteCount = [TAGViewHelpers counterString:copy withFontSize:fontSize];
+    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,heartIcon.length)];
+    [heartIcon appendAttributedString:favoriteCount];
+    [heartIcon insertAttributedString:[[NSAttributedString alloc] initWithString:@" "] atIndex:1];
+
+    return heartIcon;
 }
 
 @end

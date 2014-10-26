@@ -13,24 +13,24 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C92-cn-dTo">
+                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C92-cn-dTo">
                         <rect key="frame" x="10" y="5" width="40" height="40"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Artist Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egR-4B-Ned">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Artist Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egR-4B-Ned">
                         <rect key="frame" x="60" y="5" width="100" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Piece Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3v-YN-f5v">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Piece Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3v-YN-f5v">
                         <rect key="frame" x="60" y="25" width="100" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJV-1G-PuS">
-                        <rect key="frame" x="292" y="14" width="20" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJV-1G-PuS">
+                        <rect key="frame" x="257" y="14" width="54" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -39,13 +39,19 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="hJV-1G-PuS" secondAttribute="trailing" constant="9" id="2K0-5k-uUv"/>
+                <constraint firstAttribute="bottom" secondItem="f3v-YN-f5v" secondAttribute="bottom" constant="4" id="Mq4-9M-DNb"/>
+                <constraint firstItem="C92-cn-dTo" firstAttribute="leading" secondItem="sz8-tH-sn4" secondAttribute="leading" constant="10" id="O2v-Af-aiw"/>
+                <constraint firstItem="egR-4B-Ned" firstAttribute="top" secondItem="sz8-tH-sn4" secondAttribute="top" constant="5" id="VqJ-XG-aCZ"/>
+            </constraints>
             <connections>
                 <outlet property="artistLabel" destination="egR-4B-Ned" id="yxu-Xy-w2Y"/>
                 <outlet property="artistThumbnail" destination="C92-cn-dTo" id="XRg-RQ-37R"/>
                 <outlet property="favoriteCount" destination="hJV-1G-PuS" id="3QV-5K-HrP"/>
                 <outlet property="pieceLabel" destination="f3v-YN-f5v" id="WGI-F9-EKF"/>
             </connections>
-            <point key="canvasLocation" x="208" y="230"/>
+            <point key="canvasLocation" x="186" y="230"/>
         </collectionViewCell>
     </objects>
 </document>
