@@ -199,7 +199,7 @@
     self._pieceCounter = [[UILabel alloc] initWithFrame:CGRectMake(xCoord,
                                                                       yCoord,
                                                                       100.0f,
-                                                                      10.0f)];
+                                                                      20.0f)];
 
     NSMutableAttributedString *favoriteCounter = [TAGViewHelpers heartCounterStringWithCopy:[self._piece.favoriteCount stringValue] andFontSize:13.0f];
     [self._pieceCounter setAttributedText:favoriteCounter];
