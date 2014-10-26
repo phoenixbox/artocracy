@@ -26,11 +26,10 @@
 - (void)fetchFavoritesForUser:(NSNumber *)userId WithCompletion:(void (^)(TAGPieceChannel *favoriteChannel, NSError *err))block {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSString *urlSegment = [[NSString alloc] initWithFormat:@"/%@/favorites", userId];
+    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPIUserFavorites withURLSegment:urlSegment];
 
-    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPITagFavorites];
-    NSDictionary *favoritesParams = @{@"user_id": userId};
-
-    [manager GET:requestURL parameters:favoritesParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         TAGPieceChannel *favoriteChannel = [[TAGPieceChannel alloc] initWithString:rawJSON error:nil];
 
