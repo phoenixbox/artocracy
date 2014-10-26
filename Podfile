@@ -7,6 +7,7 @@ pod 'FontAwesomeKit/FontAwesome', '~> 2.1.7'
 pod 'URBMediaFocusViewController', '~> 0.5.5'
 pod 'CSStickyHeaderFlowLayout', '~> 0.2.2'
 pod 'InstagramKit', '3.5.0'
+pod 'ObjectiveSugar'
 
 target :TagitTests, :exclusive => true do
     pod 'Kiwi'
