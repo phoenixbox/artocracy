@@ -14,4 +14,6 @@
 
 @property (strong, nonatomic) NSMutableArray<TAGPiece> *pieces;
 
+- (TAGPiece *)findById:(NSNumber *)pieceId;
+
 @end

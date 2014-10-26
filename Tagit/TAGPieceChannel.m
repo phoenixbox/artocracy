@@ -10,4 +10,16 @@
 
 @implementation TAGPieceChannel
 
+- (TAGPiece *)findById:(NSNumber*)pieceId {
+    TAGPiece *piece;
+
+    for (TAGPiece* piece in self.pieces){
+        if([piece.id isEqualToNumber:pieceId]){
+            return piece;
+        }
+    }
+
+    return piece;
+}
+
 @end
