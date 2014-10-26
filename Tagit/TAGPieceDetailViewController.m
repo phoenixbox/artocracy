@@ -26,6 +26,8 @@
 // Data Layer
 #import "TAGPieceChannel.h"
 #import "TAGPieceStore.h"
+#import "TAGFavorite.h"
+#import "TAGFavoriteStore.h"
 
 @interface TAGPieceDetailViewController ()
 
@@ -35,7 +37,7 @@
 @property (nonatomic, strong)UILabel *_artistName;
 @property (nonatomic, strong)UILabel *_location;
 
-@property (nonatomic, strong)UILabel *_pieceCounter;
+@property (nonatomic, strong)UILabel *_favoriteCounter;
 
 @property (nonatomic, strong)UILabel *_associatedTitle;
 @property (nonatomic, strong)UITableView *_associatedWorkTable;
@@ -51,6 +53,8 @@
 @property (nonatomic, strong)TAGPiece *_piece;
 @property (nonatomic, strong) UIActivityIndicatorView *_activityIndicator;
 @property (nonatomic, strong)TAGPieceChannel *_pieceChannel;
+
+@property (nonatomic, strong) TAGFavorite *_favorite;
 
 @end
 
@@ -196,15 +200,13 @@
     CGFloat xCoord = 280.0f;
     CGFloat yCoord = self._pieceTitle.frame.origin.y;
 
-    self._pieceCounter = [[UILabel alloc] initWithFrame:CGRectMake(xCoord,
+    self._favoriteCounter = [[UILabel alloc] initWithFrame:CGRectMake(xCoord,
                                                                       yCoord,
                                                                       100.0f,
                                                                       20.0f)];
 
-    NSMutableAttributedString *favoriteCounter = [TAGViewHelpers heartCounterStringWithCopy:[self._piece.favoriteCount stringValue] andFontSize:13.0f];
-    [self._pieceCounter setAttributedText:favoriteCounter];
-
-    [self._scrollView addSubview:self._pieceCounter];
+    [self updateHeaderCounter];
+    [self._scrollView addSubview:self._favoriteCounter];
 }
 
 - (void)renderDetailImage {
@@ -221,7 +223,8 @@
 
 - (void)renderActionButtons {
     [self renderLikeButton];
-    [self renderCommentButton];
+//    [self renderCommentButton];
+    [self attachActionSelectors];
 }
 
 - (void)renderLikeButton{
@@ -235,8 +238,16 @@
 
     FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
     NSMutableAttributedString *heartIcon = [TAGViewHelpers createIcon:heart withColor:[UIColor blackColor]];
-
     [TAGViewHelpers formatButton:self._likeButton forIcon:heartIcon withCopy:@"Like  " withColor:[UIColor blackColor]];
+
+    void(^completionBlock)(TAGFavorite *favorite, NSError *err)=^(TAGFavorite *favorite, NSError *err) {
+        if(!err){
+            self._favorite = favorite;
+            [TAGViewHelpers setButtonState:YES forButton:self._likeButton withBackgroundColor:[UIColor redColor] andCopy:@"Liked"];
+        }
+    };
+    [[TAGFavoriteStore sharedStore] getFavoriteForPiece:self._piece.id withCompletionBlock:completionBlock];
+    
     [self._scrollView addSubview:self._likeButton];
 }
 
@@ -252,6 +263,54 @@
     NSMutableAttributedString *commentIcon = [TAGViewHelpers createIcon:comment withColor:[UIColor blackColor]];
     [TAGViewHelpers formatButton:self._likeButton forIcon:commentIcon withCopy:@"Comment  " withColor:[UIColor blackColor]];
     [self._scrollView  addSubview:self._likeButton];
+}
+
+- (void)attachActionSelectors {
+    [self._likeButton addTarget:self action:@selector(favoritePiece:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (IBAction)likePiece:(UIButton *)button {
+    if (!button.selected){
+        [self favoritePiece:button];
+    } else {
+        [self unFavoritePiece:button];
+    }
+}
+
+- (void)favoritePiece:(UIButton *)button {
+    void (^completionBlock)(TAGFavorite *favorite, NSError *err)=^(TAGFavorite *favorite, NSError *err) {
+        if(!err){
+            self._piece.favoriteCount = favorite.count;
+            self._favorite = favorite;
+        } else {
+            [TAGErrorAlert render:err];
+        }
+
+        [self updateHeaderCounter];
+    };
+
+    [[TAGFavoriteStore sharedStore] createFavoriteForPiece:self._piece.id withCompletionBlock:completionBlock];
+}
+
+- (void)unFavoritePiece:(UIButton *)button {
+    void(^completionBlock)(TAGPiece *piece, NSError *err)=^(TAGPiece *piece, NSError *err) {
+        if(!err){
+            self._piece = piece;
+            self._favorite = nil;
+        } else {
+            [TAGErrorAlert render:err];
+        }
+        [self updateHeaderCounter];
+    };
+
+    [[TAGFavoriteStore sharedStore] destroyFavorite:self._favorite.id withCompletionBlock:completionBlock];
+}
+
+- (void)updateHeaderCounter {
+    NSString *count = [self._piece.favoriteCount stringValue];
+
+    NSMutableAttributedString *favoriteCounter = [TAGViewHelpers heartCounterStringWithCopy:count andFontSize:13.0f];
+    [self._favoriteCounter setAttributedText:favoriteCounter];
 }
 
 - (void)renderArtistAssocWork {
