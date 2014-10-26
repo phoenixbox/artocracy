@@ -58,10 +58,11 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
+    // Todo: Update the data model to have an artist
     NSString *requestURL = [TAGAuthStore authenticateRequest:kAPITagsArtistWork];
-    NSDictionary *assocWorkParams = @{@"artist_id": artistId};
+    NSDictionary *artist_params = @{@"artist_id": artistId};
 
-    [manager GET:requestURL parameters:assocWorkParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:requestURL parameters:artist_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         TAGPieceChannel *assocWorkChannel = [[TAGPieceChannel alloc] initWithString:rawJSON error:nil];
 
