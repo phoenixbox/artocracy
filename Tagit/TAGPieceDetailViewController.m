@@ -247,7 +247,7 @@
         }
     };
     [[TAGFavoriteStore sharedStore] getFavoriteForPiece:self._piece.id withCompletionBlock:completionBlock];
-    
+
     [self._scrollView addSubview:self._likeButton];
 }
 
@@ -266,10 +266,10 @@
 }
 
 - (void)attachActionSelectors {
-    [self._likeButton addTarget:self action:@selector(favoritePiece:) forControlEvents:UIControlEventTouchUpInside];
+    [self._likeButton addTarget:self action:@selector(favoriteButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (IBAction)likePiece:(UIButton *)button {
+- (IBAction)favoriteButtonTapped:(UIButton *)button {
     if (!button.selected){
         [self favoritePiece:button];
     } else {
@@ -282,6 +282,7 @@
         if(!err){
             self._piece.favoriteCount = favorite.count;
             self._favorite = favorite;
+            [TAGViewHelpers setButtonState:YES forButton:self._likeButton withBackgroundColor:[UIColor redColor] andCopy:@"Liked"];
         } else {
             [TAGErrorAlert render:err];
         }
@@ -297,6 +298,7 @@
         if(!err){
             self._piece = piece;
             self._favorite = nil;
+            [TAGViewHelpers setButtonState:NO forButton:self._likeButton withBackgroundColor:[UIColor blackColor] andCopy:@"Like"];
         } else {
             [TAGErrorAlert render:err];
         }
