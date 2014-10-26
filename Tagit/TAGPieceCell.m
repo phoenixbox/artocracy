@@ -23,7 +23,7 @@
 #import "TAGViewHelpers.h"
 
 NSString *const kSetHeaderInfoNotification = @"SetHeaderInfoNotification";
-NSString *const kSetHeaderInfoPiece = @"piece";
+NSString *const kSetHeaderInfoFavoriteCount = @"favoriteCount";
 
 @implementation TAGPieceCell
 
@@ -64,27 +64,15 @@ NSString *const kSetHeaderInfoPiece = @"piece";
     void (^completionBlock)(TAGFavorite *favorite, NSError *err)=^(TAGFavorite *favorite, NSError *err) {
         if(!err){
             self.favorite = favorite;
-            // Mutate into two places causing error?
-            self.piece.favoriteCount = favorite.count;
-
             [TAGViewHelpers setButtonState:YES forButton:self.likeButton withBackgroundColor:[UIColor greenColor] andCopy:@"Liked"];
         } else {
             [TAGErrorAlert render:err];
         }
 
-        [self sendHeaderUpdateNotification];
+        [self sendHeaderUpdateNotification:favorite.count];
     };
 
     [[TAGFavoriteStore sharedStore] createFavoriteForPiece:self.piece.id withCompletionBlock:completionBlock];
-}
-
-- (void)sendHeaderUpdateNotification {
-    NSLog(@"send header notification %@", self.piece.favoriteCount);
-    NSNotification *notification = [NSNotification notificationWithName:kSetHeaderInfoNotification
-                                                                 object:self
-                                                               userInfo:@{ kSetHeaderInfoPiece: self.piece }];
-
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 - (void)unFavoritePiece:(UIButton *)button {
@@ -96,10 +84,20 @@ NSString *const kSetHeaderInfoPiece = @"piece";
         } else {
             [TAGErrorAlert render:err];
         }
-        [self sendHeaderUpdateNotification];
+        [self sendHeaderUpdateNotification:self.piece.favoriteCount];
     };
 
     [[TAGFavoriteStore sharedStore] destroyFavorite:self.favorite.id withCompletionBlock:completionBlock];
+}
+
+#pragma Header Notification
+- (void)sendHeaderUpdateNotification:(NSNumber *)favoriteCount {
+
+    NSNotification *notification = [NSNotification notificationWithName:kSetHeaderInfoNotification
+                                                                 object:self
+                                                               userInfo:@{ kSetHeaderInfoFavoriteCount: favoriteCount }];
+
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 - (IBAction)commentOnPiece:(UIButton *)sender {
