@@ -9,6 +9,7 @@
 
 // Data Layer
 #import "TAGFavorite.h"
+#import "TAGPiece.h"
 
 @interface TAGFavoriteStore : NSObject
 
@@ -16,8 +17,8 @@
 
 - (void)getFavoriteForPiece:(NSNumber *)pieceId withCompletionBlock:(void (^)(TAGFavorite *favorite, NSError *err))block;
 
-- (void)createFavoriteForPiece:(NSNumber *)pieceId withCompletionBlock:(void (^)(TAGFavorite *favorite, NSError *err))block;
+- (void)createFavoriteForPiece:(NSNumber *)pieceId withCompletionBlock:(void (^)(TAGFavorite *upvote, NSError *err))block;
 
-- (void)destroyFavorite:(NSNumber *)favoriteId withCompletionBlock:(void (^)(BOOL favorited, NSError *err))block;
+- (void)destroyFavorite:(NSNumber *)pieceId withCompletionBlock:(void (^)(TAGPiece *piece, NSError *err))block;
 
 @end

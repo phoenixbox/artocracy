@@ -57,7 +57,8 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
     NSString *requestURL = [TAGAuthStore authenticateRequest:kAPIFavoriteCreate];
-    NSDictionary *upvoteParams = @{@"piece_id": [pieceId stringValue]};
+    TAGSessionStore *session = [TAGSessionStore sharedStore];
+    NSDictionary *upvoteParams = @{@"piece_id": [pieceId stringValue], @"user_id": [session.id stringValue]};
 
     [manager POST:requestURL parameters:upvoteParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString* rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
@@ -69,17 +70,18 @@
     }];
 }
 
-- (void)destroyFavorite:(NSNumber *)favoriteId withCompletionBlock:(void (^)(BOOL favorited, NSError *err))block {
+- (void)destroyFavorite:(NSNumber *)favoriteId withCompletionBlock:(void (^)(TAGPiece *, NSError *err))block {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
     NSString *urlSegment = [[NSString alloc] initWithFormat:@"/%@", favoriteId];
     NSString *requestURL = [TAGAuthStore authenticateRequest:kAPIFavoriteDestroy withURLSegment:urlSegment];
 
     [manager DELETE:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        BOOL deleted = [responseObject objectForKey:@"success"];
+        NSString* rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        TAGPiece *piece = [[TAGPiece alloc] initWithString:rawJSON error:nil];
 
-        block(deleted, nil);
+        block(piece, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         block(nil, error);
     }];
