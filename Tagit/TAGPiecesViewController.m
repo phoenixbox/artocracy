@@ -71,26 +71,19 @@
 }
 
 - (void)updateCellHeader:(NSNotification *)notification {
+    // Retrieve data
     TAGPieceCell *cell = notification.object;
-    NSLog(@"CELL TITLE %@", cell.piece.title);
-    NSLog(@"CELL FAV COUNT %@", cell.piece.favoriteCount);
-
-    TAGPiece *piece = notification.userInfo[kSetHeaderInfoPiece];
-    cell.piece = piece;
-
-    NSLog(@"UPDATED? CELL FAV COUNT %@", cell.piece.favoriteCount);
-
-    TAGPieceCell *foundCell = (TAGPieceCell *)[self._collectionView cellForItemAtIndexPath:[self._collectionView indexPathForCell:cell]];
-    NSLog(@"FOUND CELL TITLE %@", foundCell.piece.title);
-    // Reload that one section
-//    NSInteger sectionIndex = [[self._collectionView indexPathForCell:cell] section];
-    NSIndexPath *item = [self._collectionView indexPathForCell:cell];
-
+    NSNumber *newFavoriteCount = notification.userInfo[kSetHeaderInfoFavoriteCount];
+    // Find the item in the data source channel
+    TAGPiece *targetPiece = [self._pieceChannel findById:cell.piece.id];
+    // Update it - the data source
+    targetPiece.favoriteCount = newFavoriteCount;
+    // Find the index path of the section in the collection then reload
+    NSInteger sectionIndex = [[self._collectionView indexPathForCell:cell] section];
+    // Control the animations
     BOOL animationsEnabled = [UIView areAnimationsEnabled];
     [UIView setAnimationsEnabled:NO];
-    [self._collectionView reloadData];
-//    [self._collectionView reloadItemsAtIndexPaths:@[item]];
-//    [self._collectionView reloadSections:[[NSIndexSet alloc] initWithIndex:sectionIndex]];
+    [self._collectionView reloadSections:[[NSIndexSet alloc] initWithIndex:sectionIndex]];
     [UIView setAnimationsEnabled:animationsEnabled];
 }
 
@@ -247,8 +240,9 @@
         [TAGViewHelpers formatLabel:cell.pieceLabel withCopy:cell.piece.title];
 
         // TODO: Needs FAK heartIcon too
-        NSLog(@"SET THE HEADER VALUE TO %@", [cell.piece.favoriteCount stringValue]);
-        NSLog(@"PIECE NAME %@", cell.piece.title);
+        NSLog(@"RENDER HEADER PIECE %p", cell.piece);
+        NSLog(@"RENDER HEADER COUNT %@", [cell.piece.favoriteCount stringValue]);
+        NSLog(@"RENDER HEADER PIECE NAME %@", cell.piece.title);
         [TAGViewHelpers formatLabel:cell.favoriteCount withCopy:[cell.piece.favoriteCount stringValue]];
 
         [cell.favoriteCount setTextAlignment:NSTextAlignmentRight];
