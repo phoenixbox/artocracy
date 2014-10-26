@@ -31,9 +31,7 @@ NSString *const kSetHeaderInfoFavoriteCount = @"favoriteCount";
     void(^completionBlock)(TAGFavorite *favorite, NSError *err)=^(TAGFavorite *favorite, NSError *err) {
         if(!err){
             self.favorite = favorite;
-            [TAGViewHelpers setButtonState:YES forButton:self.likeButton withBackgroundColor:[UIColor greenColor] andCopy:@"Liked"];
-        } else {
-            [TAGViewHelpers setButtonState:NO forButton:self.likeButton withBackgroundColor:[UIColor blackColor] andCopy:@"Like"];
+            [TAGViewHelpers setButtonState:YES forButton:self.likeButton withBackgroundColor:[UIColor redColor] andCopy:@"Liked"];
         }
         [self addSubview:self.likeButton];
     };
@@ -64,7 +62,6 @@ NSString *const kSetHeaderInfoFavoriteCount = @"favoriteCount";
     void (^completionBlock)(TAGFavorite *favorite, NSError *err)=^(TAGFavorite *favorite, NSError *err) {
         if(!err){
             self.favorite = favorite;
-            [TAGViewHelpers setButtonState:YES forButton:self.likeButton withBackgroundColor:[UIColor greenColor] andCopy:@"Liked"];
         } else {
             [TAGErrorAlert render:err];
         }
@@ -80,7 +77,6 @@ NSString *const kSetHeaderInfoFavoriteCount = @"favoriteCount";
         if(!err){
             self.piece = piece;
             self.favorite = nil;
-            [TAGViewHelpers setButtonState:NO forButton:self.likeButton withBackgroundColor:[UIColor blackColor] andCopy:@"Like"];
         } else {
             [TAGErrorAlert render:err];
         }
