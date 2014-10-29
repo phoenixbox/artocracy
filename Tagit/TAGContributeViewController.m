@@ -120,19 +120,28 @@
     [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
 }
 
+- (BOOL) isCameraAvailable{
+    return [UIImagePickerController isSourceTypeAvailable:
+            UIImagePickerControllerSourceTypeCamera];
+}
+
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
-    TAGImagePickerController *imagePickerController = [TAGImagePickerController sharedImagePicker];
-    imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
-    imagePickerController.sourceType = sourceType;
-    imagePickerController.delegate = self;
-    [imagePickerController setShowsCameraControls:YES];
+    if ([self isCameraAvailable]) {
+        TAGImagePickerController *imagePickerController = [TAGImagePickerController sharedImagePicker];
+        imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+        imagePickerController.sourceType = sourceType;
+        imagePickerController.delegate = self;
+        [imagePickerController setShowsCameraControls:YES];
 
-    if (sourceType == UIImagePickerControllerSourceTypeCamera)
-    {
-        self._imagePickerController = [self buildSquareOverlay:imagePickerController];
+        if (sourceType == UIImagePickerControllerSourceTypeCamera)
+        {
+            self._imagePickerController = [self buildSquareOverlay:imagePickerController];
+        }
+
+        [self presentViewController:self._imagePickerController animated:YES completion:nil];
+    } else {
+        NSLog(@"Camera is unavailable!");
     }
-
-    [self presentViewController:self._imagePickerController animated:YES completion:nil];
 }
 
 - (TAGImagePickerController *)buildSquareOverlay:(TAGImagePickerController *)imagePickerController {
