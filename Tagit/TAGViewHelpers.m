@@ -126,6 +126,22 @@
     layer.masksToBounds = YES;
 }
 
+
+// REAFACTOR: Cant get case statement to work above
+
++ (NSMutableAttributedString *)upvoteCounterStringWithCopy:(NSString *)copy andFontSize:(CGFloat)fontSize {
+    FAKFontAwesome *heart = [FAKFontAwesome thumbsUpIconWithSize:fontSize];
+    NSAttributedString *heartFont = [heart attributedString];
+    NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
+
+    NSAttributedString *favoriteCount = [TAGViewHelpers counterString:copy withFontSize:fontSize];
+    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor greenColor] range:NSMakeRange(0,heartIcon.length)];
+    [heartIcon appendAttributedString:favoriteCount];
+    [heartIcon insertAttributedString:[[NSAttributedString alloc] initWithString:@" "] atIndex:1];
+
+    return heartIcon;
+}
+
 + (NSMutableAttributedString *)heartCounterStringWithCopy:(NSString *)copy andFontSize:(CGFloat)fontSize {
     FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:fontSize];
     NSAttributedString *heartFont = [heart attributedString];
@@ -136,6 +152,37 @@
     [heartIcon appendAttributedString:favoriteCount];
     [heartIcon insertAttributedString:[[NSAttributedString alloc] initWithString:@" "] atIndex:1];
 
+    return heartIcon;
+}
+
+/// Invalid FAK Case statement
++ (void)iconCounter:(NSString *)iconType withCopy:(NSString *)copy andFontSize:(CGFloat)fontSize {
+
+    void (^selectedCase)() = @{
+                               @"upvote": ^{
+                                   FAKFontAwesome *icon = [FAKFontAwesome thumbsUpIconWithSize:fontSize];
+                                   return [self createIcon:icon withCopy:copy andFontSize:fontSize];
+                               },
+                               @"heart": ^{
+                                   FAKFontAwesome *icon = [FAKFontAwesome heartIconWithSize:fontSize];
+                                   return  [self createIcon:icon withCopy:copy andFontSize:fontSize];
+                               }
+                               }[iconType];
+
+    if (selectedCase != nil) {
+        selectedCase();
+    }
+}
+
++ (NSMutableAttributedString *)createIcon:(FAKFontAwesome *)icon withCopy:(NSString *)copy andFontSize:(CGFloat)fontSize {
+    NSAttributedString *heartFont = [icon attributedString];
+    NSMutableAttributedString *heartIcon = [heartFont mutableCopy];
+
+    NSAttributedString *favoriteCount = [TAGViewHelpers counterString:copy withFontSize:fontSize];
+    [heartIcon addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0,heartIcon.length)];
+    [heartIcon appendAttributedString:favoriteCount];
+    [heartIcon insertAttributedString:[[NSAttributedString alloc] initWithString:@" "] atIndex:1];
+    
     return heartIcon;
 }
 

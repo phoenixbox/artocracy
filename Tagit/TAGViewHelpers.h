@@ -44,5 +44,8 @@
 + (void)roundImageLayer:(CALayer *)layer withFrame:(CGRect)frame;
 
 + (NSMutableAttributedString *)heartCounterStringWithCopy:(NSString *)copy andFontSize:(CGFloat)fontSize;
++ (NSMutableAttributedString *)upvoteCounterStringWithCopy:(NSString *)copy andFontSize:(CGFloat)fontSize;
+
++ (void)iconCounter:(NSString *)iconType withCopy:(NSString *)copy andFontSize:(CGFloat)fontSize;
 
 @end

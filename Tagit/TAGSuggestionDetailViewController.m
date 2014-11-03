@@ -14,10 +14,14 @@
 
 // Components
 #import "TAGMapViewController.h"
-#import "TAGSuggestionDetailsSection.h"
 #import "TAGLateralTableViewCell.h"
 #import "TAGMapAnnotation.h"
 #import "TAGErrorAlert.h"
+#import "TAGPieceCell.h"
+
+// Interface
+#import "TAGSuggestionDetailsSection.h"
+#import "TAGSuggestionDetailHeader.h"
 
 // Constants
 #import "TAGStyleConstants.h"
@@ -39,7 +43,7 @@
 @property (nonatomic, strong) UIView *_header;
 @property (nonatomic, strong) UIView *_userThumbnail;
 @property (nonatomic, strong) UILabel *_userName;
-@property (nonatomic, strong) UILabel *_upvoteCounter;
+
 // Main Content
 @property (nonatomic, strong) UIImageView *_suggestionImage;
 // Map view
@@ -58,6 +62,8 @@
 @property (nonatomic, assign) float _cellDimension;
 // Container scroll view
 @property (nonatomic, strong) UIScrollView *_scrollView;
+
+@property (nonatomic, strong) TAGSuggestionDetailHeader *_suggestionHeader;
 
 @end
 
@@ -151,43 +157,23 @@
 }
 
 - (void)renderHeader {
-    [self buildUserThumbnail];
-    [self buildUserName];
-}
+    NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"TAGSuggestionDetailHeader" owner:nil options:nil];
 
-- (void)buildUserThumbnail {
-    CGFloat xCoord = self.view.frame.origin.x + kSmallPadding;
-    CGFloat yCoord = self.view.frame.origin.y + kSmallPadding;
-    self._userThumbnail = [[UIView alloc]initWithFrame:CGRectMake(xCoord,
-                                                                    yCoord,
-                                                                    27.5f,
-                                                                    27.5f)];
+    // Find the view among nib contents (not too hard assuming there is only one view in it).
+    self._suggestionHeader = [nibContents lastObject];
+    [self._suggestionHeader attributeWithModel:self._suggestion];
 
-    [TAGViewHelpers roundImageLayer:self._userThumbnail.layer withFrame:self._userThumbnail.frame];
-    [TAGViewHelpers scaleAndSetRemoteBackgroundImage:self._suggestion.suggestorImageURL forView:self._userThumbnail];
+    [self._suggestionHeader setFrame:CGRectMake(0.0f,
+                                                0.0f,
+                                                self._suggestionHeader.frame.size.width,
+                                                self._suggestionHeader.frame.size.height)];
 
-    [self._scrollView addSubview:self._userThumbnail];
-}
-
-- (void)buildUserName {
-    CGFloat xCoord = self.view.frame.origin.x + kSmallPadding + self._userThumbnail.frame.size.width + kSmallPadding;
-    CGFloat yCoord = self.view.frame.origin.y + kSmallPadding;
-
-    self._userName = [[UILabel alloc]initWithFrame:CGRectMake(xCoord,
-                                                                yCoord,
-                                                                100.0f,
-                                                                15.0f)];
-
-    NSAttributedString *text = [TAGViewHelpers attributeText:self._suggestion.suggestorEmail forFontSize:10.0f];
-    [self._userName setAttributedText:text];
-    [TAGViewHelpers sizeLabelToFit:self._userName numberOfLines:0];
-
-    [self._scrollView addSubview:self._userName];
+    [self.view addSubview:self._suggestionHeader];
 }
 
 - (void)renderDetailImage {
     CGFloat xCoord = self.view.frame.origin.x;
-    CGFloat yCoord = self._userThumbnail.frame.origin.y + self._userThumbnail.frame.size.height + kBigPadding;
+    CGFloat yCoord = self._suggestionHeader.frame.origin.y + self._suggestionHeader.frame.size.height + kBigPadding;
     CGRect imageFrame = CGRectMake(xCoord,
                                    yCoord,
                                    self.view.frame.size.width/2,
