@@ -80,7 +80,8 @@ NSString *const kSetHeaderInfoFavoriteCount = @"favoriteCount";
         } else {
             [TAGErrorAlert render:err];
         }
-        [self sendHeaderUpdateNotification:self.piece.favoriteCount];
+
+        [self sendHeaderUpdateNotification:piece.favoriteCount];
     };
 
     [[TAGFavoriteStore sharedStore] destroyFavorite:self.favorite.id withCompletionBlock:completionBlock];
