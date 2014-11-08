@@ -70,9 +70,21 @@
                  object:cell];
 }
 
+-(void)removeListenerOnCell:(TAGPieceCell *)cell {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+
+    [center removeObserver:self
+                      name:kSetHeaderInfoNotification
+                    object:cell];
+}
+
 - (void)updateCellHeader:(NSNotification *)notification {
+
     // Retrieve data
     TAGPieceCell *cell = notification.object;
+
+    [self removeListenerOnCell:cell];
+
     NSNumber *newFavoriteCount = notification.userInfo[kSetHeaderInfoFavoriteCount];
     // Find the item in the data source channel
     TAGPiece *targetPiece = [self._pieceChannel findById:cell.piece.id];

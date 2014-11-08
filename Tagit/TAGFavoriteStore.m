@@ -43,9 +43,7 @@
         NSString* rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         TAGFavorite *favorite = [[TAGFavorite alloc] initWithString:rawJSON error:nil];
 
-        if (favorite) {
-            block(favorite, nil);
-        }
+        block(favorite, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         block(nil, error);
     }];

@@ -32,20 +32,24 @@ NSString *const kSetHeaderInfoFavoriteCount = @"favoriteCount";
 
 -(id)initWithCoder:(NSCoder*)aDecoder {
     if((self = [super initWithCoder:aDecoder])) {
+        self.likeButton.selected = NO;
         self.spinner = [TAGSpinner new];
     }
     return self;
 }
 
 - (void)getLikeState {
+    NSLog(@"IAM + %@", self.piece.title);
+
     void(^completionBlock)(TAGFavorite *favorite, NSError *err)=^(TAGFavorite *favorite, NSError *err) {
         if(!err){
             self.favorite = favorite;
+
             [TAGViewHelpers setButtonState:YES forButton:self.likeButton withBackgroundColor:[UIColor redColor] andCopy:@"Liked"];
         }
         [self addSubview:self.likeButton];
     };
-
+    self.likeButton.selected = NO;
     [[TAGFavoriteStore sharedStore] getFavoriteForPiece:self.piece.id withCompletionBlock:completionBlock];
 }
 
@@ -70,15 +74,18 @@ NSString *const kSetHeaderInfoFavoriteCount = @"favoriteCount";
 
 - (void)favoritePiece:(UIButton *)button {
     [self startSpinner:button];
+
     void (^completionBlock)(TAGFavorite *favorite, NSError *err)=^(TAGFavorite *favorite, NSError *err) {
         if(!err){
             self.favorite = favorite;
+            self.likeButton.selected = YES;
         } else {
+            NSLog(@"FAVORITE ERROR");
             [TAGErrorAlert render:err];
         }
         [self stopSpinner:button];
 
-        [self sendHeaderUpdateNotification:favorite.count];
+        [self sendHeaderUpdateNotification:self.favorite.count];
     };
 
     [[TAGFavoriteStore sharedStore] createFavoriteForPiece:self.piece.id withCompletionBlock:completionBlock];
@@ -90,13 +97,15 @@ NSString *const kSetHeaderInfoFavoriteCount = @"favoriteCount";
         if(!err){
             self.piece = piece;
             self.favorite = nil;
+            self.likeButton.selected = NO;
         } else {
+            NSLog(@"DELETE FAVORITE ERROR");
             [TAGErrorAlert render:err];
         }
 
         [self stopSpinner:button];
 
-        [self sendHeaderUpdateNotification:piece.favoriteCount];
+        [self sendHeaderUpdateNotification:self.piece.favoriteCount];
     };
 
     [[TAGFavoriteStore sharedStore] destroyFavorite:self.favorite.id withCompletionBlock:completionBlock];
