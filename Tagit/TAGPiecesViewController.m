@@ -61,7 +61,7 @@
     return self;
 }
 
-- (void)setListenerOnCell:(TAGPieceCell *)cell {
+- (void)listenToCell:(TAGPieceCell *)cell {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 
     [center addObserver:self
@@ -203,7 +203,7 @@
         [cell getLikeState];
 
         // Listen for header update
-        [self setListenerOnCell:cell];
+        [self listenToCell:cell];
 
         UIImage *img = [TAGViewHelpers imageForURL:piece.imageUrl];
         [cell.pieceImage setImage:img];
