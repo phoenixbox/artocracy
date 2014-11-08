@@ -123,7 +123,7 @@ NSString *const kSetHeaderInfoUpvoteCount = @"upvoteCount";
     [[TAGUpvoteStore sharedStore] destroyUpvote:self.upvote.id withCompletionBlock:completionBlock];
 }
 
-#pragma Loader Management
+#pragma Spinner Management
 
 - (void)startSpinner:(UIButton *)button {
     [self.spinner setProgressForButton:self.actionButton];

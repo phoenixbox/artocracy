@@ -66,6 +66,28 @@
     [self setCenter:button.center];
 }
 
+- (void)setHeartSpinnerForButton:(UIButton *)button {
+    [button setBackgroundColor:[UIColor blackColor]];
+    UIImage *img = [UIImage imageNamed:@"heart_spinner00.png"];
+    [self setImage:img];
+
+    self.animationImages = [NSArray arrayWithObjects:
+                            [UIImage imageNamed:@"heart_spinner01.png"],
+                            [UIImage imageNamed:@"heart_spinner02.png"],
+                            [UIImage imageNamed:@"heart_spinner03.png"],
+                            [UIImage imageNamed:@"heart_spinner04.png"],
+                            [UIImage imageNamed:@"heart_spinner05.png"],
+                            [UIImage imageNamed:@"heart_spinner06.png"],
+                            [UIImage imageNamed:@"heart_spinner07.png"],
+                            [UIImage imageNamed:@"heart_spinner08.png"],
+                            [UIImage imageNamed:@"heart_spinner09.png"], nil];
+
+    self.animationDuration = 0.2;
+
+    [self setFrame:CGRectMake(0.0f, 0.0f, button.frame.size.height, button.frame.size.height)];
+    [self setCenter:button.center];
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

@@ -14,4 +14,6 @@
 
 - (void)setProgressForButton:(UIButton *)button;
 
+- (void)setHeartSpinnerForButton:(UIButton *)button;
+
 @end
