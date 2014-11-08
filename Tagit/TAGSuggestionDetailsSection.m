@@ -25,6 +25,9 @@
 #import "TAGUpvoteStore.h"
 #import "TAGUpvote.h"
 
+NSString *const kSetSuggestionHeaderInfoNotification = @"SetSuggestionHeaderInfoNotification";
+NSString *const kSetHeaderInfoUpvoteCount = @"upvoteCount";
+
 @implementation TAGSuggestionDetailsSection
 
 -(id)initWithCoder:(NSCoder*)aDecoder {
@@ -76,6 +79,15 @@
     [[TAGUpvoteStore sharedStore] getUpvoteForSuggestion:self.suggestion.id withCompletionBlock:completionBlock];
 }
 
+- (IBAction)upvoteToggled:(UIButton *)button {
+    if (!button.selected){
+        [self upvoteSuggestion:button];
+    } else {
+        [self removeSuggestionUpvote:button];
+    }
+
+}
+
 - (void)upvoteSuggestion:(UIButton *)button {
     [self startSpinner:button];
 
@@ -88,10 +100,30 @@
             [TAGErrorAlert render:err];
         }
         [self stopSpinner:button];
+
+        [self sendHeaderUpdateNotification:self.upvote.count];
     };
 
     [[TAGUpvoteStore sharedStore] createUpvoteForSuggestion:self.suggestion.id withCompletionBlock:completionBlock];
 }
+
+- (void)removeSuggestionUpvote:(UIButton *)button {
+    void(^completionBlock)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err){
+        if(!err){
+            self.upvote = nil;
+            self.actionButton.selected = NO;
+            self.suggestion = suggestion;
+        } else {
+            [TAGErrorAlert render:err];
+        }
+
+        [self sendHeaderUpdateNotification:self.suggestion.upvoteCount];
+    };
+
+    [[TAGUpvoteStore sharedStore] destroyUpvote:self.upvote.id withCompletionBlock:completionBlock];
+}
+
+#pragma Loader Management
 
 - (void)startSpinner:(UIButton *)button {
     [self.spinner setProgressForButton:self.actionButton];
@@ -109,25 +141,14 @@
 }
 
 
-- (void)removeSuggestionUpvote:(UIButton *)button {
-    void(^completionBlock)(BOOL upvoted, NSError *err)=^(BOOL upvoted, NSError *err){
-        if(!err){
-            self.upvote = nil;
-            self.actionButton.selected = NO;
-        } else {
-            [TAGErrorAlert render:err];
-        }
-    };
+#pragma Header Notification
+- (void)sendHeaderUpdateNotification:(NSNumber *)upvoteCount {
 
-    [[TAGUpvoteStore sharedStore] destroyUpvote:self.upvote.id withCompletionBlock:completionBlock];
+    NSNotification *notification = [NSNotification notificationWithName:kSetSuggestionHeaderInfoNotification
+                                                                 object:self
+                                                               userInfo:@{ kSetHeaderInfoUpvoteCount: upvoteCount }];
+
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
-- (IBAction)upvoteToggled:(UIButton *)button {
-    if (!button.selected){
-        [self upvoteSuggestion:button];
-    } else {
-        [self removeSuggestionUpvote:button];
-    }
-
-}
 @end

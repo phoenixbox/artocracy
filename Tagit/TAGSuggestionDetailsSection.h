@@ -15,6 +15,9 @@
 #import "TAGSuggestion.h"
 #import "TAGUpvote.h"
 
+extern NSString *const kSetSuggestionHeaderInfoNotification;
+extern NSString *const kSetHeaderInfoUpvoteCount;
+
 @interface TAGSuggestionDetailsSection : UIView
 
 - (void)attributeWithModel:(TAGSuggestion *)model;
@@ -27,6 +30,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *canvasType;
 @property (strong, nonatomic) IBOutlet UIButton *actionButton;
 - (IBAction)upvoteToggled:(UIButton *)sender;
-
 
 @end

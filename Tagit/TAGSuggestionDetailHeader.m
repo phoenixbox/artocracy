@@ -13,6 +13,13 @@
 
 @implementation TAGSuggestionDetailHeader
 
+-(id)initWithCoder:(NSCoder*)aDecoder {
+    if((self = [super initWithCoder:aDecoder])) {
+
+    }
+    return self;
+}
+
 - (void)attributeWithModel:(TAGSuggestion *)model {
     self.suggestion = model;
 

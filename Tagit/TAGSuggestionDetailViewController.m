@@ -40,10 +40,7 @@
 // Data Layer
 @property (nonatomic, strong)TAGSuggestion *_suggestion;
 // Header section
-@property (nonatomic, strong) UIView *_header;
-@property (nonatomic, strong) UIView *_userThumbnail;
-@property (nonatomic, strong) UILabel *_userName;
-
+@property (nonatomic, strong) TAGSuggestionDetailHeader *_suggestionHeader;
 // Main Content
 @property (nonatomic, strong) UIImageView *_suggestionImage;
 // Map view
@@ -62,8 +59,6 @@
 @property (nonatomic, assign) float _cellDimension;
 // Container scroll view
 @property (nonatomic, strong) UIScrollView *_scrollView;
-
-@property (nonatomic, strong) TAGSuggestionDetailHeader *_suggestionHeader;
 
 @end
 
@@ -108,7 +103,31 @@
 
     [self fetchProposalsForSuggestion];
     [self renderProposalsTable];
+
+    [self listenToSuggestionDetailsContainer];
 }
+
+- (void)listenToSuggestionDetailsContainer {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+
+    [center addObserver:self
+               selector:@selector(updateSuggestionHeader:)
+                   name:kSetSuggestionHeaderInfoNotification
+                 object:self._suggestionDetailsSection];
+}
+
+- (void)updateSuggestionHeader:(NSNotification *)notification {
+    NSNumber *newUpvoteCount = notification.userInfo[kSetHeaderInfoUpvoteCount];
+
+    [self._suggestion setUpvoteCount:newUpvoteCount];
+    [self._suggestionHeader attributeWithModel:self._suggestion];
+    [self._suggestionHeader setNeedsDisplay];
+
+    BOOL animationsEnabled = [UIView areAnimationsEnabled];
+    [UIView setAnimationsEnabled:NO];
+    [UIView setAnimationsEnabled:animationsEnabled];
+}
+
 
 - (void)initAppearance
 {
