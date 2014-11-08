@@ -10,6 +10,7 @@
 
 // Data Layer
 #import "TAGUpvote.h"
+#import "TAGSuggestion.h"
 
 @interface TAGUpvoteStore : NSObject
 
@@ -19,6 +20,6 @@
 
 - (void)createUpvoteForSuggestion:(NSNumber *)suggestionId withCompletionBlock:(void (^)(TAGUpvote *upvote, NSError *err))block;
 
-- (void)destroyUpvote:(NSNumber *)upvoteId withCompletionBlock:(void (^)(BOOL upvoted, NSError *err))block;
+- (void)destroyUpvote:(NSNumber *)upvoteId withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))block;
 
 @end

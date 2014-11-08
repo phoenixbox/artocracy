@@ -16,5 +16,6 @@
 @property (nonatomic) NSNumber *id;
 @property (nonatomic) NSNumber *suggestionId;
 @property (nonatomic) NSNumber *userId;
+@property (nonatomic) NSNumber *count;
 
 @end

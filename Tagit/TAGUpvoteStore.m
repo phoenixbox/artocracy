@@ -17,7 +17,6 @@
 // Data Layer
 #import "TAGAuthStore.h"
 #import "TAGSessionStore.h"
-#import "TAGUpvote.h"
 
 @implementation TAGUpvoteStore
 
@@ -71,21 +70,21 @@
     }];
 }
 
-- (void)destroyUpvote:(NSNumber *)upvoteId withCompletionBlock:(void (^)(BOOL upvoted, NSError *err))block {
+- (void)destroyUpvote:(NSNumber *)upvoteId withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))block {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
     NSString *urlSegment = [[NSString alloc] initWithFormat:@"/%@", upvoteId];
     NSString *requestURL = [TAGAuthStore authenticateRequest:kAPIUpvoteDestroy withURLSegment:urlSegment];
 
     [manager DELETE:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        BOOL deleted = [responseObject objectForKey:@"success"];
+        NSString* rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        TAGSuggestion *suggestion = [[TAGSuggestion alloc] initWithString:rawJSON error:nil];
 
-        block(deleted, nil);
+        block(suggestion, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         block(nil, error);
     }];
 }
-
 
 @end
