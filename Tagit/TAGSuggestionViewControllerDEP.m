@@ -144,12 +144,12 @@
                                                               100.0f,
                                                               40.0f)];
 
-    NSAttributedString *locationCopy = [TAGViewHelpers attributeText:@"Location" forFontSize:16.0f];
+    NSAttributedString *locationCopy = [TAGViewHelpers attributeText:@"Location" forFontSize:16.0f andFontFamily:nil];
     [self._locationTitle setAttributedText:locationCopy];
     [TAGViewHelpers sizeLabelToFit:self._locationTitle numberOfLines:0];
     [self._scrollView addSubview:self._locationTitle];
 
-    NSAttributedString *addressCopy = [TAGViewHelpers attributeText:@"123 Ape Street, San Francisco, CA 93221" forFontSize:12.0f];
+    NSAttributedString *addressCopy = [TAGViewHelpers attributeText:@"123 Ape Street, San Francisco, CA 93221" forFontSize:12.0f andFontFamily:nil];
     [self._address setAttributedText:addressCopy];
     [TAGViewHelpers sizeLabelToFit:self._address numberOfLines:1];
     [self._scrollView addSubview:self._address];
@@ -162,7 +162,7 @@
                                                                     yCoord,
                                                                     100.0f,
                                                                     40.0f)];
-    NSAttributedString *canvasTypeCopy = [TAGViewHelpers attributeText:@"Canvas Type" forFontSize:16.0f];
+    NSAttributedString *canvasTypeCopy = [TAGViewHelpers attributeText:@"Canvas Type" forFontSize:16.0f andFontFamily:nil];
     [self._canvasTypeTitle setAttributedText:canvasTypeCopy];
     [TAGViewHelpers sizeLabelToFit:self._canvasTypeTitle numberOfLines:1];
     [self._scrollView addSubview:self._canvasTypeTitle];

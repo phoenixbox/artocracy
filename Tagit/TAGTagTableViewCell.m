@@ -61,7 +61,7 @@
                                                           100.0f,
                                                           15.0f)];
 
-    NSAttributedString *text = [TAGViewHelpers attributeText:@"Ape Do Good Printing" forFontSize:10.0f];
+    NSAttributedString *text = [TAGViewHelpers attributeText:@"Ape Do Good Printing" forFontSize:10.0f andFontFamily:nil];
     [self.tagTitle setAttributedText:text];
     [TAGViewHelpers sizeLabelToFit:self.tagTitle numberOfLines:0];
 
@@ -78,7 +78,7 @@
                                                                100.0f,
                                                                15.0f)];
 
-    NSAttributedString *text = [TAGViewHelpers attributeText:@"Lonnie Spoon" forFontSize:10.0f];
+    NSAttributedString *text = [TAGViewHelpers attributeText:@"Lonnie Spoon" forFontSize:10.0f andFontFamily:nil];
     [self.artistName setAttributedText:text];
     [TAGViewHelpers sizeLabelToFit:self.artistName numberOfLines:0];
 

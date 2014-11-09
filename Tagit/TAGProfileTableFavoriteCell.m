@@ -90,7 +90,7 @@
                                                          yOrigin,
                                                          labelWidth,
                                                          labelHeight)];
-        [TAGViewHelpers formatLabel:label withCopy:[text objectAtIndex:i]];
+        [TAGViewHelpers formatLabel:label withCopy:[text objectAtIndex:i] andFontFamily:nil];
         [self addSubview:label];
     }
 }
@@ -144,7 +144,7 @@
 }
 
 - (void)setLabel:(UILabel *)label withTitle:(NSString *)title forFontSize:(CGFloat)size {
-    NSAttributedString *faveText = [TAGViewHelpers attributeText:title forFontSize:size];
+    NSAttributedString *faveText = [TAGViewHelpers attributeText:title forFontSize:size andFontFamily:nil];
     [label setAttributedText:faveText];
     [label setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:label];

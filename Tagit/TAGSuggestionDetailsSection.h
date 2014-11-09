@@ -25,6 +25,8 @@ extern NSString *const kSetHeaderInfoUpvoteCount;
 @property (nonatomic, strong)TAGSuggestion *suggestion;
 @property (nonatomic, strong)TAGUpvote *upvote;
 @property (nonatomic, strong)TAGSpinner *spinner;
+@property (strong, nonatomic) IBOutlet UILabel *locationLabel;
+@property (strong, nonatomic) IBOutlet UILabel *canvasTypeLabel;
 
 @property (strong, nonatomic) IBOutlet UILabel *address;
 @property (strong, nonatomic) IBOutlet UILabel *canvasType;

@@ -43,10 +43,10 @@
     void(^completionBlock)(NSDictionary *contributionCounts, NSError *err)=^(NSDictionary *contributionCounts, NSError *err){
 
         if(!err){
-            NSAttributedString *suggestionCount = [TAGViewHelpers attributeText:[[contributionCounts objectForKey:@"suggestions"] stringValue] forFontSize:10.0f];
+            NSAttributedString *suggestionCount = [TAGViewHelpers attributeText:[[contributionCounts objectForKey:@"suggestions"] stringValue] forFontSize:10.0f andFontFamily:nil];
             [self.suggestionsSummary.counter setAttributedText:suggestionCount];
 
-            NSAttributedString *favoriteCount = [TAGViewHelpers attributeText:[[contributionCounts objectForKey:@"favorites"] stringValue] forFontSize:10.0f];
+            NSAttributedString *favoriteCount = [TAGViewHelpers attributeText:[[contributionCounts objectForKey:@"favorites"] stringValue] forFontSize:10.0f andFontFamily:nil];
             [self.favoritesSummary.counter setAttributedText:favoriteCount];
         } else {
             [TAGErrorAlert render:err];
@@ -77,7 +77,7 @@
                                                             20.0f)];
 
     TAGSessionStore *session = [TAGSessionStore sharedStore];
-    NSAttributedString *text = [TAGViewHelpers attributeText:session.email forFontSize:10.0f];
+    NSAttributedString *text = [TAGViewHelpers attributeText:session.email forFontSize:10.0f andFontFamily:nil];
     [self.username setAttributedText:text];
     [TAGViewHelpers sizeLabelToFit:self.username numberOfLines:0.0f];
 

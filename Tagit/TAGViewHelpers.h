@@ -13,9 +13,9 @@
 
 @interface TAGViewHelpers : NSObject
 
-+ (NSAttributedString *)attributeText:(NSString *)text forFontSize:(CGFloat)size;
++ (NSAttributedString *)attributeText:(NSString *)text forFontSize:(CGFloat)size andFontFamily:(NSString *)fontFamily;
 
-+ (void)formatLabel:(UILabel *)label withCopy:(NSString *)copy;
++ (void)formatLabel:(UILabel *)label withCopy:(NSString *)copy andFontFamily:(NSString *)fontFamily;
 
 + (void)sizeLabelToFit:(UILabel *)label numberOfLines:(CGFloat)lineNumber;
 

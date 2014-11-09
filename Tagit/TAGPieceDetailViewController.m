@@ -172,7 +172,7 @@
                                                              100.0f,
                                                              15.0f)];
 
-    NSAttributedString *text = [TAGViewHelpers attributeText:self._piece.title forFontSize:10.0f];
+    NSAttributedString *text = [TAGViewHelpers attributeText:self._piece.title forFontSize:10.0f andFontFamily:nil];
     [self._pieceTitle setAttributedText:text];
     [TAGViewHelpers sizeLabelToFit:self._pieceTitle numberOfLines:0];
 
@@ -189,7 +189,7 @@
                                                                100.0f,
                                                                15.0f)];
 
-    NSAttributedString *text = [TAGViewHelpers attributeText:self._piece.artistName forFontSize:10.0f];
+    NSAttributedString *text = [TAGViewHelpers attributeText:self._piece.artistName forFontSize:10.0f andFontFamily:nil];
     [self._artistName setAttributedText:text];
     [TAGViewHelpers sizeLabelToFit:self._artistName numberOfLines:0];
 

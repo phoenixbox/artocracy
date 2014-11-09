@@ -19,28 +19,26 @@
 //#define kAPISuggestionsCreate @"http://192.168.2.9:3000/api/v1/suggestions"
 
 // Golden Gate
-#define kAPIUserLogin @"http://192.168.0.106:3000/api/v1/users/login"
-#define kAPIUserContributionCounts @"http://192.168.0.106:3000/api/v1/users"
-#define kAPIUserFavorites @"http://192.168.0.106:3000/api/v1/users"
+#define kAPIUserLogin @"http://192.168.0.105:3000/api/v1/users/login"
+#define kAPIUserContributionCounts @"http://192.168.0.105:3000/api/v1/users"
+#define kAPIUserFavorites @"http://192.168.0.105:3000/api/v1/users"
 
-#define kAPITagsIndex @"http://192.168.0.106:3000/api/v1/tags"
-#define kAPITagsArtistWork @"http://192.168.0.106:3000/api/v1/tags/artist_work"
+#define kAPITagsIndex @"http://192.168.0.105:3000/api/v1/tags"
+#define kAPITagsArtistWork @"http://192.168.0.105:3000/api/v1/tags/artist_work"
 
-#define kAPISuggestionsCreate @"http://192.168.0.106:3000/api/v1/suggestions"
-#define kAPISuggestionsIndex @"http://192.168.0.106:3000/api/v1/suggestions"
+#define kAPISuggestionsCreate @"http://192.168.0.105:3000/api/v1/suggestions"
+#define kAPISuggestionsIndex @"http://192.168.0.105:3000/api/v1/suggestions"
+#define kAPISuggestionsProposalsIndex @"http://192.168.0.105:3000/api/v1/suggestions"
 
-#define kAPIProposalSuggestionsIndex @"http://192.168.0.106:3000/api/v1/suggestions"
+#define kAPIUpvoted @"http://192.168.0.105:3000/api/v1/upvoted"
+#define kAPIUpvoteCreate @"http://192.168.0.105:3000/api/v1/upvotes"
+#define kAPIUpvoteDestroy @"http://192.168.0.105:3000/api/v1/upvotes"
 
-#define kAPIUpvoted @"http://192.168.0.106:3000/api/v1/upvoted"
-#define kAPIUpvoteCreate @"http://192.168.0.106:3000/api/v1/upvotes"
-#define kAPIUpvoteDestroy @"http://192.168.0.106:3000/api/v1/upvotes"
-
-#define kAPIFavorited @"http://192.168.0.106:3000/api/v1/favorited"
-#define kAPIFavoriteCreate @"http://192.168.0.106:3000/api/v1/favorites"
-#define kAPIFavoriteDestroy @"http://192.168.0.106:3000/api/v1/favorites"
+#define kAPIFavorited @"http://192.168.0.105:3000/api/v1/favorited"
+#define kAPIFavoriteCreate @"http://192.168.0.105:3000/api/v1/favorites"
+#define kAPIFavoriteDestroy @"http://192.168.0.105:3000/api/v1/favorites"
 
 // Tethered
-//172.20.10.2
 //#define kAPIUserLogin @"http://172.20.10.15:3000/api/v1/users/login"
 //#define kAPITagsIndex @"http://172.20.10.15:3000/api/v1/tags"
 //#define kAPISuggestionsCreate @"http://172.20.10.15:3000/api/v1/suggestions"
@@ -48,11 +46,24 @@
 //#define kAPIProposalSuggestionsIndex @"http://172.20.10.15:3000/api/v1/suggestions/"
 
 // Localhost
-//#define kAPIUserLogin @"http://0.0.0.0:3000/api/v1/users/login"
-//#define kAPITagsIndex @"http://0.0.0.0:3000/api/v1/tags"
-//#define kAPISuggestionsCreate @"http://0.0.0.0:3000/api/v1/suggestions"
-//#define kAPISuggestionsIndex @"http://0.0.0.0:3000/api/v1/suggestions"
-//#define kAPIProposalSuggestionsIndex @"http://0.0.0.0:3000/api/v1/suggestions/"
-
+//#define kAPIUserLogin @"http://127.0.0.1:3000/api/v1/users/login"
+//#define kAPIUserContributionCounts @"http://127.0.0.1:3000/api/v1/users"
+//#define kAPIUserFavorites @"http://127.0.0.1:3000/api/v1/users"
+//
+//#define kAPITagsIndex @"http://127.0.0.1:3000/api/v1/tags"
+//#define kAPITagsArtistWork @"http://127.0.0.1:3000/api/v1/tags/artist_work"
+//
+//#define kAPISuggestionsCreate @"http://127.0.0.1:3000/api/v1/suggestions"
+//#define kAPISuggestionsIndex @"http://127.0.0.1:3000/api/v1/suggestions"
+//
+//#define kAPIProposalSuggestionsIndex @"http://127.0.0.1:3000/api/v1/suggestions"
+//
+//#define kAPIUpvoted @"http://127.0.0.1:3000/api/v1/upvoted"
+//#define kAPIUpvoteCreate @"http://127.0.0.1:3000/api/v1/upvotes"
+//#define kAPIUpvoteDestroy @"http://127.0.0.1:3000/api/v1/upvotes"
+//
+//#define kAPIFavorited @"http://127.0.0.1:3000/api/v1/favorited"
+//#define kAPIFavoriteCreate @"http://127.0.0.1:3000/api/v1/favorites"
+//#define kAPIFavoriteDestroy @"http://127.0.0.1:3000/api/v1/favorites"
 
 #endif

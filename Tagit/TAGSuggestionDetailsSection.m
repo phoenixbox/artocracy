@@ -39,14 +39,24 @@ NSString *const kSetHeaderInfoUpvoteCount = @"upvoteCount";
 
 - (void)attributeWithModel:(TAGSuggestion *)model {
     self.suggestion = model;
+
     // Location
+    NSAttributedString *locationLabel =[TAGViewHelpers attributeText:@"Location" forFontSize:14.0f andFontFamily:@"WalkwayBlack"];
+    [self.locationLabel setAttributedText:locationLabel];
+    [TAGViewHelpers sizeLabelToFit:self.locationLabel numberOfLines:0];
+
     NSString *address = [NSString stringWithFormat:@"%@, %@, %@", self.suggestion.address, self.suggestion.city, self.suggestion.state];
-    NSAttributedString *locationTitle =[TAGViewHelpers attributeText:address forFontSize:12.0f];
+    NSAttributedString *locationTitle =[TAGViewHelpers attributeText:address forFontSize:12.0f andFontFamily:@"WalkwayObliqueSemiBold"];
     [self.address setAttributedText:locationTitle];
     [TAGViewHelpers sizeLabelToFit:self.address numberOfLines:0];
 
     // Canvas Type
-    NSAttributedString *canvasType =[TAGViewHelpers attributeText:self.suggestion.canvasType forFontSize:10.0f];
+    NSAttributedString *canvasTypeLabel =[TAGViewHelpers attributeText:@"Canvas Type" forFontSize:14.0f andFontFamily:@"WalkwayBlack"];
+    [self.canvasTypeLabel setAttributedText:canvasTypeLabel];
+    [TAGViewHelpers sizeLabelToFit:self.canvasTypeLabel numberOfLines:0];
+
+
+    NSAttributedString *canvasType =[TAGViewHelpers attributeText:self.suggestion.canvasType forFontSize:10.0f andFontFamily:@"WalkwayObliqueSemiBold"];
     [self.canvasType setAttributedText:canvasType];
     [TAGViewHelpers sizeLabelToFit:self.canvasType numberOfLines:0];
 

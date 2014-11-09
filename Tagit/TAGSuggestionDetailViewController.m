@@ -299,7 +299,7 @@
                                                                    yCoord,
                                                                    100.0f,
                                                                    20.0f)];
-    NSAttributedString *proposalTitle = [TAGViewHelpers attributeText:@"Proposals" forFontSize:12.0f];
+    NSAttributedString *proposalTitle = [TAGViewHelpers attributeText:@"Proposals" forFontSize:12.0f andFontFamily:nil];
     [self._proposalTitle setAttributedText:proposalTitle];
 
 

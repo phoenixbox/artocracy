@@ -424,7 +424,7 @@ NSString *const kFavoritesTabType = @"favoritesTab";
 
 - (void)renderEmptyMessage:(NSString *)message forView:(UIView *)view {
     UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-    [TAGViewHelpers formatLabel:messageLabel withCopy:message];
+    [TAGViewHelpers formatLabel:messageLabel withCopy:message andFontFamily:nil];
     messageLabel.textColor = [UIColor blackColor];
     messageLabel.numberOfLines = 0;
     messageLabel.textAlignment = NSTextAlignmentCenter;

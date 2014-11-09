@@ -16,12 +16,16 @@
 // Note: if there are UI abnormalities - possible conflicts with original handrolling
 // Size label to fit and setNumberOfLines should be taken care of in the IB
 
-+ (NSAttributedString *)attributeText:(NSString *)text forFontSize:(CGFloat)size {
-    return [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName: [UIFont fontWithName:@"WalkwaySemiBold" size:size]}];
++ (NSAttributedString *)attributeText:(NSString *)text forFontSize:(CGFloat)size andFontFamily:(NSString *)fontFamily {
+    return [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName: [UIFont fontWithName:fontFamily size:size]}];
 }
 
-+ (void)formatLabel:(UILabel *)label withCopy:(NSString *)copy {
-    [label setAttributedText:[self attributeText:copy forFontSize:10.0f]];
++ (void)formatLabel:(UILabel *)label withCopy:(NSString *)copy andFontFamily:(NSString *)fontFamily {
+    if (!fontFamily) {
+        fontFamily = @"WalkwaySemiBold";
+    }
+
+    [label setAttributedText:[self attributeText:copy forFontSize:10.0f andFontFamily:fontFamily]];
 }
 
 + (void)sizeLabelToFit:(UILabel *)label numberOfLines:(CGFloat)lineNumber {
@@ -94,18 +98,18 @@
         count = @"0";
     }
 
-    return [TAGViewHelpers attributeText:count forFontSize:size];
+    return [TAGViewHelpers attributeText:count forFontSize:size andFontFamily:nil];
 }
 
 + (void)updateCount:(NSUInteger)number forLabel:(UILabel *)label {
     NSString *count = [NSString stringWithFormat:@"%tu", number];
-    NSAttributedString *proposalCount = [TAGViewHelpers attributeText:count forFontSize:12.0f];
+    NSAttributedString *proposalCount = [TAGViewHelpers attributeText:count forFontSize:12.0f andFontFamily:nil];
     [label setAttributedText:proposalCount];
 }
 
 + (UILabel *)emptyTableMessage:(NSString *)message forView:(UIView *)view {
     UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height)];
-    [TAGViewHelpers formatLabel:messageLabel withCopy:message];
+    [TAGViewHelpers formatLabel:messageLabel withCopy:message andFontFamily:nil];
     messageLabel.textColor = [UIColor blackColor];
     messageLabel.numberOfLines = 0;
     messageLabel.textAlignment = NSTextAlignmentCenter;

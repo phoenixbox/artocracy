@@ -28,7 +28,7 @@
     [TAGViewHelpers roundImageLayer:self.suggestorThumnail.layer withFrame:self.suggestorThumnail.frame];
 
     // SuggestorEmail
-    NSAttributedString *text = [TAGViewHelpers attributeText:self.suggestion.suggestorEmail forFontSize:10.0f];
+    NSAttributedString *text = [TAGViewHelpers attributeText:self.suggestion.suggestorEmail forFontSize:10.0f andFontFamily:nil];
     [self.suggestorEmail setAttributedText:text];
     [TAGViewHelpers sizeLabelToFit:self.suggestorEmail numberOfLines:0];
     

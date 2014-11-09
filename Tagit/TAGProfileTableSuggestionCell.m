@@ -78,6 +78,7 @@
                                                         self.canvasTypeLabel,
                                                         self.canvasTypeName, nil];
 
+
     NSArray *text = [[NSArray alloc] initWithObjects:@"Suggested By",
                                                      self.suggestion.suggestorEmail,
                                                      @"Location",
@@ -108,7 +109,16 @@
                                                          yOrigin,
                                                          labelWidth,
                                                          labelHeight)];
-        [TAGViewHelpers formatLabel:label withCopy:[text objectAtIndex:i]];
+        NSString *fontFamily;
+        if ( i%2 ==0 ) {
+            fontFamily = @"WalkwayObliqueSemiBold";
+        } else {
+            fontFamily = nil;
+        }
+        [TAGViewHelpers formatLabel:label withCopy:[text objectAtIndex:i] andFontFamily:fontFamily];
+
+
+
         [self addSubview:label];
     }
 }
@@ -203,7 +213,7 @@
 }
 
 - (void)setLabel:(UILabel *)label withTitle:(NSString *)title forFontSize:(CGFloat)size {
-    NSAttributedString *faveText = [TAGViewHelpers attributeText:title forFontSize:size];
+    NSAttributedString *faveText = [TAGViewHelpers attributeText:title forFontSize:size andFontFamily:nil];
     [label setAttributedText:faveText];
     [label setTextAlignment:NSTextAlignmentCenter];
     [self addSubview:label];
