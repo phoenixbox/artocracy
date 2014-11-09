@@ -13,8 +13,8 @@
 @interface TAGProposal : JSONModel
 
 @property (nonatomic) NSNumber *id;
-@property (nonatomic) NSNumber *proposerId;
-@property (nonatomic) NSNumber<Optional> *voteCount;
+@property (nonatomic) NSNumber *artistId;
+@property (nonatomic) NSNumber *suggestionId;
 @property (nonatomic, strong) NSString *imageUrl;
 
 @end

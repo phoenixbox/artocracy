@@ -109,8 +109,8 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
-    NSString *urlSegment = [[NSString alloc] initWithFormat:@"/%@/proposal_suggestions", suggestionId];
-    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPIProposalSuggestionsIndex withURLSegment:urlSegment];
+    NSString *urlSegment = [[NSString alloc] initWithFormat:@"/%@/proposals", suggestionId];
+    NSString *requestURL = [TAGAuthStore authenticateRequest:kAPISuggestionsProposalsIndex withURLSegment:urlSegment];
 
     [manager GET:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
