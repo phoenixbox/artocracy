@@ -46,7 +46,8 @@
     NSString *requestURL = [TAGAuthStore authenticateRequest:kAPITagsIndex];
 
     [manager GET:requestURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        TAGPieceChannel *pieceChannel = [[TAGPieceChannel alloc] initWithData:responseObject error:nil];
+        NSString *rawJSON = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        TAGPieceChannel *pieceChannel = [[TAGPieceChannel alloc] initWithString:rawJSON error:nil];
 
         block(pieceChannel, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

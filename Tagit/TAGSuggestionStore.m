@@ -21,12 +21,11 @@
 #import "TAGAuthStore.h"
 #import "TAGSessionStore.h"
 
-#define ACCESS_KEY_ID          @"AKIAIESK6XLNAJWROT4Q"
-#define SECRET_KEY             @"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"
+#define ACCESS_KEY_ID          @"AKIAI5KPOFQMMN5FNU5Q"
+#define SECRET_KEY             @"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"
 
 // Constants for the Bucket and Object name.
-#define PICTURE_BUCKET         @"mule.inventoryvideos"
-#define PICTURE_NAME           @"tester"
+#define PICTURE_BUCKET         @"artocracy"
 
 @implementation TAGSuggestionStore
 
@@ -61,7 +60,7 @@
     NSString *uuid = [[NSUUID UUID] UUIDString];
     NSLog(@"%@",uuid);
 
-    S3PutObjectRequest *por = [[S3PutObjectRequest alloc] initWithKey:uuid inBucket:@"artocracy.bananas"];
+    S3PutObjectRequest *por = [[S3PutObjectRequest alloc] initWithKey:uuid inBucket:PICTURE_BUCKET];
     por.contentType = @"image/jpeg";
     por.cannedACL   = [S3CannedACL publicRead];
     por.data        = imageData;

@@ -24,7 +24,7 @@
                                                            @"longitude": @"longitude",
                                                            @"favorite_count": @"favoriteCount",
                                                            @"artist.id": @"artistId",
-                                                           @"artist.name": @"artistName",
+                                                           @"artist.email": @"artistName",
                                                            @"artist.profile_image_url": @"artistImageURL"
                                                            }];
 }

@@ -14,7 +14,7 @@
 @implementation TAGViewHelpers
 
 // Note: if there are UI abnormalities - possible conflicts with original handrolling
-// Size label to fit and setNumberOfLines should be take care of in the IB
+// Size label to fit and setNumberOfLines should be taken care of in the IB
 
 + (NSAttributedString *)attributeText:(NSString *)text forFontSize:(CGFloat)size {
     return [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName: [UIFont fontWithName:@"WalkwaySemiBold" size:size]}];
