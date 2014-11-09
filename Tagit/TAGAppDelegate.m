@@ -104,4 +104,16 @@
     [item setTitleTextAttributes:@{ NSForegroundColorAttributeName : kPureWhite, NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:14.0] } forState:UIControlStateNormal];
 };
 
+- (void)logFonts {
+    for (NSString* family in [UIFont familyNames])
+    {
+        NSLog(@"%@", family);
+
+        for (NSString* name in [UIFont fontNamesForFamilyName: family])
+        {
+            NSLog(@"  %@", name);
+        }
+    }
+}
+
 @end
