@@ -70,7 +70,7 @@
                  object:cell];
 }
 
--(void)removeListenerOnCell:(TAGPieceCell *)cell {
+- (void)removeListenerOnCell:(TAGPieceCell *)cell {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 
     [center removeObserver:self

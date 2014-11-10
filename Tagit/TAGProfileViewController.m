@@ -43,6 +43,16 @@
     [self renderCollectionPresenter];
 }
 
+#pragma Header Notification
+- (void)viewWillAppear:(BOOL)animated {
+
+    NSNotification *notification = [NSNotification notificationWithName:kFetchUserContributions
+                                                                 object:self
+                                                               userInfo:nil];
+
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
 - (void)initAppearance
 {
     self.navigationController.navigationBar.translucent = NO;

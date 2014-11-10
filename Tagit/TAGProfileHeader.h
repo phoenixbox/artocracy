@@ -10,6 +10,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const kFetchUserContributions;
+
 @interface TAGProfileHeader : UIView
 
 @property (nonatomic, strong) UIView *profile;

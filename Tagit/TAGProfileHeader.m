@@ -22,6 +22,8 @@
 #import "TAGSessionStore.h"
 #import "TAGUserStore.h"
 
+NSString *const kFetchUserContributions = @"FetchUserContributions";
+
 @implementation TAGProfileHeader
 
 - (id)initWithFrame:(CGRect)frame
@@ -34,9 +36,19 @@
         [self addName];
         [self addSuggestionsSummaryViewController];
         [self addFavoritesSummaryViewController];
-        [self fetchUserContributions];
+
+        [self setParentWillAppearListener];
     }
     return self;
+}
+
+- (void)setParentWillAppearListener {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+
+    [center addObserver:self
+               selector:@selector(fetchUserContributions)
+                   name:kFetchUserContributions
+                 object:[self superview]];
 }
 
 - (void)fetchUserContributions {
