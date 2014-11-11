@@ -13,12 +13,16 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface TAGSuggestionCell : UICollectionViewCell
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UITextField *titleTextField;
 
+@property (strong, nonatomic) IBOutlet UILabel *contributionTypeLabel;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *contributionTypeSelect;
 @property (weak, nonatomic) IBOutlet UIImageView *suggestionImage;
+@property (strong, nonatomic) IBOutlet UILabel *canvasTypeLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *canvasType;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
-@property (weak, nonatomic) IBOutlet UIButton *retakePhoto;
 
-- (void)updateStyle;
+//- (void)updateStyle;
 
 @end

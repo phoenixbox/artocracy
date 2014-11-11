@@ -44,6 +44,8 @@
 		CB18617719FC461C005B616B /* spinner_08@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB18616E19FC461C005B616B /* spinner_08@2x.png */; };
 		CB18617819FC461C005B616B /* spinner_09@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB18616F19FC461C005B616B /* spinner_09@2x.png */; };
 		CB18617A19FC4639005B616B /* spinner_00@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB18617919FC4639005B616B /* spinner_00@2x.png */; };
+		CB1F51A01A1081DA00329524 /* TAGFormValidators.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F519F1A1081DA00329524 /* TAGFormValidators.m */; };
+		CB1F51A31A108B5B00329524 /* TAGS3Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F51A21A108B5B00329524 /* TAGS3Configuration.m */; };
 		CB267397198DE3FA00CB02A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB267396198DE3FA00CB02A1 /* Foundation.framework */; };
 		CB267399198DE3FA00CB02A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB267398198DE3FA00CB02A1 /* CoreGraphics.framework */; };
 		CB26739B198DE3FA00CB02A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB26739A198DE3FA00CB02A1 /* UIKit.framework */; };
@@ -225,6 +227,10 @@
 		CB18616E19FC461C005B616B /* spinner_08@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinner_08@2x.png"; sourceTree = "<group>"; };
 		CB18616F19FC461C005B616B /* spinner_09@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinner_09@2x.png"; sourceTree = "<group>"; };
 		CB18617919FC4639005B616B /* spinner_00@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spinner_00@2x.png"; sourceTree = "<group>"; };
+		CB1F519E1A1081DA00329524 /* TAGFormValidators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGFormValidators.h; sourceTree = "<group>"; };
+		CB1F519F1A1081DA00329524 /* TAGFormValidators.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGFormValidators.m; sourceTree = "<group>"; };
+		CB1F51A11A108B5B00329524 /* TAGS3Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGS3Configuration.h; sourceTree = "<group>"; };
+		CB1F51A21A108B5B00329524 /* TAGS3Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGS3Configuration.m; sourceTree = "<group>"; };
 		CB267393198DE3FA00CB02A1 /* Tagit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tagit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB267396198DE3FA00CB02A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CB267398198DE3FA00CB02A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -413,6 +419,10 @@
 				CB009B5D19A9A24200FC06A0 /* TAGViewHelpers.m */,
 				CBAA97D219E3AC040023B3B7 /* TAGMapHelpers.h */,
 				CBAA97D319E3AC040023B3B7 /* TAGMapHelpers.m */,
+				CB1F519E1A1081DA00329524 /* TAGFormValidators.h */,
+				CB1F519F1A1081DA00329524 /* TAGFormValidators.m */,
+				CB1F51A11A108B5B00329524 /* TAGS3Configuration.h */,
+				CB1F51A21A108B5B00329524 /* TAGS3Configuration.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -1205,6 +1215,7 @@
 				CB6DA4DE19A3270900BB71EE /* TAGProfileViewController.m in Sources */,
 				CBD3D2D419AEF34F00A2DE75 /* TAGProfileTableFavoriteCell.m in Sources */,
 				CB06813E198E9EB000B13E49 /* TAGAuthStore.m in Sources */,
+				CB1F51A01A1081DA00329524 /* TAGFormValidators.m in Sources */,
 				CBAA97D419E3AC040023B3B7 /* TAGMapHelpers.m in Sources */,
 				CBCA725119E8DB2C005695F4 /* TAGProposal.m in Sources */,
 				CB9BC69E19BD07D100BE0EFC /* TAGPieceCollectionCell.m in Sources */,
@@ -1229,6 +1240,7 @@
 				CB068143198EA9EF00B13E49 /* TAGPieceViewControllerDEP.m in Sources */,
 				CBCA725419E8DC8F005695F4 /* TAGProposalStore.m in Sources */,
 				CBEA9E6419D741EA0009C6F9 /* TAGProfileTableViewCell.m in Sources */,
+				CB1F51A31A108B5B00329524 /* TAGS3Configuration.m in Sources */,
 				CBD3D2E819B2D67D00A2DE75 /* TAGPieceDetailViewController.m in Sources */,
 				CB6DA4EB19A47AAD00BB71EE /* TAGCollectionControls.m in Sources */,
 				CB4515DC19FA0F7C004F713C /* TAGUserStore.m in Sources */,
