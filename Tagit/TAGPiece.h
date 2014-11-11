@@ -14,7 +14,7 @@
 @interface TAGPiece : JSONModel
 
 @property (nonatomic) NSNumber *id;
-@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString<Optional> *title;
 @property (nonatomic, strong) NSString *city;
 @property (nonatomic, strong) NSString *imageUrl;
 @property (nonatomic, strong) NSString *state;
@@ -24,8 +24,8 @@
 @property (nonatomic, strong) NSString *latitude;
 @property (nonatomic, strong) NSString *longitude;
 @property (nonatomic) NSNumber *favoriteCount;
-@property (nonatomic) NSNumber *artistId;
-@property (nonatomic, strong) NSString *artistName;
-@property (nonatomic, strong) NSString *artistImageURL;
+@property (nonatomic) NSNumber<Optional> *artistId;
+@property (nonatomic, strong) NSString<Optional> *artistName;
+@property (nonatomic, strong) NSString<Optional> *artistImageURL;
 
 @end
