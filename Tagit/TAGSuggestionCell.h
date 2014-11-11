@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+// Libs
+#import "TPKeyboardAvoidingScrollView.h"
+
 // Location Modules
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
 @interface TAGSuggestionCell : UICollectionViewCell
+@property (strong, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *cellScrollView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UITextField *titleTextField;
 
