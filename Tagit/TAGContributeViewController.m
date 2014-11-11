@@ -218,7 +218,7 @@
 - (UICollectionViewFlowLayout *)buildCollectionViewCellLayout {
     UICollectionViewFlowLayout *flowLayout = [CSStickyHeaderFlowLayout new];
 
-    flowLayout.itemSize = CGSizeMake(320.0f,520.0f); // Same dimensions as the xib
+    flowLayout.itemSize = CGSizeMake(320.0f,600.0f); // Same dimensions as the xib
     // TODO: Should be 0 but that disables scroll?
     flowLayout.headerReferenceSize = CGSizeMake(0.0f,10.0f);
 
@@ -294,6 +294,7 @@
     // Second: Create suggestion
     void (^finishedGeocodingBlock)(NSMutableDictionary *pieceParams, NSError *err)=^(NSMutableDictionary *pieceParams, NSError *err) {
         // Add the remaining required selection params for server persistence
+        [pieceParams setObject:[params objectForKey:@"title"] forKey:@"title"];
         [pieceParams setObject:[params objectForKey:@"canvas_type"] forKey:@"canvas_type"];
         [pieceParams setObject:self._S3ImageLocation forKey:@"image_url"];
         // Send this data to the server
@@ -328,6 +329,7 @@
     // Second: Create suggestion
     void (^finishedGeocodingBlock)(NSMutableDictionary *suggestionParams, NSError *err)=^(NSMutableDictionary *suggestionParams, NSError *err) {
         // Add the remaining required selection params for server persistence
+        [suggestionParams setObject:[params objectForKey:@"title"] forKey:@"title"];
         [suggestionParams setObject:[params objectForKey:@"canvas_type"] forKey:@"canvas_type"];
         [suggestionParams setObject:self._S3ImageLocation forKey:@"image_url"];
         // Send this data to the server
@@ -351,6 +353,9 @@
 
 - (NSMutableDictionary *)extractFormParams {
     NSMutableDictionary *params = [NSMutableDictionary new];
+
+    NSString *title = [self._primaryCell.titleTextField text];
+    [params setValue:title forKey:@"title"];
 
     NSString *contributionType = [self._primaryCell.contributionTypeSelect titleForSegmentAtIndex:self._primaryCell.contributionTypeSelect.selectedSegmentIndex];
     [params setValue:contributionType forKey:@"contribution_type"];
