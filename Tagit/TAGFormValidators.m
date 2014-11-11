@@ -10,4 +10,12 @@
 
 @implementation TAGFormValidators
 
++ (BOOL)segmentControlIsSet:(UISegmentedControl *)control {
+    return [control titleForSegmentAtIndex:control.selectedSegmentIndex];
+}
+
++ (BOOL)inputFieldEmpty:(UITextField *)textField {
+    return [[textField text] length] < 1;
+}
+
 @end

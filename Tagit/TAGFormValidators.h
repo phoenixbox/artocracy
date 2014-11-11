@@ -10,4 +10,8 @@
 
 @interface TAGFormValidators : NSObject
 
++ (BOOL)segmentControlIsSet:(UISegmentedControl *)control;
+
++ (BOOL)inputFieldEmpty:(UITextField *)textField;
+
 @end
