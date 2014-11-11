@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+// AmazonS3 Dependencies
+#import <AWSS3/AWSS3.h>
+#import <AWSRuntime/AWSRuntime.h>
+
 @interface TAGS3Configuration : NSObject
+
++ (NSDictionary *)s3ConfigurationObject;
+
++ (S3TransferManager *)createTransferManager;
+
++ (S3PutObjectRequest *)createPutObjectRequestWithImageData:(NSData *)imageData;
 
 @end
