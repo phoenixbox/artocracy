@@ -15,18 +15,22 @@
 #import "TAGCollectionView.h"
 #import "TAGSuggestionCell.h"
 #import "TAGImagePickerController.h"
-#import "TAGSuggestionStore.h"
 #import "TAGErrorAlert.h"
 #import "TAGSuggestionParallaxHeaderCell.h"
 
 // Helpers
 #import "TAGViewHelpers.h"
+#import "TAGFormValidators.h"
 
 // Constants
 #import "TAGStyleConstants.h"
 
 // Pods
 #import "CSStickyHeaderFlowLayout.h"
+
+// Data Layer
+#import "TAGSuggestionStore.h"
+#import "TAGPieceStore.h"
 
 @interface TAGContributeViewController ()
 
@@ -81,14 +85,12 @@
                  withReuseIdentifier:@"mapHeader"];
 }
 
+// TODO: Functionality should be an image picker which when dismissed reveals the edit panel
 - (void)viewDidAppear:(BOOL)animated {
-
-    // SHOW PICKER STRAIGHT AWAY
-    if (self._showImagePicker) {
+    if ([self isCameraAvailable] && self._showImagePicker) {
         [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
     }
 }
-
 
 - (void)initAppearance
 {
@@ -116,11 +118,10 @@
 }
 
 - (void)retakePhoto {
-    NSLog(@"Implement Photo Retake");
     [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
 }
 
-- (BOOL) isCameraAvailable{
+- (BOOL)isCameraAvailable {
     return [UIImagePickerController isSourceTypeAvailable:
             UIImagePickerControllerSourceTypeCamera];
 }
@@ -217,7 +218,7 @@
 - (UICollectionViewFlowLayout *)buildCollectionViewCellLayout {
     UICollectionViewFlowLayout *flowLayout = [CSStickyHeaderFlowLayout new];
 
-    flowLayout.itemSize = CGSizeMake(320.0f,450.0f); // Same dimensions as the xib
+    flowLayout.itemSize = CGSizeMake(320.0f,520.0f); // Same dimensions as the xib
     // TODO: Should be 0 but that disables scroll?
     flowLayout.headerReferenceSize = CGSizeMake(0.0f,10.0f);
 
@@ -242,58 +243,151 @@
                                                                    forIndexPath:indexPath];
     // Setup cells appropriately
     [self._primaryCell setBackgroundColor:[UIColor whiteColor]];
+    // Title
+    [self._primaryCell.titleLabel setAttributedText:[TAGViewHelpers attributeText:@"Title" forFontSize:16.0f andFontFamily:nil]];
+
+    // Contribution Type
+    [self._primaryCell.contributionTypeSelect setTintColor:[UIColor blackColor]];
+    [self._primaryCell.contributionTypeLabel setAttributedText:[TAGViewHelpers attributeText:@"Contribution Type" forFontSize:16.0f andFontFamily:nil]];
+    // Canvas Type
     [self._primaryCell.canvasType setTintColor:[UIColor blackColor]];
-    [self._primaryCell.retakePhoto addTarget:self action:@selector(retakePhoto) forControlEvents:UIControlEventTouchUpInside];
+    [self._primaryCell.canvasTypeLabel setAttributedText:[TAGViewHelpers attributeText:@"Canvas Type" forFontSize:16.0f andFontFamily:nil]];
+
     [self._primaryCell.suggestionImage setImage:self._lastTakenPhoto];
     [self._primaryCell.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
     [self._primaryCell.submitButton setTitleColor:kPureWhite forState:UIControlStateNormal];
     self._primaryCell.submitButton.backgroundColor = kTagitBlack;
-    [self._primaryCell.submitButton addTarget:self action:@selector(submitSuggestion:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self._primaryCell updateStyle];
+    [self._primaryCell.submitButton addTarget:self action:@selector(submitContribution) forControlEvents:UIControlEventTouchUpInside];
 
     return self._primaryCell;
 }
 
-- (void)submitSuggestion:(id)sender {
-    UISegmentedControl *canvasTypeControl = self._primaryCell.canvasType;
-    if (canvasTypeControl.selectedSegmentIndex != -1) {
-        TAGSuggestionStore *suggestionStore = [TAGSuggestionStore sharedStore];
+- (BOOL)validateForm {
+    NSString *errorMessage;
 
-        // Third: Return to user's profile
-        void (^returnToUserProfile)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err) {
-            [[TAGSuggestionStore sharedStore] addUniqueSuggestion:suggestion];
+    if ([TAGFormValidators inputFieldEmpty:self._primaryCell.titleTextField]) {
+        errorMessage = @"Please give the piece a name";
+    } else if (![TAGFormValidators segmentControlIsSet:self._primaryCell.contributionTypeSelect]){
+        errorMessage = @"Please select a contribution type";
+    } else if (![TAGFormValidators segmentControlIsSet:self._primaryCell.canvasType]) {
+        errorMessage = @"Please select a canvas type";
+    }
 
-            [self.parentViewController.tabBarController setSelectedIndex:2];
-        };
-
-        // Second: Create suggestion
-        void (^finishedGeocodingBlock)(NSMutableDictionary *suggestionParams, NSError *err)=^(NSMutableDictionary *suggestionParams, NSError *err) {
-            // Add the remaining required selection params for server persistence
-            NSString *selectedCanvasType = [canvasTypeControl titleForSegmentAtIndex:canvasTypeControl.selectedSegmentIndex];
-            [suggestionParams setObject:selectedCanvasType forKey:@"canvas_type"];
-            [suggestionParams setObject:self._S3ImageLocation forKey:@"image_url"];
-            // Send this data to the server
-            TAGSuggestionStore *store = [TAGSuggestionStore sharedStore];
-            [store createSuggestion:suggestionParams withCompletionBlock:returnToUserProfile];
-        };
-
-        // First: Reverse geocode
-        void (^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *err)=^(NSURL *s3ImageLocation, NSError *err) {
-            if(!err){
-                self._S3ImageLocation = s3ImageLocation;
-                [self._headerCell reverseGeocodeUserLocationWithCompletionBlock:finishedGeocodingBlock];
-            } else {
-                [TAGErrorAlert render:err];
-            }
-        };
-
-        // Begin: Save the suggested image to S3
-        [suggestionStore saveSuggestionImage:self._photoData withCompletionBlock:imageUploadedBlock];
+    if (errorMessage) {
+        [TAGErrorAlert renderWithTitle:errorMessage];
+        return NO;
     } else {
-        NSLog(@"Implement Form Validations");
+        return YES;
     }
 }
+
+- (void)submitPiece:(NSMutableDictionary *)params {
+    TAGPieceStore *pieceStore = [TAGPieceStore sharedStore];
+
+    // Third: Return to user's profile
+    void (^returnToUserProfile)(TAGPiece *piece, NSError *err)=^(TAGPiece *piece, NSError *err) {
+        [[TAGPieceStore sharedStore] addUniquePiece:piece];
+
+        [self.parentViewController.tabBarController setSelectedIndex:2];
+    };
+
+    // Second: Create suggestion
+    void (^finishedGeocodingBlock)(NSMutableDictionary *pieceParams, NSError *err)=^(NSMutableDictionary *pieceParams, NSError *err) {
+        // Add the remaining required selection params for server persistence
+        [pieceParams setObject:[params objectForKey:@"canvas_type"] forKey:@"canvas_type"];
+        [pieceParams setObject:self._S3ImageLocation forKey:@"image_url"];
+        // Send this data to the server
+        TAGPieceStore *store = [TAGPieceStore sharedStore];
+        [store createPiece:pieceParams withCompletionBlock:returnToUserProfile];
+    };
+
+    // First: Reverse geocode
+    void (^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *err)=^(NSURL *s3ImageLocation, NSError *err) {
+        if(!err){
+            self._S3ImageLocation = s3ImageLocation;
+            [self._headerCell reverseGeocodeUserLocationWithCompletionBlock:finishedGeocodingBlock];
+        } else {
+            [TAGErrorAlert render:err];
+        }
+    };
+
+    // Begin: Save the suggested image to S3
+    [pieceStore savePieceImage:self._photoData withCompletionBlock:imageUploadedBlock];
+}
+
+- (void)submitSuggestion:(NSMutableDictionary *)params {
+    TAGSuggestionStore *suggestionStore = [TAGSuggestionStore sharedStore];
+
+    // Third: Return to user's profile
+    void (^returnToUserProfile)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err) {
+        [[TAGSuggestionStore sharedStore] addUniqueSuggestion:suggestion];
+
+        [self.parentViewController.tabBarController setSelectedIndex:2];
+    };
+
+    // Second: Create suggestion
+    void (^finishedGeocodingBlock)(NSMutableDictionary *suggestionParams, NSError *err)=^(NSMutableDictionary *suggestionParams, NSError *err) {
+        // Add the remaining required selection params for server persistence
+        [suggestionParams setObject:[params objectForKey:@"canvas_type"] forKey:@"canvas_type"];
+        [suggestionParams setObject:self._S3ImageLocation forKey:@"image_url"];
+        // Send this data to the server
+        TAGSuggestionStore *store = [TAGSuggestionStore sharedStore];
+        [store createSuggestion:suggestionParams withCompletionBlock:returnToUserProfile];
+    };
+
+    // First: Reverse geocode
+    void (^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *err)=^(NSURL *s3ImageLocation, NSError *err) {
+        if(!err){
+            self._S3ImageLocation = s3ImageLocation;
+            [self._headerCell reverseGeocodeUserLocationWithCompletionBlock:finishedGeocodingBlock];
+        } else {
+            [TAGErrorAlert render:err];
+        }
+    };
+
+    // Begin: Save the suggested image to S3
+    [suggestionStore saveSuggestionImage:self._photoData withCompletionBlock:imageUploadedBlock];
+}
+
+- (NSMutableDictionary *)extractFormParams {
+    NSMutableDictionary *params = [NSMutableDictionary new];
+
+    NSString *contributionType = [self._primaryCell.contributionTypeSelect titleForSegmentAtIndex:self._primaryCell.contributionTypeSelect.selectedSegmentIndex];
+    [params setValue:contributionType forKey:@"contribution_type"];
+
+    NSString *canvasType = [self._primaryCell.canvasType titleForSegmentAtIndex:self._primaryCell.canvasType.selectedSegmentIndex];
+    [params setValue:canvasType forKey:@"canvas_type"];
+
+    return params;
+}
+
+- (void)submitContribution {
+    if ([self validateForm]) {
+        [self submitFormWithParams];
+    }
+}
+
+- (void)submitFormWithParams {
+
+    NSMutableDictionary *params = [self extractFormParams];
+    __block TAGContributeViewController *_this = self;
+
+    NSString *contributionType = [params objectForKey:@"contribution_type"];
+
+    void (^selectedCase)() = @{
+       @"Existing Piece" : ^{
+           [_this submitPiece:params];
+       },
+       @"I Want Something Here" : ^{
+           [_this submitSuggestion:params];
+       }
+       }[contributionType];
+
+    if (selectedCase != nil) {
+        selectedCase();
+    }
+}
+
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
