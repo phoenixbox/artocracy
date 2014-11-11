@@ -15,17 +15,13 @@
 
 // Modules
 #import "AFNetworking.h"
-#import <AWSRuntime/AWSRuntime.h>
 
 // Data Layer
 #import "TAGAuthStore.h"
 #import "TAGSessionStore.h"
 
-#define ACCESS_KEY_ID          @"AKIAI5KPOFQMMN5FNU5Q"
-#define SECRET_KEY             @"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"
-
-// Constants for the Bucket and Object name.
-#define PICTURE_BUCKET         @"artocracy"
+// Helpers
+#import "TAGS3Configuration.h"
 
 @implementation TAGSuggestionStore
 
@@ -38,6 +34,7 @@
     return suggestionStore;
 }
 
+// TODO: Refactor
 - (void)addUniqueSuggestion:(TAGSuggestion *)suggestion {
     if(!self.allUsersSuggestions){
         self.allUsersSuggestions = [NSMutableArray new];
@@ -50,23 +47,15 @@
 
 - (void)saveSuggestionImage:(NSData *)imageData withCompletionBlock:(void (^)(NSURL *s3ImageLocation, NSError *))imageUploadedBlock {
     self.imageUploadedBlock = imageUploadedBlock;
-    AmazonS3Client *s3 = [[AmazonS3Client alloc] initWithAccessKey:ACCESS_KEY_ID withSecretKey:SECRET_KEY];
-    s3.endpoint = [AmazonEndpoints s3Endpoint:US_WEST_2];
 
-    self.tm = [S3TransferManager new];
-    self.tm.s3 = s3;
-    self.tm.delegate = self;
+    // RESTART: Compose 23 configuration and use across the suggestion and the pieces
+    S3TransferManager *tm = [TAGS3Configuration createTransferManager];
+    tm.delegate = self;
 
-    NSString *uuid = [[NSUUID UUID] UUIDString];
-    NSLog(@"%@",uuid);
+    S3PutObjectRequest *por = [TAGS3Configuration createPutObjectRequestWithImageData:imageData];
+    por.delegate = self;
 
-    S3PutObjectRequest *por = [[S3PutObjectRequest alloc] initWithKey:uuid inBucket:PICTURE_BUCKET];
-    por.contentType = @"image/jpeg";
-    por.cannedACL   = [S3CannedACL publicRead];
-    por.data        = imageData;
-    por.delegate    = self; // TODO: Required?
-
-    [self.tm upload:por];
+    [tm upload:por];
 }
 
 - (void)createSuggestion:(NSMutableDictionary *)parameters withCompletionBlock:(void (^)(TAGSuggestion *suggestion, NSError *err))returnToUserProfile {

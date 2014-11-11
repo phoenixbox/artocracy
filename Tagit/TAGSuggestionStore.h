@@ -15,13 +15,12 @@
 
 // AmazonS3 video
 #import <AWSS3/AWSS3.h>
+#import <AWSRuntime/AWSRuntime.h>
 
 @interface TAGSuggestionStore : NSObject <AmazonServiceRequestDelegate> {
     NSMutableArray *suggestions;
 }
 
-@property (nonatomic, retain) S3TransferManager *tm;
-@property (nonatomic, retain) AmazonS3Client *s3;
 @property (nonatomic, copy) void(^imageUploadedBlock)(NSURL *s3ImageLocation, NSError *);
 @property (nonatomic, strong) NSMutableArray *allUsersSuggestions;
 
