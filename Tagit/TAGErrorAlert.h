@@ -10,6 +10,8 @@
 
 @interface TAGErrorAlert : NSObject
 
-+(void)render:(NSError *)err;
++ (void)render:(NSError *)err;
+
++ (void)renderWithTitle:(NSString *)title;
 
 @end

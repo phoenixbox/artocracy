@@ -19,4 +19,12 @@
 
 };
 
++ (void)renderWithTitle:(NSString *)title {
+    [[[UIAlertView alloc] initWithTitle:@"Form Error"
+                                message:title
+                               delegate:nil
+                      cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                      otherButtonTitles:nil, nil] show];
+}
+
 @end
