@@ -25,7 +25,10 @@
                                                            @"favorite_count": @"favoriteCount",
                                                            @"artist.id": @"artistId",
                                                            @"artist.email": @"artistName",
-                                                           @"artist.profile_image_url": @"artistImageURL"
+                                                           @"artist.profile_image_url": @"artistImageURL",
+                                                           @"user.id": @"userId",
+                                                           @"user.email": @"userName",
+                                                           @"user.profile_image_url": @"userImageURL"
                                                            }];
 }
 

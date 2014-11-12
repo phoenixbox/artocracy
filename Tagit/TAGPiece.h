@@ -27,5 +27,8 @@
 @property (nonatomic) NSNumber<Optional> *artistId;
 @property (nonatomic, strong) NSString<Optional> *artistName;
 @property (nonatomic, strong) NSString<Optional> *artistImageURL;
+@property (nonatomic) NSNumber<Optional> *userId;
+@property (nonatomic, strong) NSString<Optional> *userName;
+@property (nonatomic, strong) NSString<Optional> *userImageURL;
 
 @end

@@ -32,10 +32,28 @@ NSString *const kSetHeaderInfoFavoriteCount = @"favoriteCount";
 
 -(id)initWithCoder:(NSCoder*)aDecoder {
     if((self = [super initWithCoder:aDecoder])) {
+        [self setBackgroundColor:[UIColor whiteColor]];
         self.likeButton.selected = NO;
         self.spinner = [TAGSpinner new];
     }
     return self;
+}
+
+- (void)attributeWithModel:(TAGPiece *)model {
+    self.piece = model;
+
+    NSString *remoteImage =  self.piece.artistImageURL ? : self.piece.userImageURL;
+    [TAGViewHelpers scaleAndSetRemoteBackgroundImage:remoteImage forView:self.artistThumbnail];
+    [TAGViewHelpers roundImageLayer:self.artistThumbnail.layer withFrame:self.artistThumbnail.frame];
+
+    NSString *name = self.piece.artistName ? : self.piece.userName;
+    [TAGViewHelpers formatLabel:self.artistLabel withCopy:name andFontFamily:nil];
+
+    NSString *title = self.piece.title ? : self.piece.title;
+    [TAGViewHelpers formatLabel:self.pieceLabel withCopy:title andFontFamily:nil];
+
+    NSMutableAttributedString *favoriteCounter = [TAGViewHelpers heartCounterStringWithCopy:[self.piece.favoriteCount stringValue] andFontSize:13.0f];
+    [self.favoriteCount setAttributedText:favoriteCounter];
 }
 
 - (void)getLikeState {

@@ -239,17 +239,7 @@
                                                                        forIndexPath:indexPath];
 
         TAGPiece *piece = [self._pieceChannel.pieces objectAtIndex:[indexPath section]];
-        cell.piece = piece;
-        [cell setBackgroundColor:[UIColor whiteColor]];
-
-        [TAGViewHelpers scaleAndSetRemoteBackgroundImage:cell.piece.artistImageURL forView:cell.artistThumbnail];
-        [TAGViewHelpers roundImageLayer:cell.artistThumbnail.layer withFrame:cell.artistThumbnail.frame];
-
-        [TAGViewHelpers formatLabel:cell.artistLabel withCopy:cell.piece.artistName andFontFamily:nil];
-        [TAGViewHelpers formatLabel:cell.pieceLabel withCopy:cell.piece.title andFontFamily:nil];
-
-        NSMutableAttributedString *favoriteCounter = [TAGViewHelpers heartCounterStringWithCopy:[cell.piece.favoriteCount stringValue] andFontSize:13.0f];
-        [cell.favoriteCount setAttributedText:favoriteCounter];
+        [cell attributeWithModel:piece];
 
         return cell;
     } else if ([kind isEqualToString:CSStickyHeaderParallaxHeader]) {

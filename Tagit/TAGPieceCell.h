@@ -38,4 +38,6 @@ extern NSString *const kSetHeaderInfoFavoriteCount;
 
 - (void)getLikeState;
 
+- (void)attributeWithModel:(TAGPiece *)model;
+
 @end
