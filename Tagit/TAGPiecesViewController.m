@@ -45,6 +45,8 @@
 @property (nonatomic, assign) float _negDiff;
 @property (nonatomic, assign) CGRect _originalTabFrame;
 
+@property (nonatomic, strong) UIRefreshControl *_refreshControl;
+
 @end
 
 @implementation TAGPiecesViewController
@@ -147,11 +149,23 @@
 - (void)toggleFilter {
 }
 
-- (void)fetchPieces {
-    [self._spinner setSpinnerImagesWithView:self.view];
+- (BOOL)shouldShowSpinner {
+    return self._collectionView.numberOfSections == 0;
+}
 
-    [self._spinner startAnimating];
-    [self.view addSubview:self._spinner];
+- (BOOL)shouldShowRefresh {
+    return !self._refreshControl.refreshing;
+}
+
+- (void)fetchPieces {
+    if ([self shouldShowSpinner]) {
+        [self._spinner setSpinnerImagesWithView:self.view];
+
+        [self._spinner startAnimating];
+        [self.view addSubview:self._spinner];
+    } else if ([self shouldShowRefresh]) {
+        [self._refreshControl beginRefreshing];
+    }
 
     void(^completionBlock)(TAGPieceChannel *obj, NSError *err)=^(TAGPieceChannel *obj, NSError *err){
         if(!err){
@@ -162,6 +176,7 @@
         }
         [self._spinner stopAnimating];
         [self._spinner removeFromSuperview];
+        [self._refreshControl endRefreshing];
     };
     [[TAGPieceStore sharedStore] fetchPiecesWithCompletion:completionBlock];
 }
@@ -179,6 +194,17 @@
 
     [self._collectionView setDelegate:self];
     [self._collectionView setDataSource:self];
+
+    self._refreshControl = [[UIRefreshControl alloc] init];
+    self._refreshControl.backgroundColor = kTagitDeselectedGrey;
+
+    self._refreshControl.tintColor = [UIColor blackColor];
+    [self._refreshControl addTarget:self
+                            action:@selector(fetchPieces)
+                  forControlEvents:UIControlEventValueChanged];
+
+    [self._collectionView addSubview:self._refreshControl];
+    self._collectionView.alwaysBounceVertical = YES;
 
     [self.view addSubview:self._collectionView];
 }
