@@ -31,6 +31,7 @@
 // Data Layer
 #import "TAGSuggestionStore.h"
 #import "TAGPieceStore.h"
+#import "TAGFavoriteStore.h"
 
 @interface TAGContributeViewController ()
 
@@ -284,11 +285,17 @@
 - (void)submitPiece:(NSMutableDictionary *)params {
     TAGPieceStore *pieceStore = [TAGPieceStore sharedStore];
 
-    // Third: Return to user's profile
-    void (^returnToUserProfile)(TAGPiece *piece, NSError *err)=^(TAGPiece *piece, NSError *err) {
+    // Fourth: Return to user's profile
+    void (^returnToUserProfile)(TAGFavorite *favorite, NSError *err)=^(TAGFavorite *favorite, NSError *err) {
+        [self.parentViewController.tabBarController setSelectedIndex:2];
+    };
+
+    // Third: Auto favorite the piece on behalf of the user
+    void(^favoritePiece)(TAGPiece *piece, NSError *err)=^(TAGPiece *piece, NSError *err){
         [[TAGPieceStore sharedStore] addUniquePiece:piece];
 
-        [self.parentViewController.tabBarController setSelectedIndex:2];
+        TAGFavoriteStore *favoriteStore = [TAGFavoriteStore sharedStore];
+        [favoriteStore createFavoriteForPiece:piece.id withCompletionBlock:returnToUserProfile];
     };
 
     // Second: Create suggestion
@@ -299,7 +306,7 @@
         [pieceParams setObject:self._S3ImageLocation forKey:@"image_url"];
         // Send this data to the server
         TAGPieceStore *store = [TAGPieceStore sharedStore];
-        [store createPiece:pieceParams withCompletionBlock:returnToUserProfile];
+        [store createPiece:pieceParams withCompletionBlock:favoritePiece];
     };
 
     // First: Reverse geocode
