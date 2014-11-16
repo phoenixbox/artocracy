@@ -32,6 +32,7 @@
 #import "TAGSuggestionStore.h"
 #import "TAGPieceStore.h"
 #import "TAGFavoriteStore.h"
+#import "TAGUpvoteStore.h"
 
 @interface TAGContributeViewController ()
 
@@ -326,11 +327,17 @@
 - (void)submitSuggestion:(NSMutableDictionary *)params {
     TAGSuggestionStore *suggestionStore = [TAGSuggestionStore sharedStore];
 
-    // Third: Return to user's profile
-    void (^returnToUserProfile)(TAGSuggestion *suggestion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err) {
+    // Fourth: Return to user's profile
+    void (^returnToUserProfile)(TAGUpvote *upvote, NSError *err)=^(TAGUpvote *upvote, NSError *err) {
+        [self.parentViewController.tabBarController setSelectedIndex:2];
+    };
+
+    // Third: Auto upvote the suggestion on behalf of the user
+    void(^upvoteSuggestion)(TAGSuggestion *suugesstion, NSError *err)=^(TAGSuggestion *suggestion, NSError *err){
         [[TAGSuggestionStore sharedStore] addUniqueSuggestion:suggestion];
 
-        [self.parentViewController.tabBarController setSelectedIndex:2];
+        TAGUpvoteStore *upvoteStore = [TAGUpvoteStore sharedStore];
+        [upvoteStore createUpvoteForSuggestion:suggestion.id withCompletionBlock:returnToUserProfile];
     };
 
     // Second: Create suggestion
@@ -341,7 +348,7 @@
         [suggestionParams setObject:self._S3ImageLocation forKey:@"image_url"];
         // Send this data to the server
         TAGSuggestionStore *store = [TAGSuggestionStore sharedStore];
-        [store createSuggestion:suggestionParams withCompletionBlock:returnToUserProfile];
+        [store createSuggestion:suggestionParams withCompletionBlock:upvoteSuggestion];
     };
 
     // First: Reverse geocode
