@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController id="pvG-mJ-dtA" customClass="TAGLoginViewController">
+            <layoutGuides>
+                <viewControllerLayoutGuide type="top" id="ogQ-dL-NQW"/>
+                <viewControllerLayoutGuide type="bottom" id="Equ-GW-Fnv"/>
+            </layoutGuides>
+            <view key="view" contentMode="scaleToFill" id="pn9-rd-RpK">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="640"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W86-Kt-dNQ" customClass="TPKeyboardAvoidingScrollView">
+                        <rect key="frame" x="0.0" y="0.0" width="380" height="667"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="art_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="ofP-rW-0BL">
+                                <rect key="frame" x="15" y="105" width="290" height="83"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email or username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gru-4f-m6E">
+                                <rect key="frame" x="10" y="255" width="300" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="obz-Sk-hLi">
+                                <rect key="frame" x="10" y="303" width="300" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvh-mf-MAr">
+                                <rect key="frame" x="35" y="363" width="250" height="40"/>
+                                <state key="normal" title="Email">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SPT-6m-Z1c">
+                                <rect key="frame" x="35" y="418" width="250" height="40"/>
+                                <state key="normal" title="Instagram">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="art_subheader.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Y6-V1-TrS">
+                                <rect key="frame" x="35" y="187" width="251" height="43"/>
+                            </imageView>
+                        </subviews>
+                    </scrollView>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            </view>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <size key="freeformSize" width="320" height="640"/>
+            <connections>
+                <outlet property="_emailButton" destination="zvh-mf-MAr" id="VEV-Ee-uib"/>
+                <outlet property="_emailField" destination="Gru-4f-m6E" id="hPd-9X-CgK"/>
+                <outlet property="_igButton" destination="SPT-6m-Z1c" id="Rrj-ih-7KX"/>
+                <outlet property="_logoHero" destination="ofP-rW-0BL" id="nx4-zX-nT0"/>
+                <outlet property="_logoSubheader" destination="3Y6-V1-TrS" id="FIn-tK-Jxr"/>
+                <outlet property="_passwordField" destination="obz-Sk-hLi" id="tgu-2K-LPA"/>
+                <outlet property="_scrollView" destination="W86-Kt-dNQ" id="ySV-Bs-0uJ"/>
+            </connections>
+            <point key="canvasLocation" x="557" y="283"/>
+        </viewController>
+    </objects>
+    <resources>
+        <image name="art_logo.png" width="290" height="57"/>
+        <image name="art_subheader.png" width="220" height="43"/>
+    </resources>
+</document>

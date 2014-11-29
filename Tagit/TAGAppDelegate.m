@@ -27,8 +27,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 
-    TAGLoginViewController *loginViewController = [[TAGLoginViewController alloc]init];
-    [[self window] setRootViewController:loginViewController];
+    NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"TAGLoginViewController" owner:nil options:nil];
+    [[self window] setRootViewController:[nibContents lastObject]];
 
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

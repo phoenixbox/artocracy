@@ -95,6 +95,7 @@
 		CB9BC69A19BCFD7500BE0EFC /* TAGPiecesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BC69919BCFD7500BE0EFC /* TAGPiecesViewController.m */; };
 		CB9BC69E19BD07D100BE0EFC /* TAGPieceCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BC69D19BD07D100BE0EFC /* TAGPieceCollectionCell.m */; };
 		CBA22D0B19E9B906008FA6EE /* art_navBarLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA22D0A19E9B906008FA6EE /* art_navBarLogo@2x.png */; };
+		CBA741C81A296E24001908A0 /* TAGLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBA741C71A296E23001908A0 /* TAGLoginViewController.xib */; };
 		CBAA97D119E25C5F0023B3B7 /* TAGSuggestionChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAA97D019E25C5F0023B3B7 /* TAGSuggestionChannel.m */; };
 		CBAA97D419E3AC040023B3B7 /* TAGMapHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAA97D319E3AC040023B3B7 /* TAGMapHelpers.m */; };
 		CBC0569019C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC0568F19C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m */; };
@@ -288,6 +289,7 @@
 		CB9BC69C19BD07D100BE0EFC /* TAGPieceCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGPieceCollectionCell.h; sourceTree = "<group>"; };
 		CB9BC69D19BD07D100BE0EFC /* TAGPieceCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGPieceCollectionCell.m; sourceTree = "<group>"; };
 		CBA22D0A19E9B906008FA6EE /* art_navBarLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "art_navBarLogo@2x.png"; path = "../../../../../Dropbox/tagit/png/icons/art_navBarLogo@2x.png"; sourceTree = "<group>"; };
+		CBA741C71A296E23001908A0 /* TAGLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGLoginViewController.xib; sourceTree = "<group>"; };
 		CBAA97CF19E25C5F0023B3B7 /* TAGSuggestionChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionChannel.h; sourceTree = "<group>"; };
 		CBAA97D019E25C5F0023B3B7 /* TAGSuggestionChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionChannel.m; sourceTree = "<group>"; };
 		CBAA97D219E3AC040023B3B7 /* TAGMapHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGMapHelpers.h; sourceTree = "<group>"; };
@@ -609,6 +611,7 @@
 		CB2673C7198DE9FC00CB02A1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				CBA741C61A296DF3001908A0 /* Login */,
 				CBFA22EC19BBABE9001B4286 /* Detail */,
 				CB6DA4E519A478BA00BB71EE /* Profile */,
 				CBDA9A161996C99500E8AD31 /* Suggestion */,
@@ -781,6 +784,14 @@
 				CBD4DCEB19A482620024209D /* TAGCollectionView.m */,
 			);
 			name = Profile;
+			sourceTree = "<group>";
+		};
+		CBA741C61A296DF3001908A0 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				CBA741C71A296E23001908A0 /* TAGLoginViewController.xib */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 		CBAA97CD19E25C230023B3B7 /* Channels */ = {
@@ -1012,6 +1023,7 @@
 				CB76383F19FC17E9004D2D6E /* TAGSuggestionDetailsSection.xib in Resources */,
 				CBF057C919D88E4C009292BA /* Walkway_Bold.ttf in Resources */,
 				CB34994B1A0EBAEE004B2E6D /* heart_spinner07@2x.png in Resources */,
+				CBA741C81A296E24001908A0 /* TAGLoginViewController.xib in Resources */,
 				CBD3D2DA19B28DDB00A2DE75 /* folsom_st_SF@2x.png in Resources */,
 				CB3499471A0EBAEE004B2E6D /* heart_spinner03@2x.png in Resources */,
 				CB3499451A0EBAEE004B2E6D /* heart_spinner01@2x.png in Resources */,
