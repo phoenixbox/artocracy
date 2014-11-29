@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A2C908E845A74AAE96B32557 /* libPods-TagitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A392AA121C5D4E34AB1D7DB1 /* libPods-TagitTests.a */; };
 		CB009B5E19A9A24200FC06A0 /* TAGViewHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = CB009B5D19A9A24200FC06A0 /* TAGViewHelpers.m */; };
 		CB009B6119A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB009B6019A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.m */; };
-		CB05B97A19F4BB870079FFF5 /* TAGSampleSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = CB05B97919F4BB870079FFF5 /* TAGSampleSpec.m */; };
 		CB068138198E9ABE00B13E49 /* TAGSessionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB068137198E9ABE00B13E49 /* TAGSessionStore.m */; };
 		CB06813E198E9EB000B13E49 /* TAGAuthStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB06813D198E9EB000B13E49 /* TAGAuthStore.m */; };
 		CB068143198EA9EF00B13E49 /* TAGPieceViewControllerDEP.m in Sources */ = {isa = PBXBuildFile; fileRef = CB068142198EA9EF00B13E49 /* TAGPieceViewControllerDEP.m */; };
@@ -46,6 +44,8 @@
 		CB18617A19FC4639005B616B /* spinner_00@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB18617919FC4639005B616B /* spinner_00@2x.png */; };
 		CB1F51A01A1081DA00329524 /* TAGFormValidators.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F519F1A1081DA00329524 /* TAGFormValidators.m */; };
 		CB1F51A31A108B5B00329524 /* TAGS3Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F51A21A108B5B00329524 /* TAGS3Configuration.m */; };
+		CB1F51AE1A19433800329524 /* TAGCameraOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB1F51AD1A19433800329524 /* TAGCameraOverlay.xib */; };
+		CB1F51B41A1953E300329524 /* TAGCameraOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F51B31A1953E300329524 /* TAGCameraOverlay.m */; };
 		CB267397198DE3FA00CB02A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB267396198DE3FA00CB02A1 /* Foundation.framework */; };
 		CB267399198DE3FA00CB02A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB267398198DE3FA00CB02A1 /* CoreGraphics.framework */; };
 		CB26739B198DE3FA00CB02A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB26739A198DE3FA00CB02A1 /* UIKit.framework */; };
@@ -53,10 +53,6 @@
 		CB2673A3198DE3FA00CB02A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2673A2198DE3FA00CB02A1 /* main.m */; };
 		CB2673A7198DE3FA00CB02A1 /* TAGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2673A6198DE3FA00CB02A1 /* TAGAppDelegate.m */; };
 		CB2673A9198DE3FA00CB02A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB2673A8198DE3FA00CB02A1 /* Images.xcassets */; };
-		CB2673B0198DE3FA00CB02A1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2673AF198DE3FA00CB02A1 /* XCTest.framework */; };
-		CB2673B1198DE3FA00CB02A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB267396198DE3FA00CB02A1 /* Foundation.framework */; };
-		CB2673B2198DE3FA00CB02A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB26739A198DE3FA00CB02A1 /* UIKit.framework */; };
-		CB2673BA198DE3FA00CB02A1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB2673B8198DE3FA00CB02A1 /* InfoPlist.strings */; };
 		CB2673CB198DEA3500CB02A1 /* TAGLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2673CA198DEA3500CB02A1 /* TAGLoginViewController.m */; };
 		CB33FD7D19C2AA0F0017F4EF /* TAGPieceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB33FD7C19C2AA0F0017F4EF /* TAGPieceCell.m */; };
 		CB3499341A07177D004B2E6D /* TAGSuggestionDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB3499331A07177D004B2E6D /* TAGSuggestionDetailHeader.xib */; };
@@ -127,7 +123,6 @@
 		CBD4DCE919A47D370024209D /* TAGProfileCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD4DCE819A47D370024209D /* TAGProfileCollectionViewController.m */; };
 		CBD4DCEC19A482620024209D /* TAGCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBD4DCEB19A482620024209D /* TAGCollectionView.m */; };
 		CBDA9A121996C4D800E8AD31 /* TAGSuggestionViewControllerDEP.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewControllerDEP.m */; };
-		CBDA9A191996C9C300E8AD31 /* TAGCameraOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = CBDA9A181996C9C300E8AD31 /* TAGCameraOverlay.m */; };
 		CBDA9A1C1996CCCA00E8AD31 /* cameraSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A1A1996CCCA00E8AD31 /* cameraSelected@2x.png */; };
 		CBDA9A1D1996CCCA00E8AD31 /* cameraUnselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A1B1996CCCA00E8AD31 /* cameraUnselected@2x.png */; };
 		CBDA9A1F1996DE7300E8AD31 /* art_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBDA9A1E1996DE7300E8AD31 /* art_logo@2x.png */; };
@@ -158,16 +153,6 @@
 		CBFA22F519BBCADC001B4286 /* TAGCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA22F419BBCADC001B4286 /* TAGCollectionViewCell.m */; };
 		D07B4ED854414D49BBA5AC7F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F209F9462484A069D763253 /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		CB2673B3198DE3FA00CB02A1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CB26738B198DE3FA00CB02A1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CB267392198DE3FA00CB02A1;
-			remoteInfo = Tagit;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		41B7C4A596354992B5892333 /* Pods-TagitTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TagitTests.xcconfig"; path = "Pods/Pods-TagitTests.xcconfig"; sourceTree = "<group>"; };
@@ -231,6 +216,9 @@
 		CB1F519F1A1081DA00329524 /* TAGFormValidators.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGFormValidators.m; sourceTree = "<group>"; };
 		CB1F51A11A108B5B00329524 /* TAGS3Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGS3Configuration.h; sourceTree = "<group>"; };
 		CB1F51A21A108B5B00329524 /* TAGS3Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGS3Configuration.m; sourceTree = "<group>"; };
+		CB1F51AD1A19433800329524 /* TAGCameraOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGCameraOverlay.xib; sourceTree = "<group>"; };
+		CB1F51B21A1953E300329524 /* TAGCameraOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCameraOverlay.h; sourceTree = "<group>"; };
+		CB1F51B31A1953E300329524 /* TAGCameraOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCameraOverlay.m; sourceTree = "<group>"; };
 		CB267393198DE3FA00CB02A1 /* Tagit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tagit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB267396198DE3FA00CB02A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CB267398198DE3FA00CB02A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -242,7 +230,6 @@
 		CB2673A5198DE3FA00CB02A1 /* TAGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAGAppDelegate.h; sourceTree = "<group>"; };
 		CB2673A6198DE3FA00CB02A1 /* TAGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAGAppDelegate.m; sourceTree = "<group>"; };
 		CB2673A8198DE3FA00CB02A1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		CB2673AE198DE3FA00CB02A1 /* TagitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TagitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB2673AF198DE3FA00CB02A1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		CB2673B7198DE3FA00CB02A1 /* TagitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TagitTests-Info.plist"; sourceTree = "<group>"; };
 		CB2673B9198DE3FA00CB02A1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -343,8 +330,6 @@
 		CBD4DCEB19A482620024209D /* TAGCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCollectionView.m; sourceTree = "<group>"; };
 		CBDA9A101996C4D700E8AD31 /* TAGSuggestionViewControllerDEP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionViewControllerDEP.h; sourceTree = "<group>"; };
 		CBDA9A111996C4D700E8AD31 /* TAGSuggestionViewControllerDEP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionViewControllerDEP.m; sourceTree = "<group>"; };
-		CBDA9A171996C9C300E8AD31 /* TAGCameraOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCameraOverlay.h; sourceTree = "<group>"; };
-		CBDA9A181996C9C300E8AD31 /* TAGCameraOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCameraOverlay.m; sourceTree = "<group>"; };
 		CBDA9A1A1996CCCA00E8AD31 /* cameraSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cameraSelected@2x.png"; sourceTree = "<group>"; };
 		CBDA9A1B1996CCCA00E8AD31 /* cameraUnselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cameraUnselected@2x.png"; sourceTree = "<group>"; };
 		CBDA9A1E1996DE7300E8AD31 /* art_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "art_logo@2x.png"; sourceTree = "<group>"; };
@@ -395,17 +380,6 @@
 				CB26739B198DE3FA00CB02A1 /* UIKit.framework in Frameworks */,
 				CB267397198DE3FA00CB02A1 /* Foundation.framework in Frameworks */,
 				D07B4ED854414D49BBA5AC7F /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CB2673AB198DE3FA00CB02A1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CB2673B0198DE3FA00CB02A1 /* XCTest.framework in Frameworks */,
-				CB2673B2198DE3FA00CB02A1 /* UIKit.framework in Frameworks */,
-				CB2673B1198DE3FA00CB02A1 /* Foundation.framework in Frameworks */,
-				A2C908E845A74AAE96B32557 /* libPods-TagitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +485,8 @@
 				CBDA9A3E1998437B00E8AD31 /* TAGMapAnnotation.m */,
 				CB4515D719FA03F5004F713C /* TAGSpinner.h */,
 				CB4515D819FA03F5004F713C /* TAGSpinner.m */,
+				CB1F51B21A1953E300329524 /* TAGCameraOverlay.h */,
+				CB1F51B31A1953E300329524 /* TAGCameraOverlay.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -544,7 +520,6 @@
 			isa = PBXGroup;
 			children = (
 				CB267393198DE3FA00CB02A1 /* Tagit.app */,
-				CB2673AE198DE3FA00CB02A1 /* TagitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -871,8 +846,7 @@
 			children = (
 				CB3499321A071764004B2E6D /* Detail */,
 				CB0C3E0F19C60BE200C58D9D /* Cell */,
-				CBDA9A171996C9C300E8AD31 /* TAGCameraOverlay.h */,
-				CBDA9A181996C9C300E8AD31 /* TAGCameraOverlay.m */,
+				CB1F51AD1A19433800329524 /* TAGCameraOverlay.xib */,
 			);
 			name = Suggestion;
 			sourceTree = "<group>";
@@ -980,26 +954,6 @@
 			productReference = CB267393198DE3FA00CB02A1 /* Tagit.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CB2673AD198DE3FA00CB02A1 /* TagitTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CB2673C2198DE3FA00CB02A1 /* Build configuration list for PBXNativeTarget "TagitTests" */;
-			buildPhases = (
-				604505B7D9B64503AD9A2FDF /* Check Pods Manifest.lock */,
-				CB2673AA198DE3FA00CB02A1 /* Sources */,
-				CB2673AB198DE3FA00CB02A1 /* Frameworks */,
-				CB2673AC198DE3FA00CB02A1 /* Resources */,
-				9F1B523A5C704333AFB36E0D /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CB2673B4198DE3FA00CB02A1 /* PBXTargetDependency */,
-			);
-			name = TagitTests;
-			productName = TagitTests;
-			productReference = CB2673AE198DE3FA00CB02A1 /* TagitTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1009,11 +963,6 @@
 				CLASSPREFIX = TAG;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Shane Rogers";
-				TargetAttributes = {
-					CB2673AD198DE3FA00CB02A1 = {
-						TestTargetID = CB267392198DE3FA00CB02A1;
-					};
-				};
 			};
 			buildConfigurationList = CB26738E198DE3FA00CB02A1 /* Build configuration list for PBXProject "Tagit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1028,7 +977,6 @@
 			projectRoot = "";
 			targets = (
 				CB267392198DE3FA00CB02A1 /* Tagit */,
-				CB2673AD198DE3FA00CB02A1 /* TagitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1052,6 +1000,7 @@
 				CBDA9A1D1996CCCA00E8AD31 /* cameraUnselected@2x.png in Resources */,
 				CB4515D419F8CAAF004F713C /* a_80@2x.png in Resources */,
 				CB068153198ECA4100B13E49 /* navBarLogo@2x.png in Resources */,
+				CB1F51AE1A19433800329524 /* TAGCameraOverlay.xib in Resources */,
 				CBDA9A4319985A6B00E8AD31 /* map_icon@2x.png in Resources */,
 				CB4515D619F8CAAF004F713C /* a_100@2x.png in Resources */,
 				CB18617119FC461C005B616B /* spinner_02@2x.png in Resources */,
@@ -1126,14 +1075,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CB2673AC198DE3FA00CB02A1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CB2673BA198DE3FA00CB02A1 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1150,36 +1091,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		604505B7D9B64503AD9A2FDF /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		9F1B523A5C704333AFB36E0D /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-TagitTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B5CD606BFFC44F4D8183B065 /* Copy Pods Resources */ = {
@@ -1231,6 +1142,7 @@
 				CB0C3E0E19C6099900C58D9D /* TAGContributeViewController.m in Sources */,
 				CB2673CB198DEA3500CB02A1 /* TAGLoginViewController.m in Sources */,
 				CBD3D2ED19B58BF700A2DE75 /* TAGSuggestionDetailViewController.m in Sources */,
+				CB1F51B41A1953E300329524 /* TAGCameraOverlay.m in Sources */,
 				CBDA9A3619982CA200E8AD31 /* TAGMapViewController.m in Sources */,
 				CB33FD7D19C2AA0F0017F4EF /* TAGPieceCell.m in Sources */,
 				CB068160198ED06300B13E49 /* TAGPiece.m in Sources */,
@@ -1252,7 +1164,6 @@
 				CB6DA4E819A478CC00BB71EE /* TAGProfileHeader.m in Sources */,
 				CBDA9A50199B203D00E8AD31 /* TAGSuggestion.m in Sources */,
 				CBD4DCE919A47D370024209D /* TAGProfileCollectionViewController.m in Sources */,
-				CBDA9A191996C9C300E8AD31 /* TAGCameraOverlay.m in Sources */,
 				CB068163198ED08400B13E49 /* TAGPieceChannel.m in Sources */,
 				CB009B5E19A9A24200FC06A0 /* TAGViewHelpers.m in Sources */,
 				CBDA9A301997158500E8AD31 /* TAGImagePickerController.m in Sources */,
@@ -1260,23 +1171,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CB2673AA198DE3FA00CB02A1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CB05B97A19F4BB870079FFF5 /* TAGSampleSpec.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		CB2673B4198DE3FA00CB02A1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CB267392198DE3FA00CB02A1 /* Tagit */;
-			targetProxy = CB2673B3198DE3FA00CB02A1 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		CB26739F198DE3FA00CB02A1 /* InfoPlist.strings */ = {
@@ -1404,48 +1299,6 @@
 			};
 			name = Release;
 		};
-		CB2673C3198DE3FA00CB02A1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41B7C4A596354992B5892333 /* Pods-TagitTests.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Tagit.app/Tagit";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tagit/Tagit-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "TagitTests/TagitTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		CB2673C4198DE3FA00CB02A1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41B7C4A596354992B5892333 /* Pods-TagitTests.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Tagit.app/Tagit";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Tagit/Tagit-Prefix.pch";
-				INFOPLIST_FILE = "TagitTests/TagitTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1463,15 +1316,6 @@
 			buildConfigurations = (
 				CB2673C0198DE3FA00CB02A1 /* Debug */,
 				CB2673C1198DE3FA00CB02A1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CB2673C2198DE3FA00CB02A1 /* Build configuration list for PBXNativeTarget "TagitTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CB2673C3198DE3FA00CB02A1 /* Debug */,
-				CB2673C4198DE3FA00CB02A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

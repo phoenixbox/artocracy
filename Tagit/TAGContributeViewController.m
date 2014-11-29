@@ -134,11 +134,13 @@
         imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
         imagePickerController.sourceType = sourceType;
         imagePickerController.delegate = self;
+
         [imagePickerController setShowsCameraControls:YES];
 
         if (sourceType == UIImagePickerControllerSourceTypeCamera)
         {
-            self._imagePickerController = [self buildSquareOverlay:imagePickerController];
+            self._imagePickerController = imagePickerController;
+            [self._imagePickerController buildOverlay];
         }
 
         [self presentViewController:self._imagePickerController animated:YES completion:nil];
@@ -147,32 +149,19 @@
     }
 }
 
-- (TAGImagePickerController *)buildSquareOverlay:(TAGImagePickerController *)imagePickerController {
-    CGRect f = imagePickerController.view.bounds;
-    f.size.height -= imagePickerController.navigationBar.bounds.size.height;
-    UIGraphicsBeginImageContext(f.size);
-    [[UIColor colorWithWhite:0.0f alpha:.8] set];
-    UIRectFillUsingBlendMode(CGRectMake(0, 0, f.size.width, 124.0), kCGBlendModeNormal);
-    UIRectFillUsingBlendMode(CGRectMake(0, 444, f.size.width, 52), kCGBlendModeNormal);
-    UIImage *overlayImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    UIImageView *overlay = [[UIImageView alloc] initWithFrame:f];
-    overlay.image = overlayImage;
-    overlay.alpha = 0.7f;
-    [imagePickerController setCameraOverlayView:overlay];
-
-    return imagePickerController;
-}
-
 #pragma UIImagePickerControllerProtocol methods
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     self._showImagePicker = NO;
-    UIImage *image = [self cropImageToSquare:info];
+}
 
+- (void)cropAndSetImage:(NSDictionary *)info {
+    UIImage *image = [self cropImageToSquare:info];
     self._lastTakenPhoto = image;
     self._photoData = UIImageJPEGRepresentation(image, 0.2);
     [self._primaryCell.suggestionImage setImage:self._lastTakenPhoto];
+}
+
+- (void)dismissTheImagePicker {
     [self._imagePickerController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -186,6 +175,7 @@
         CGFloat newDimension = MIN(width, height);
         CGFloat widthOffset = (width - newDimension) / 2;
         CGFloat heightOffset = (height - newDimension) / 2;
+        // TODO: Investigate the 3rd param
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(newDimension, newDimension), NO, 0.);
         [image drawAtPoint:CGPointMake(-widthOffset, -heightOffset)
                  blendMode:kCGBlendModeCopy

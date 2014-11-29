@@ -7,8 +7,11 @@
 //
 
 #import "TAGImagePickerController.h"
+#import "TAGCameraOverlay.h"
 
 @interface TAGImagePickerController ()
+
+@property (nonatomic, strong) TAGCameraOverlay *cameraOverlay;
 
 @end
 
@@ -19,6 +22,7 @@
 
     if (!imagePicker) {
         imagePicker = [[TAGImagePickerController alloc]init];
+
     };
     return imagePicker;
 }
@@ -36,6 +40,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (void)buildOverlay {
+    NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"TAGCameraOverlay" owner:nil options:nil];
+    self.cameraOverlay = [nibContents lastObject];
+    [self.cameraOverlay setPicker:self];
+
+    [self setCameraOverlayView:self.cameraOverlay];
 }
 
 - (void)didReceiveMemoryWarning

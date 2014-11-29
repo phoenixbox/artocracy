@@ -177,8 +177,6 @@
 
 - (void)renderHeader {
     NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"TAGSuggestionDetailHeader" owner:nil options:nil];
-
-    // Find the view among nib contents (not too hard assuming there is only one view in it).
     self._suggestionHeader = [nibContents lastObject];
     [self._suggestionHeader attributeWithModel:self._suggestion];
 
@@ -240,8 +238,6 @@
 - (void)renderSuggestionDetailsContainer {
     // Instantiate the nib content without any reference to it.
     NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"TAGSuggestionDetailsSection" owner:nil options:nil];
-
-    // Find the view among nib contents (not too hard assuming there is only one view in it).
     self._suggestionDetailsSection = [nibContents lastObject];
     [self._suggestionDetailsSection attributeWithModel:self._suggestion];
 
