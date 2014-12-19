@@ -108,7 +108,9 @@
 		CB79EA141A44236C00DFF91E /* SCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA0E1A44236C00DFF91E /* SCSlider.m */; };
 		CB79EA151A44236C00DFF91E /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA101A44236C00DFF91E /* UIImage+Resize.m */; };
 		CB79EA1B1A4423B900DFF91E /* SCCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA191A4423B900DFF91E /* SCCommon.m */; };
-		CB79EA1F1A442B9100DFF91E /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA1E1A442B9100DFF91E /* PostViewController.m */; };
+		CB79EA1F1A442B9100DFF91E /* ImageFilterController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA1E1A442B9100DFF91E /* ImageFilterController.m */; };
+		CB79EA211A443B3500DFF91E /* filter_one@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79EA201A443B3500DFF91E /* filter_one@2x.png */; };
+		CB79EA231A443D5B00DFF91E /* filter_two@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79EA221A443D5B00DFF91E /* filter_two@2x.png */; };
 		CB8BFB4819D51BAF005F4272 /* TAGPieceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8BFB4719D51BAF005F4272 /* TAGPieceCell.xib */; };
 		CB8BFB4A19D51E0B005F4272 /* TAGPieceSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8BFB4919D51E0A005F4272 /* TAGPieceSectionHeader.xib */; };
 		CB9BC69A19BCFD7500BE0EFC /* TAGPiecesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BC69919BCFD7500BE0EFC /* TAGPiecesViewController.m */; };
@@ -326,8 +328,10 @@
 		CB79EA181A4423B900DFF91E /* SCCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCommon.h; sourceTree = "<group>"; };
 		CB79EA191A4423B900DFF91E /* SCCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCommon.m; sourceTree = "<group>"; };
 		CB79EA1A1A4423B900DFF91E /* SCDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDefines.h; sourceTree = "<group>"; };
-		CB79EA1D1A442B9100DFF91E /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
-		CB79EA1E1A442B9100DFF91E /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
+		CB79EA1D1A442B9100DFF91E /* ImageFilterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFilterController.h; sourceTree = "<group>"; };
+		CB79EA1E1A442B9100DFF91E /* ImageFilterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilterController.m; sourceTree = "<group>"; };
+		CB79EA201A443B3500DFF91E /* filter_one@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter_one@2x.png"; sourceTree = "<group>"; };
+		CB79EA221A443D5B00DFF91E /* filter_two@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter_two@2x.png"; sourceTree = "<group>"; };
 		CB8BFB4719D51BAF005F4272 /* TAGPieceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGPieceCell.xib; sourceTree = "<group>"; };
 		CB8BFB4919D51E0A005F4272 /* TAGPieceSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGPieceSectionHeader.xib; sourceTree = "<group>"; };
 		CB9BC69819BCFD7500BE0EFC /* TAGPiecesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGPiecesViewController.h; sourceTree = "<group>"; };
@@ -590,8 +594,8 @@
 		CB26739C198DE3FA00CB02A1 /* Tagit */ = {
 			isa = PBXGroup;
 			children = (
-				CB79EA1D1A442B9100DFF91E /* PostViewController.h */,
-				CB79EA1E1A442B9100DFF91E /* PostViewController.m */,
+				CB79EA1D1A442B9100DFF91E /* ImageFilterController.h */,
+				CB79EA1E1A442B9100DFF91E /* ImageFilterController.m */,
 				CB79EA1C1A4423BE00DFF91E /* SCCommon */,
 				CB79EA161A44237A00DFF91E /* SCCameraCapture */,
 				CB068134198E9A8F00B13E49 /* Data Layer */,
@@ -683,6 +687,8 @@
 		CB2673CC198DEEA300CB02A1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CB79EA221A443D5B00DFF91E /* filter_two@2x.png */,
+				CB79EA201A443B3500DFF91E /* filter_one@2x.png */,
 				CB79EA171A44239D00DFF91E /* SCCameraCapture */,
 				CB3499381A0EBAD6004B2E6D /* spinners */,
 				CB18616519FC3916005B616B /* upvoteDeselected@2x.png */,
@@ -1128,6 +1134,7 @@
 				CB3499471A0EBAEE004B2E6D /* heart_spinner03@2x.png in Resources */,
 				CB3499451A0EBAEE004B2E6D /* heart_spinner01@2x.png in Resources */,
 				CBF057CF19D88E4C009292BA /* Walkway_SemiBold.ttf in Resources */,
+				CB79EA231A443D5B00DFF91E /* filter_two@2x.png in Resources */,
 				CB4515D519F8CAAF004F713C /* a_90@2x.png in Resources */,
 				CB18617019FC461C005B616B /* spinner_01@2x.png in Resources */,
 				CB6DA4E419A32AE800BB71EE /* settingsIcon@2x.png in Resources */,
@@ -1154,6 +1161,7 @@
 				CBD194FD19A5C0C600C6B449 /* lightbulbSelected@2x.png in Resources */,
 				CB79E9FB1A44235E00DFF91E /* flashing_auto@2x.png in Resources */,
 				CB79EA001A44235E00DFF91E /* shot@2x.png in Resources */,
+				CB79EA211A443B3500DFF91E /* filter_one@2x.png in Resources */,
 				CBD194FB19A5C0C600C6B449 /* heartSelected@2x.png in Resources */,
 				CB615CF91995F4FB00624A8F /* profile_photo@2x.png in Resources */,
 				CB18617819FC461C005B616B /* spinner_09@2x.png in Resources */,
@@ -1280,7 +1288,7 @@
 				CBCA725419E8DC8F005695F4 /* TAGProposalStore.m in Sources */,
 				CBEA9E6419D741EA0009C6F9 /* TAGProfileTableViewCell.m in Sources */,
 				CB1F51A31A108B5B00329524 /* TAGS3Configuration.m in Sources */,
-				CB79EA1F1A442B9100DFF91E /* PostViewController.m in Sources */,
+				CB79EA1F1A442B9100DFF91E /* ImageFilterController.m in Sources */,
 				CBD3D2E819B2D67D00A2DE75 /* TAGPieceDetailViewController.m in Sources */,
 				CB6DA4EB19A47AAD00BB71EE /* TAGCollectionControls.m in Sources */,
 				CB4515DC19FA0F7C004F713C /* TAGUserStore.m in Sources */,

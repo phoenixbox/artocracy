@@ -17,7 +17,7 @@
 #import "TAGImagePickerController.h"
 #import "TAGErrorAlert.h"
 #import "TAGSuggestionParallaxHeaderCell.h"
-#import "PostViewController.h"
+#import "ImageFilterController.h"
 
 // Helpers
 #import "TAGViewHelpers.h"
@@ -98,7 +98,7 @@
 }
 
 - (void)didTakePicture:(SCNavigationController *)navigationController image:(UIImage *)image {
-    PostViewController *con = [[PostViewController alloc] init];
+    ImageFilterController *con = [[ImageFilterController alloc] init];
     con.postImage = image;
     [self._cameraController pushViewController:con animated:YES];
 }
