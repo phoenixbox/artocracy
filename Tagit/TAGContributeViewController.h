@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCNavigationController.h"
 
-@interface TAGContributeViewController : UIViewController <UICollectionViewDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource, UINavigationControllerDelegate, UITextFieldDelegate>
+@interface TAGContributeViewController : UIViewController <UICollectionViewDelegate, UIImagePickerControllerDelegate, UICollectionViewDataSource, UINavigationControllerDelegate, UITextFieldDelegate, SCNavigationControllerDelegate>
 
 @end

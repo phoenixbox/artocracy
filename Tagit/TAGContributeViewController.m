@@ -17,6 +17,7 @@
 #import "TAGImagePickerController.h"
 #import "TAGErrorAlert.h"
 #import "TAGSuggestionParallaxHeaderCell.h"
+#import "PostViewController.h"
 
 // Helpers
 #import "TAGViewHelpers.h"
@@ -46,6 +47,7 @@
 @property (nonatomic) BOOL _showImagePicker;
 @property (nonatomic, strong) NSString *_photoName;
 @property (nonatomic, strong) NSURL *_S3ImageLocation;
+@property (nonatomic, strong) SCNavigationController *_cameraController;
 
 @property (nonatomic, strong) UIImage *_lastTakenPhoto;
 
@@ -87,12 +89,26 @@
                  withReuseIdentifier:@"mapHeader"];
 }
 
-// TODO: Functionality should be an image picker which when dismissed reveals the edit panel
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     if ([self isCameraAvailable] && self._showImagePicker) {
-        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+        self._cameraController = [[SCNavigationController alloc] init];
+        self._cameraController.scNaigationDelegate = self;
+        [self._cameraController showCameraWithParentController:self];
     }
 }
+
+- (void)didTakePicture:(SCNavigationController *)navigationController image:(UIImage *)image {
+    PostViewController *con = [[PostViewController alloc] init];
+    con.postImage = image;
+    [self._cameraController pushViewController:con animated:YES];
+}
+
+//// TODO: Functionality should be an image picker which when dismissed reveals the edit panel
+//- (void)viewDidAppear:(BOOL)animated {
+//    if ([self isCameraAvailable] && self._showImagePicker) {
+//        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+//    }
+//}
 
 - (void)initAppearance
 {

@@ -90,6 +90,25 @@
 		CB6DA4E819A478CC00BB71EE /* TAGProfileHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6DA4E719A478CC00BB71EE /* TAGProfileHeader.m */; };
 		CB6DA4EB19A47AAD00BB71EE /* TAGCollectionControls.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6DA4EA19A47AAD00BB71EE /* TAGCollectionControls.m */; };
 		CB76383F19FC17E9004D2D6E /* TAGSuggestionDetailsSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB76383E19FC17E9004D2D6E /* TAGSuggestionDetailsSection.xib */; };
+		CB79E9FB1A44235E00DFF91E /* flashing_auto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79E9EF1A44235E00DFF91E /* flashing_auto@2x.png */; };
+		CB79E9FC1A44235E00DFF91E /* flashing_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79E9F01A44235E00DFF91E /* flashing_off@2x.png */; };
+		CB79E9FD1A44235E00DFF91E /* flashing_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79E9F11A44235E00DFF91E /* flashing_on@2x.png */; };
+		CB79E9FE1A44235E00DFF91E /* photo_close_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79E9F21A44235E00DFF91E /* photo_close_icon@2x.png */; };
+		CB79E9FF1A44235E00DFF91E /* shot_h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79E9F31A44235E00DFF91E /* shot_h@2x.png */; };
+		CB79EA001A44235E00DFF91E /* shot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79E9F41A44235E00DFF91E /* shot@2x.png */; };
+		CB79EA011A44235E00DFF91E /* switch_camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79E9F51A44235E00DFF91E /* switch_camera@2x.png */; };
+		CB79EA021A44235E00DFF91E /* take_photo_picture_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79E9F61A44235E00DFF91E /* take_photo_picture_default@2x.png */; };
+		CB79EA031A44235E00DFF91E /* touch_focus_x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79E9F71A44235E00DFF91E /* touch_focus_x.png */; };
+		CB79EA041A44235E00DFF91E /* touch_focus_x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79E9F81A44235E00DFF91E /* touch_focus_x@2x.png */; };
+		CB79EA051A44235E00DFF91E /* touch_focus.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79E9F91A44235E00DFF91E /* touch_focus.png */; };
+		CB79EA061A44235E00DFF91E /* touch_focus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79E9FA1A44235E00DFF91E /* touch_focus@2x.png */; };
+		CB79EA111A44236C00DFF91E /* SCCaptureCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA081A44236C00DFF91E /* SCCaptureCameraController.m */; };
+		CB79EA121A44236C00DFF91E /* SCCaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA0A1A44236C00DFF91E /* SCCaptureSessionManager.m */; };
+		CB79EA131A44236C00DFF91E /* SCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA0C1A44236C00DFF91E /* SCNavigationController.m */; };
+		CB79EA141A44236C00DFF91E /* SCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA0E1A44236C00DFF91E /* SCSlider.m */; };
+		CB79EA151A44236C00DFF91E /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA101A44236C00DFF91E /* UIImage+Resize.m */; };
+		CB79EA1B1A4423B900DFF91E /* SCCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA191A4423B900DFF91E /* SCCommon.m */; };
+		CB79EA1F1A442B9100DFF91E /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA1E1A442B9100DFF91E /* PostViewController.m */; };
 		CB8BFB4819D51BAF005F4272 /* TAGPieceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8BFB4719D51BAF005F4272 /* TAGPieceCell.xib */; };
 		CB8BFB4A19D51E0B005F4272 /* TAGPieceSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8BFB4919D51E0A005F4272 /* TAGPieceSectionHeader.xib */; };
 		CB9BC69A19BCFD7500BE0EFC /* TAGPiecesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BC69919BCFD7500BE0EFC /* TAGPiecesViewController.m */; };
@@ -282,6 +301,33 @@
 		CB6DA4E919A47AAD00BB71EE /* TAGCollectionControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGCollectionControls.h; sourceTree = "<group>"; };
 		CB6DA4EA19A47AAD00BB71EE /* TAGCollectionControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCollectionControls.m; sourceTree = "<group>"; };
 		CB76383E19FC17E9004D2D6E /* TAGSuggestionDetailsSection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGSuggestionDetailsSection.xib; sourceTree = "<group>"; };
+		CB79E9EF1A44235E00DFF91E /* flashing_auto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flashing_auto@2x.png"; sourceTree = "<group>"; };
+		CB79E9F01A44235E00DFF91E /* flashing_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flashing_off@2x.png"; sourceTree = "<group>"; };
+		CB79E9F11A44235E00DFF91E /* flashing_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flashing_on@2x.png"; sourceTree = "<group>"; };
+		CB79E9F21A44235E00DFF91E /* photo_close_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo_close_icon@2x.png"; sourceTree = "<group>"; };
+		CB79E9F31A44235E00DFF91E /* shot_h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shot_h@2x.png"; sourceTree = "<group>"; };
+		CB79E9F41A44235E00DFF91E /* shot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shot@2x.png"; sourceTree = "<group>"; };
+		CB79E9F51A44235E00DFF91E /* switch_camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "switch_camera@2x.png"; sourceTree = "<group>"; };
+		CB79E9F61A44235E00DFF91E /* take_photo_picture_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "take_photo_picture_default@2x.png"; sourceTree = "<group>"; };
+		CB79E9F71A44235E00DFF91E /* touch_focus_x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = touch_focus_x.png; sourceTree = "<group>"; };
+		CB79E9F81A44235E00DFF91E /* touch_focus_x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touch_focus_x@2x.png"; sourceTree = "<group>"; };
+		CB79E9F91A44235E00DFF91E /* touch_focus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = touch_focus.png; sourceTree = "<group>"; };
+		CB79E9FA1A44235E00DFF91E /* touch_focus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touch_focus@2x.png"; sourceTree = "<group>"; };
+		CB79EA071A44236C00DFF91E /* SCCaptureCameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCaptureCameraController.h; sourceTree = "<group>"; };
+		CB79EA081A44236C00DFF91E /* SCCaptureCameraController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCaptureCameraController.m; sourceTree = "<group>"; };
+		CB79EA091A44236C00DFF91E /* SCCaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCaptureSessionManager.h; sourceTree = "<group>"; };
+		CB79EA0A1A44236C00DFF91E /* SCCaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCaptureSessionManager.m; sourceTree = "<group>"; };
+		CB79EA0B1A44236C00DFF91E /* SCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCNavigationController.h; sourceTree = "<group>"; };
+		CB79EA0C1A44236C00DFF91E /* SCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCNavigationController.m; sourceTree = "<group>"; };
+		CB79EA0D1A44236C00DFF91E /* SCSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSlider.h; sourceTree = "<group>"; };
+		CB79EA0E1A44236C00DFF91E /* SCSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSlider.m; sourceTree = "<group>"; };
+		CB79EA0F1A44236C00DFF91E /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		CB79EA101A44236C00DFF91E /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		CB79EA181A4423B900DFF91E /* SCCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCommon.h; sourceTree = "<group>"; };
+		CB79EA191A4423B900DFF91E /* SCCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCommon.m; sourceTree = "<group>"; };
+		CB79EA1A1A4423B900DFF91E /* SCDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDefines.h; sourceTree = "<group>"; };
+		CB79EA1D1A442B9100DFF91E /* PostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
+		CB79EA1E1A442B9100DFF91E /* PostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
 		CB8BFB4719D51BAF005F4272 /* TAGPieceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGPieceCell.xib; sourceTree = "<group>"; };
 		CB8BFB4919D51E0A005F4272 /* TAGPieceSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGPieceSectionHeader.xib; sourceTree = "<group>"; };
 		CB9BC69819BCFD7500BE0EFC /* TAGPiecesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGPiecesViewController.h; sourceTree = "<group>"; };
@@ -544,6 +590,10 @@
 		CB26739C198DE3FA00CB02A1 /* Tagit */ = {
 			isa = PBXGroup;
 			children = (
+				CB79EA1D1A442B9100DFF91E /* PostViewController.h */,
+				CB79EA1E1A442B9100DFF91E /* PostViewController.m */,
+				CB79EA1C1A4423BE00DFF91E /* SCCommon */,
+				CB79EA161A44237A00DFF91E /* SCCameraCapture */,
 				CB068134198E9A8F00B13E49 /* Data Layer */,
 				CB2673CF198DF03E00CB02A1 /* Constants */,
 				CB2673CC198DEEA300CB02A1 /* Assets */,
@@ -633,6 +683,7 @@
 		CB2673CC198DEEA300CB02A1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CB79EA171A44239D00DFF91E /* SCCameraCapture */,
 				CB3499381A0EBAD6004B2E6D /* spinners */,
 				CB18616519FC3916005B616B /* upvoteDeselected@2x.png */,
 				CB18616319FC38F8005B616B /* upvoteSelected@2x.png */,
@@ -784,6 +835,52 @@
 				CBD4DCEB19A482620024209D /* TAGCollectionView.m */,
 			);
 			name = Profile;
+			sourceTree = "<group>";
+		};
+		CB79EA161A44237A00DFF91E /* SCCameraCapture */ = {
+			isa = PBXGroup;
+			children = (
+				CB79EA071A44236C00DFF91E /* SCCaptureCameraController.h */,
+				CB79EA081A44236C00DFF91E /* SCCaptureCameraController.m */,
+				CB79EA091A44236C00DFF91E /* SCCaptureSessionManager.h */,
+				CB79EA0A1A44236C00DFF91E /* SCCaptureSessionManager.m */,
+				CB79EA0B1A44236C00DFF91E /* SCNavigationController.h */,
+				CB79EA0C1A44236C00DFF91E /* SCNavigationController.m */,
+				CB79EA0D1A44236C00DFF91E /* SCSlider.h */,
+				CB79EA0E1A44236C00DFF91E /* SCSlider.m */,
+				CB79EA0F1A44236C00DFF91E /* UIImage+Resize.h */,
+				CB79EA101A44236C00DFF91E /* UIImage+Resize.m */,
+			);
+			name = SCCameraCapture;
+			sourceTree = "<group>";
+		};
+		CB79EA171A44239D00DFF91E /* SCCameraCapture */ = {
+			isa = PBXGroup;
+			children = (
+				CB79E9EF1A44235E00DFF91E /* flashing_auto@2x.png */,
+				CB79E9F01A44235E00DFF91E /* flashing_off@2x.png */,
+				CB79E9F11A44235E00DFF91E /* flashing_on@2x.png */,
+				CB79E9F21A44235E00DFF91E /* photo_close_icon@2x.png */,
+				CB79E9F31A44235E00DFF91E /* shot_h@2x.png */,
+				CB79E9F41A44235E00DFF91E /* shot@2x.png */,
+				CB79E9F51A44235E00DFF91E /* switch_camera@2x.png */,
+				CB79E9F61A44235E00DFF91E /* take_photo_picture_default@2x.png */,
+				CB79E9F71A44235E00DFF91E /* touch_focus_x.png */,
+				CB79E9F81A44235E00DFF91E /* touch_focus_x@2x.png */,
+				CB79E9F91A44235E00DFF91E /* touch_focus.png */,
+				CB79E9FA1A44235E00DFF91E /* touch_focus@2x.png */,
+			);
+			name = SCCameraCapture;
+			sourceTree = "<group>";
+		};
+		CB79EA1C1A4423BE00DFF91E /* SCCommon */ = {
+			isa = PBXGroup;
+			children = (
+				CB79EA181A4423B900DFF91E /* SCCommon.h */,
+				CB79EA191A4423B900DFF91E /* SCCommon.m */,
+				CB79EA1A1A4423B900DFF91E /* SCDefines.h */,
+			);
+			name = SCCommon;
 			sourceTree = "<group>";
 		};
 		CBA741C61A296DF3001908A0 /* Login */ = {
@@ -1004,12 +1101,14 @@
 				CB2673A1198DE3FA00CB02A1 /* InfoPlist.strings in Resources */,
 				CB0C3E1119C60C1000C58D9D /* TAGSuggestionCell.xib in Resources */,
 				CBF057D019D88E4C009292BA /* Walkway_UltraBold.ttf in Resources */,
+				CB79E9FF1A44235E00DFF91E /* shot_h@2x.png in Resources */,
 				CBD3D2E319B2CE3500A2DE75 /* artSelected@2x.png in Resources */,
 				CBF057CE19D88E4C009292BA /* Walkway_Oblique.ttf in Resources */,
 				CB18617619FC461C005B616B /* spinner_07@2x.png in Resources */,
 				CB6DA4E219A32A4800BB71EE /* profileUnselected@2x.png in Resources */,
 				CBDA9A1D1996CCCA00E8AD31 /* cameraUnselected@2x.png in Resources */,
 				CB4515D419F8CAAF004F713C /* a_80@2x.png in Resources */,
+				CB79E9FC1A44235E00DFF91E /* flashing_off@2x.png in Resources */,
 				CB068153198ECA4100B13E49 /* navBarLogo@2x.png in Resources */,
 				CB1F51AE1A19433800329524 /* TAGCameraOverlay.xib in Resources */,
 				CBDA9A4319985A6B00E8AD31 /* map_icon@2x.png in Resources */,
@@ -1018,6 +1117,7 @@
 				CBF057CB19D88E4C009292BA /* Walkway_Oblique_Bold.ttf in Resources */,
 				CB4515CE19F8CAAF004F713C /* a_20@2x.png in Resources */,
 				CB18616619FC3916005B616B /* upvoteDeselected@2x.png in Resources */,
+				CB79E9FE1A44235E00DFF91E /* photo_close_icon@2x.png in Resources */,
 				CBD1950819A5C1C700C6B449 /* lightbulbUnselected@2x.png in Resources */,
 				CBD3D2E419B2CE3500A2DE75 /* artUnselected@2x.png in Resources */,
 				CB76383F19FC17E9004D2D6E /* TAGSuggestionDetailsSection.xib in Resources */,
@@ -1041,15 +1141,19 @@
 				CB8BFB4819D51BAF005F4272 /* TAGPieceCell.xib in Resources */,
 				CBDA9A251996E15000E8AD31 /* art_navBarLogo@2x.png in Resources */,
 				CB3499461A0EBAEE004B2E6D /* heart_spinner02@2x.png in Resources */,
+				CB79EA061A44235E00DFF91E /* touch_focus@2x.png in Resources */,
 				CB34994A1A0EBAEE004B2E6D /* heart_spinner06@2x.png in Resources */,
 				CB3499491A0EBAEE004B2E6D /* heart_spinner05@2x.png in Resources */,
 				CB2673A9198DE3FA00CB02A1 /* Images.xcassets in Resources */,
+				CB79EA051A44235E00DFF91E /* touch_focus.png in Resources */,
 				CB4515CC19F8CAAF004F713C /* a_00@2x.png in Resources */,
 				CB3499481A0EBAEE004B2E6D /* heart_spinner04@2x.png in Resources */,
 				CBD194FC19A5C0C600C6B449 /* heartUnselected@2x.png in Resources */,
 				CBD3D2EA19B3BA8B00A2DE75 /* back_icon@2x.png in Resources */,
 				CB0C3E1319C60C2C00C58D9D /* TAGSuggestionHeader.xib in Resources */,
 				CBD194FD19A5C0C600C6B449 /* lightbulbSelected@2x.png in Resources */,
+				CB79E9FB1A44235E00DFF91E /* flashing_auto@2x.png in Resources */,
+				CB79EA001A44235E00DFF91E /* shot@2x.png in Resources */,
 				CBD194FB19A5C0C600C6B449 /* heartSelected@2x.png in Resources */,
 				CB615CF91995F4FB00624A8F /* profile_photo@2x.png in Resources */,
 				CB18617819FC461C005B616B /* spinner_09@2x.png in Resources */,
@@ -1065,11 +1169,14 @@
 				CBF057C019D88E40009292BA /* Walkway_Black.ttf in Resources */,
 				CB4515D319F8CAAF004F713C /* a_70@2x.png in Resources */,
 				CBD1950619A5C15E00C6B449 /* listUnselected@2x.png in Resources */,
+				CB79EA041A44235E00DFF91E /* touch_focus_x@2x.png in Resources */,
 				CB06814B198EC5F300B13E49 /* bulbUnselected@2x.png in Resources */,
 				CB4515D019F8CAAF004F713C /* a_40@2x.png in Resources */,
+				CB79EA021A44235E00DFF91E /* take_photo_picture_default@2x.png in Resources */,
 				CBA22D0B19E9B906008FA6EE /* art_navBarLogo@2x.png in Resources */,
 				CB18617319FC461C005B616B /* spinner_04@2x.png in Resources */,
 				CBDA9A1C1996CCCA00E8AD31 /* cameraSelected@2x.png in Resources */,
+				CB79E9FD1A44235E00DFF91E /* flashing_on@2x.png in Resources */,
 				CB06814A198EC5F300B13E49 /* bulbSelected@2x.png in Resources */,
 				CB4515CF19F8CAAF004F713C /* a_30@2x.png in Resources */,
 				CBEA9E6619D742130009C6F9 /* TAGProfileTableViewCell.xib in Resources */,
@@ -1082,6 +1189,8 @@
 				CB18617519FC461C005B616B /* spinner_06@2x.png in Resources */,
 				CB18617719FC461C005B616B /* spinner_08@2x.png in Resources */,
 				CB4515D119F8CAAF004F713C /* a_50@2x.png in Resources */,
+				CB79EA011A44235E00DFF91E /* switch_camera@2x.png in Resources */,
+				CB79EA031A44235E00DFF91E /* touch_focus_x.png in Resources */,
 				CB18616419FC38F8005B616B /* upvoteSelected@2x.png in Resources */,
 				CBF057CA19D88E4C009292BA /* Walkway_Oblique_Black.ttf in Resources */,
 			);
@@ -1129,9 +1238,12 @@
 			files = (
 				CB0681691991FCF100B13E49 /* TAGTagTableViewCell.m in Sources */,
 				CBD3D2E019B29F3500A2DE75 /* TAGLateralTableViewCell.m in Sources */,
+				CB79EA141A44236C00DFF91E /* SCSlider.m in Sources */,
+				CB79EA121A44236C00DFF91E /* SCCaptureSessionManager.m in Sources */,
 				CBFA22F519BBCADC001B4286 /* TAGCollectionViewCell.m in Sources */,
 				CB009B6119A9B4A100FC06A0 /* TAGProfileHeaderSummaryViewController.m in Sources */,
 				CBD3D2D119AB00F300A2DE75 /* TAGProfileTableSuggestionCell.m in Sources */,
+				CB79EA111A44236C00DFF91E /* SCCaptureCameraController.m in Sources */,
 				CB068159198ECCEB00B13E49 /* TAGErrorAlert.m in Sources */,
 				CBDA9A3F1998437B00E8AD31 /* TAGMapAnnotation.m in Sources */,
 				CBDA9A4C199B202400E8AD31 /* TAGSuggestionStore.m in Sources */,
@@ -1153,8 +1265,10 @@
 				CBC0569019C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m in Sources */,
 				CB0C3E0E19C6099900C58D9D /* TAGContributeViewController.m in Sources */,
 				CB2673CB198DEA3500CB02A1 /* TAGLoginViewController.m in Sources */,
+				CB79EA151A44236C00DFF91E /* UIImage+Resize.m in Sources */,
 				CBD3D2ED19B58BF700A2DE75 /* TAGSuggestionDetailViewController.m in Sources */,
 				CB1F51B41A1953E300329524 /* TAGCameraOverlay.m in Sources */,
+				CB79EA1B1A4423B900DFF91E /* SCCommon.m in Sources */,
 				CBDA9A3619982CA200E8AD31 /* TAGMapViewController.m in Sources */,
 				CB33FD7D19C2AA0F0017F4EF /* TAGPieceCell.m in Sources */,
 				CB068160198ED06300B13E49 /* TAGPiece.m in Sources */,
@@ -1162,9 +1276,11 @@
 				CB4237D919F0E43900FB9442 /* TAGFavoriteStore.m in Sources */,
 				CB0B536319EB49C600490218 /* TAGUpvoteStore.m in Sources */,
 				CB068143198EA9EF00B13E49 /* TAGPieceViewControllerDEP.m in Sources */,
+				CB79EA131A44236C00DFF91E /* SCNavigationController.m in Sources */,
 				CBCA725419E8DC8F005695F4 /* TAGProposalStore.m in Sources */,
 				CBEA9E6419D741EA0009C6F9 /* TAGProfileTableViewCell.m in Sources */,
 				CB1F51A31A108B5B00329524 /* TAGS3Configuration.m in Sources */,
+				CB79EA1F1A442B9100DFF91E /* PostViewController.m in Sources */,
 				CBD3D2E819B2D67D00A2DE75 /* TAGPieceDetailViewController.m in Sources */,
 				CB6DA4EB19A47AAD00BB71EE /* TAGCollectionControls.m in Sources */,
 				CB4515DC19FA0F7C004F713C /* TAGUserStore.m in Sources */,

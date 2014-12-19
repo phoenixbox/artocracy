@@ -9,7 +9,5 @@ pod 'CSStickyHeaderFlowLayout', '~> 0.2.2'
 pod 'InstagramKit', '3.5.0'
 pod 'ObjectiveSugar'
 pod 'TPKeyboardAvoiding', '~> 1.2'
-
-target :TagitTests, :exclusive => true do
-    pod 'Kiwi'
-end
+pod 'SVProgressHUD', '~> 1.1'
+pod 'ALAssetsLibrary-CustomPhotoAlbum', '~> 1.2'
