@@ -33,17 +33,10 @@
     if (self) {
         // Custom initialization
         self._cellDimension = 60.f;
-        NSDictionary *filterOne = @{
-                            @"name": @"filter-A",
-                            @"image": @"filter_one.png"
-                            };
-
-        NSDictionary *filterTwo = @{
-                                    @"name": @"filter-B",
-                                    @"image": @"filter_two.png"
-                                    };
-
-        self._fiterOptions = [NSArray arrayWithObjects:filterOne, filterTwo, nil];
+        self._fiterOptions = @[
+                               @{@"name": @"Filter A", @"image": @"filter_one.png"},
+                               @{@"name": @"Filter B", @"image": @"filter_two.png"}
+                               ];
     }
     return self;
 }
