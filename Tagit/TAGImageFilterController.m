@@ -1,12 +1,12 @@
 //
-//  ImageFilterController.m
-//  SCCaptureCameraDemo
+//  TAGImageFilterController.m
+//  Tagit
 //
-//  Created by Aevitx on 14-1-21.
-//  Copyright (c) 2014年 Aevitx. All rights reserved.
+//  Created by Shane Rogers on 8/23/14.
+//  Copyright (c) 2014 Shane Rogers. All rights reserved.
 //
 
-#import "ImageFilterController.h"
+#import "TAGImageFilterController.h"
 
 // Components
 #import "TAGLateralTableViewCell.h"
@@ -34,7 +34,7 @@
 // Data Layer
 #import "TAGFiltersStore.h"
 
-@interface ImageFilterController ()
+@interface TAGImageFilterController ()
 
 @property (nonatomic, strong) UITableView *_filterOptionsTable;
 @property (nonatomic, strong) UIImageView *_photoImageView;
@@ -45,7 +45,7 @@
 
 @end
 
-@implementation ImageFilterController
+@implementation TAGImageFilterController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

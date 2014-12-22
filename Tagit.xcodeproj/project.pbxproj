@@ -109,7 +109,7 @@
 		CB79EA141A44236C00DFF91E /* SCSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA0E1A44236C00DFF91E /* SCSlider.m */; };
 		CB79EA151A44236C00DFF91E /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA101A44236C00DFF91E /* UIImage+Resize.m */; };
 		CB79EA1B1A4423B900DFF91E /* SCCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA191A4423B900DFF91E /* SCCommon.m */; };
-		CB79EA1F1A442B9100DFF91E /* ImageFilterController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA1E1A442B9100DFF91E /* ImageFilterController.m */; };
+		CB79EA1F1A442B9100DFF91E /* TAGImageFilterController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB79EA1E1A442B9100DFF91E /* TAGImageFilterController.m */; };
 		CB79EA211A443B3500DFF91E /* filter_one@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79EA201A443B3500DFF91E /* filter_one@2x.png */; };
 		CB79EA231A443D5B00DFF91E /* filter_two@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79EA221A443D5B00DFF91E /* filter_two@2x.png */; };
 		CB8BFB4819D51BAF005F4272 /* TAGPieceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8BFB4719D51BAF005F4272 /* TAGPieceCell.xib */; };
@@ -341,8 +341,8 @@
 		CB79EA181A4423B900DFF91E /* SCCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCommon.h; sourceTree = "<group>"; };
 		CB79EA191A4423B900DFF91E /* SCCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCommon.m; sourceTree = "<group>"; };
 		CB79EA1A1A4423B900DFF91E /* SCDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCDefines.h; sourceTree = "<group>"; };
-		CB79EA1D1A442B9100DFF91E /* ImageFilterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFilterController.h; sourceTree = "<group>"; };
-		CB79EA1E1A442B9100DFF91E /* ImageFilterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilterController.m; sourceTree = "<group>"; };
+		CB79EA1D1A442B9100DFF91E /* TAGImageFilterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGImageFilterController.h; sourceTree = "<group>"; };
+		CB79EA1E1A442B9100DFF91E /* TAGImageFilterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGImageFilterController.m; sourceTree = "<group>"; };
 		CB79EA201A443B3500DFF91E /* filter_one@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter_one@2x.png"; sourceTree = "<group>"; };
 		CB79EA221A443D5B00DFF91E /* filter_two@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter_two@2x.png"; sourceTree = "<group>"; };
 		CB8BFB4719D51BAF005F4272 /* TAGPieceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGPieceCell.xib; sourceTree = "<group>"; };
@@ -619,8 +619,8 @@
 		CB26739C198DE3FA00CB02A1 /* Tagit */ = {
 			isa = PBXGroup;
 			children = (
-				CB79EA1D1A442B9100DFF91E /* ImageFilterController.h */,
-				CB79EA1E1A442B9100DFF91E /* ImageFilterController.m */,
+				CB79EA1D1A442B9100DFF91E /* TAGImageFilterController.h */,
+				CB79EA1E1A442B9100DFF91E /* TAGImageFilterController.m */,
 				CB79EA1C1A4423BE00DFF91E /* SCCommon */,
 				CB79EA161A44237A00DFF91E /* SCCameraCapture */,
 				CB068134198E9A8F00B13E49 /* Data Layer */,
@@ -1342,7 +1342,7 @@
 				CBCA725419E8DC8F005695F4 /* TAGProposalStore.m in Sources */,
 				CBEA9E6419D741EA0009C6F9 /* TAGProfileTableViewCell.m in Sources */,
 				CB1F51A31A108B5B00329524 /* TAGS3Configuration.m in Sources */,
-				CB79EA1F1A442B9100DFF91E /* ImageFilterController.m in Sources */,
+				CB79EA1F1A442B9100DFF91E /* TAGImageFilterController.m in Sources */,
 				CBD3D2E819B2D67D00A2DE75 /* TAGPieceDetailViewController.m in Sources */,
 				CB6DA4EB19A47AAD00BB71EE /* TAGCollectionControls.m in Sources */,
 				CB4515DC19FA0F7C004F713C /* TAGUserStore.m in Sources */,
