@@ -16,11 +16,23 @@
 #import "TAGComponentConstants.h"
 #import "TAGViewHelpers.h"
 
+// GPUImage Imports
+#import "GPUImageMonochromeFilter.h"
+#import "GPUImagePicture.h"
+#import "GPUImageView.h"
+#import "GPUImagePicture.h"
+#import "GPUImageSaturationFilter.h"
+#import "GPUImageVignetteFilter.h"
+#import "GPUImageExposureFilter.h"
+#import "GPUImageFilterGroup.h"
+#import "GPUImageGrayscaleFilter.h"
+#import "GPUImageAlphaBlendFilter.h"
+
 @interface ImageFilterController ()
 
 @property (nonatomic, strong) UITableView *_filterOptionsTable;
 @property (nonatomic, strong) UIImageView *_photoImageView;
-@property (nonatomic, strong) NSArray *_fiterOptions;
+@property (nonatomic, strong) NSArray *_filterOptions;
 @property (nonatomic, assign) float _cellDimension;
 
 @end
@@ -32,10 +44,19 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+//        [self.view setBackgroundColor:[UIColor blackColor]];
         self._cellDimension = 60.f;
-        self._fiterOptions = @[
+        self._filterOptions = @[
                                @{@"name": @"Filter A", @"image": @"filter_one.png"},
-                               @{@"name": @"Filter B", @"image": @"filter_two.png"}
+                               @{@"name": @"Filter B", @"image": @"filter_two.png"},
+                               @{@"name": @"Filter C", @"image": @"filter_one.png"},
+                               @{@"name": @"Filter D", @"image": @"filter_two.png"},
+                               @{@"name": @"Filter E", @"image": @"filter_one.png"},
+                               @{@"name": @"Filter F", @"image": @"filter_two.png"},
+                               @{@"name": @"Filter G", @"image": @"filter_one.png"},
+                               @{@"name": @"Filter H", @"image": @"filter_two.png"},
+                               @{@"name": @"Filter I", @"image": @"filter_one.png"},
+                               @{@"name": @"Filter J", @"image": @"filter_two.png"}
                                ];
     }
     return self;
@@ -46,12 +67,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     if (_postImage) {
-        self._photoImageView = [[UIImageView alloc] initWithImage:_postImage];
-        self._photoImageView.clipsToBounds = YES;
-        self._photoImageView.contentMode = UIViewContentModeScaleAspectFill;
-        self._photoImageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width);
-        self._photoImageView.center = self.view.center;
-        [self.view addSubview:self._photoImageView];
+        [self setTheImage:_postImage];
     }
     
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -60,6 +76,15 @@
     [backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backBtn];
     [self renderFilterOptionsTable];
+}
+
+- (void)setTheImage:(UIImage *)image {
+    self._photoImageView = [[UIImageView alloc] initWithImage:image];
+    self._photoImageView.clipsToBounds = YES;
+    self._photoImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self._photoImageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width);
+    self._photoImageView.center = self.view.center;
+    [self.view addSubview:self._photoImageView];
 }
 
 - (void)renderFilterOptionsTable {
@@ -96,7 +121,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return [self._filterOptions count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -105,8 +130,8 @@
     if([tableView isEqual:self._filterOptionsTable]){
         UIImageView *backgroundImage = [UIImageView new];
 
-        if ([self._fiterOptions count] > 0) {
-            NSDictionary *filter = [self._fiterOptions objectAtIndex:[indexPath row]];
+        if ([self._filterOptions count] > 0) {
+            NSDictionary *filter = [self._filterOptions objectAtIndex:[indexPath row]];
             NSString *image = [filter objectForKey:@"image"];
 
             UIImage *img = [UIImage imageNamed:image];
@@ -130,9 +155,42 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    TAGLateralTableViewCell *targetCell = (TAGLateralTableViewCell *)[self._filterOptionsTable cellForRowAtIndexPath:indexPath];
-    NSDictionary *filter = [self._fiterOptions objectAtIndex:[indexPath row]];
-    NSLog(@"Filter Name: %@", [filter objectForKey:@"name"]);
+    GPUImageFilterGroup *groupFilter = [[GPUImageFilterGroup alloc]init];
+    GPUImageSaturationFilter *saturationFilter = [[GPUImageSaturationFilter alloc] init];
+    [saturationFilter setSaturation:0.5];
+
+    GPUImageMonochromeFilter *monochromeFilter = [[GPUImageMonochromeFilter alloc] init];
+    [monochromeFilter setColor:(GPUVector4){0.0f, 0.0f, 1.0f, 1.0f}];
+    [monochromeFilter setIntensity:0.2];
+
+    GPUImageVignetteFilter *vignetteFilter = [[GPUImageVignetteFilter alloc] init];
+    [vignetteFilter setVignetteEnd:0.7];
+
+    GPUImageExposureFilter *exposureFilter = [[GPUImageExposureFilter alloc] init];
+    [exposureFilter setExposure:0.3];
+
+    // Note: Cascading target addition is required
+    [saturationFilter addTarget: monochromeFilter];
+    [monochromeFilter addTarget: vignetteFilter];
+    [vignetteFilter addTarget: exposureFilter];
+
+    [(GPUImageFilterGroup *) groupFilter setInitialFilters:[NSArray arrayWithObject: saturationFilter]];
+    [(GPUImageFilterGroup *) groupFilter setTerminalFilter:exposureFilter];
+
+    [groupFilter addFilter:saturationFilter];
+    [groupFilter addFilter:monochromeFilter];
+    [groupFilter addFilter:vignetteFilter];
+    [groupFilter addFilter:exposureFilter];
+
+    GPUImagePicture *stillImage= [[GPUImagePicture alloc]initWithImage:_postImage];
+    [stillImage addTarget:groupFilter];
+    [stillImage processImage];
+
+    [groupFilter useNextFrameForImageCapture];
+
+    UIImage *processedImage = [groupFilter imageFromCurrentFramebufferWithOrientation:self._photoImageView.image.imageOrientation];
+
+    self._photoImageView.image = processedImage;
 }
 
 

@@ -56,14 +56,15 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self._spinner = [TAGSpinner new];
-        [self fetchPieces];
+//        self._spinner = [TAGSpinner new];
+//        [self fetchPieces];
     }
     return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self fetchPieces];
+// TODO: Cant double fetch!!
+//    [self fetchPieces];
 }
 
 - (void)listenToCell:(TAGPieceCell *)cell {
