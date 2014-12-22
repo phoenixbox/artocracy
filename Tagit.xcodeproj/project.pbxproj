@@ -120,6 +120,17 @@
 		CBAA97D119E25C5F0023B3B7 /* TAGSuggestionChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAA97D019E25C5F0023B3B7 /* TAGSuggestionChannel.m */; };
 		CBAA97D419E3AC040023B3B7 /* TAGMapHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAA97D319E3AC040023B3B7 /* TAGMapHelpers.m */; };
 		CBC0569019C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC0568F19C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m */; };
+		CBC991051A48846B0043A6D9 /* lookup_cooling.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC990FA1A48846B0043A6D9 /* lookup_cooling.png */; };
+		CBC991061A48846B0043A6D9 /* lookup_cooling2.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC990FB1A48846B0043A6D9 /* lookup_cooling2.png */; };
+		CBC991071A48846B0043A6D9 /* lookup_filter1.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC990FC1A48846B0043A6D9 /* lookup_filter1.png */; };
+		CBC991081A48846B0043A6D9 /* lookup_filter2.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC990FD1A48846B0043A6D9 /* lookup_filter2.png */; };
+		CBC991091A48846B0043A6D9 /* lookup_highkey.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC990FE1A48846B0043A6D9 /* lookup_highkey.png */; };
+		CBC9910A1A48846B0043A6D9 /* lookup_infrared.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC990FF1A48846B0043A6D9 /* lookup_infrared.png */; };
+		CBC9910B1A48846B0043A6D9 /* lookup_Invert.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC991001A48846B0043A6D9 /* lookup_Invert.png */; };
+		CBC9910C1A48846B0043A6D9 /* lookup_sepia.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC991011A48846B0043A6D9 /* lookup_sepia.png */; };
+		CBC9910D1A48846B0043A6D9 /* lookup_sepia2.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC991021A48846B0043A6D9 /* lookup_sepia2.png */; };
+		CBC9910E1A48846B0043A6D9 /* lookup_vibrance.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC991031A48846B0043A6D9 /* lookup_vibrance.png */; };
+		CBC9910F1A48846B0043A6D9 /* lookup_warming.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC991041A48846B0043A6D9 /* lookup_warming.png */; };
 		CBCA724E19E8DAEA005695F4 /* TAGProposalChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCA724D19E8DAEA005695F4 /* TAGProposalChannel.m */; };
 		CBCA725119E8DB2C005695F4 /* TAGProposal.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCA725019E8DB2C005695F4 /* TAGProposal.m */; };
 		CBCA725419E8DC8F005695F4 /* TAGProposalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCA725319E8DC8F005695F4 /* TAGProposalStore.m */; };
@@ -346,6 +357,17 @@
 		CBAA97D319E3AC040023B3B7 /* TAGMapHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGMapHelpers.m; sourceTree = "<group>"; };
 		CBC0568E19C62AD800241151 /* TAGSuggestionParallaxHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionParallaxHeaderCell.h; sourceTree = "<group>"; };
 		CBC0568F19C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionParallaxHeaderCell.m; sourceTree = "<group>"; };
+		CBC990FA1A48846B0043A6D9 /* lookup_cooling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_cooling.png; sourceTree = "<group>"; };
+		CBC990FB1A48846B0043A6D9 /* lookup_cooling2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_cooling2.png; sourceTree = "<group>"; };
+		CBC990FC1A48846B0043A6D9 /* lookup_filter1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_filter1.png; sourceTree = "<group>"; };
+		CBC990FD1A48846B0043A6D9 /* lookup_filter2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_filter2.png; sourceTree = "<group>"; };
+		CBC990FE1A48846B0043A6D9 /* lookup_highkey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_highkey.png; sourceTree = "<group>"; };
+		CBC990FF1A48846B0043A6D9 /* lookup_infrared.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_infrared.png; sourceTree = "<group>"; };
+		CBC991001A48846B0043A6D9 /* lookup_Invert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_Invert.png; sourceTree = "<group>"; };
+		CBC991011A48846B0043A6D9 /* lookup_sepia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_sepia.png; sourceTree = "<group>"; };
+		CBC991021A48846B0043A6D9 /* lookup_sepia2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_sepia2.png; sourceTree = "<group>"; };
+		CBC991031A48846B0043A6D9 /* lookup_vibrance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_vibrance.png; sourceTree = "<group>"; };
+		CBC991041A48846B0043A6D9 /* lookup_warming.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_warming.png; sourceTree = "<group>"; };
 		CBCA724C19E8DAEA005695F4 /* TAGProposalChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGProposalChannel.h; sourceTree = "<group>"; };
 		CBCA724D19E8DAEA005695F4 /* TAGProposalChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGProposalChannel.m; sourceTree = "<group>"; };
 		CBCA724F19E8DB2C005695F4 /* TAGProposal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGProposal.h; sourceTree = "<group>"; };
@@ -687,6 +709,7 @@
 		CB2673CC198DEEA300CB02A1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CBC990F91A4884230043A6D9 /* Filters */,
 				CB79EA221A443D5B00DFF91E /* filter_two@2x.png */,
 				CB79EA201A443B3500DFF91E /* filter_one@2x.png */,
 				CB79EA171A44239D00DFF91E /* SCCameraCapture */,
@@ -910,6 +933,24 @@
 			name = Channels;
 			sourceTree = "<group>";
 		};
+		CBC990F91A4884230043A6D9 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				CBC990FA1A48846B0043A6D9 /* lookup_cooling.png */,
+				CBC990FB1A48846B0043A6D9 /* lookup_cooling2.png */,
+				CBC990FC1A48846B0043A6D9 /* lookup_filter1.png */,
+				CBC990FD1A48846B0043A6D9 /* lookup_filter2.png */,
+				CBC990FE1A48846B0043A6D9 /* lookup_highkey.png */,
+				CBC990FF1A48846B0043A6D9 /* lookup_infrared.png */,
+				CBC991001A48846B0043A6D9 /* lookup_Invert.png */,
+				CBC991011A48846B0043A6D9 /* lookup_sepia.png */,
+				CBC991021A48846B0043A6D9 /* lookup_sepia2.png */,
+				CBC991031A48846B0043A6D9 /* lookup_vibrance.png */,
+				CBC991041A48846B0043A6D9 /* lookup_warming.png */,
+			);
+			name = Filters;
+			sourceTree = "<group>";
+		};
 		CBD194F119A5C08200C6B449 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -1123,7 +1164,9 @@
 				CBF057CB19D88E4C009292BA /* Walkway_Oblique_Bold.ttf in Resources */,
 				CB4515CE19F8CAAF004F713C /* a_20@2x.png in Resources */,
 				CB18616619FC3916005B616B /* upvoteDeselected@2x.png in Resources */,
+				CBC991061A48846B0043A6D9 /* lookup_cooling2.png in Resources */,
 				CB79E9FE1A44235E00DFF91E /* photo_close_icon@2x.png in Resources */,
+				CBC9910B1A48846B0043A6D9 /* lookup_Invert.png in Resources */,
 				CBD1950819A5C1C700C6B449 /* lightbulbUnselected@2x.png in Resources */,
 				CBD3D2E419B2CE3500A2DE75 /* artUnselected@2x.png in Resources */,
 				CB76383F19FC17E9004D2D6E /* TAGSuggestionDetailsSection.xib in Resources */,
@@ -1147,16 +1190,20 @@
 				CBD1950519A5C15E00C6B449 /* listSelected@2x.png in Resources */,
 				CB8BFB4819D51BAF005F4272 /* TAGPieceCell.xib in Resources */,
 				CBDA9A251996E15000E8AD31 /* art_navBarLogo@2x.png in Resources */,
+				CBC9910C1A48846B0043A6D9 /* lookup_sepia.png in Resources */,
 				CB3499461A0EBAEE004B2E6D /* heart_spinner02@2x.png in Resources */,
 				CB79EA061A44235E00DFF91E /* touch_focus@2x.png in Resources */,
+				CBC9910A1A48846B0043A6D9 /* lookup_infrared.png in Resources */,
 				CB34994A1A0EBAEE004B2E6D /* heart_spinner06@2x.png in Resources */,
 				CB3499491A0EBAEE004B2E6D /* heart_spinner05@2x.png in Resources */,
 				CB2673A9198DE3FA00CB02A1 /* Images.xcassets in Resources */,
 				CB79EA051A44235E00DFF91E /* touch_focus.png in Resources */,
 				CB4515CC19F8CAAF004F713C /* a_00@2x.png in Resources */,
 				CB3499481A0EBAEE004B2E6D /* heart_spinner04@2x.png in Resources */,
+				CBC991051A48846B0043A6D9 /* lookup_cooling.png in Resources */,
 				CBD194FC19A5C0C600C6B449 /* heartUnselected@2x.png in Resources */,
 				CBD3D2EA19B3BA8B00A2DE75 /* back_icon@2x.png in Resources */,
+				CBC991081A48846B0043A6D9 /* lookup_filter2.png in Resources */,
 				CB0C3E1319C60C2C00C58D9D /* TAGSuggestionHeader.xib in Resources */,
 				CBD194FD19A5C0C600C6B449 /* lightbulbSelected@2x.png in Resources */,
 				CB79E9FB1A44235E00DFF91E /* flashing_auto@2x.png in Resources */,
@@ -1172,9 +1219,12 @@
 				CB18617219FC461C005B616B /* spinner_03@2x.png in Resources */,
 				CBD1950219A5C15100C6B449 /* gridUnselected@2x.png in Resources */,
 				CB4515CD19F8CAAF004F713C /* a_10@2x.png in Resources */,
+				CBC991091A48846B0043A6D9 /* lookup_highkey.png in Resources */,
 				CBD1950119A5C15100C6B449 /* gridSelected@2x.png in Resources */,
 				CB3499441A0EBAEE004B2E6D /* heart_spinner00@2x.png in Resources */,
+				CBC9910E1A48846B0043A6D9 /* lookup_vibrance.png in Resources */,
 				CBF057C019D88E40009292BA /* Walkway_Black.ttf in Resources */,
+				CBC9910F1A48846B0043A6D9 /* lookup_warming.png in Resources */,
 				CB4515D319F8CAAF004F713C /* a_70@2x.png in Resources */,
 				CBD1950619A5C15E00C6B449 /* listUnselected@2x.png in Resources */,
 				CB79EA041A44235E00DFF91E /* touch_focus_x@2x.png in Resources */,
@@ -1184,6 +1234,7 @@
 				CBA22D0B19E9B906008FA6EE /* art_navBarLogo@2x.png in Resources */,
 				CB18617319FC461C005B616B /* spinner_04@2x.png in Resources */,
 				CBDA9A1C1996CCCA00E8AD31 /* cameraSelected@2x.png in Resources */,
+				CBC9910D1A48846B0043A6D9 /* lookup_sepia2.png in Resources */,
 				CB79E9FD1A44235E00DFF91E /* flashing_on@2x.png in Resources */,
 				CB06814A198EC5F300B13E49 /* bulbSelected@2x.png in Resources */,
 				CB4515CF19F8CAAF004F713C /* a_30@2x.png in Resources */,
@@ -1191,6 +1242,7 @@
 				CBF057CD19D88E4C009292BA /* Walkway_Oblique_UltraBold.ttf in Resources */,
 				CB3499341A07177D004B2E6D /* TAGSuggestionDetailHeader.xib in Resources */,
 				CB6DA4E119A32A4800BB71EE /* profileSelected@2x.png in Resources */,
+				CBC991071A48846B0043A6D9 /* lookup_filter1.png in Resources */,
 				CBD3D2D619B03D3400A2DE75 /* open_arms_SF@2x.png in Resources */,
 				CB8BFB4A19D51E0B005F4272 /* TAGPieceSectionHeader.xib in Resources */,
 				CB18617419FC461C005B616B /* spinner_05@2x.png in Resources */,

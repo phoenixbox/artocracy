@@ -27,12 +27,15 @@
 #import "GPUImageFilterGroup.h"
 #import "GPUImageGrayscaleFilter.h"
 #import "GPUImageAlphaBlendFilter.h"
+#import "GPUImageLookupFilter.h"
 
 @interface ImageFilterController ()
 
 @property (nonatomic, strong) UITableView *_filterOptionsTable;
 @property (nonatomic, strong) UIImageView *_photoImageView;
-@property (nonatomic, strong) NSArray *_filterOptions;
+@property (nonatomic, strong) NSMutableArray *_filterOptions;
+//@property (nonatomic, strong) NSMutableArray *_filterNames;
+
 @property (nonatomic, assign) float _cellDimension;
 
 @end
@@ -46,18 +49,21 @@
         // Custom initialization
 //        [self.view setBackgroundColor:[UIColor blackColor]];
         self._cellDimension = 60.f;
-        self._filterOptions = @[
-                               @{@"name": @"Filter A", @"image": @"filter_one.png"},
-                               @{@"name": @"Filter B", @"image": @"filter_two.png"},
-                               @{@"name": @"Filter C", @"image": @"filter_one.png"},
-                               @{@"name": @"Filter D", @"image": @"filter_two.png"},
-                               @{@"name": @"Filter E", @"image": @"filter_one.png"},
-                               @{@"name": @"Filter F", @"image": @"filter_two.png"},
-                               @{@"name": @"Filter G", @"image": @"filter_one.png"},
-                               @{@"name": @"Filter H", @"image": @"filter_two.png"},
-                               @{@"name": @"Filter I", @"image": @"filter_one.png"},
-                               @{@"name": @"Filter J", @"image": @"filter_two.png"}
-                               ];
+
+        self._filterOptions = [[NSMutableArray alloc] init];
+
+//        self._filterOptions = @[
+//                               @{@"name": @"Filter A", @"image": @"filter_one.png"},
+//                               @{@"name": @"Filter B", @"image": @"filter_two.png"},
+//                               @{@"name": @"Filter C", @"image": @"filter_one.png"},
+//                               @{@"name": @"Filter D", @"image": @"filter_two.png"},
+//                               @{@"name": @"Filter E", @"image": @"filter_one.png"},
+//                               @{@"name": @"Filter F", @"image": @"filter_two.png"},
+//                               @{@"name": @"Filter G", @"image": @"filter_one.png"},
+//                               @{@"name": @"Filter H", @"image": @"filter_two.png"},
+//                               @{@"name": @"Filter I", @"image": @"filter_one.png"},
+//                               @{@"name": @"Filter J", @"image": @"filter_two.png"}
+//                               ];
     }
     return self;
 }
@@ -66,6 +72,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [self generateFilters];
+
     if (_postImage) {
         [self setTheImage:_postImage];
     }
@@ -76,6 +84,34 @@
     [backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backBtn];
     [self renderFilterOptionsTable];
+}
+
+- (void)generateFilters {
+    [self generateObey];
+}
+
+- (void)generateObey {
+    UIImage *processedImage;
+    NSString *filename = @"lookup_cooling.png";
+
+    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:_postImage];
+
+    GPUImagePicture *lookupImageSource = [[GPUImagePicture alloc] initWithImage:[UIImage imageNamed:filename]];
+    GPUImageLookupFilter *lookupFilter = [[GPUImageLookupFilter alloc] init];
+
+    [stillImageSource addTarget:lookupFilter];
+    [lookupImageSource addTarget:lookupFilter];
+
+    [stillImageSource processImage];
+    [lookupImageSource processImage];
+
+    [lookupFilter useNextFrameForImageCapture];
+
+    processedImage = [lookupFilter imageFromCurrentFramebufferWithOrientation:self._photoImageView.image.imageOrientation];
+
+    NSDictionary *filteredDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:processedImage, @"filteredImage", filename, @"filename", nil];
+
+    [self._filterOptions insertObject:filteredDictionary atIndex:0];
 }
 
 - (void)setTheImage:(UIImage *)image {
@@ -155,44 +191,48 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    GPUImageFilterGroup *groupFilter = [[GPUImageFilterGroup alloc]init];
-    GPUImageSaturationFilter *saturationFilter = [[GPUImageSaturationFilter alloc] init];
-    [saturationFilter setSaturation:0.5];
-
-    GPUImageMonochromeFilter *monochromeFilter = [[GPUImageMonochromeFilter alloc] init];
-    [monochromeFilter setColor:(GPUVector4){0.0f, 0.0f, 1.0f, 1.0f}];
-    [monochromeFilter setIntensity:0.2];
-
-    GPUImageVignetteFilter *vignetteFilter = [[GPUImageVignetteFilter alloc] init];
-    [vignetteFilter setVignetteEnd:0.7];
-
-    GPUImageExposureFilter *exposureFilter = [[GPUImageExposureFilter alloc] init];
-    [exposureFilter setExposure:0.3];
-
-    // Note: Cascading target addition is required
-    [saturationFilter addTarget: monochromeFilter];
-    [monochromeFilter addTarget: vignetteFilter];
-    [vignetteFilter addTarget: exposureFilter];
-
-    [(GPUImageFilterGroup *) groupFilter setInitialFilters:[NSArray arrayWithObject: saturationFilter]];
-    [(GPUImageFilterGroup *) groupFilter setTerminalFilter:exposureFilter];
-
-    [groupFilter addFilter:saturationFilter];
-    [groupFilter addFilter:monochromeFilter];
-    [groupFilter addFilter:vignetteFilter];
-    [groupFilter addFilter:exposureFilter];
-
-    GPUImagePicture *stillImage= [[GPUImagePicture alloc]initWithImage:_postImage];
-    [stillImage addTarget:groupFilter];
-    [stillImage processImage];
-
-    [groupFilter useNextFrameForImageCapture];
-
-    UIImage *processedImage = [groupFilter imageFromCurrentFramebufferWithOrientation:self._photoImageView.image.imageOrientation];
-
-    self._photoImageView.image = processedImage;
+    NSDictionary *filteredDictionary = [self._filterOptions objectAtIndex:0];
+    self._photoImageView.image = [filteredDictionary objectForKey:@"filteredImage"];
 }
 
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    GPUImageFilterGroup *groupFilter = [[GPUImageFilterGroup alloc]init];
+//    GPUImageSaturationFilter *saturationFilter = [[GPUImageSaturationFilter alloc] init];
+//    [saturationFilter setSaturation:0.5];
+//
+//    GPUImageMonochromeFilter *monochromeFilter = [[GPUImageMonochromeFilter alloc] init];
+//    [monochromeFilter setColor:(GPUVector4){0.0f, 0.0f, 1.0f, 1.0f}];
+//    [monochromeFilter setIntensity:0.2];
+//
+//    GPUImageVignetteFilter *vignetteFilter = [[GPUImageVignetteFilter alloc] init];
+//    [vignetteFilter setVignetteEnd:0.7];
+//
+//    GPUImageExposureFilter *exposureFilter = [[GPUImageExposureFilter alloc] init];
+//    [exposureFilter setExposure:0.3];
+//
+//    // Note: Cascading target addition is required
+//    [saturationFilter addTarget: monochromeFilter];
+//    [monochromeFilter addTarget: vignetteFilter];
+//    [vignetteFilter addTarget: exposureFilter];
+//
+//    [(GPUImageFilterGroup *) groupFilter setInitialFilters:[NSArray arrayWithObject: saturationFilter]];
+//    [(GPUImageFilterGroup *) groupFilter setTerminalFilter:exposureFilter];
+//
+//    [groupFilter addFilter:saturationFilter];
+//    [groupFilter addFilter:monochromeFilter];
+//    [groupFilter addFilter:vignetteFilter];
+//    [groupFilter addFilter:exposureFilter];
+//
+//    GPUImagePicture *stillImage= [[GPUImagePicture alloc]initWithImage:_postImage];
+//    [stillImage addTarget:groupFilter];
+//    [stillImage processImage];
+//
+//    [groupFilter useNextFrameForImageCapture];
+//
+//    UIImage *processedImage = [groupFilter imageFromCurrentFramebufferWithOrientation:self._photoImageView.image.imageOrientation];
+//
+//    self._photoImageView.image = processedImage;
+//}
 
 - (void)didReceiveMemoryWarning
 {
