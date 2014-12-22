@@ -159,8 +159,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
+    NSDictionary *targetFilter = [filterStore.allFilters objectAtIndex:[indexPath row]];
 
-    self._photoImageView.image = [filterStore.allFilters[0] objectForKey:@"filteredImage"];
+    self._photoImageView.image = [targetFilter objectForKey:@"filteredImage"];
 }
 
 - (void)didReceiveMemoryWarning

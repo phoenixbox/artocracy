@@ -127,7 +127,6 @@
 		CBC991081A48846B0043A6D9 /* lookup_filter2.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC990FD1A48846B0043A6D9 /* lookup_filter2.png */; };
 		CBC991091A48846B0043A6D9 /* lookup_highkey.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC990FE1A48846B0043A6D9 /* lookup_highkey.png */; };
 		CBC9910A1A48846B0043A6D9 /* lookup_infrared.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC990FF1A48846B0043A6D9 /* lookup_infrared.png */; };
-		CBC9910B1A48846B0043A6D9 /* lookup_Invert.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC991001A48846B0043A6D9 /* lookup_Invert.png */; };
 		CBC9910C1A48846B0043A6D9 /* lookup_sepia.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC991011A48846B0043A6D9 /* lookup_sepia.png */; };
 		CBC9910D1A48846B0043A6D9 /* lookup_sepia2.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC991021A48846B0043A6D9 /* lookup_sepia2.png */; };
 		CBC9910E1A48846B0043A6D9 /* lookup_vibrance.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC991031A48846B0043A6D9 /* lookup_vibrance.png */; };
@@ -366,7 +365,6 @@
 		CBC990FD1A48846B0043A6D9 /* lookup_filter2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_filter2.png; sourceTree = "<group>"; };
 		CBC990FE1A48846B0043A6D9 /* lookup_highkey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_highkey.png; sourceTree = "<group>"; };
 		CBC990FF1A48846B0043A6D9 /* lookup_infrared.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_infrared.png; sourceTree = "<group>"; };
-		CBC991001A48846B0043A6D9 /* lookup_Invert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_Invert.png; sourceTree = "<group>"; };
 		CBC991011A48846B0043A6D9 /* lookup_sepia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_sepia.png; sourceTree = "<group>"; };
 		CBC991021A48846B0043A6D9 /* lookup_sepia2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_sepia2.png; sourceTree = "<group>"; };
 		CBC991031A48846B0043A6D9 /* lookup_vibrance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_vibrance.png; sourceTree = "<group>"; };
@@ -947,7 +945,6 @@
 				CBC990FD1A48846B0043A6D9 /* lookup_filter2.png */,
 				CBC990FE1A48846B0043A6D9 /* lookup_highkey.png */,
 				CBC990FF1A48846B0043A6D9 /* lookup_infrared.png */,
-				CBC991001A48846B0043A6D9 /* lookup_Invert.png */,
 				CBC991011A48846B0043A6D9 /* lookup_sepia.png */,
 				CBC991021A48846B0043A6D9 /* lookup_sepia2.png */,
 				CBC991031A48846B0043A6D9 /* lookup_vibrance.png */,
@@ -1171,7 +1168,6 @@
 				CB18616619FC3916005B616B /* upvoteDeselected@2x.png in Resources */,
 				CBC991061A48846B0043A6D9 /* lookup_cooling2.png in Resources */,
 				CB79E9FE1A44235E00DFF91E /* photo_close_icon@2x.png in Resources */,
-				CBC9910B1A48846B0043A6D9 /* lookup_Invert.png in Resources */,
 				CBD1950819A5C1C700C6B449 /* lightbulbUnselected@2x.png in Resources */,
 				CBD3D2E419B2CE3500A2DE75 /* artUnselected@2x.png in Resources */,
 				CB76383F19FC17E9004D2D6E /* TAGSuggestionDetailsSection.xib in Resources */,
