@@ -16,4 +16,10 @@
 @property (strong, nonatomic) IBOutlet UIImageView *filterImageView;
 @property (strong, nonatomic) IBOutlet UIButton *button;
 
+// HEADER
+
+// IMAGE VIEW
+// ADJUSTMENTS
+// SLIDER
+
 @end
