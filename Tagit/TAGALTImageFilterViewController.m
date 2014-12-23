@@ -22,7 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    [_sliderView setHidden:YES];
+//    [_sliderView setHidden:YES];
 
     if (_postImage) {
         [self.filterImageView setImage:_postImage];
@@ -49,4 +49,28 @@
 }
 */
 
+- (IBAction)goBack:(id)sender {
+    NSLog(@"goBack");
+}
+- (IBAction)goNext:(id)sender {
+    NSLog(@"goNext");
+}
+- (IBAction)revealFilters:(id)sender {
+    NSLog(@"revealFilters");
+}
+- (IBAction)revealBrightness:(id)sender {
+    NSLog(@"revealBrightness");
+}
+- (IBAction)revealAdjustments:(id)sender {
+    NSLog(@"revealAdjustments");
+}
+- (IBAction)sliding:(id)sender {
+    NSLog(@"Slider value %f", [_slider value]);
+}
+- (IBAction)cancelAdjustment:(id)sender {
+    NSLog(@"cancelAdjustment");
+}
+- (IBAction)saveAdjustment:(id)sender {
+    NSLog(@"saveAdjustment");
+}
 @end

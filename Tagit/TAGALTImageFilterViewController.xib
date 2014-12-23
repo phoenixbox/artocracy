@@ -44,6 +44,9 @@
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="goNext:" destination="-1" eventType="touchUpInside" id="qb6-dO-zrz"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKx-8A-3cM">
                             <rect key="frame" x="8" y="26" width="46" height="30"/>
@@ -51,6 +54,9 @@
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="goBack:" destination="-1" eventType="touchUpInside" id="ddK-F5-OIn"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -63,18 +69,27 @@
                             <state key="normal" title="FILTERS">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="revealFilters:" destination="-1" eventType="touchUpInside" id="iDU-2s-RH6"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v1e-za-qjE">
                             <rect key="frame" x="131" y="25" width="59" height="30"/>
                             <state key="normal" title="BRIGHT">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="revealBrightness:" destination="-1" eventType="touchUpInside" id="q1w-JP-Kdw"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbF-Rn-v8w">
                             <rect key="frame" x="253" y="25" width="59" height="30"/>
                             <state key="normal" title="ADJUST">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="revealAdjustments:" destination="-1" eventType="touchUpInside" id="11x-w7-R2y"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -88,6 +103,9 @@
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="cancelAdjustment:" destination="-1" eventType="touchUpInside" id="q7J-lZ-aj8"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lgT-2z-0lN">
                             <rect key="frame" x="240" y="141" width="46" height="30"/>
@@ -95,12 +113,18 @@
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="saveAdjustment:" destination="-1" eventType="touchUpInside" id="ndJ-RI-aLq"/>
+                            </connections>
                         </button>
                         <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="cYh-qR-t8s">
                             <rect key="frame" x="28" y="32" width="260" height="31"/>
                             <color key="minimumTrackTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="maximumTrackTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="thumbTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="sliding:" destination="-1" eventType="valueChanged" id="Cc5-JZ-04E"/>
+                            </connections>
                         </slider>
                     </subviews>
                     <color key="backgroundColor" red="0.40408983840000001" green="0.59661473860000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
