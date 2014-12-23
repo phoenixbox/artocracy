@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TAGALTImageFilterViewController">
             <connections>
                 <outlet property="adjustmentsButton" destination="xbF-Rn-v8w" id="N4x-ar-XvN"/>
+                <outlet property="adjustmentsView" destination="brS-pW-SZC" id="V55-tA-LNv"/>
                 <outlet property="backButton" destination="CKx-8A-3cM" id="sk8-tp-mkY"/>
                 <outlet property="brightnessButton" destination="v1e-za-qjE" id="9Qk-kL-aDO"/>
                 <outlet property="cancelButton" destination="kb7-ei-YQG" id="1iJ-pw-9GI"/>

@@ -25,6 +25,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *filterImageView;
 
 // ADJUSTMENTS
+@property (strong, nonatomic) IBOutlet UIView *adjustmentsView;
 @property (strong, nonatomic) IBOutlet UIButton *filtersButton;
 - (IBAction)revealFilters:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *brightnessButton;

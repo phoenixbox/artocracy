@@ -13,16 +13,29 @@
 
 @interface TAGALTImageFilterViewController ()
 
+@property (nonatomic, strong) UITableView *_filterOptionsTable;
+@property (nonatomic, assign) float _cellDimension;
+
 @end
 
 @implementation TAGALTImageFilterViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+        self._cellDimension = 60.f;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
-//    [_sliderView setHidden:YES];
+    [self setupViewEls];
+    [_sliderView setHidden:YES];
 
     if (_postImage) {
         [self.filterImageView setImage:_postImage];
@@ -30,6 +43,10 @@
         TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
         [filterStore generateFiltersForImage:_postImage];
     }
+}
+
+- (void)setupViewEls {
+    NSLog(@"Y-MAX of adj view is: %f", CGRectGetMaxY(_adjustmentsView.frame));
 }
 
 //scaleAndSetBackgroundImageNamed
