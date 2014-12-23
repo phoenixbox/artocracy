@@ -18,6 +18,7 @@
 #import "TAGErrorAlert.h"
 #import "TAGSuggestionParallaxHeaderCell.h"
 #import "TAGImageFilterController.h"
+#import "TAGALTImageFilterViewController.h"
 
 // Helpers
 #import "TAGViewHelpers.h"
@@ -98,9 +99,13 @@
 }
 
 - (void)didTakePicture:(SCNavigationController *)navigationController image:(UIImage *)image {
-    TAGImageFilterController *con = [[TAGImageFilterController alloc] init];
+
+//    NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"TAGALTImageFilterViewController" owner:self options:nil];
+    TAGALTImageFilterViewController *con = [TAGALTImageFilterViewController new];
+    
     con.postImage = image;
-    [self._cameraController pushViewController:con animated:YES];
+    [self._cameraController presentViewController:con animated:YES completion:nil];
+//    [self._cameraController pushViewController:con animated:YES];
 }
 
 //// TODO: Functionality should be an image picker which when dismissed reveals the edit panel

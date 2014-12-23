@@ -10,7 +10,6 @@
 
 @implementation TAGSpinner
 
-
 - (void)setSpinnerImagesWithView:(UIView *)view {
     UIImage *img = [UIImage imageNamed:@"a_00.png"];
     [self setImage:img];

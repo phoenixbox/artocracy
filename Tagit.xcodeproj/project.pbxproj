@@ -47,6 +47,7 @@
 		CB1F51AE1A19433800329524 /* TAGCameraOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB1F51AD1A19433800329524 /* TAGCameraOverlay.xib */; };
 		CB1F51B41A1953E300329524 /* TAGCameraOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1F51B31A1953E300329524 /* TAGCameraOverlay.m */; };
 		CB2432721A48BD2B003E4D91 /* TAGFiltersStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2432711A48BD2B003E4D91 /* TAGFiltersStore.m */; };
+		CB2432741A48E586003E4D91 /* TAGImageFilterController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB2432731A48E586003E4D91 /* TAGImageFilterController.xib */; };
 		CB267397198DE3FA00CB02A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB267396198DE3FA00CB02A1 /* Foundation.framework */; };
 		CB267399198DE3FA00CB02A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB267398198DE3FA00CB02A1 /* CoreGraphics.framework */; };
 		CB26739B198DE3FA00CB02A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB26739A198DE3FA00CB02A1 /* UIKit.framework */; };
@@ -114,6 +115,9 @@
 		CB79EA231A443D5B00DFF91E /* filter_two@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB79EA221A443D5B00DFF91E /* filter_two@2x.png */; };
 		CB8BFB4819D51BAF005F4272 /* TAGPieceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8BFB4719D51BAF005F4272 /* TAGPieceCell.xib */; };
 		CB8BFB4A19D51E0B005F4272 /* TAGPieceSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8BFB4919D51E0A005F4272 /* TAGPieceSectionHeader.xib */; };
+		CB914DAB1A490171002600C0 /* TAGALTImageFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB914DA91A490171002600C0 /* TAGALTImageFilterViewController.m */; };
+		CB914DAC1A490171002600C0 /* TAGALTImageFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB914DAA1A490171002600C0 /* TAGALTImageFilterViewController.xib */; };
+		CB914DAF1A490A1F002600C0 /* TAGFilterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB914DAE1A490A1F002600C0 /* TAGFilterImageView.m */; };
 		CB9BC69A19BCFD7500BE0EFC /* TAGPiecesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BC69919BCFD7500BE0EFC /* TAGPiecesViewController.m */; };
 		CB9BC69E19BD07D100BE0EFC /* TAGPieceCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BC69D19BD07D100BE0EFC /* TAGPieceCollectionCell.m */; };
 		CBA22D0B19E9B906008FA6EE /* art_navBarLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA22D0A19E9B906008FA6EE /* art_navBarLogo@2x.png */; };
@@ -254,6 +258,7 @@
 		CB1F51B31A1953E300329524 /* TAGCameraOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGCameraOverlay.m; sourceTree = "<group>"; };
 		CB2432701A48BD2B003E4D91 /* TAGFiltersStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGFiltersStore.h; sourceTree = "<group>"; };
 		CB2432711A48BD2B003E4D91 /* TAGFiltersStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGFiltersStore.m; sourceTree = "<group>"; };
+		CB2432731A48E586003E4D91 /* TAGImageFilterController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGImageFilterController.xib; sourceTree = "<group>"; };
 		CB267393198DE3FA00CB02A1 /* Tagit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tagit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB267396198DE3FA00CB02A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CB267398198DE3FA00CB02A1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -347,6 +352,11 @@
 		CB79EA221A443D5B00DFF91E /* filter_two@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filter_two@2x.png"; sourceTree = "<group>"; };
 		CB8BFB4719D51BAF005F4272 /* TAGPieceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGPieceCell.xib; sourceTree = "<group>"; };
 		CB8BFB4919D51E0A005F4272 /* TAGPieceSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGPieceSectionHeader.xib; sourceTree = "<group>"; };
+		CB914DA81A490171002600C0 /* TAGALTImageFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAGALTImageFilterViewController.h; path = Tagit/TAGALTImageFilterViewController.h; sourceTree = "<group>"; };
+		CB914DA91A490171002600C0 /* TAGALTImageFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAGALTImageFilterViewController.m; path = Tagit/TAGALTImageFilterViewController.m; sourceTree = "<group>"; };
+		CB914DAA1A490171002600C0 /* TAGALTImageFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TAGALTImageFilterViewController.xib; path = Tagit/TAGALTImageFilterViewController.xib; sourceTree = "<group>"; };
+		CB914DAD1A490A1F002600C0 /* TAGFilterImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGFilterImageView.h; sourceTree = "<group>"; };
+		CB914DAE1A490A1F002600C0 /* TAGFilterImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGFilterImageView.m; sourceTree = "<group>"; };
 		CB9BC69819BCFD7500BE0EFC /* TAGPiecesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGPiecesViewController.h; sourceTree = "<group>"; };
 		CB9BC69919BCFD7500BE0EFC /* TAGPiecesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGPiecesViewController.m; sourceTree = "<group>"; };
 		CB9BC69C19BD07D100BE0EFC /* TAGPieceCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGPieceCollectionCell.h; sourceTree = "<group>"; };
@@ -584,6 +594,9 @@
 		CB26738A198DE3FA00CB02A1 = {
 			isa = PBXGroup;
 			children = (
+				CB914DA81A490171002600C0 /* TAGALTImageFilterViewController.h */,
+				CB914DA91A490171002600C0 /* TAGALTImageFilterViewController.m */,
+				CB914DAA1A490171002600C0 /* TAGALTImageFilterViewController.xib */,
 				CB26739C198DE3FA00CB02A1 /* Tagit */,
 				CB2673B5198DE3FA00CB02A1 /* TagitTests */,
 				CB267395198DE3FA00CB02A1 /* Frameworks */,
@@ -619,8 +632,6 @@
 		CB26739C198DE3FA00CB02A1 /* Tagit */ = {
 			isa = PBXGroup;
 			children = (
-				CB79EA1D1A442B9100DFF91E /* TAGImageFilterController.h */,
-				CB79EA1E1A442B9100DFF91E /* TAGImageFilterController.m */,
 				CB79EA1C1A4423BE00DFF91E /* SCCommon */,
 				CB79EA161A44237A00DFF91E /* SCCameraCapture */,
 				CB068134198E9A8F00B13E49 /* Data Layer */,
@@ -986,6 +997,9 @@
 		CBDA9A0F1996C30A00E8AD31 /* Suggestion */ = {
 			isa = PBXGroup;
 			children = (
+				CB79EA1D1A442B9100DFF91E /* TAGImageFilterController.h */,
+				CB79EA1E1A442B9100DFF91E /* TAGImageFilterController.m */,
+				CB2432731A48E586003E4D91 /* TAGImageFilterController.xib */,
 				CBD3D2EB19B58BF700A2DE75 /* TAGSuggestionDetailViewController.h */,
 				CBD3D2EC19B58BF700A2DE75 /* TAGSuggestionDetailViewController.m */,
 				CBDA9A101996C4D700E8AD31 /* TAGSuggestionViewControllerDEP.h */,
@@ -1047,6 +1061,8 @@
 			isa = PBXGroup;
 			children = (
 				CBFA22ED19BBAC44001B4286 /* TAGSuggestionDetailsSection.h */,
+				CB914DAD1A490A1F002600C0 /* TAGFilterImageView.h */,
+				CB914DAE1A490A1F002600C0 /* TAGFilterImageView.m */,
 				CBFA22EE19BBAC44001B4286 /* TAGSuggestionDetailsSection.m */,
 				CB3499351A0718DC004B2E6D /* TAGSuggestionDetailHeader.h */,
 				CB3499361A0718DC004B2E6D /* TAGSuggestionDetailHeader.m */,
@@ -1197,6 +1213,7 @@
 				CBC9910A1A48846B0043A6D9 /* lookup_infrared.png in Resources */,
 				CB34994A1A0EBAEE004B2E6D /* heart_spinner06@2x.png in Resources */,
 				CB3499491A0EBAEE004B2E6D /* heart_spinner05@2x.png in Resources */,
+				CB2432741A48E586003E4D91 /* TAGImageFilterController.xib in Resources */,
 				CB2673A9198DE3FA00CB02A1 /* Images.xcassets in Resources */,
 				CB79EA051A44235E00DFF91E /* touch_focus.png in Resources */,
 				CB4515CC19F8CAAF004F713C /* a_00@2x.png in Resources */,
@@ -1226,6 +1243,7 @@
 				CBC9910E1A48846B0043A6D9 /* lookup_vibrance.png in Resources */,
 				CBF057C019D88E40009292BA /* Walkway_Black.ttf in Resources */,
 				CBC9910F1A48846B0043A6D9 /* lookup_warming.png in Resources */,
+				CB914DAC1A490171002600C0 /* TAGALTImageFilterViewController.xib in Resources */,
 				CB4515D319F8CAAF004F713C /* a_70@2x.png in Resources */,
 				CBD1950619A5C15E00C6B449 /* listUnselected@2x.png in Resources */,
 				CB79EA041A44235E00DFF91E /* touch_focus_x@2x.png in Resources */,
@@ -1330,6 +1348,7 @@
 				CB79EA151A44236C00DFF91E /* UIImage+Resize.m in Sources */,
 				CBD3D2ED19B58BF700A2DE75 /* TAGSuggestionDetailViewController.m in Sources */,
 				CB1F51B41A1953E300329524 /* TAGCameraOverlay.m in Sources */,
+				CB914DAB1A490171002600C0 /* TAGALTImageFilterViewController.m in Sources */,
 				CB79EA1B1A4423B900DFF91E /* SCCommon.m in Sources */,
 				CBDA9A3619982CA200E8AD31 /* TAGMapViewController.m in Sources */,
 				CB33FD7D19C2AA0F0017F4EF /* TAGPieceCell.m in Sources */,
@@ -1353,6 +1372,7 @@
 				CB4515D919FA03F5004F713C /* TAGSpinner.m in Sources */,
 				CB6DA4E819A478CC00BB71EE /* TAGProfileHeader.m in Sources */,
 				CBDA9A50199B203D00E8AD31 /* TAGSuggestion.m in Sources */,
+				CB914DAF1A490A1F002600C0 /* TAGFilterImageView.m in Sources */,
 				CBD4DCE919A47D370024209D /* TAGProfileCollectionViewController.m in Sources */,
 				CB068163198ED08400B13E49 /* TAGPieceChannel.m in Sources */,
 				CB009B5E19A9A24200FC06A0 /* TAGViewHelpers.m in Sources */,

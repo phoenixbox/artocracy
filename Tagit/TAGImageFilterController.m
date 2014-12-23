@@ -37,26 +37,30 @@
 @interface TAGImageFilterController ()
 
 @property (nonatomic, strong) UITableView *_filterOptionsTable;
-@property (nonatomic, strong) UIImageView *_photoImageView;
-@property (nonatomic, strong) NSMutableArray *_filterOptions;
-//@property (nonatomic, strong) NSMutableArray *_filterNames;
-
 @property (nonatomic, assign) float _cellDimension;
 
 @end
 
 @implementation TAGImageFilterController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-//        [self.view setBackgroundColor:[UIColor blackColor]];
+-(id)initWithCoder:(NSCoder*)aDecoder {
+    if((self = [super initWithCoder:aDecoder])) {
+
         self._cellDimension = 60.f;
     }
     return self;
 }
+
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    if (self) {
+//        // Custom initialization
+////        [self.view setBackgroundColor:[UIColor blackColor]];
+//        self._cellDimension = 60.f;
+//    }
+//    return self;
+//}
 
 - (void)viewDidLoad
 {
@@ -70,21 +74,21 @@
         [filterStore generateFiltersForImage:_postImage];
     }
 
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    backBtn.frame = CGRectMake(0, self.view.frame.size.height - 40, 80, 40);
-    [backBtn setTitle:@"back" forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:backBtn];
-    [self renderFilterOptionsTable];
+//    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    backBtn.frame = CGRectMake(0, self.view.frame.size.height - 40, 80, 40);
+//    [backBtn setTitle:@"back" forState:UIControlStateNormal];
+//    [backBtn addTarget:self action:@selector(backBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:backBtn];
+//    [self renderFilterOptionsTable];
 }
 
 - (void)setTheImage:(UIImage *)image {
-    self._photoImageView = [[UIImageView alloc] initWithImage:image];
-    self._photoImageView.clipsToBounds = YES;
-    self._photoImageView.contentMode = UIViewContentModeScaleAspectFill;
-    self._photoImageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width);
-    self._photoImageView.center = self.view.center;
-    [self.view addSubview:self._photoImageView];
+    self.photoImageView = [[UIImageView alloc] initWithImage:image];
+    self.photoImageView.clipsToBounds = YES;
+    self.photoImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.photoImageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width);
+    self.photoImageView.center = self.view.center;
+    [self.view addSubview:self.photoImageView];
 }
 
 - (void)renderFilterOptionsTable {
@@ -93,7 +97,7 @@
     UIImageView *imageView = [UIImageView new];
     imageView.image = _postImage;
 
-    float yCoord = CGRectGetMaxY(self._photoImageView.frame) + kSmallPadding;
+    float yCoord = CGRectGetMaxY(self.photoImageView.frame) + kSmallPadding;
 
     CGRect piecesRect = CGRectMake(0.0f, yCoord, 320.0f, self._cellDimension);
 
@@ -161,7 +165,7 @@
     TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
     NSDictionary *targetFilter = [filterStore.allFilters objectAtIndex:[indexPath row]];
 
-    self._photoImageView.image = [targetFilter objectForKey:@"filteredImage"];
+    self.photoImageView.image = [targetFilter objectForKey:@"filteredImage"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -170,13 +174,26 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)backBtnPressed:(id)sender {
+- (IBAction)goNext:(id)sender {
+}
+
+- (IBAction)goBack:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)revealFilters:(id)sender {
+}
 
+- (IBAction)revealBrightness:(id)sender {
+}
 
+- (IBAction)sliding:(id)sender {
+}
 
+- (IBAction)cancelAdjustment:(id)sender {
+}
 
+- (IBAction)saveAdjustment:(id)sender {
+}
 
 @end
