@@ -10,7 +10,7 @@
 
 #import "TAGFilterImageView.h"
 
-@interface TAGALTImageFilterViewController : UIViewController
+@interface TAGALTImageFilterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UIImage *postImage;
 

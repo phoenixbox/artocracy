@@ -68,7 +68,7 @@
 	// Do any additional setup after loading the view.
 
     if (_postImage) {
-        [self setTheImage:_postImage];
+//        [self setTheImage:_postImage];
 
         TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
         [filterStore generateFiltersForImage:_postImage];
@@ -82,14 +82,14 @@
 //    [self renderFilterOptionsTable];
 }
 
-- (void)setTheImage:(UIImage *)image {
-    self.photoImageView = [[UIImageView alloc] initWithImage:image];
-    self.photoImageView.clipsToBounds = YES;
-    self.photoImageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.photoImageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width);
-    self.photoImageView.center = self.view.center;
-    [self.view addSubview:self.photoImageView];
-}
+//- (void)setTheImage:(UIImage *)image {
+//    self.photoImageView = [[UIImageView alloc] initWithImage:image];
+//    self.photoImageView.clipsToBounds = YES;
+//    self.photoImageView.contentMode = UIViewContentModeScaleAspectFill;
+//    self.photoImageView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.width);
+//    self.photoImageView.center = self.view.center;
+//    [self.view addSubview:self.photoImageView];
+//}
 
 - (void)renderFilterOptionsTable {
     self._filterOptionsTable = [UITableView new];
