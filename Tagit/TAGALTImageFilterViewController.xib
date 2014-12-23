@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TAGALTImageFilterViewController">
             <connections>
-                <outlet property="button" destination="DdD-kA-ss5" id="6bs-bo-HXm"/>
+                <outlet property="adjustmentsButton" destination="xbF-Rn-v8w" id="N4x-ar-XvN"/>
+                <outlet property="backButton" destination="CKx-8A-3cM" id="sk8-tp-mkY"/>
+                <outlet property="brightnessButton" destination="v1e-za-qjE" id="9Qk-kL-aDO"/>
+                <outlet property="cancelButton" destination="kb7-ei-YQG" id="1iJ-pw-9GI"/>
                 <outlet property="filterImageView" destination="y2L-bc-908" id="woO-uF-BYy"/>
+                <outlet property="filtersButton" destination="DdD-kA-ss5" id="8lu-iD-Ssv"/>
+                <outlet property="headerLabel" destination="24k-kt-yip" id="bgK-o9-ca1"/>
+                <outlet property="nextButton" destination="tlv-qg-cdj" id="5ji-mG-RHI"/>
+                <outlet property="saveButton" destination="lgT-2z-0lN" id="Kuv-Pw-09h"/>
+                <outlet property="slider" destination="cYh-qR-t8s" id="W3G-F1-3FP"/>
+                <outlet property="sliderView" destination="mkj-Gy-qzE" id="hw5-HD-PBn"/>
                 <outlet property="view" destination="U4T-mM-L9e" id="QkH-2M-WHs"/>
             </connections>
         </placeholder>
@@ -23,23 +33,25 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FILTERS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24k-kt-yip">
-                            <rect key="frame" x="127" y="21" width="66" height="21"/>
+                            <rect key="frame" x="127" y="30" width="66" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BACK" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SqN-oR-Qtu">
-                            <rect key="frame" x="8" y="21" width="66" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="NEXT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0a-Uh-yIv">
-                            <rect key="frame" x="246" y="21" width="66" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tlv-qg-cdj">
+                            <rect key="frame" x="266" y="26" width="46" height="30"/>
+                            <state key="normal" title="NEXT">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKx-8A-3cM">
+                            <rect key="frame" x="8" y="26" width="46" height="30"/>
+                            <state key="normal" title="BACK">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>

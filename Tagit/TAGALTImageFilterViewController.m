@@ -22,7 +22,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    [self.button setTitle:@"FUCK YES" forState:UIControlStateNormal];
+    [_sliderView setHidden:YES];
+
     if (_postImage) {
         [self.filterImageView setImage:_postImage];
 
