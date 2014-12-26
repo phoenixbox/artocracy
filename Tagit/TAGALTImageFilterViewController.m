@@ -31,23 +31,24 @@
 
 @implementation TAGALTImageFilterViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        // Update this to be the remainder value
-        self._cellDimension = 60.f;
-    }
-    return self;
-}
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    if (self) {
+//        // Custom initialization
+//        // Update this to be the remainder value
+//    }
+//    return self;
+//}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self._cellDimension = CGRectGetMaxY(self.view.frame) - CGRectGetMaxY(_adjustmentsView.frame);
     [self renderFilterOptionsTable];
-    [_sliderView setHidden:YES];
+
+    [self hideAndRaiseSliderView];
 
     if (_postImage) {
         [self.filterImageView setImage:_postImage];
@@ -55,6 +56,11 @@
         TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
         [filterStore generateFiltersForImage:_postImage];
     }
+}
+
+- (void)hideAndRaiseSliderView {
+    [_sliderView setHidden:YES];
+    [self.view bringSubviewToFront:_sliderView];
 }
 
 - (void)renderFilterOptionsTable {
@@ -78,9 +84,9 @@
     self._filterOptionsTable.alwaysBounceVertical = NO;
     self._filterOptionsTable.scrollEnabled = YES;
     self._filterOptionsTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
-    self._filterOptionsTable.separatorColor = [UIColor whiteColor];
+    self._filterOptionsTable.separatorColor = [UIColor clearColor];
 
-    [self._filterOptionsTable setBackgroundColor:[UIColor whiteColor]];
+    [self._filterOptionsTable setBackgroundColor:[UIColor blackColor]];
     
     [self.view addSubview:self._filterOptionsTable];
 }
@@ -168,6 +174,7 @@
 }
 
 - (IBAction)revealAdjustments:(id)sender {
+    [_sliderView setHidden:NO];
     NSLog(@"revealAdjustments");
 }
 
@@ -177,10 +184,12 @@
 
 - (IBAction)cancelAdjustment:(id)sender {
     NSLog(@"cancelAdjustment");
+    [_sliderView setHidden:YES];
 }
 
 - (IBAction)saveAdjustment:(id)sender {
     NSLog(@"saveAdjustment");
+    [_sliderView setHidden:YES];
 }
 
 @end
