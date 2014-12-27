@@ -8,14 +8,17 @@
 
 #import "TAGFilterTableViewCell.h"
 
+// Constants
+#import "TAGViewHelpers.h"
+
 @implementation TAGFilterTableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forCellDimension:(float)dimension
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.cellDimension = dimension;
+//        self.cellDimension = dimension;
 //        [self renderSelectionIndicator];
     }
     return self;
@@ -31,10 +34,24 @@
 //}
 
 - (void)renderSelectionIndicator {
-    UIView *selectionIndicator = [[UIView alloc] initWithFrame:CGRectMake(0.5,12.0,70.0, 2.0f)];
-    [selectionIndicator setBackgroundColor:[UIColor redColor]];
+    self.selectionIndicator = [[UIView alloc] initWithFrame:CGRectMake(5.0,10.0,2.0f,50.0)];
+    [self.selectionIndicator setBackgroundColor:[UIColor blackColor]];
 
-    [self addSubview:selectionIndicator];
+    [self addSubview:self.selectionIndicator];
+}
+
+- (void)updateWithAttributes:(NSDictionary *)attributes {
+    UIImage *image = [attributes objectForKey:@"filteredImage"];
+    [self setFilteredImage:image];
+//
+//    // TESTER
+//    UIImageView *imageView = [UIImageView new];
+//    UIImage *cellImage = [[UIImage alloc]initWithContentsOfFile:@"ape_do_good_printing_SF"];
+//
+//    CGRectGetMaxX(self.selectionIndicator)
+//
+//    imageView setFrame:CGRectMake(, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+//    [imageView setImage:cellImage];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

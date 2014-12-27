@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="qgl-He-zE4" customClass="TAGFilterTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="90" height="70"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qgl-He-zE4" id="dtb-mc-FWh">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d86-Ie-31P">
+                        <rect key="frame" x="24" y="7" width="58" height="58"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IoS-Ur-G2c">
+                        <rect key="frame" x="5" y="12" width="2" height="50"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="d86-Ie-31P" firstAttribute="top" secondItem="dtb-mc-FWh" secondAttribute="topMargin" constant="-2" id="5gu-n2-MFO"/>
+                    <constraint firstItem="d86-Ie-31P" firstAttribute="trailing" secondItem="dtb-mc-FWh" secondAttribute="trailingMargin" id="hC7-cr-hcu"/>
+                    <constraint firstItem="d86-Ie-31P" firstAttribute="leading" secondItem="dtb-mc-FWh" secondAttribute="leadingMargin" constant="16" id="jxu-ni-IHx"/>
+                    <constraint firstAttribute="centerY" secondItem="d86-Ie-31P" secondAttribute="centerY" constant="-0.5" id="yVP-dd-1KO"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="filteredImageView" destination="d86-Ie-31P" id="L4c-ul-uv2"/>
+                <outlet property="selectionIndicator" destination="IoS-Ur-G2c" id="qwg-1r-YMI"/>
+            </connections>
+            <point key="canvasLocation" x="526" y="425"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -83,9 +83,8 @@
     self._filterOptionsTable.alwaysBounceVertical = NO;
     self._filterOptionsTable.scrollEnabled = YES;
     self._filterOptionsTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
-    self._filterOptionsTable.separatorColor = [UIColor grayColor];
 
-    [self._filterOptionsTable setBackgroundColor:[UIColor blackColor]];
+    [self._filterOptionsTable setBackgroundColor:[UIColor whiteColor]];
     
     [self.view addSubview:self._filterOptionsTable];
 }
@@ -104,21 +103,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
 
-    TAGFilterTableViewCell *cell = [[TAGFilterTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTAGFilterTableViewCellIdentifier forCellDimension:self._cellDimension];
+    NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:kTAGFilterTableViewCellIdentifier owner:nil options:nil];
+    TAGFilterTableViewCell *cell = [nibContents lastObject];
 
     if([tableView isEqual:self._filterOptionsTable]){
         UIImageView *backgroundImage = [UIImageView new];
 
         if ([[filterStore allFilters] count] > 0) {
             NSDictionary *filteredDict = [[filterStore allFilters] objectAtIndex:[indexPath row]];
-            // Expected: sse the custom cell being rendered
-//            UIImage *image = [filteredDict objectForKey:@"filteredImage"];
-
-
-            // Set the image reference on the cell then update the el's native background view
-//            [cell setArtImage:image];
-//            [backgroundImage setImage:image];
-
+            [cell updateWithAttributes:filteredDict];
         }
         [cell setBackgroundView:backgroundImage];
 
