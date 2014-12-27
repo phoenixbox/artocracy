@@ -31,7 +31,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *brightnessButton;
 - (IBAction)revealBrightness:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *adjustmentsButton;
-- (IBAction)revealAdjustments:(id)sender;
+- (IBAction)revealTools:(id)sender;
 
 // SLIDER
 @property (strong, nonatomic) IBOutlet UIView *sliderView;

@@ -10,6 +10,7 @@
 
 // Components
 #import "TAGLateralTableViewCell.h"
+#import "TAGFilterTableViewCell.h"
 
 // Constants
 #import "TAGStyleConstants.h"
@@ -64,8 +65,6 @@
 }
 
 - (void)renderFilterOptionsTable {
-
-
     self._filterOptionsTable = [UITableView new];
 
     UIImageView *imageView = [UIImageView new];
@@ -78,13 +77,13 @@
     [self._filterOptionsTable setTransform:rotate];
     // VIP: Must set the frame again on the table after rotation
     [self._filterOptionsTable setFrame:piecesRect];
-    [self._filterOptionsTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGLateralTableViewCellIdentifier];
+    [self._filterOptionsTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGFilterTableViewCellIdentifier];
     self._filterOptionsTable.delegate = self;
     self._filterOptionsTable.dataSource = self;
     self._filterOptionsTable.alwaysBounceVertical = NO;
     self._filterOptionsTable.scrollEnabled = YES;
     self._filterOptionsTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
-    self._filterOptionsTable.separatorColor = [UIColor clearColor];
+    self._filterOptionsTable.separatorColor = [UIColor grayColor];
 
     [self._filterOptionsTable setBackgroundColor:[UIColor blackColor]];
     
@@ -105,18 +104,21 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
 
-    TAGLateralTableViewCell *cell = [[TAGLateralTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTAGLateralTableViewCellIdentifier forCellDimension:self._cellDimension];
+    TAGFilterTableViewCell *cell = [[TAGFilterTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kTAGFilterTableViewCellIdentifier forCellDimension:self._cellDimension];
 
     if([tableView isEqual:self._filterOptionsTable]){
         UIImageView *backgroundImage = [UIImageView new];
 
         if ([[filterStore allFilters] count] > 0) {
             NSDictionary *filteredDict = [[filterStore allFilters] objectAtIndex:[indexPath row]];
-            UIImage *image = [filteredDict objectForKey:@"filteredImage"];
+            // Expected: sse the custom cell being rendered
+//            UIImage *image = [filteredDict objectForKey:@"filteredImage"];
+
 
             // Set the image reference on the cell then update the el's native background view
-            [cell setArtImage:image];
-            [backgroundImage setImage:image];
+//            [cell setArtImage:image];
+//            [backgroundImage setImage:image];
+
         }
         [cell setBackgroundView:backgroundImage];
 
@@ -130,7 +132,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return self._cellDimension;
+    return 70.0f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -167,15 +169,16 @@
 
 - (IBAction)revealFilters:(id)sender {
     NSLog(@"revealFilters");
+//    if filters table is hidden then show it ()
 }
 
 - (IBAction)revealBrightness:(id)sender {
     NSLog(@"revealBrightness");
 }
 
-- (IBAction)revealAdjustments:(id)sender {
-    [_sliderView setHidden:NO];
+- (IBAction)revealTools:(id)sender {
     NSLog(@"revealAdjustments");
+//    if tools table is hidden then show it (): reference the profile collection view controller
 }
 
 - (IBAction)sliding:(id)sender {
