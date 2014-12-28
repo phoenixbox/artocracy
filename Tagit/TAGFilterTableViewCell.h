@@ -12,6 +12,7 @@
 
 //- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forCellDimension:(float)dimension;
 - (void)updateWithAttributes:(NSDictionary *)attributes;
+- (void)setOverlayImage:(NSString *)labelName;
 
 @property (nonatomic, assign) float cellDimension;
 @property (strong, nonatomic) UIImage *filteredImage;

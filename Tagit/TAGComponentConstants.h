@@ -21,7 +21,10 @@
 #define kProfileTableRowHeight 102.5f
 
 #define kTAGLateralTableViewCellIdentifier @"TAGLateralTableViewCell"
+
+// Filters
 #define kTAGFilterTableViewCellIdentifier @"TAGFilterTableViewCell"
+#define kTAGToolTableViewCellIdentifier @"TAGToolTableViewCell"
 
 
 // Sticky headers

@@ -78,7 +78,7 @@
                              @"Obey"
                              ];
 
-    NSArray *watermark = @[
+    NSArray *overlays = @[
                              @"O",
                              @"S",
                              @"R",
@@ -114,7 +114,7 @@
                                             filename, @"filename",
                                             [filterNames objectAtIndex:index], @"filterName",
                                             blurredImage, @"blurredImage",
-                                            [watermark objectAtIndex:index], @"watermark", nil];
+                                            [overlays objectAtIndex:index], @"overlay", nil];
 
         [options addObject:filteredDictionary];
     }

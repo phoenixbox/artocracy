@@ -33,7 +33,6 @@
 - (void)updateWithAttributes:(NSDictionary *)attributes {
     UIImage *image = [attributes objectForKey:@"blurredImage"];
     NSString *filterName = [attributes objectForKey:@"filterName"];
-    NSString *watermark = [attributes objectForKey:@"watermark"];
 
     CGAffineTransform rotate = CGAffineTransformMakeRotation(M_PI_2);
     [self.filterImageContainer setTransform:rotate];
@@ -46,17 +45,27 @@
     UIGraphicsEndImageContext();
     [self.filterImageContainer setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
 
+
     [TAGViewHelpers formatLabel:_filterLabel withCopy:filterName andFontFamily:nil];
     [_filterLabel setTransform:rotate];
     [TAGViewHelpers sizeLabelToFit:_filterLabel numberOfLines:1];
 
-    UILabel *watermarkLabel = [UILabel new];
-    [watermarkLabel setAttributedText:[TAGViewHelpers attributeText:watermark forFontSize:25.0f andFontFamily:@"WalkwaySemiBold"]];
-    [TAGViewHelpers sizeLabelToFit:watermarkLabel numberOfLines:1];
-    [watermarkLabel setTransform:rotate];
-    [watermarkLabel setCenter:self.filterImageContainer.center];
-    [watermarkLabel setTextColor:[UIColor whiteColor]];
-    [self.contentView addSubview:watermarkLabel];
+}
+
+- (void)rotateElement:(UIView *)element {
+    CGAffineTransform rotate = CGAffineTransformMakeRotation(M_PI_2);
+    [element setTransform:rotate];
+}
+
+- (void)setOverlayImage:(NSString *)labelName {
+    UILabel *overlayLabel = [UILabel new];
+    [overlayLabel setAttributedText:[TAGViewHelpers attributeText:labelName forFontSize:25.0f andFontFamily:@"WalkwaySemiBold"]];
+    [TAGViewHelpers sizeLabelToFit:overlayLabel numberOfLines:1];
+    [self rotateElement:overlayLabel];
+    [overlayLabel setCenter:self.filterImageContainer.center];
+    [overlayLabel setTextColor:[UIColor whiteColor]];
+    [self.contentView addSubview:overlayLabel];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

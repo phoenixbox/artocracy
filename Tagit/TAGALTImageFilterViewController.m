@@ -23,23 +23,39 @@
 // Data Layer
 #import "TAGFiltersStore.h"
 
+NSString *const kFiltersTable = @"filtersTable";
+NSString *const kToolsTable = @"toolsTable";
+
 @interface TAGALTImageFilterViewController ()
 
-@property (nonatomic, strong) UITableView *_filterOptionsTable;
+@property (nonatomic, strong) UITableView *_lateralTable;
 @property (nonatomic, assign) float _cellDimension;
 @property (nonatomic, strong) UILongPressGestureRecognizer *imageViewLongPress;
 @property (nonatomic, strong) UIImage *_cachedImage;
+@property (nonatomic, strong) NSString *_currentTableType;
 
 @end
 
 @implementation TAGALTImageFilterViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+
+    if (self) {
+        self._currentTableType = kFiltersTable;
+    }
+
+    return self;
+}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self._cellDimension = CGRectGetMaxY(self.view.frame) - CGRectGetMaxY(_adjustmentsView.frame);
-    [self renderFilterOptionsTable];
+    [self renderLateralTable];
 
     [self hideAndRaiseSliderView];
 
@@ -51,9 +67,6 @@
 
         [self addFilterImageViewTappedHandler];
     }
-}
-
-- (void)listenForChange {
 }
 
 - (void)addFilterImageViewTappedHandler {
@@ -86,30 +99,38 @@
     [self.view bringSubviewToFront:_sliderView];
 }
 
-- (void)renderFilterOptionsTable {
-    self._filterOptionsTable = [UITableView new];
+- (void)toggleTableViewCellsTo:(NSString *)identifier {
+    self._currentTableType = identifier;
+    self._lateralTable = nil;
 
-    UIImageView *imageView = [UIImageView new];
-    imageView.image = _postImage;
+    [self renderLateralTable];
+}
+
+- (void)renderLateralTable {
+    self._lateralTable = [UITableView new];
+
+//    Can this be removed
+//    UIImageView *imageView = [UIImageView new];
+//    imageView.image = _postImage;
 
     CGRect piecesRect = CGRectMake(0.0f, CGRectGetMaxY(_adjustmentsView.frame), CGRectGetMaxX(self.view.frame), self._cellDimension);
 
-    self._filterOptionsTable = [[UITableView alloc] initWithFrame:piecesRect];
+    self._lateralTable = [[UITableView alloc] initWithFrame:piecesRect];
     CGAffineTransform rotate = CGAffineTransformMakeRotation(-M_PI_2);
-    [self._filterOptionsTable setTransform:rotate];
+    [self._lateralTable setTransform:rotate];
     // VIP: Must set the frame again on the table after rotation
-    [self._filterOptionsTable setFrame:piecesRect];
-    [self._filterOptionsTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGFilterTableViewCellIdentifier];
-    self._filterOptionsTable.delegate = self;
-    self._filterOptionsTable.dataSource = self;
-    self._filterOptionsTable.alwaysBounceVertical = NO;
-    self._filterOptionsTable.scrollEnabled = YES;
-    self._filterOptionsTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
-    [self._filterOptionsTable setSeparatorColor:[UIColor clearColor]];
+    [self._lateralTable setFrame:piecesRect];
+    [self._lateralTable registerClass:[UITableViewCell class] forCellReuseIdentifier:kTAGFilterTableViewCellIdentifier];
+    self._lateralTable.delegate = self;
+    self._lateralTable.dataSource = self;
+    self._lateralTable.alwaysBounceVertical = NO;
+    self._lateralTable.scrollEnabled = YES;
+    self._lateralTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
+    [self._lateralTable setSeparatorColor:[UIColor clearColor]];
 
-    [self._filterOptionsTable setBackgroundColor:[UIColor whiteColor]];
+    [self._lateralTable setBackgroundColor:[UIColor whiteColor]];
     
-    [self.view addSubview:self._filterOptionsTable];
+    [self.view addSubview:self._lateralTable];
 }
 
 #pragma UITableViewDelgate
@@ -130,19 +151,23 @@
     NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:kTAGFilterTableViewCellIdentifier owner:nil options:nil];
     TAGFilterTableViewCell *cell = [nibContents lastObject];
 
-    if([tableView isEqual:self._filterOptionsTable]){
+    if([tableView isEqual:self._lateralTable]){
         UIImageView *backgroundImage = [UIImageView new];
 
         if ([[filterStore allFilters] count] > 0) {
-            NSDictionary *filteredDict = [[filterStore allFilters] objectAtIndex:[indexPath row]];
-            [cell updateWithAttributes:filteredDict];
-        }
-        [cell setBackgroundView:backgroundImage];
+            NSDictionary *attributes = [[filterStore allFilters] objectAtIndex:[indexPath row]];
+            [cell updateWithAttributes:attributes];
 
+            if ([self._currentTableType isEqual:kFiltersTable]) {
+                [cell setOverlayImage:[attributes objectForKey:@"overlay"]];
+            }
+        }
+
+        // Any of this necessary???
+        [cell setBackgroundView:backgroundImage];
         // Rotate the image in the cell
         [TAGViewHelpers rotate90Clockwise:cell.backgroundView];
         [cell.backgroundView setContentMode:UIViewContentModeScaleAspectFit];
-
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 
         if ([indexPath row] > 0) {
@@ -159,13 +184,13 @@
 // NOTE: Auto select the first cell so we can trigger removal of the selection indicator on first alternate row selection
 - (void)viewWillAppear:(BOOL)animated {
     NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
-    [self._filterOptionsTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionBottom];
+    [self._lateralTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionBottom];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
     NSDictionary *targetFilter = [filterStore.allFilters objectAtIndex:[indexPath row]];
-    TAGFilterTableViewCell *cell = (TAGFilterTableViewCell *)[self._filterOptionsTable cellForRowAtIndexPath:indexPath];
+    TAGFilterTableViewCell *cell = (TAGFilterTableViewCell *)[self._lateralTable cellForRowAtIndexPath:indexPath];
 
     [cell.selectionIndicator setHidden:NO];
 
@@ -173,7 +198,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    TAGFilterTableViewCell *cell = (TAGFilterTableViewCell *)[self._filterOptionsTable cellForRowAtIndexPath:indexPath];
+    TAGFilterTableViewCell *cell = (TAGFilterTableViewCell *)[self._lateralTable cellForRowAtIndexPath:indexPath];
 
     [cell.selectionIndicator setHidden:YES];
 }
@@ -204,8 +229,11 @@
 }
 
 - (IBAction)revealFilters:(id)sender {
-    NSLog(@"revealFilters");
-//    if filters table is hidden then show it ()
+    if (![self._currentTableType isEqual:kFiltersTable]) {
+        [self toggleTableViewCellsTo:kFiltersTable];
+    } else {
+        NSLog(@"Filters already set");
+    }
 }
 
 - (IBAction)revealBrightness:(id)sender {
@@ -213,8 +241,11 @@
 }
 
 - (IBAction)revealTools:(id)sender {
-    NSLog(@"revealAdjustments");
-//    if tools table is hidden then show it (): reference the profile collection view controller
+    if (![self._currentTableType isEqual:kToolsTable]) {
+        [self toggleTableViewCellsTo:kToolsTable];
+    } else {
+        NSLog(@"Tools already set");
+    }
 }
 
 - (IBAction)sliding:(id)sender {
