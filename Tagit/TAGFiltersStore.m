@@ -19,9 +19,12 @@
 #import "GPUImageFilterGroup.h"
 #import "GPUImageGrayscaleFilter.h"
 #import "GPUImageAlphaBlendFilter.h"
+#import "GPUImageGaussianBlurFilter.h"
 
 // If just using the reference images we dont need the other filter imports
 #import "GPUImageLookupFilter.h"
+
+#define kOriginal @"original"
 
 @interface TAGFiltersStore ()
 
@@ -43,7 +46,12 @@
 }
 
 - (void)generateFiltersForImage:(UIImage *)image {
+    // trigger reveal of original when the imageview is touched
+    // dynamically update the table collections when toggled
+    // conditionally apply different compounding filters
+
     NSArray *filterTypes = @[
+                             kOriginal,
                              @"lookup_cooling.png",
                              @"lookup_cooling2.png",
                              @"lookup_filter1.png",
@@ -55,8 +63,9 @@
                              @"lookup_vibrance.png",
                              @"lookup_warming.png"];
 
-    // NOTE: Combine when social media appraisal done
+    // NOTE: Combine to dicts when social media appraisal done
     NSArray *filterNames = @[
+                             @"Original",
                              @"Smates",
                              @"Replete",
                              @"Flix",
@@ -69,16 +78,44 @@
                              @"Obey"
                              ];
 
+    NSArray *watermark = @[
+                             @"O",
+                             @"S",
+                             @"R",
+                             @"F",
+                             @"183",
+                             @"S",
+                             @"T",
+                             @"R",
+                             @"M",
+                             @"B",
+                             @"O"
+                             ];
+
     NSMutableArray *options = [NSMutableArray new];
 
     for (int index = 0; index < [filterTypes count]; index++) {
         UIImage *filteredImage;
+        UIImage *blurredImage;
 
         NSString *filename = [filterTypes objectAtIndex:index];
 
-        filteredImage = [self filteredImage:image withFilter:filename];
+        if ([filename isEqual:kOriginal]) {
+            NSLog(@"original image");
+            filteredImage = image;
+        } else {
+            filteredImage = [self filteredImage:image withFilter:filename];
+        }
 
-        NSDictionary *filteredDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:filteredImage, @"filteredImage", filename, @"filename", [filterNames objectAtIndex:index], @"filterName", nil];
+        blurredImage = [self blurImage:filteredImage];
+
+        NSDictionary *filteredDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                            filteredImage, @"filteredImage",
+                                            filename, @"filename",
+                                            [filterNames objectAtIndex:index], @"filterName",
+                                            blurredImage, @"blurredImage",
+                                            [watermark objectAtIndex:index], @"watermark", nil];
+
         [options addObject:filteredDictionary];
     }
     // Any custom setup work goes here
@@ -101,6 +138,18 @@
     [lookupFilter useNextFrameForImageCapture];
 
     return [lookupFilter imageFromCurrentFramebufferWithOrientation:image.imageOrientation];
+}
+
+- (UIImage *)blurImage:(UIImage *)image {
+    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:image];
+    GPUImageGaussianBlurFilter *stillImageFilter = [[GPUImageGaussianBlurFilter alloc] init];
+    [stillImageFilter setBlurRadiusInPixels:30.0];
+
+    [stillImageSource addTarget:stillImageFilter];
+    [stillImageFilter useNextFrameForImageCapture];
+    [stillImageSource processImage];
+
+    return [stillImageFilter imageFromCurrentFramebuffer];
 }
 
 - (NSMutableArray *)allFilters {

@@ -32,16 +32,6 @@
 
 @implementation TAGALTImageFilterViewController
 
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        // Custom initialization
-//        // Update this to be the remainder value
-//    }
-//    return self;
-//}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -83,6 +73,7 @@
     self._filterOptionsTable.alwaysBounceVertical = NO;
     self._filterOptionsTable.scrollEnabled = YES;
     self._filterOptionsTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
+    [self._filterOptionsTable setSeparatorColor:[UIColor clearColor]];
 
     [self._filterOptionsTable setBackgroundColor:[UIColor whiteColor]];
     
@@ -121,6 +112,10 @@
         [cell.backgroundView setContentMode:UIViewContentModeScaleAspectFit];
 
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+
+        if ([indexPath row] > 0) {
+            [cell.selectionIndicator setHidden:YES];
+        }
     }
     return cell;
 }
@@ -129,11 +124,26 @@
     return 70.0f;
 }
 
+// NOTE: Auto select the first cell so we can trigger removal of the selection indicator on first alternate row selection
+- (void)viewWillAppear:(BOOL)animated {
+    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
+    [self._filterOptionsTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionBottom];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
     NSDictionary *targetFilter = [filterStore.allFilters objectAtIndex:[indexPath row]];
+    TAGFilterTableViewCell *cell = (TAGFilterTableViewCell *)[self._filterOptionsTable cellForRowAtIndexPath:indexPath];
+
+    [cell.selectionIndicator setHidden:NO];
 
     _filterImageView.image = [targetFilter objectForKey:@"filteredImage"];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    TAGFilterTableViewCell *cell = (TAGFilterTableViewCell *)[self._filterOptionsTable cellForRowAtIndexPath:indexPath];
+
+    [cell.selectionIndicator setHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {

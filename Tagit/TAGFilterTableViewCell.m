@@ -19,20 +19,9 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-//        self.cellDimension = dimension;
-//        [self renderSelectionIndicator];
     }
     return self;
 }
-// RESTART: Build the cell frame -  then can set the values in the table callback
-//- (void)renderCellImage {
-//    UIImageView *filteredImage = [UIImageView new];
-//    filteredImage setFrame:CGRectMake(5.0, 5.0, xx,xx )
-//    UIImage *cellImage = [[UIImage alloc]initWithContentsOfFile:@"ape_do_good_printing_SF"];
-
-    
-//    [self addSubview:cellImage];
-//}
 
 - (void)renderSelectionIndicator {
     self.selectionIndicator = [[UIView alloc] initWithFrame:CGRectMake(5.0,10.0,2.0f,50.0)];
@@ -42,8 +31,9 @@
 }
 
 - (void)updateWithAttributes:(NSDictionary *)attributes {
-    UIImage *image = [attributes objectForKey:@"filteredImage"];
+    UIImage *image = [attributes objectForKey:@"blurredImage"];
     NSString *filterName = [attributes objectForKey:@"filterName"];
+    NSString *watermark = [attributes objectForKey:@"watermark"];
 
     CGAffineTransform rotate = CGAffineTransformMakeRotation(M_PI_2);
     [self.filterImageContainer setTransform:rotate];
@@ -59,6 +49,14 @@
     [TAGViewHelpers formatLabel:_filterLabel withCopy:filterName andFontFamily:nil];
     [_filterLabel setTransform:rotate];
     [TAGViewHelpers sizeLabelToFit:_filterLabel numberOfLines:1];
+
+    UILabel *watermarkLabel = [UILabel new];
+    [watermarkLabel setAttributedText:[TAGViewHelpers attributeText:watermark forFontSize:25.0f andFontFamily:@"WalkwaySemiBold"]];
+    [TAGViewHelpers sizeLabelToFit:watermarkLabel numberOfLines:1];
+    [watermarkLabel setTransform:rotate];
+    [watermarkLabel setCenter:self.filterImageContainer.center];
+    [watermarkLabel setTextColor:[UIColor whiteColor]];
+    [self.contentView addSubview:watermarkLabel];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
