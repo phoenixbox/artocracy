@@ -72,32 +72,35 @@
     NSMutableArray *options = [NSMutableArray new];
 
     for (int index = 0; index < [filterTypes count]; index++) {
-        UIImage *processedImage;
+        UIImage *filteredImage;
+
         NSString *filename = [filterTypes objectAtIndex:index];
 
+        filteredImage = [self filteredImage:image withFilter:filename];
 
-        GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:image];
-
-        GPUImagePicture *lookupImageSource = [[GPUImagePicture alloc] initWithImage:[UIImage imageNamed:filename]];
-        NSLog(@"%@", filename);
-        GPUImageLookupFilter *lookupFilter = [[GPUImageLookupFilter alloc] init];
-
-        [stillImageSource addTarget:lookupFilter];
-        [lookupImageSource addTarget:lookupFilter];
-
-        [stillImageSource processImage];
-        [lookupImageSource processImage];
-
-        [lookupFilter useNextFrameForImageCapture];
-
-        processedImage = [lookupFilter imageFromCurrentFramebufferWithOrientation:image.imageOrientation];
-
-        NSDictionary *filteredDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:processedImage, @"filteredImage", filename, @"filename", [filterNames objectAtIndex:index], @"filterName", nil];
+        NSDictionary *filteredDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:filteredImage, @"filteredImage", filename, @"filename", [filterNames objectAtIndex:index], @"filterName", nil];
         [options addObject:filteredDictionary];
     }
     // Any custom setup work goes here
 
     self.filterOptions = options;
+}
+
+- (UIImage *)filteredImage:(UIImage *)image withFilter:(NSString *)filename {
+    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:image];
+    GPUImagePicture *lookupImageSource = [[GPUImagePicture alloc] initWithImage:[UIImage imageNamed:filename]];
+    NSLog(@"%@", filename);
+    GPUImageLookupFilter *lookupFilter = [[GPUImageLookupFilter alloc] init];
+
+    [stillImageSource addTarget:lookupFilter];
+    [lookupImageSource addTarget:lookupFilter];
+
+    [stillImageSource processImage];
+    [lookupImageSource processImage];
+
+    [lookupFilter useNextFrameForImageCapture];
+
+    return [lookupFilter imageFromCurrentFramebufferWithOrientation:image.imageOrientation];
 }
 
 - (NSMutableArray *)allFilters {
