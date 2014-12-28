@@ -55,6 +55,20 @@
                              @"lookup_vibrance.png",
                              @"lookup_warming.png"];
 
+    // NOTE: Combine when social media appraisal done
+    NSArray *filterNames = @[
+                             @"Smates",
+                             @"Replete",
+                             @"Flix",
+                             @"P183",
+                             @"Snub 23",
+                             @"TEaton",
+                             @"Robin",
+                             @"Melbourne",
+                             @"Bushwick",
+                             @"Obey"
+                             ];
+
     NSMutableArray *options = [NSMutableArray new];
 
     for (int index = 0; index < [filterTypes count]; index++) {
@@ -78,7 +92,7 @@
 
         processedImage = [lookupFilter imageFromCurrentFramebufferWithOrientation:image.imageOrientation];
 
-        NSDictionary *filteredDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:processedImage, @"filteredImage", filename, @"filename", nil];
+        NSDictionary *filteredDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:processedImage, @"filteredImage", filename, @"filename", [filterNames objectAtIndex:index], @"filterName", nil];
         [options addObject:filteredDictionary];
     }
     // Any custom setup work goes here

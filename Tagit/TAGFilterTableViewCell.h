@@ -20,5 +20,6 @@
 @property (strong, nonatomic) IBOutlet UIView *filterImageContainer;
 
 @property (strong, nonatomic) IBOutlet UIView *selectionIndicator;
+@property (strong, nonatomic) IBOutlet UILabel *filterLabel;
 
 @end
