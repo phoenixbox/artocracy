@@ -65,24 +65,24 @@ NSString *const kToolsTable = @"toolsTable";
         TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
         [filterStore generateFiltersForImage:_postImage];
 
-        [self addFilterImageViewTappedHandler];
+        [self addFilterImageViewEventHandlers];
     }
 }
 
-- (void)addFilterImageViewTappedHandler {
+- (void)addFilterImageViewEventHandlers {
     self.imageViewLongPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(toggleOriginalImage:)];
-
     self.imageViewLongPress.numberOfTouchesRequired = 1;
-
     self.imageViewLongPress.allowableMovement = 100.0f;
-    self.imageViewLongPress.minimumPressDuration = 0.1; /* Add this gesture recognizer to our view */
+    self.imageViewLongPress.minimumPressDuration = 0.075; /* Add this gesture recognizer to our view */
 
-    [self.view addGestureRecognizer:self.imageViewLongPress];
+    [self.filterImageView addGestureRecognizer:self.imageViewLongPress];
+    // NOTE: Must set interaction true so that the gesture can be triggered. Dont have to have selector on the filter ImageView
+    self.filterImageView.userInteractionEnabled = YES;
 }
 
-- (void)toggleOriginalImage:(UILongPressGestureRecognizer *)recognizer {
+- (void)toggleOriginalImage:(UIGestureRecognizer *)recognizer {
     UIGestureRecognizerState state = [recognizer state];
-
+    
     if (state == UIGestureRecognizerStateBegan) {
         // Cache the last stateful image
         self._cachedImage = [self.filterImageView image];
