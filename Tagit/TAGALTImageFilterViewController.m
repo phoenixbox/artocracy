@@ -152,7 +152,6 @@ NSString *const kToolsTable = @"toolsTable";
     TAGFilterTableViewCell *cell = [nibContents lastObject];
 
     if([tableView isEqual:self._lateralTable]){
-        UIImageView *backgroundImage = [UIImageView new];
 
         if ([[filterStore allFilters] count] > 0) {
             NSDictionary *attributes = [[filterStore allFilters] objectAtIndex:[indexPath row]];
@@ -163,11 +162,6 @@ NSString *const kToolsTable = @"toolsTable";
             }
         }
 
-        // Any of this necessary???
-        [cell setBackgroundView:backgroundImage];
-        // Rotate the image in the cell
-        [TAGViewHelpers rotate90Clockwise:cell.backgroundView];
-        [cell.backgroundView setContentMode:UIViewContentModeScaleAspectFit];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 
         if ([indexPath row] > 0) {
