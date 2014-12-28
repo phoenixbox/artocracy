@@ -42,16 +42,17 @@
 
 - (void)updateWithAttributes:(NSDictionary *)attributes {
     UIImage *image = [attributes objectForKey:@"filteredImage"];
-    [self setFilteredImage:image];
-//
-//    // TESTER
-//    UIImageView *imageView = [UIImageView new];
-//    UIImage *cellImage = [[UIImage alloc]initWithContentsOfFile:@"ape_do_good_printing_SF"];
-//
-//    CGRectGetMaxX(self.selectionIndicator)
-//
-//    imageView setFrame:CGRectMake(, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
-//    [imageView setImage:cellImage];
+
+    CGAffineTransform rotate = CGAffineTransformMakeRotation(M_PI_2);
+    [self.filterImageContainer setTransform:rotate];
+
+    // NOTE: Had to use an image instead of an ImageView in the cell becasue I couldntr constrain the redraw of the image to the imnge view frame
+    // The xib file has an abnormally offset UIView to compensate for an unknown offset in resulting from the drawing below.
+    UIGraphicsBeginImageContextWithOptions(self.filterImageContainer.frame.size, NO, image.scale);
+    [image drawInRect:self.filterImageContainer.bounds];
+    UIImage* redrawn = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.filterImageContainer setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -17,7 +17,8 @@
 @property (strong, nonatomic) UIImage *filteredImage;
 //@property (strong, nonatomic) UIView *selectionIndicator;
 //XIBS
-@property (strong, nonatomic) IBOutlet UIImageView *filteredImageView;
+@property (strong, nonatomic) IBOutlet UIView *filterImageContainer;
+
 @property (strong, nonatomic) IBOutlet UIView *selectionIndicator;
 
 @end

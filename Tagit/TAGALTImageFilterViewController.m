@@ -103,6 +103,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
 
+    // Load the custom xib
     NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:kTAGFilterTableViewCellIdentifier owner:nil options:nil];
     TAGFilterTableViewCell *cell = [nibContents lastObject];
 
