@@ -28,6 +28,7 @@
 @property (nonatomic, strong) UITableView *_filterOptionsTable;
 @property (nonatomic, assign) float _cellDimension;
 @property (nonatomic, strong) UILongPressGestureRecognizer *imageViewLongPress;
+@property (nonatomic, strong) UIImage *_cachedImage;
 
 @end
 
@@ -56,19 +57,12 @@
 }
 
 - (void)addFilterImageViewTappedHandler {
-    /* First create the gesture recognizer */
     self.imageViewLongPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(toggleOriginalImage:)];
-    /* The number of fingers that must be present on the screen */
-    self.imageViewLongPress.numberOfTouchesRequired = 1;
-    /* Maximum 100 points of movement allowed before the gesture
-     is recognized */
-    self.imageViewLongPress.allowableMovement = 100.0f;
-    /* The user must press 2 fingers (numberOfTouchesRequired) for
-     at least 1 second for the gesture to be recognized */
-    self.imageViewLongPress.minimumPressDuration = 0.2; /* Add this gesture recognizer to our view */
 
-    // set listners on the gesture
-    [self.filterImageView addObserver:self.imageViewLongPress forKeyPath:@"state" options:0 context:nil];
+    self.imageViewLongPress.numberOfTouchesRequired = 1;
+
+    self.imageViewLongPress.allowableMovement = 100.0f;
+    self.imageViewLongPress.minimumPressDuration = 0.1; /* Add this gesture recognizer to our view */
 
     [self.view addGestureRecognizer:self.imageViewLongPress];
 }
@@ -77,9 +71,13 @@
     UIGestureRecognizerState state = [recognizer state];
 
     if (state == UIGestureRecognizerStateBegan) {
-            NSLog(@"State: %@", @"BEGAN");
+        // Cache the last stateful image
+        self._cachedImage = [self.filterImageView image];
+        // Show the original
+        [self.filterImageView setImage:_postImage];
     } else if (state == UIGestureRecognizerStateCancelled || state == UIGestureRecognizerStateFailed || state == UIGestureRecognizerStateEnded) {
-            NSLog(@"State: %@", @"ENDED");
+        // Reset the imageView with the cached image
+        [self.filterImageView setImage:self._cachedImage];
     }
 }
 
