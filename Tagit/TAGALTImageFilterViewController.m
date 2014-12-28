@@ -27,6 +27,7 @@
 
 @property (nonatomic, strong) UITableView *_filterOptionsTable;
 @property (nonatomic, assign) float _cellDimension;
+@property (nonatomic, strong) UILongPressGestureRecognizer *imageViewLongPress;
 
 @end
 
@@ -46,6 +47,39 @@
 
         TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
         [filterStore generateFiltersForImage:_postImage];
+
+        [self addFilterImageViewTappedHandler];
+    }
+}
+
+- (void)listenForChange {
+}
+
+- (void)addFilterImageViewTappedHandler {
+    /* First create the gesture recognizer */
+    self.imageViewLongPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(toggleOriginalImage:)];
+    /* The number of fingers that must be present on the screen */
+    self.imageViewLongPress.numberOfTouchesRequired = 1;
+    /* Maximum 100 points of movement allowed before the gesture
+     is recognized */
+    self.imageViewLongPress.allowableMovement = 100.0f;
+    /* The user must press 2 fingers (numberOfTouchesRequired) for
+     at least 1 second for the gesture to be recognized */
+    self.imageViewLongPress.minimumPressDuration = 0.2; /* Add this gesture recognizer to our view */
+
+    // set listners on the gesture
+    [self.filterImageView addObserver:self.imageViewLongPress forKeyPath:@"state" options:0 context:nil];
+
+    [self.view addGestureRecognizer:self.imageViewLongPress];
+}
+
+- (void)toggleOriginalImage:(UILongPressGestureRecognizer *)recognizer {
+    UIGestureRecognizerState state = [recognizer state];
+
+    if (state == UIGestureRecognizerStateBegan) {
+            NSLog(@"State: %@", @"BEGAN");
+    } else if (state == UIGestureRecognizerStateCancelled || state == UIGestureRecognizerStateFailed || state == UIGestureRecognizerStateEnded) {
+            NSLog(@"State: %@", @"ENDED");
     }
 }
 

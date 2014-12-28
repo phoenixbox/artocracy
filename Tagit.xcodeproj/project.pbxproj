@@ -118,7 +118,6 @@
 		CB8BFB4A19D51E0B005F4272 /* TAGPieceSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB8BFB4919D51E0A005F4272 /* TAGPieceSectionHeader.xib */; };
 		CB914DAB1A490171002600C0 /* TAGALTImageFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB914DA91A490171002600C0 /* TAGALTImageFilterViewController.m */; };
 		CB914DAC1A490171002600C0 /* TAGALTImageFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB914DAA1A490171002600C0 /* TAGALTImageFilterViewController.xib */; };
-		CB914DAF1A490A1F002600C0 /* TAGFilterImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB914DAE1A490A1F002600C0 /* TAGFilterImageView.m */; };
 		CB978FBB1A4DA9B200EA0CD8 /* TAGFilterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB978FBA1A4DA9B200EA0CD8 /* TAGFilterTableViewCell.m */; };
 		CB9BC69A19BCFD7500BE0EFC /* TAGPiecesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BC69919BCFD7500BE0EFC /* TAGPiecesViewController.m */; };
 		CB9BC69E19BD07D100BE0EFC /* TAGPieceCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CB9BC69D19BD07D100BE0EFC /* TAGPieceCollectionCell.m */; };
@@ -358,8 +357,6 @@
 		CB914DA81A490171002600C0 /* TAGALTImageFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGALTImageFilterViewController.h; sourceTree = "<group>"; };
 		CB914DA91A490171002600C0 /* TAGALTImageFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGALTImageFilterViewController.m; sourceTree = "<group>"; };
 		CB914DAA1A490171002600C0 /* TAGALTImageFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TAGALTImageFilterViewController.xib; sourceTree = "<group>"; };
-		CB914DAD1A490A1F002600C0 /* TAGFilterImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGFilterImageView.h; sourceTree = "<group>"; };
-		CB914DAE1A490A1F002600C0 /* TAGFilterImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGFilterImageView.m; sourceTree = "<group>"; };
 		CB978FB91A4DA9B200EA0CD8 /* TAGFilterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGFilterTableViewCell.h; sourceTree = "<group>"; };
 		CB978FBA1A4DA9B200EA0CD8 /* TAGFilterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGFilterTableViewCell.m; sourceTree = "<group>"; };
 		CB9BC69819BCFD7500BE0EFC /* TAGPiecesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGPiecesViewController.h; sourceTree = "<group>"; };
@@ -1077,8 +1074,6 @@
 			isa = PBXGroup;
 			children = (
 				CBFA22ED19BBAC44001B4286 /* TAGSuggestionDetailsSection.h */,
-				CB914DAD1A490A1F002600C0 /* TAGFilterImageView.h */,
-				CB914DAE1A490A1F002600C0 /* TAGFilterImageView.m */,
 				CBFA22EE19BBAC44001B4286 /* TAGSuggestionDetailsSection.m */,
 				CB3499351A0718DC004B2E6D /* TAGSuggestionDetailHeader.h */,
 				CB3499361A0718DC004B2E6D /* TAGSuggestionDetailHeader.m */,
@@ -1390,7 +1385,6 @@
 				CB6DA4E819A478CC00BB71EE /* TAGProfileHeader.m in Sources */,
 				CB978FBB1A4DA9B200EA0CD8 /* TAGFilterTableViewCell.m in Sources */,
 				CBDA9A50199B203D00E8AD31 /* TAGSuggestion.m in Sources */,
-				CB914DAF1A490A1F002600C0 /* TAGFilterImageView.m in Sources */,
 				CBD4DCE919A47D370024209D /* TAGProfileCollectionViewController.m in Sources */,
 				CB068163198ED08400B13E49 /* TAGPieceChannel.m in Sources */,
 				CB009B5E19A9A24200FC06A0 /* TAGViewHelpers.m in Sources */,
