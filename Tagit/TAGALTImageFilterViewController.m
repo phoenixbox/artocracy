@@ -153,7 +153,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 70.0f;
+    return self.view.frame.size.width/4.5;
 }
 
 // NOTE: Auto select the first cell so we can trigger removal of the selection indicator on first alternate row selection
