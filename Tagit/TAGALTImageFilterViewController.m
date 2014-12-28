@@ -22,6 +22,7 @@
 
 // Data Layer
 #import "TAGFiltersStore.h"
+#import "TAGToolsStore.h"
 
 NSString *const kFiltersTable = @"filtersTable";
 NSString *const kToolsTable = @"toolsTable";
@@ -64,6 +65,9 @@ NSString *const kToolsTable = @"toolsTable";
 
         TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
         [filterStore generateFiltersForImage:_postImage];
+
+        TAGToolsStore *toolStore = [TAGToolsStore sharedStore];
+        [toolStore generateToolOptions];
 
         [self addFilterImageViewEventHandlers];
     }
@@ -109,10 +113,6 @@ NSString *const kToolsTable = @"toolsTable";
 - (void)renderLateralTable {
     self._lateralTable = [UITableView new];
 
-//    Can this be removed
-//    UIImageView *imageView = [UIImageView new];
-//    imageView.image = _postImage;
-
     CGRect piecesRect = CGRectMake(0.0f, CGRectGetMaxY(_adjustmentsView.frame), CGRectGetMaxX(self.view.frame), self._cellDimension);
 
     self._lateralTable = [[UITableView alloc] initWithFrame:piecesRect];
@@ -125,6 +125,7 @@ NSString *const kToolsTable = @"toolsTable";
     self._lateralTable.dataSource = self;
     self._lateralTable.alwaysBounceVertical = NO;
     self._lateralTable.scrollEnabled = YES;
+    self._lateralTable.showsVerticalScrollIndicator = NO;
     self._lateralTable.separatorInset = UIEdgeInsetsMake(0, 3, 0, 3);
     [self._lateralTable setSeparatorColor:[UIColor clearColor]];
 
@@ -139,13 +140,21 @@ NSString *const kToolsTable = @"toolsTable";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
+    if ([self._currentTableType isEqual:kFiltersTable]) {
+        TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
 
-    return [[filterStore allFilters] count];
+        return [[filterStore allFilters] count];
+    } else if ([self._currentTableType isEqual:kToolsTable]) {
+        TAGToolsStore *toolStore = [TAGToolsStore sharedStore];
+
+        return [[toolStore allTools] count];
+    }
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
+    TAGToolsStore *toolStore = [TAGToolsStore sharedStore];
 
     // Load the custom xib
     NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:kTAGFilterTableViewCellIdentifier owner:nil options:nil];
@@ -153,13 +162,20 @@ NSString *const kToolsTable = @"toolsTable";
 
     if([tableView isEqual:self._lateralTable]){
 
-        if ([[filterStore allFilters] count] > 0) {
+        if ([self._currentTableType isEqual:kFiltersTable]) {
             NSDictionary *attributes = [[filterStore allFilters] objectAtIndex:[indexPath row]];
-            [cell updateWithAttributes:attributes];
 
-            if ([self._currentTableType isEqual:kFiltersTable]) {
-                [cell setOverlayImage:[attributes objectForKey:@"overlay"]];
-            }
+            [cell setCellImage:[attributes objectForKey:@"blurredImage"]];
+            [cell setOverlayImage:[attributes objectForKey:@"overlay"]];
+            [cell setCellLabel:[attributes objectForKey:@"filterName"]];
+
+        } else if ([self._currentTableType isEqual:kToolsTable]) {
+            NSDictionary *attributes = [[toolStore allTools] objectAtIndex:[indexPath row]];
+
+            [cell setCellImage:[attributes objectForKey:@"toolIcon"]];
+            [cell setCellLabel:[attributes objectForKey:@"toolName"]];
+
+            [cell updateWithAttributes:attributes];
         }
 
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];

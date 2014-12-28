@@ -31,30 +31,36 @@
 }
 
 - (void)updateWithAttributes:(NSDictionary *)attributes {
-    UIImage *image = [attributes objectForKey:@"blurredImage"];
-    NSString *filterName = [attributes objectForKey:@"filterName"];
 
     CGAffineTransform rotate = CGAffineTransformMakeRotation(M_PI_2);
     [self.filterImageContainer setTransform:rotate];
 
     // NOTE: Had to use an image instead of an ImageView in the cell becasue I couldntr constrain the redraw of the image to the imnge view frame
 //     The xib file has an abnormally offset UIView to compensate for an unknown offset in resulting from the drawing below.
-    UIGraphicsBeginImageContextWithOptions(self.filterImageContainer.frame.size, NO, image.scale);
-    [image drawInRect:self.filterImageContainer.bounds];
-    UIImage* redrawn = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    [self.filterImageContainer setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
-
-
-    [TAGViewHelpers formatLabel:_filterLabel withCopy:filterName andFontFamily:nil];
-    [_filterLabel setTransform:rotate];
-    [TAGViewHelpers sizeLabelToFit:_filterLabel numberOfLines:1];
-
+//    UIGraphicsBeginImageContextWithOptions(self.filterImageContainer.frame.size, NO, image.scale);
+//    [image drawInRect:self.filterImageContainer.bounds];
+//    UIImage* redrawn = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    [self.filterImageContainer setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
 }
 
 - (void)rotateElement:(UIView *)element {
     CGAffineTransform rotate = CGAffineTransformMakeRotation(M_PI_2);
     [element setTransform:rotate];
+}
+
+- (void)setCellLabel:(NSString *)copy {
+    [TAGViewHelpers formatLabel:_filterLabel withCopy:copy andFontFamily:nil];
+    [self rotateElement:_filterLabel];
+    [TAGViewHelpers sizeLabelToFit:_filterLabel numberOfLines:1];
+}
+
+- (void)setCellImage:(UIImage *)image {
+    UIGraphicsBeginImageContextWithOptions(self.filterImageContainer.frame.size, NO, image.scale);
+    [image drawInRect:self.filterImageContainer.bounds];
+    UIImage* redrawn = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.filterImageContainer setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
 }
 
 - (void)setOverlayImage:(NSString *)labelName {

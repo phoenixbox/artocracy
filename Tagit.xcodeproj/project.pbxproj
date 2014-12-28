@@ -126,6 +126,17 @@
 		CBAA97D119E25C5F0023B3B7 /* TAGSuggestionChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAA97D019E25C5F0023B3B7 /* TAGSuggestionChannel.m */; };
 		CBAA97D419E3AC040023B3B7 /* TAGMapHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAA97D319E3AC040023B3B7 /* TAGMapHelpers.m */; };
 		CBC0569019C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC0568F19C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m */; };
+		CBC47B6B1A50795D0097327E /* TAGToolsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC47B6A1A50795D0097327E /* TAGToolsStore.m */; };
+		CBC47B811A50B24D0097327E /* adjust@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC47B6D1A50B24D0097327E /* adjust@2x.png */; };
+		CBC47B831A50B24D0097327E /* brightness@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC47B6F1A50B24D0097327E /* brightness@2x.png */; };
+		CBC47B851A50B24D0097327E /* contrast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC47B711A50B24D0097327E /* contrast@2x.png */; };
+		CBC47B871A50B24D0097327E /* highlights@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC47B731A50B24D0097327E /* highlights@2x.png */; };
+		CBC47B891A50B24D0097327E /* saturation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC47B751A50B24D0097327E /* saturation@2x.png */; };
+		CBC47B8B1A50B24D0097327E /* shadows@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC47B771A50B24D0097327E /* shadows@2x.png */; };
+		CBC47B8D1A50B24D0097327E /* sharpen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC47B791A50B24D0097327E /* sharpen@2x.png */; };
+		CBC47B8F1A50B24D0097327E /* tiltShift@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC47B7B1A50B24D0097327E /* tiltShift@2x.png */; };
+		CBC47B911A50B24D0097327E /* vignette@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC47B7D1A50B24D0097327E /* vignette@2x.png */; };
+		CBC47B931A50B24D0097327E /* warmth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC47B7F1A50B24D0097327E /* warmth@2x.png */; };
 		CBC991051A48846B0043A6D9 /* lookup_cooling.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC990FA1A48846B0043A6D9 /* lookup_cooling.png */; };
 		CBC991061A48846B0043A6D9 /* lookup_cooling2.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC990FB1A48846B0043A6D9 /* lookup_cooling2.png */; };
 		CBC991071A48846B0043A6D9 /* lookup_filter1.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC990FC1A48846B0043A6D9 /* lookup_filter1.png */; };
@@ -371,6 +382,18 @@
 		CBAA97D319E3AC040023B3B7 /* TAGMapHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGMapHelpers.m; sourceTree = "<group>"; };
 		CBC0568E19C62AD800241151 /* TAGSuggestionParallaxHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionParallaxHeaderCell.h; sourceTree = "<group>"; };
 		CBC0568F19C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionParallaxHeaderCell.m; sourceTree = "<group>"; };
+		CBC47B691A50795D0097327E /* TAGToolsStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGToolsStore.h; sourceTree = "<group>"; };
+		CBC47B6A1A50795D0097327E /* TAGToolsStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGToolsStore.m; sourceTree = "<group>"; };
+		CBC47B6D1A50B24D0097327E /* adjust@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "adjust@2x.png"; sourceTree = "<group>"; };
+		CBC47B6F1A50B24D0097327E /* brightness@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "brightness@2x.png"; sourceTree = "<group>"; };
+		CBC47B711A50B24D0097327E /* contrast@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "contrast@2x.png"; sourceTree = "<group>"; };
+		CBC47B731A50B24D0097327E /* highlights@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "highlights@2x.png"; sourceTree = "<group>"; };
+		CBC47B751A50B24D0097327E /* saturation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saturation@2x.png"; sourceTree = "<group>"; };
+		CBC47B771A50B24D0097327E /* shadows@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shadows@2x.png"; sourceTree = "<group>"; };
+		CBC47B791A50B24D0097327E /* sharpen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sharpen@2x.png"; sourceTree = "<group>"; };
+		CBC47B7B1A50B24D0097327E /* tiltShift@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tiltShift@2x.png"; sourceTree = "<group>"; };
+		CBC47B7D1A50B24D0097327E /* vignette@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vignette@2x.png"; sourceTree = "<group>"; };
+		CBC47B7F1A50B24D0097327E /* warmth@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "warmth@2x.png"; sourceTree = "<group>"; };
 		CBC990FA1A48846B0043A6D9 /* lookup_cooling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_cooling.png; sourceTree = "<group>"; };
 		CBC990FB1A48846B0043A6D9 /* lookup_cooling2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_cooling2.png; sourceTree = "<group>"; };
 		CBC990FC1A48846B0043A6D9 /* lookup_filter1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_filter1.png; sourceTree = "<group>"; };
@@ -503,6 +526,8 @@
 		CB068135198E9A9600B13E49 /* Stores */ = {
 			isa = PBXGroup;
 			children = (
+				CBC47B691A50795D0097327E /* TAGToolsStore.h */,
+				CBC47B6A1A50795D0097327E /* TAGToolsStore.m */,
 				CB068136198E9ABE00B13E49 /* TAGSessionStore.h */,
 				CB068137198E9ABE00B13E49 /* TAGSessionStore.m */,
 				CB06813C198E9EB000B13E49 /* TAGAuthStore.h */,
@@ -723,6 +748,16 @@
 		CB2673CC198DEEA300CB02A1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CBC47B6D1A50B24D0097327E /* adjust@2x.png */,
+				CBC47B6F1A50B24D0097327E /* brightness@2x.png */,
+				CBC47B711A50B24D0097327E /* contrast@2x.png */,
+				CBC47B731A50B24D0097327E /* highlights@2x.png */,
+				CBC47B751A50B24D0097327E /* saturation@2x.png */,
+				CBC47B771A50B24D0097327E /* shadows@2x.png */,
+				CBC47B791A50B24D0097327E /* sharpen@2x.png */,
+				CBC47B7B1A50B24D0097327E /* tiltShift@2x.png */,
+				CBC47B7D1A50B24D0097327E /* vignette@2x.png */,
+				CBC47B7F1A50B24D0097327E /* warmth@2x.png */,
 				CBC990F91A4884230043A6D9 /* Filters */,
 				CB79EA221A443D5B00DFF91E /* filter_two@2x.png */,
 				CB79EA201A443B3500DFF91E /* filter_one@2x.png */,
@@ -1172,6 +1207,7 @@
 			files = (
 				CB18617A19FC4639005B616B /* spinner_00@2x.png in Resources */,
 				CB34994C1A0EBAEE004B2E6D /* heart_spinner08@2x.png in Resources */,
+				CBC47B851A50B24D0097327E /* contrast@2x.png in Resources */,
 				CBDA9A2B19970DCD00E8AD31 /* cancel@2x.png in Resources */,
 				CB34994D1A0EBAEE004B2E6D /* heart_spinner09@2x.png in Resources */,
 				CB2673A1198DE3FA00CB02A1 /* InfoPlist.strings in Resources */,
@@ -1195,6 +1231,7 @@
 				CB18616619FC3916005B616B /* upvoteDeselected@2x.png in Resources */,
 				CBC991061A48846B0043A6D9 /* lookup_cooling2.png in Resources */,
 				CB79E9FE1A44235E00DFF91E /* photo_close_icon@2x.png in Resources */,
+				CBC47B811A50B24D0097327E /* adjust@2x.png in Resources */,
 				CBD1950819A5C1C700C6B449 /* lightbulbUnselected@2x.png in Resources */,
 				CBD3D2E419B2CE3500A2DE75 /* artUnselected@2x.png in Resources */,
 				CB76383F19FC17E9004D2D6E /* TAGSuggestionDetailsSection.xib in Resources */,
@@ -1204,9 +1241,11 @@
 				CBD3D2DA19B28DDB00A2DE75 /* folsom_st_SF@2x.png in Resources */,
 				CB3499471A0EBAEE004B2E6D /* heart_spinner03@2x.png in Resources */,
 				CB3499451A0EBAEE004B2E6D /* heart_spinner01@2x.png in Resources */,
+				CBC47B831A50B24D0097327E /* brightness@2x.png in Resources */,
 				CBF057CF19D88E4C009292BA /* Walkway_SemiBold.ttf in Resources */,
 				CB79EA231A443D5B00DFF91E /* filter_two@2x.png in Resources */,
 				CB4515D519F8CAAF004F713C /* a_90@2x.png in Resources */,
+				CBC47B891A50B24D0097327E /* saturation@2x.png in Resources */,
 				CB18617019FC461C005B616B /* spinner_01@2x.png in Resources */,
 				CB6DA4E419A32AE800BB71EE /* settingsIcon@2x.png in Resources */,
 				CB068151198EC98600B13E49 /* filterIcon@2x.png in Resources */,
@@ -1215,6 +1254,7 @@
 				CBF057CC19D88E4C009292BA /* Walkway_Oblique_SemiBold.ttf in Resources */,
 				CB06814E198EC64A00B13E49 /* tagSelected@2x.png in Resources */,
 				CBD3D2D819B2889600A2DE75 /* pieceIcon@2x.png in Resources */,
+				CBC47B931A50B24D0097327E /* warmth@2x.png in Resources */,
 				CBD1950519A5C15E00C6B449 /* listSelected@2x.png in Resources */,
 				CB8BFB4819D51BAF005F4272 /* TAGPieceCell.xib in Resources */,
 				CBDA9A251996E15000E8AD31 /* art_navBarLogo@2x.png in Resources */,
@@ -1229,6 +1269,7 @@
 				CB79EA051A44235E00DFF91E /* touch_focus.png in Resources */,
 				CB4515CC19F8CAAF004F713C /* a_00@2x.png in Resources */,
 				CB3499481A0EBAEE004B2E6D /* heart_spinner04@2x.png in Resources */,
+				CBC47B8F1A50B24D0097327E /* tiltShift@2x.png in Resources */,
 				CBC991051A48846B0043A6D9 /* lookup_cooling.png in Resources */,
 				CBD194FC19A5C0C600C6B449 /* heartUnselected@2x.png in Resources */,
 				CBD3D2EA19B3BA8B00A2DE75 /* back_icon@2x.png in Resources */,
@@ -1240,6 +1281,7 @@
 				CB79EA211A443B3500DFF91E /* filter_one@2x.png in Resources */,
 				CBD194FB19A5C0C600C6B449 /* heartSelected@2x.png in Resources */,
 				CB615CF91995F4FB00624A8F /* profile_photo@2x.png in Resources */,
+				CBC47B911A50B24D0097327E /* vignette@2x.png in Resources */,
 				CB18617819FC461C005B616B /* spinner_09@2x.png in Resources */,
 				CBDA9A2D1997136B00E8AD31 /* camera_nav@2x.png in Resources */,
 				CBDA9A231996DFEA00E8AD31 /* art_subheader@2x.png in Resources */,
@@ -1254,6 +1296,7 @@
 				CBC9910E1A48846B0043A6D9 /* lookup_vibrance.png in Resources */,
 				CBF057C019D88E40009292BA /* Walkway_Black.ttf in Resources */,
 				CBC9910F1A48846B0043A6D9 /* lookup_warming.png in Resources */,
+				CBC47B8D1A50B24D0097327E /* sharpen@2x.png in Resources */,
 				CB914DAC1A490171002600C0 /* TAGALTImageFilterViewController.xib in Resources */,
 				CB4515D319F8CAAF004F713C /* a_70@2x.png in Resources */,
 				CBD1950619A5C15E00C6B449 /* listUnselected@2x.png in Resources */,
@@ -1277,6 +1320,8 @@
 				CBD3D2D619B03D3400A2DE75 /* open_arms_SF@2x.png in Resources */,
 				CB8BFB4A19D51E0B005F4272 /* TAGPieceSectionHeader.xib in Resources */,
 				CB18617419FC461C005B616B /* spinner_05@2x.png in Resources */,
+				CBC47B8B1A50B24D0097327E /* shadows@2x.png in Resources */,
+				CBC47B871A50B24D0097327E /* highlights@2x.png in Resources */,
 				CB18617519FC461C005B616B /* spinner_06@2x.png in Resources */,
 				CB18617719FC461C005B616B /* spinner_08@2x.png in Resources */,
 				CB4515D119F8CAAF004F713C /* a_50@2x.png in Resources */,
@@ -1363,6 +1408,7 @@
 				CB914DAB1A490171002600C0 /* TAGALTImageFilterViewController.m in Sources */,
 				CB79EA1B1A4423B900DFF91E /* SCCommon.m in Sources */,
 				CBDA9A3619982CA200E8AD31 /* TAGMapViewController.m in Sources */,
+				CBC47B6B1A50795D0097327E /* TAGToolsStore.m in Sources */,
 				CB33FD7D19C2AA0F0017F4EF /* TAGPieceCell.m in Sources */,
 				CB068160198ED06300B13E49 /* TAGPiece.m in Sources */,
 				CB06815C198ECED200B13E49 /* TAGPieceStore.m in Sources */,
