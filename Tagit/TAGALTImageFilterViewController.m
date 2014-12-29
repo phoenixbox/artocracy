@@ -140,19 +140,17 @@ NSString *const kToolsTable = @"toolsTable";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([self._currentTableType isEqual:kFiltersTable]) {
+    if ([self isFiltersTable]) {
         TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
 
         return [[filterStore allFilters] count];
-    } else if ([self._currentTableType isEqual:kToolsTable]) {
+    } else if ([self isToolsTable]) {
         TAGToolsStore *toolStore = [TAGToolsStore sharedStore];
 
         return [[toolStore allTools] count];
     }
     return 0;
 }
-
-// RESTART: Fix the under rotation of the image view on the blurred image
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
@@ -164,14 +162,14 @@ NSString *const kToolsTable = @"toolsTable";
 
     if([tableView isEqual:self._lateralTable]){
 
-        if ([self._currentTableType isEqual:kFiltersTable]) {
+        if ([self isFiltersTable]) {
             NSDictionary *attributes = [[filterStore allFilters] objectAtIndex:[indexPath row]];
 
             [cell setCellImage:[attributes objectForKey:@"blurredImage"]];
             [cell setOverlayImage:[attributes objectForKey:@"overlay"]];
             [cell setCellLabel:[attributes objectForKey:@"filterName"]];
 
-        } else if ([self._currentTableType isEqual:kToolsTable]) {
+        } else if ([self isToolsTable]) {
             NSDictionary *attributes = [[toolStore allTools] objectAtIndex:[indexPath row]];
 
             [cell setCellImage:[attributes objectForKey:@"toolIcon"]];
@@ -187,6 +185,14 @@ NSString *const kToolsTable = @"toolsTable";
         }
     }
     return cell;
+}
+
+- (BOOL)isFiltersTable {
+    return [self._currentTableType isEqual:kFiltersTable];
+}
+
+- (BOOL)isToolsTable {
+    return [self._currentTableType isEqual:kToolsTable];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -241,7 +247,7 @@ NSString *const kToolsTable = @"toolsTable";
 }
 
 - (IBAction)revealFilters:(id)sender {
-    if (![self._currentTableType isEqual:kFiltersTable]) {
+    if (![self isFiltersTable]) {
         [self toggleTableViewCellsTo:kFiltersTable];
     } else {
         NSLog(@"Filters already set");
@@ -253,7 +259,7 @@ NSString *const kToolsTable = @"toolsTable";
 }
 
 - (IBAction)revealTools:(id)sender {
-    if (![self._currentTableType isEqual:kToolsTable]) {
+    if (![self isToolsTable]) {
         [self toggleTableViewCellsTo:kToolsTable];
     } else {
         NSLog(@"Tools already set");
