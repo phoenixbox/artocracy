@@ -31,17 +31,8 @@
 }
 
 - (void)updateWithAttributes:(NSDictionary *)attributes {
-
     CGAffineTransform rotate = CGAffineTransformMakeRotation(M_PI_2);
     [self.filterImageContainer setTransform:rotate];
-
-    // NOTE: Had to use an image instead of an ImageView in the cell becasue I couldntr constrain the redraw of the image to the imnge view frame
-//     The xib file has an abnormally offset UIView to compensate for an unknown offset in resulting from the drawing below.
-//    UIGraphicsBeginImageContextWithOptions(self.filterImageContainer.frame.size, NO, image.scale);
-//    [image drawInRect:self.filterImageContainer.bounds];
-//    UIImage* redrawn = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    [self.filterImageContainer setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
 }
 
 - (void)rotateElement:(UIView *)element {
@@ -61,6 +52,7 @@
     UIImage* redrawn = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     [self.filterImageContainer setBackgroundColor:[UIColor colorWithPatternImage:redrawn]];
+    [self rotateElement:self.filterImageContainer];
 }
 
 - (void)setOverlayImage:(NSString *)labelName {

@@ -149,8 +149,10 @@ NSString *const kToolsTable = @"toolsTable";
 
         return [[toolStore allTools] count];
     }
-
+    return 0;
 }
+
+// RESTART: Fix the under rotation of the image view on the blurred image
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];

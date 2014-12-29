@@ -46,10 +46,6 @@
 }
 
 - (void)generateFiltersForImage:(UIImage *)image {
-    // trigger reveal of original when the imageview is touched
-    // dynamically update the table collections when toggled
-    // conditionally apply different compounding filters
-
     NSArray *filterTypes = @[
                              kOriginal,
                              @"lookup_cooling.png",
@@ -63,7 +59,7 @@
                              @"lookup_vibrance.png",
                              @"lookup_warming.png"];
 
-    // NOTE: Combine to dicts when social media appraisal done
+    // TODO: Combine to dicts when social media appraisal done
     NSArray *filterNames = @[
                              @"Original",
                              @"Smates",
@@ -97,7 +93,6 @@
     for (int index = 0; index < [filterTypes count]; index++) {
         UIImage *filteredImage;
         UIImage *blurredImage;
-
         NSString *filename = [filterTypes objectAtIndex:index];
 
         if ([filename isEqual:kOriginal]) {
@@ -108,7 +103,6 @@
         }
 
         blurredImage = [self blurImage:filteredImage];
-
         NSDictionary *filteredDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
                                             filteredImage, @"filteredImage",
                                             filename, @"filename",
@@ -118,7 +112,6 @@
 
         [options addObject:filteredDictionary];
     }
-    // Any custom setup work goes here
 
     self.filterOptions = options;
 }
