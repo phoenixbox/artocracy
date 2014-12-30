@@ -37,6 +37,7 @@ NSString *const kToolsTable = @"toolsTable";
 @property (nonatomic, strong) UIImage *_cachedImage;
 @property (nonatomic, strong) NSString *_currentTableType;
 @property (nonatomic, strong) NSString *_selectedToolType;
+@property (nonatomic, strong) NSMutableDictionary *_sliderValues;
 
 @property (nonatomic, strong) GPUImageOutput<GPUImageInput> *filter;
 
@@ -50,6 +51,31 @@ NSString *const kToolsTable = @"toolsTable";
 
     if (self) {
         self._currentTableType = kFiltersTable;
+
+//        self._sliderValues = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+//                                            @0.0, kAdjustTool,
+//                                            @0.0, kBrightnessTool,
+//                                            @0.0, kContrastTool,
+//                                            @0.0, kHighlightsTool,
+//                                            @0.0, kShadowsTool,
+//                                            @0.0, kSaturationTool,
+//                                            @0.0, kVignetteTool,
+//                                            @0.0, kWarmthTool,
+//                                            @0.0, kTiltShiftTool,
+//                                            @0.0, kSharpenTool, nil];
+
+        self._sliderValues = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                              [NSNumber numberWithFloat:0], kAdjustTool,
+                              [NSNumber numberWithFloat:0], kBrightnessTool,
+                              [NSNumber numberWithFloat:0], kContrastTool,
+                              [NSNumber numberWithFloat:0], kHighlightsTool,
+                              [NSNumber numberWithFloat:0], kShadowsTool,
+                              [NSNumber numberWithFloat:0], kSaturationTool,
+                              [NSNumber numberWithFloat:0], kVignetteTool,
+                              [NSNumber numberWithFloat:0], kWarmthTool,
+                              [NSNumber numberWithFloat:0], kTiltShiftTool,
+                              [NSNumber numberWithFloat:0], kSharpenTool, nil];
+
     }
 
     return self;
@@ -234,7 +260,16 @@ NSString *const kToolsTable = @"toolsTable";
         [self.slider setUserInteractionEnabled:YES];
         [self.slider setMinimumValue:-0.15];
         [self.slider setMaximumValue:0.15];
-        [self.slider setValue:0.0];
+
+        [self._sliderValues objectForKey:[cell toolType]];
+        float lastValue = [[self._sliderValues objectForKey:[cell toolType]] floatValue];
+
+        if (lastValue != 0) {
+            [self.slider setValue:lastValue];
+        } else {
+            [self.slider setValue:0.0];
+        }
+
         self.filter = [[GPUImageBrightnessFilter alloc] init];
 
         [self showAndRaiseSliderView];
@@ -293,6 +328,9 @@ NSString *const kToolsTable = @"toolsTable";
 }
 
 - (IBAction)sliding:(id)sender {
+    float sliderValue = (float)[(UISlider *)sender value];
+    [self._sliderValues setValue:[NSNumber numberWithFloat:sliderValue] forKey:self._selectedToolType];
+
     // Note: initialize the source with a cached instance of the image :)
     GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:self._cachedImage];
     [(GPUImageBrightnessFilter *)self.filter setBrightness:[(UISlider *)sender value]];
