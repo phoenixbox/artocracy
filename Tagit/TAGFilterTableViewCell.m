@@ -30,11 +30,6 @@
     [self addSubview:self.selectionIndicator];
 }
 
-- (void)updateWithAttributes:(NSDictionary *)attributes {
-    CGAffineTransform rotate = CGAffineTransformMakeRotation(M_PI_2);
-    [self.filterImageContainer setTransform:rotate];
-}
-
 - (void)rotateElement:(UIView *)element {
     CGAffineTransform rotate = CGAffineTransformMakeRotation(M_PI_2);
     [element setTransform:rotate];

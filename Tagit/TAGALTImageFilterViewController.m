@@ -19,6 +19,8 @@
 
 // If just using the reference images we dont need the other filter imports
 #import "GPUImageLookupFilter.h"
+#import "GPUImagePicture.h"
+#import "GPUImageBrightnessFilter.h"
 
 // Data Layer
 #import "TAGFiltersStore.h"
@@ -34,6 +36,9 @@ NSString *const kToolsTable = @"toolsTable";
 @property (nonatomic, strong) UILongPressGestureRecognizer *imageViewLongPress;
 @property (nonatomic, strong) UIImage *_cachedImage;
 @property (nonatomic, strong) NSString *_currentTableType;
+@property (nonatomic, strong) NSString *_selectedToolType;
+
+@property (nonatomic, strong) GPUImageOutput<GPUImageInput> *filter;
 
 @end
 
@@ -50,7 +55,6 @@ NSString *const kToolsTable = @"toolsTable";
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -58,7 +62,7 @@ NSString *const kToolsTable = @"toolsTable";
     self._cellDimension = CGRectGetMaxY(self.view.frame) - CGRectGetMaxY(_adjustmentsView.frame);
     [self renderLateralTable];
 
-    [self hideAndRaiseSliderView];
+    [self hideAndLowerSliderView];
 
     if (_postImage) {
         [self.filterImageView setImage:_postImage];
@@ -98,8 +102,13 @@ NSString *const kToolsTable = @"toolsTable";
     }
 }
 
-- (void)hideAndRaiseSliderView {
+- (void)hideAndLowerSliderView {
     [_sliderView setHidden:YES];
+    [self.view sendSubviewToBack:_sliderView];
+}
+
+- (void)showAndRaiseSliderView {
+    [_sliderView setHidden:NO];
     [self.view bringSubviewToFront:_sliderView];
 }
 
@@ -172,10 +181,11 @@ NSString *const kToolsTable = @"toolsTable";
         } else if ([self isToolsTable]) {
             NSDictionary *attributes = [[toolStore allTools] objectAtIndex:[indexPath row]];
 
-            [cell setCellImage:[attributes objectForKey:@"toolIcon"]];
-            [cell setCellLabel:[attributes objectForKey:@"toolName"]];
+            NSString *toolType = [attributes objectForKey:@"toolName"];
 
-            [cell updateWithAttributes:attributes];
+            [cell setCellImage:[attributes objectForKey:@"toolIcon"]];
+            [cell setCellLabel:toolType];
+            [cell setToolType:toolType];
         }
 
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -206,13 +216,29 @@ NSString *const kToolsTable = @"toolsTable";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
-    NSDictionary *targetFilter = [filterStore.allFilters objectAtIndex:[indexPath row]];
     TAGFilterTableViewCell *cell = (TAGFilterTableViewCell *)[self._lateralTable cellForRowAtIndexPath:indexPath];
-
     [cell.selectionIndicator setHidden:NO];
 
-    _filterImageView.image = [targetFilter objectForKey:@"filteredImage"];
+    if ([self isFiltersTable]) {
+        TAGFiltersStore *filterStore = [TAGFiltersStore sharedStore];
+        NSDictionary *targetFilter = [filterStore.allFilters objectAtIndex:[indexPath row]];
+
+        _filterImageView.image = [targetFilter objectForKey:@"filteredImage"];
+    } else if ([self isToolsTable]) {
+        // Update the cached image
+        self._cachedImage = [self.filterImageView image];
+
+        self._selectedToolType = cell.toolType;
+
+        // TODO: Extract conditional filter type setup to external class
+        [self.slider setUserInteractionEnabled:YES];
+        [self.slider setMinimumValue:-0.15];
+        [self.slider setMaximumValue:0.15];
+        [self.slider setValue:0.0];
+        self.filter = [[GPUImageBrightnessFilter alloc] init];
+
+        [self showAndRaiseSliderView];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -267,17 +293,25 @@ NSString *const kToolsTable = @"toolsTable";
 }
 
 - (IBAction)sliding:(id)sender {
-    NSLog(@"Slider value %f", [_slider value]);
+    // Note: initialize the source with a cached instance of the image :)
+    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:self._cachedImage];
+    [(GPUImageBrightnessFilter *)self.filter setBrightness:[(UISlider *)sender value]];
+
+    [stillImageSource addTarget:self.filter];
+    [self.filter useNextFrameForImageCapture];
+    [stillImageSource processImage];
+
+    _filterImageView.image = [self.filter imageFromCurrentFramebuffer];;
 }
 
 - (IBAction)cancelAdjustment:(id)sender {
     NSLog(@"cancelAdjustment");
-    [_sliderView setHidden:YES];
+    [self.sliderView setHidden:YES];
 }
 
 - (IBAction)saveAdjustment:(id)sender {
     NSLog(@"saveAdjustment");
-    [_sliderView setHidden:YES];
+    [self.sliderView setHidden:YES];
 }
 
 @end

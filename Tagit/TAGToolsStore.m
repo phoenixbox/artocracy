@@ -8,6 +8,9 @@
 
 #import "TAGToolsStore.h"
 
+// Constants
+#import "TAGFilterHelpers.h"
+
 @interface TAGToolsStore ()
 
 @property (nonatomic, strong) NSMutableArray *toolOptions;
@@ -47,16 +50,16 @@
 
     // NOTE: Combine to dicts when social media appraisal done
     NSArray *toolNames = @[
-                           @"Adjust",
-                           @"Brightness",
-                           @"Contrast",
-                           @"Highlights",
-                           @"Shadows",
-                           @"Saturation",
-                           @"Vignette",
-                           @"Warmth",
-                           @"Tilt Shift",
-                           @"Sharpen"];
+                           kAdjustTool,
+                           kBrightnessTool,
+                           kContrastTool,
+                           kHighlightsTool,
+                           kShadowsTool,
+                           kSaturationTool,
+                           kVignetteTool,
+                           kWarmthTool,
+                           kTiltShiftTool,
+                           kSharpenTool];
 
     NSMutableArray *options = [NSMutableArray new];
 

@@ -125,6 +125,7 @@
 		CBA741C81A296E24001908A0 /* TAGLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBA741C71A296E23001908A0 /* TAGLoginViewController.xib */; };
 		CBAA97D119E25C5F0023B3B7 /* TAGSuggestionChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAA97D019E25C5F0023B3B7 /* TAGSuggestionChannel.m */; };
 		CBAA97D419E3AC040023B3B7 /* TAGMapHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = CBAA97D319E3AC040023B3B7 /* TAGMapHelpers.m */; };
+		CBB8C3AA1A52F58100B67496 /* TAGFilterSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBB8C3A91A52F58100B67496 /* TAGFilterSliderView.m */; };
 		CBC0569019C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC0568F19C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m */; };
 		CBC47B6B1A50795D0097327E /* TAGToolsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC47B6A1A50795D0097327E /* TAGToolsStore.m */; };
 		CBC47B811A50B24D0097327E /* adjust@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CBC47B6D1A50B24D0097327E /* adjust@2x.png */; };
@@ -380,6 +381,9 @@
 		CBAA97D019E25C5F0023B3B7 /* TAGSuggestionChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionChannel.m; sourceTree = "<group>"; };
 		CBAA97D219E3AC040023B3B7 /* TAGMapHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGMapHelpers.h; sourceTree = "<group>"; };
 		CBAA97D319E3AC040023B3B7 /* TAGMapHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGMapHelpers.m; sourceTree = "<group>"; };
+		CBB8C3A71A52F0E100B67496 /* TAGFilterHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAGFilterHelpers.h; sourceTree = "<group>"; };
+		CBB8C3A81A52F58100B67496 /* TAGFilterSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGFilterSliderView.h; sourceTree = "<group>"; };
+		CBB8C3A91A52F58100B67496 /* TAGFilterSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGFilterSliderView.m; sourceTree = "<group>"; };
 		CBC0568E19C62AD800241151 /* TAGSuggestionParallaxHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGSuggestionParallaxHeaderCell.h; sourceTree = "<group>"; };
 		CBC0568F19C62AD800241151 /* TAGSuggestionParallaxHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAGSuggestionParallaxHeaderCell.m; sourceTree = "<group>"; };
 		CBC47B691A50795D0097327E /* TAGToolsStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAGToolsStore.h; sourceTree = "<group>"; };
@@ -805,6 +809,7 @@
 				CB0681641991F6C200B13E49 /* TAGCopyConstants.h */,
 				CB0681651991F71500B13E49 /* TAGComponentConstants.h */,
 				CBDA9A55199B308300E8AD31 /* TAGAppConstants.h */,
+				CBB8C3A71A52F0E100B67496 /* TAGFilterHelpers.h */,
 			);
 			name = Constants;
 			sourceTree = "<group>";
@@ -970,6 +975,8 @@
 				CB978FB91A4DA9B200EA0CD8 /* TAGFilterTableViewCell.h */,
 				CB978FBA1A4DA9B200EA0CD8 /* TAGFilterTableViewCell.m */,
 				CB1A06A51A4F6BC2007BDEF1 /* TAGFilterTableViewCell.xib */,
+				CBB8C3A81A52F58100B67496 /* TAGFilterSliderView.h */,
+				CBB8C3A91A52F58100B67496 /* TAGFilterSliderView.m */,
 			);
 			name = Filters;
 			sourceTree = "<group>";
@@ -1404,6 +1411,7 @@
 				CB2673CB198DEA3500CB02A1 /* TAGLoginViewController.m in Sources */,
 				CB79EA151A44236C00DFF91E /* UIImage+Resize.m in Sources */,
 				CBD3D2ED19B58BF700A2DE75 /* TAGSuggestionDetailViewController.m in Sources */,
+				CBB8C3AA1A52F58100B67496 /* TAGFilterSliderView.m in Sources */,
 				CB1F51B41A1953E300329524 /* TAGCameraOverlay.m in Sources */,
 				CB914DAB1A490171002600C0 /* TAGALTImageFilterViewController.m in Sources */,
 				CB79EA1B1A4423B900DFF91E /* SCCommon.m in Sources */,

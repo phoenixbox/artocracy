@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "TAGFilterSliderView.h"
+
+#import "TAGFilterHelpers.h"
+
 @interface TAGALTImageFilterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UIImage *postImage;

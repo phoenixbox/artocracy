@@ -10,16 +10,14 @@
 
 @interface TAGFilterTableViewCell : UITableViewCell
 
-//- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier forCellDimension:(float)dimension;
-- (void)updateWithAttributes:(NSDictionary *)attributes;
 - (void)setCellImage:(UIImage *)image;
 - (void)setOverlayImage:(NSString *)labelName;
 - (void)setCellLabel:(NSString *)copy;
 
 @property (nonatomic, assign) float cellDimension;
 @property (strong, nonatomic) UIImage *filteredImage;
-//@property (strong, nonatomic) UIView *selectionIndicator;
-//XIBS
+@property (strong, nonatomic) NSString *toolType;
+
 @property (strong, nonatomic) IBOutlet UIView *filterImageContainer;
 
 @property (strong, nonatomic) IBOutlet UIView *selectionIndicator;
