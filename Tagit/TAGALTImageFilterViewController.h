@@ -12,7 +12,11 @@
 
 #import "TAGFilterHelpers.h"
 
-@interface TAGALTImageFilterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+#import "TAGToolsStore.h"
+
+@interface TAGALTImageFilterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+    ARTToolType filterType;
+}
 
 @property (strong, nonatomic) UIImage *postImage;
 

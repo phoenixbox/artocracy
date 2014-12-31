@@ -24,7 +24,6 @@
 
 // Data Layer
 #import "TAGFiltersStore.h"
-#import "TAGToolsStore.h"
 
 NSString *const kFiltersTable = @"filtersTable";
 NSString *const kToolsTable = @"toolsTable";
@@ -52,29 +51,17 @@ NSString *const kToolsTable = @"toolsTable";
     if (self) {
         self._currentTableType = kFiltersTable;
 
-//        self._sliderValues = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-//                                            @0.0, kAdjustTool,
-//                                            @0.0, kBrightnessTool,
-//                                            @0.0, kContrastTool,
-//                                            @0.0, kHighlightsTool,
-//                                            @0.0, kShadowsTool,
-//                                            @0.0, kSaturationTool,
-//                                            @0.0, kVignetteTool,
-//                                            @0.0, kWarmthTool,
-//                                            @0.0, kTiltShiftTool,
-//                                            @0.0, kSharpenTool, nil];
-
         self._sliderValues = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                              [NSNumber numberWithFloat:0], kAdjustTool,
-                              [NSNumber numberWithFloat:0], kBrightnessTool,
-                              [NSNumber numberWithFloat:0], kContrastTool,
-                              [NSNumber numberWithFloat:0], kHighlightsTool,
-                              [NSNumber numberWithFloat:0], kShadowsTool,
-                              [NSNumber numberWithFloat:0], kSaturationTool,
-                              [NSNumber numberWithFloat:0], kVignetteTool,
-                              [NSNumber numberWithFloat:0], kWarmthTool,
-                              [NSNumber numberWithFloat:0], kTiltShiftTool,
-                              [NSNumber numberWithFloat:0], kSharpenTool, nil];
+                              nil, [NSNumber numberWithInt: ART_ADJUST],
+                              nil, [NSNumber numberWithInt: ART_BRIGHTNESS],
+                              nil, [NSNumber numberWithInt: ART_CONTRAST],
+                              nil, [NSNumber numberWithInt: ART_HIGHLIGHTS],
+                              nil, [NSNumber numberWithInt: ART_SHADOWS],
+                              nil, [NSNumber numberWithInt: ART_SATURATION],
+                              nil, [NSNumber numberWithInt: ART_VIGNETTE],
+                              nil, [NSNumber numberWithInt: ART_WARMTH],
+                              nil, [NSNumber numberWithInt: ART_TILTSHIFT],
+                              nil, [NSNumber numberWithInt: ART_SHARPEN], nil];
 
     }
 
@@ -211,7 +198,6 @@ NSString *const kToolsTable = @"toolsTable";
 
             [cell setCellImage:[attributes objectForKey:@"toolIcon"]];
             [cell setCellLabel:toolType];
-            [cell setToolType:toolType];
         }
 
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -254,23 +240,15 @@ NSString *const kToolsTable = @"toolsTable";
         // Update the cached image
         self._cachedImage = [self.filterImageView image];
 
-        self._selectedToolType = cell.toolType;
+        filterType = (ARTToolType)indexPath.row;
 
-        // TODO: Extract conditional filter type setup to external class
-        [self.slider setUserInteractionEnabled:YES];
-        [self.slider setMinimumValue:-0.15];
-        [self.slider setMaximumValue:0.15];
+        [TAGToolsStore setupSlider:self.slider forFilterType:(ARTToolType)indexPath.row];
 
-        [self._sliderValues objectForKey:[cell toolType]];
-        float lastValue = [[self._sliderValues objectForKey:[cell toolType]] floatValue];
+        float lastValue = [[self._sliderValues objectForKey:[NSNumber numberWithInt:filterType]] floatValue];
 
-        if (lastValue != 0) {
+        if (lastValue != 0) { // If last value is nil
             [self.slider setValue:lastValue];
-        } else {
-            [self.slider setValue:0.0];
         }
-
-        self.filter = [[GPUImageBrightnessFilter alloc] init];
 
         [self showAndRaiseSliderView];
     }
@@ -329,11 +307,63 @@ NSString *const kToolsTable = @"toolsTable";
 
 - (IBAction)sliding:(id)sender {
     float sliderValue = (float)[(UISlider *)sender value];
-    [self._sliderValues setValue:[NSNumber numberWithFloat:sliderValue] forKey:self._selectedToolType];
+    [self._sliderValues setObject:[NSNumber numberWithFloat:sliderValue] forKey:[NSNumber numberWithInt:filterType]];
 
     // Note: initialize the source with a cached instance of the image :)
     GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:self._cachedImage];
-    [(GPUImageBrightnessFilter *)self.filter setBrightness:[(UISlider *)sender value]];
+
+    switch (filterType)
+    {
+        case ART_ADJUST: {
+            self.filter = [GPUImageTransformFilter new];
+            [(GPUImageTransformFilter *)self.filter setAffineTransform:CGAffineTransformMakeRotation(sliderValue)];
+        }; break;
+        case ART_BRIGHTNESS: {
+            self.filter = [GPUImageBrightnessFilter new];
+            [(GPUImageBrightnessFilter *)self.filter setBrightness:sliderValue];
+        }; break;
+        case ART_CONTRAST: {
+            self.filter = [GPUImageContrastFilter new];
+            [(GPUImageContrastFilter *)self.filter setContrast:sliderValue];
+        }; break;
+        case ART_HIGHLIGHTS: {
+            self.filter = [GPUImageHighlightShadowFilter new];
+            [(GPUImageHighlightShadowFilter *)self.filter setHighlights:[(UISlider *)sender value]];
+        }; break;
+        case ART_SHADOWS: {
+            self.filter = [GPUImageHighlightShadowFilter new];
+            [(GPUImageHighlightShadowFilter *)self.filter setShadows:[(UISlider *)sender value]];
+        }; break;
+        case ART_SATURATION: {
+            self.filter = [GPUImageSaturationFilter new];
+            [(GPUImageSaturationFilter *)self.filter setSaturation:sliderValue];
+        }; break;
+        case ART_VIGNETTE: {
+            self.filter = [GPUImageVignetteFilter new];
+//            self.vignetteStart = 0.3;
+//            self.vignetteEnd = 0.75;
+            [(GPUImageVignetteFilter *)self.filter setVignetteStart:0.35];
+            [(GPUImageVignetteFilter *)self.filter setVignetteEnd:1.4-sliderValue];
+        }; break;
+        case ART_WARMTH: {
+            self.filter = [GPUImageWhiteBalanceFilter new];
+            [(GPUImageWhiteBalanceFilter *)self.filter setTemperature:sliderValue];
+        }; break;
+        case ART_TILTSHIFT: {
+            self.filter = [[GPUImageTiltShiftFilter alloc] init];
+            [(GPUImageTiltShiftFilter *)self.filter setTopFocusLevel:0.4];
+            [(GPUImageTiltShiftFilter *)self.filter setBottomFocusLevel:0.6];
+            [(GPUImageTiltShiftFilter *)self.filter setFocusFallOffRate:0.2];
+
+            [(GPUImageTiltShiftFilter *)self.filter setTopFocusLevel:sliderValue - 0.1];
+            [(GPUImageTiltShiftFilter *)self.filter setBottomFocusLevel:sliderValue + 0.1];
+        }; break;
+        case ART_SHARPEN: {
+            self.filter = [GPUImageSharpenFilter new];
+            [(GPUImageSharpenFilter *)self.filter setSharpness:sliderValue];
+        }; break;
+        default: break;
+    }
 
     [stillImageSource addTarget:self.filter];
     [self.filter useNextFrameForImageCapture];

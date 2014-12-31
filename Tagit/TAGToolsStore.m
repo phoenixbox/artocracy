@@ -11,6 +11,12 @@
 // Constants
 #import "TAGFilterHelpers.h"
 
+#import "GPUImageFilter.h"
+#import "GPUImageBrightnessFilter.h"
+
+NSString *const kFilterTool = @"FilterTool";
+NSString *const kFilterSlider = @"FilterSlider";
+
 @interface TAGToolsStore ()
 
 @property (nonatomic, strong) NSMutableArray *toolOptions;
@@ -79,6 +85,78 @@
     // Any custom setup work goes here
     
     self.toolOptions = options;
+}
+
++ (void)setupSlider:(UISlider *)slider forFilterType:(ARTToolType)toolType {
+    [slider setValue:0];
+
+    switch (toolType)
+    {
+        case ART_ADJUST:
+        {
+            [slider setMinimumValue:-0.0694];
+            [slider setMaximumValue:0.0694];
+            [slider setValue:0.0];
+        }; break;
+        case ART_BRIGHTNESS:
+        {
+            [slider setMinimumValue:-0.5];
+            [slider setMaximumValue:1.0];
+            [slider setValue:0];
+        }; break;
+        case ART_CONTRAST:
+        {
+            [slider setMinimumValue:-0.5];
+            [slider setMaximumValue:0.5];
+            [slider setValue:0];
+        }; break;
+        case ART_HIGHLIGHTS:
+        {
+            [slider setMinimumValue:-1.0];
+            [slider setMaximumValue:1.0];
+            [slider setValue:0];
+        }; break;
+        case ART_SHADOWS:
+        {
+            [slider setMinimumValue:-1.0];
+            [slider setMaximumValue:1.0];
+            [slider setValue:0];
+        }; break;
+        case ART_SATURATION:
+        {
+            [slider setMinimumValue:-1.0];
+            [slider setMaximumValue:1.0];
+            [slider setValue:0];
+        }; break;
+        case ART_VIGNETTE:
+        {
+            [slider setMinimumValue:0.0];
+            [slider setMaximumValue:0.15];
+            [slider setValue:0];
+        }; break;
+        case ART_WARMTH:
+        {
+            [slider setMinimumValue:2500.0];
+            [slider setMaximumValue:7500.0];
+            [slider setValue:5000.0];
+        }; break;
+        case ART_TILTSHIFT:
+        {
+            [slider setMinimumValue:0.2];
+            [slider setMaximumValue:0.8];
+            [slider setValue:0.5];
+        }; break;
+        case ART_SHARPEN:
+        {
+            [slider setMinimumValue:-1.0];
+            [slider setMaximumValue:1.0];
+            [slider setValue:0];
+            break;
+        }
+        default: {
+            NSLog(@"Default");;
+        };
+    }
 }
 
 @end
