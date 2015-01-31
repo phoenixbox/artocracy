@@ -96,7 +96,7 @@
 - (void)savePieceImage:(NSData *)imageData withCompletionBlock:(void (^)(NSURL *s3ImageLocation, NSError *))imageUploadedBlock {
     self.imageUploadedBlock = imageUploadedBlock;
 
-    // RESTART: Compose 23 configuration and use across the suggestion and the pieces
+    // TODO: Compose s3 configuration and use across the suggestion and the pieces
     S3TransferManager *tm = [TAGS3Configuration createTransferManager];
     tm.delegate = self;
 

@@ -30,6 +30,7 @@
 
 // Pods
 #import "CSStickyHeaderFlowLayout.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface TAGPiecesViewController ()
 
@@ -151,6 +152,7 @@
 }
 
 - (BOOL)shouldShowSpinner {
+    // TODO: Should check request state
     return self._collectionView.numberOfSections == 0;
 }
 
@@ -247,8 +249,7 @@
         // Listen for header update
         [self listenToCell:cell];
 
-        UIImage *img = [TAGViewHelpers imageForURL:piece.imageUrl];
-        [cell.pieceImage setImage:img];
+        [cell.pieceImage sd_setImageWithURL:[NSURL URLWithString:piece.imageUrl] placeholderImage:nil];
     }
 
     FAKFontAwesome *heart = [FAKFontAwesome heartIconWithSize:10];
